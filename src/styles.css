@@ -1,0 +1,32 @@
+@layer theme, base, components, utilities;
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/preflight.css' layer(base);
+@import 'tailwindcss/utilities.css';
+
+@import '@spartan-ng/brain/hlm-tailwind-preset.css';
+@import '@fontsource-variable/geist';
+
+/* 색과 치수 토큰은 Cobalt 를 씀. Spartan 이 넣은 neutral 테마 대신 씀 */
+@import './design-system/cobalt/vars.css';
+@import './design-system/cobalt/shadcn-theme.css';
+
+/* Cobalt 은 data-theme 로 어두운 화면을 바꿈. Spartan 기본값(.dark)을 덮음 */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  color-scheme: light;
+  --font-sans: 'Geist Variable', sans-serif;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

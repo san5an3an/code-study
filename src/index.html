@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <title>코드 복습</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    // 첫 화면이 그려지기 전에 data-theme 을 넣음. Cobalt 는 이 속성으로 밝은 화면과 어두운 화면을 바꿈
+    (function () {
+      var theme = null
+      try {
+        // 같은 주소(5487)를 썼던 java-study 의 테마 저장값도 이어받음
+        theme = localStorage.getItem("code-study:theme") || localStorage.getItem("java-study:theme")
+      } catch (e) { }
+      if (theme !== "light" && theme !== "dark") {
+        theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+      }
+      document.documentElement.setAttribute("data-theme", theme)
+    })()
+  </script>
+</head>
+
+<body>
+  <app-root></app-root>
+</body>
+
+</html>
