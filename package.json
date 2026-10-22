@@ -8,7 +8,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:code-study": "node dist/code-study/server/server.mjs"
+    "serve:ssr:code-study": "node dist/code-study/server/server.mjs",
+    "test:server": "node --test \"server/*.test.ts\"",
+    "test:serve": "playwright test -c playwright.serve.config.ts"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
