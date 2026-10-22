@@ -30,3 +30,48 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* 사이드바의 긴 강의 제목: 칸보다 길 때만, 마우스를 올리거나 선택됐을 때 옆으로 흐름 */
+@layer components {
+  .marquee {
+    display: block;
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .marquee-inner {
+    display: inline;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-sidebar='menu-button']:is(:hover, :focus-visible, [data-active='true']) .marquee[data-overflow] {
+      text-overflow: clip;
+    }
+    [data-sidebar='menu-button']:is(:hover, :focus-visible, [data-active='true'])
+      .marquee[data-overflow]
+      .marquee-inner {
+      display: inline-block;
+      animation: marquee-slide var(--marquee-duration, 4s) ease-in-out infinite alternate;
+    }
+  }
+
+  /* 끝낸 강의 체크 아이콘 색 */
+  .quiz-right {
+    color: var(--semantic-fg-success-default);
+  }
+  .quiz-wrong {
+    color: var(--semantic-fg-danger-default);
+  }
+}
+
+@keyframes marquee-slide {
+  0%,
+  15% {
+    transform: translateX(0);
+  }
+  85%,
+  100% {
+    transform: translateX(calc(-1 * var(--marquee-distance, 0px)));
+  }
+}
