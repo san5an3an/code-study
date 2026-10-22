@@ -1,0 +1,38 @@
+[
+  {
+    "file": "AssignExample.java",
+    "className": "AssignExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "50\n60\n50\n80\n85\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "DataTypeExample.java",
+    "className": "DataTypeExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n-5\n2.4\n-5.6\n7.0\nKOREA\n대한민국\nB\n가\n123\n123\ntrue\nfalse\ntrue\nfalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "VariableExample.java",
+    "className": "VariableExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n-5\n2.4\nJAVA\n7\n10\n9\na\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]
