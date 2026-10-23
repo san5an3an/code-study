@@ -11,6 +11,7 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
+    "rewriteRelativeImportExtensions": true,
     "paths": {
       "@spartan-ng/helm/sidebar": ["./libs/ui/sidebar/src/index.ts"],
       "@spartan-ng/helm/utils": ["./libs/ui/utils/src/index.ts"],
