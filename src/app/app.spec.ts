@@ -1,16 +1,34 @@
 import { TestBed } from '@angular/core/testing';
-import { App } from './app';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { RouterTestingHarness } from '@angular/router/testing';
 
-describe('App', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({ imports: [App] }).compileComponents();
+import { routes } from './app.routes';
+
+describe('앱 틀', () => {
+  beforeEach(() => {
+    localStorage.clear();
+    TestBed.configureTestingModule({
+      providers: [provideRouter(routes, withComponentInputBinding())],
+    });
   });
 
-  it('첫 화면 제목과 Spartan 버튼을 그림', async () => {
-    const fixture = TestBed.createComponent(App);
-    await fixture.whenStable();
-    const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('h1')?.textContent).toContain('코드 복습');
-    expect(el.querySelector('button[data-slot="button"]')?.textContent).toContain('시작하기');
+  it('/java 는 자바 사이드바와 22강을 그림', async () => {
+    const harness = await RouterTestingHarness.create('/java');
+    const el = harness.routeNativeElement!.ownerDocument.body;
+    expect(el.textContent).toContain('Java 기초 강의 복습');
+    expect(el.querySelectorAll('[data-testid^="lecture-link-"]').length).toBe(22);
+  });
+
+  it('/python 은 파이썬 5부 18강을 그림', async () => {
+    const harness = await RouterTestingHarness.create('/python');
+    const el = harness.routeNativeElement!.ownerDocument.body;
+    expect(el.textContent).toContain('Python 기초 강의 복습');
+    expect(el.querySelectorAll('[data-testid^="part-"]').length).toBe(5);
+    expect(el.querySelectorAll('[data-testid^="lecture-link-"]').length).toBe(18);
+  });
+
+  it('없는 과목은 없는 화면', async () => {
+    const harness = await RouterTestingHarness.create('/ruby');
+    expect(harness.routeNativeElement!.textContent).toContain('없는 화면이에요');
   });
 });
