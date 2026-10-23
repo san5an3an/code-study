@@ -15,6 +15,8 @@ export default defineConfig({
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
     command: 'npm start',
+    // 코드 실행 테스트는 작은 예제 자료로 돌림
+    env: { CODE_STUDY_CONTENT: 'test-fixtures/content' },
     url: BASE_URL,
     reuseExistingServer: false,
     timeout: 120_000,

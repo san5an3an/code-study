@@ -1,0 +1,45 @@
+[
+  {
+    "file": "GenericTest.java",
+    "className": "GenericTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[KOREA, 대한민국, SEOUL]\n[2, 4]\n2\n오필승코리아\n한라산 1950m\n북한산 1200m\n설악산 1300m\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ListTest.java",
+    "className": "ListTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "6\n3\n3\n2.4\nR\nKOREA\n5\n6.7\n-----------------\n5\n비어있다\n5\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "Mountain.java",
+    "className": "Mountain",
+    "hasMain": false,
+    "needsInput": false,
+    "run": null
+  },
+  {
+    "file": "SetMapTest.java",
+    "className": "SetMapTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "5\n3을 또 넣었나? false\n개수: 5\n3\nSEOUL\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]
