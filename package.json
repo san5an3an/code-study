@@ -10,6 +10,7 @@
     "test": "ng test",
     "serve:ssr:code-study": "node dist/code-study/server/server.mjs",
     "test:server": "node --test \"server/*.test.ts\"",
+    "test:layers": "node --test \"scripts/*.test.ts\"",
     "test:serve": "playwright test -c playwright.serve.config.ts"
   },
   "private": true,
