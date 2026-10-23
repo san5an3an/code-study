@@ -65,6 +65,17 @@
   }
 }
 
+/* 진행 막대 바탕: 어두운 화면에선 카드색과 거의 같아 사라져서 바탕색 + 안쪽 선을 씀.
+   Spartan 이 붙이는 bg-muted 유틸리티를 이겨야 해서 층 밖에 둠 */
+[data-slot='progress'] {
+  background: var(--component-progress-track-bg);
+  outline: var(--semantic-border-width-default) solid var(--component-progress-track-border);
+  outline-offset: var(--semantic-border-inset-default);
+}
+[data-theme='dark'] [data-slot='progress'] {
+  background: var(--semantic-border-neutral-default);
+}
+
 @keyframes marquee-slide {
   0%,
   15% {
