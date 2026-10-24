@@ -1,19 +1,31 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  resource,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { courseOf } from '../../../config/courses';
 import { findLecture, type CourseId } from '../../../domain/course';
+import { SYNCED_COURSES } from '../../../domain/lecture-content';
 import { applyCheck, applyVisit, isChecked, missingFor } from '../../../domain/lecture-progress';
 import { lectureContext, tabOf, type LectureTab } from '../../../domain/lecture-view';
+import { noteHtml } from '../../../domain/note-markdown';
+import { contentPath, fetchContentText } from '../../../services/content-text';
 import { ProgressService } from '../../../services/progress.service';
 import { LectureChecks, type CheckChange } from '../../molecules/lecture-checks/lecture-checks';
 import { LectureNav } from '../../molecules/lecture-nav/lecture-nav';
+import { NoteView, type NoteStatus } from '../../organisms/note-view/note-view';
 import { LectureTemplate } from '../../templates/lecture-template/lecture-template';
 
 // 강의 화면. 주소의 과목, 강의 번호, 탭 이름으로 화면을 그리고 진도 체크를 저장함
 @Component({
   selector: 'app-lecture-page',
-  imports: [LectureTemplate, LectureChecks, LectureNav],
+  imports: [LectureTemplate, LectureChecks, LectureNav, NoteView],
   template: `
     @if (lecture(); as lecture) {
       <app-lecture-template
@@ -28,11 +40,16 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
           [missing]="missing()"
           (checkChange)="saveCheck($event)"
         />
-        <p tabNote class="text-muted-foreground">노트 탭은 옮기는 중이에요.</p>
+        <app-note-view tabNote [status]="noteStatus()" [html]="noteHtml()" />
         <p tabQuiz class="text-muted-foreground">퀴즈 탭은 옮기는 중이에요.</p>
         <p tabCode class="text-muted-foreground">코드 탭은 옮기는 중이에요.</p>
         <p tabMaterial class="text-muted-foreground">강의 자료 탭은 옮기는 중이에요.</p>
-        <app-lecture-nav lectureNav [prev]="context()?.prev" [next]="context()?.next" [base]="base()" />
+        <app-lecture-nav
+          lectureNav
+          [prev]="context()?.prev"
+          [next]="context()?.next"
+          [base]="base()"
+        />
       </app-lecture-template>
     } @else {
       <h1 class="text-xl font-semibold">없는 강의예요</h1>
@@ -72,6 +89,27 @@ export class LecturePage {
     };
   });
   protected readonly missing = computed(() => missingFor(this.data(), this.id() ?? ''));
+
+  private readonly synced = computed(() => SYNCED_COURSES.includes(this.courseId()));
+  // 강의가 바뀌면 resource 가 앞 요청을 취소하고 새 노트를 불러옴
+  private readonly note = resource({
+    params: () => {
+      const lecture = this.lecture();
+      return lecture && this.synced()
+        ? contentPath(this.courseId(), lecture.id, 'note.md')
+        : undefined;
+    },
+    loader: ({ params, abortSignal }) => fetchContentText(params, abortSignal),
+  });
+  protected readonly noteStatus = computed<NoteStatus>(() => {
+    if (!this.synced()) return 'none';
+    const status = this.note.status();
+    if (status === 'error') return 'error';
+    return status === 'resolved' || status === 'local' ? 'ready' : 'loading';
+  });
+  protected readonly noteHtml = computed(() =>
+    this.noteStatus() === 'ready' && this.note.hasValue() ? noteHtml(this.note.value()) : '',
+  );
 
   constructor() {
     // 강의를 열면 홈의 "이어서 하기"가 이 강의를 가리키게 저장함
