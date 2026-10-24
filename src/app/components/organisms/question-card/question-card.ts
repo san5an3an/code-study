@@ -10,11 +10,8 @@ import type { QuizQuestion } from '../../../domain/lecture-content';
 import { inlineHtml, noteHtml } from '../../../domain/note-markdown';
 import { EMPTY_ANSWER, isAuto, verdictOf, type Answer } from '../../../domain/quiz-answer';
 
-// 채점 뒤 보기 줄 색. 잠긴 버튼의 흐림과 outline 배경보다 이겨야 해서 ! 를 붙임
-const TONE_RIGHT =
-  'border-(--semantic-border-success-default)! bg-(--semantic-bg-success-subtlest)! data-disabled:opacity-100';
-const TONE_WRONG =
-  'border-(--semantic-border-danger-default)! bg-(--semantic-bg-danger-subtlest)! data-disabled:opacity-100';
+// 보기 줄 색 표시. 실제 색은 styles.css 의 [data-quiz-tone] 규칙이 정함
+export type QuizTone = 'picked' | 'right' | 'wrong' | 'dim';
 
 // 문제 카드 하나. 퀴즈 탭과 오답 노트가 같이 씀. 답이 바뀌면 새 답을 부모에게 알림
 @Component({
@@ -59,7 +56,7 @@ const TONE_WRONG =
                 variant="outline"
                 size="lg"
                 class="w-16 text-base"
-                [class]="tone(v)"
+                [attr.data-quiz-tone]="tone(v)"
                 [disabled]="answer().graded"
                 [attr.aria-pressed]="answer().picked.includes(v)"
                 (click)="set({ picked: [v], graded: true })"
@@ -76,7 +73,7 @@ const TONE_WRONG =
             @for (opt of optionsHtml(); track $index) {
               <label
                 class="flex cursor-pointer items-center gap-3 rounded-lg border px-3 py-2"
-                [class]="tone($index + 1)"
+                [attr.data-quiz-tone]="tone($index + 1)"
               >
                 <hlm-checkbox
                   [checked]="answer().picked.includes($index + 1)"
@@ -104,7 +101,7 @@ const TONE_WRONG =
                 hlmBtn
                 variant="outline"
                 class="h-auto justify-start py-2 text-left whitespace-normal"
-                [class]="tone($index + 1)"
+                [attr.data-quiz-tone]="tone($index + 1)"
                 [disabled]="answer().graded"
                 [attr.aria-pressed]="answer().picked.includes($index + 1)"
                 (click)="set({ picked: [$index + 1], graded: true })"
@@ -227,14 +224,15 @@ export class QuestionCard {
   protected readonly answerHeadHtml = computed(() => inlineHtml(this.q().answerHead));
   protected readonly explanationHtml = computed(() => noteHtml(this.q().explanation));
 
-  // 채점 전엔 고른 줄만 진하게, 채점 뒤엔 정답 초록, 고른 오답 빨강, 나머지는 흐리게
-  protected tone(value: string | number) {
+  // 채점 전엔 고른 줄만 진하게, 채점 뒤엔 정답 초록, 고른 오답 빨강, 나머지는 흐리게.
+  // 잠긴 버튼의 흐림(opacity-50)이 흐림 class 를 이겨서, 색은 data 속성 + 층 밖 CSS 로 붙임
+  protected tone(value: string | number): QuizTone | null {
     const a = this.answer();
     const picked = a.picked.includes(value);
-    if (!a.graded) return picked ? 'border-primary' : '';
-    if (this.q().correct.includes(value)) return TONE_RIGHT;
-    if (picked) return TONE_WRONG;
-    return 'opacity-60';
+    if (!a.graded) return picked ? 'picked' : null;
+    if (this.q().correct.includes(value)) return 'right';
+    if (picked) return 'wrong';
+    return 'dim';
   }
 
   protected toggle(value: number, on: boolean) {

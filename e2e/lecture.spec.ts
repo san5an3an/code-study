@@ -13,7 +13,7 @@ test('강의를 열면 부 이름, 강의 제목, 노트 탭이 먼저 보이고
 
   await page.getByTestId('tab-quiz').click();
   await expect(page).toHaveURL(/\/python\/lecture\/08\?tab=quiz$/);
-  await expect(page.getByText('퀴즈 탭은 옮기는 중이에요.')).toBeVisible();
+  await expect(page.getByTestId('quiz-none')).toBeVisible();
 
   await page.reload();
   await expect(page.getByTestId('tab-quiz')).toHaveAttribute('aria-selected', 'true');
