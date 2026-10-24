@@ -8,7 +8,8 @@ test('강의를 열면 부 이름, 강의 제목, 노트 탭이 먼저 보이고
   // 사이드바에도 같은 부 이름이 있어서 강의 제목이 있는 header 안에서만 찾음
   await expect(page.locator('header:has(h1)').getByText('3부. 문자열', { exact: true })).toBeVisible();
   await expect(page.getByTestId('tab-note')).toHaveAttribute('aria-selected', 'true');
-  await expect(page.getByText('노트 탭은 옮기는 중이에요.')).toBeVisible();
+  // 파이썬은 노트가 아직 없어서 없다는 안내가 보임
+  await expect(page.getByTestId('note-none')).toBeVisible();
 
   await page.getByTestId('tab-quiz').click();
   await expect(page).toHaveURL(/\/python\/lecture\/08\?tab=quiz$/);
