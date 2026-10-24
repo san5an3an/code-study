@@ -15,3 +15,8 @@ const noteMarked = new Marked({
 export function noteHtml(markdown: string): string {
   return noteMarked.parse(markdown, { async: false });
 }
+
+// 퀴즈 보기, 정답 머리 줄처럼 한 줄짜리 마크다운. 문단 태그 없이 `코드`, **굵게** 만 바꿈
+export function inlineHtml(markdown: string): string {
+  return noteMarked.parseInline(markdown, { async: false });
+}
