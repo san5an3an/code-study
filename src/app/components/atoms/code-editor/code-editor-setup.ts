@@ -8,11 +8,13 @@ import {
   syntaxHighlighting,
   type LanguageSupport,
 } from '@codemirror/language';
-import { Annotation } from '@codemirror/state';
+import { lintGutter, setDiagnostics, type Diagnostic } from '@codemirror/lint';
+import { Annotation, type Text } from '@codemirror/state';
 import { EditorView, keymap } from '@codemirror/view';
 import { tags } from '@lezer/highlight';
 import { basicSetup } from 'codemirror';
 
+import type { CodeDiagnostic } from '../../../core/run-api';
 import type { CourseId } from '../../../domain/course';
 
 // 바깥에서 값을 넣은 변경 표시. 이 표시가 붙은 변경은 부모에게 다시 알리지 않음
@@ -49,13 +51,25 @@ const cobaltTheme = EditorView.theme({
     color: 'var(--semantic-fg-neutral-subtlest)',
     border: 'none',
   },
-  // basicSetup 이 넣는 접기 칸과 현재 줄 강조는 원래 앱처럼 안 보이게 함
-  '.cm-foldGutter': { display: 'none' },
+  // basicSetup 이 넣는 현재 줄 강조는 원래 앱처럼 안 보이게 함. 접기 화살표는 IDE 처럼 남겨 둠
   '.cm-activeLine, .cm-activeLineGutter': { backgroundColor: 'transparent' },
   '&.cm-focused .cm-selectionBackground, .cm-selectionBackground, ::selection': {
     backgroundColor: 'color-mix(in oklch, var(--semantic-fg-brand-default) 25%, transparent)',
   },
+  // 마우스를 올리면 뜨는 오타 문구 상자. 앱의 팝오버 색을 써서 어두운 화면에서도 읽힘
+  '.cm-tooltip': {
+    backgroundColor: 'var(--popover)',
+    color: 'var(--popover-foreground)',
+    border: 'var(--semantic-border-width-default) solid var(--border)',
+    borderRadius: 'var(--semantic-radius-control)',
+  },
+  '.cm-diagnostic': { fontFamily: 'var(--base-font-family-mono)', maxWidth: '36rem' },
+  '.cm-diagnostic-error': { borderLeftColor: 'var(--semantic-fg-danger-default)' },
+  '.cm-diagnostic-warning': { borderLeftColor: 'var(--semantic-fg-warning-default)' },
 });
+
+// 편집기 바깥(페이지)에서 받은 오타 검사 결과. source 는 그 결과를 낸 코드 글
+export type EditorCheck = { source: string; diagnostics: readonly CodeDiagnostic[] };
 
 // 과목마다 문법 색칠과 자동 들여쓰기 규칙
 const LANGUAGES: Record<CourseId, () => LanguageSupport> = { java, python };
@@ -79,6 +93,8 @@ export function createEditor(
       LANGUAGES[course](),
       syntaxHighlighting(cobaltHighlight),
       cobaltTheme,
+      // 오타 검사 결과가 있는 줄 번호 옆에 빨간 점을 찍음. 점이나 밑줄에 마우스를 올리면 컴파일러 문구가 뜸
+      lintGutter(),
       EditorView.contentAttributes.of({ 'aria-label': label }),
       EditorView.updateListener.of((update) => {
         if (!update.docChanged) return;
@@ -87,6 +103,36 @@ export function createEditor(
       }),
     ],
   });
+}
+
+// 컴파일러가 알려 준 줄, 칸을 편집기 글 위치로 바꿈. 그 칸에서 시작하는 이름이나 숫자 전체에 밑줄을 긋고,
+// 칸이 이름 바로 뒤의 기호를 가리키면(예: "Sytem." 의 점) 앞 이름에, 그 밖의 기호면 한 글자, 줄 끝이면 앞 글자에 그음.
+// 글이 바뀌어 없는 줄이면 null
+export function diagnosticRange(
+  doc: Text,
+  d: Pick<CodeDiagnostic, 'line' | 'column'>,
+): { from: number; to: number } | null {
+  if (d.line < 1 || d.line > doc.lines) return null;
+  const line = doc.line(d.line);
+  const from = line.from + Math.min(Math.max(d.column, 0), line.length);
+  const at = from - line.from;
+  const word = /^\w+/.exec(line.text.slice(at))?.[0].length ?? 0;
+  if (word > 0) return { from, to: from + word };
+  const before = /\w+$/.exec(line.text.slice(0, at))?.[0].length ?? 0;
+  if (before > 0 && at < line.length) return { from: from - before, to: from };
+  if (from < line.to) return { from, to: from + 1 };
+  return line.length > 0 ? { from: from - 1, to: from } : { from, to: from };
+}
+
+// 오타 검사 결과를 밑줄과 줄 번호 옆 표시로 보여 줌. 결과가 지금 글로 검사한 것일 때만 바꿔 그림
+export function showDiagnostics(view: EditorView, check: EditorCheck) {
+  if (view.state.doc.toString() !== check.source) return;
+  const list: Diagnostic[] = [];
+  for (const d of check.diagnostics) {
+    const range = diagnosticRange(view.state.doc, d);
+    if (range) list.push({ ...range, severity: d.severity, message: d.message });
+  }
+  view.dispatch(setDiagnostics(view.state, list));
 }
 
 // 바깥에서 값이 바뀌었을 때(원래대로 누름 등) 편집기 글을 통째로 바꿈. 같으면 아무것도 안 함

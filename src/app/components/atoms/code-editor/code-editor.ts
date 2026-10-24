@@ -15,6 +15,7 @@ import type { EditorView } from '@codemirror/view';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
 import type { CourseId } from '../../../domain/course';
+import type { EditorCheck } from './code-editor-setup';
 
 // 코드 편집기. 브라우저에서만 만들고, 편집기 코드는 처음 쓸 때 따로 불러옴. 글이 바뀌면 새 글을 부모에게 알림
 @Component({
@@ -39,6 +40,8 @@ export class CodeEditor {
   readonly label = input.required<string>();
   // 문법 색칠에 쓸 언어. 편집기를 만들 때 한 번만 읽음
   readonly course = input.required<CourseId>();
+  // 오타 검사 결과. 결과를 낸 코드 글이 지금 편집기 글과 같을 때만 밑줄을 다시 그림
+  readonly check = input<EditorCheck | null>(null);
   readonly valueChange = output<string>();
 
   private readonly mount = viewChild.required<ElementRef<HTMLElement>>('mount');
@@ -71,6 +74,14 @@ export class CodeEditor {
       if (!view) return;
       const { replaceDoc } = await import('./code-editor-setup');
       replaceDoc(view, value);
+    });
+
+    effect(async () => {
+      const view = this.view();
+      const check = this.check();
+      if (!view || !check) return;
+      const { showDiagnostics } = await import('./code-editor-setup');
+      showDiagnostics(view, check);
     });
   }
 }
