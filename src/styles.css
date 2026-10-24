@@ -75,6 +75,10 @@
 [data-theme='dark'] [data-slot='progress'] {
   background: var(--semantic-border-neutral-default);
 }
+/* 탭 목록 바탕: 어두운 화면에선 bg-muted 가 페이지 배경과 같아 안 보여서 한 단계 어둡게 함 */
+[data-theme='dark'] [data-slot='tabs-list']:not([data-variant='line']) {
+  background: var(--semantic-bg-neutral-subtlest);
+}
 
 @keyframes marquee-slide {
   0%,
