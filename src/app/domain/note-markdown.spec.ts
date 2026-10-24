@@ -1,4 +1,4 @@
-import { noteHtml } from './note-markdown';
+import { inlineHtml, noteHtml } from './note-markdown';
 
 describe('노트 마크다운 변환', () => {
   it('맨 위 # 제목은 빼고, ## 제목부터 그림', () => {
@@ -20,5 +20,9 @@ describe('노트 마크다운 변환', () => {
     const html = noteHtml('```java\nList<Integer> a;\n```');
     expect(html).toContain('<pre><code class="language-java">');
     expect(html).toContain('List&lt;Integer&gt; a;');
+  });
+
+  it('한 줄 마크다운은 문단 태그 없이 코드와 굵게만 바꿈', () => {
+    expect(inlineHtml('3번 `7.` 은 **실수**')).toBe('3번 <code>7.</code> 은 <strong>실수</strong>');
   });
 });
