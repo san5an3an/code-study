@@ -14,7 +14,7 @@ import { EditorView, keymap } from '@codemirror/view';
 import { tags } from '@lezer/highlight';
 import { basicSetup } from 'codemirror';
 
-import type { CodeDiagnostic } from '../../../core/run-api';
+import type { CodeCheck, CodeDiagnostic } from '../../../core/run-api';
 import type { CourseId } from '../../../domain/course';
 
 // 바깥에서 값을 넣은 변경 표시. 이 표시가 붙은 변경은 부모에게 다시 알리지 않음
@@ -68,9 +68,6 @@ const cobaltTheme = EditorView.theme({
   '.cm-diagnostic-warning': { borderLeftColor: 'var(--semantic-fg-warning-default)' },
 });
 
-// 편집기 바깥(페이지)에서 받은 오타 검사 결과. source 는 그 결과를 낸 코드 글
-export type EditorCheck = { source: string; diagnostics: readonly CodeDiagnostic[] };
-
 // 과목마다 문법 색칠과 자동 들여쓰기 규칙
 const LANGUAGES: Record<CourseId, () => LanguageSupport> = { java, python };
 
@@ -105,7 +102,7 @@ export function createEditor(
   });
 }
 
-// 컴파일러가 알려 준 줄, 칸을 편집기 글 위치로 바꿈. 그 칸에서 시작하는 이름이나 숫자 전체에 밑줄을 긋고,
+// 컴파일러가 알려 준 줄, 칸을 편집기 글 위치로 바꿈. 그 칸에서 시작하는 이름, 숫자, 문자열 전체에 밑줄을 긋고,
 // 칸이 이름 바로 뒤의 기호를 가리키면(예: "Sytem." 의 점) 앞 이름에, 그 밖의 기호면 한 글자, 줄 끝이면 앞 글자에 그음.
 // 글이 바뀌어 없는 줄이면 null
 export function diagnosticRange(
@@ -118,6 +115,10 @@ export function diagnosticRange(
   const at = from - line.from;
   const word = /^\w+/.exec(line.text.slice(at))?.[0].length ?? 0;
   if (word > 0) return { from, to: from + word };
+  // 따옴표에서 시작하면 같은 줄의 닫는 따옴표까지 문자열 전체
+  const quoted =
+    /^("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/.exec(line.text.slice(at))?.[0].length ?? 0;
+  if (quoted > 0) return { from, to: from + quoted };
   const before = /\w+$/.exec(line.text.slice(0, at))?.[0].length ?? 0;
   if (before > 0 && at < line.length) return { from: from - before, to: from };
   if (from < line.to) return { from, to: from + 1 };
@@ -125,7 +126,7 @@ export function diagnosticRange(
 }
 
 // 오타 검사 결과를 밑줄과 줄 번호 옆 표시로 보여 줌. 결과가 지금 글로 검사한 것일 때만 바꿔 그림
-export function showDiagnostics(view: EditorView, check: EditorCheck) {
+export function showDiagnostics(view: EditorView, check: CodeCheck) {
   if (view.state.doc.toString() !== check.source) return;
   const list: Diagnostic[] = [];
   for (const d of check.diagnostics) {

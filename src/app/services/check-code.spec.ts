@@ -1,5 +1,11 @@
-import { CHECK_PATH, RUN_HEADER, RUN_HEADER_VALUE, type CheckRequest } from '../core/run-api';
-import { checkCode } from './check-code';
+import {
+  CHECK_PATH,
+  CHECK_SNIPPET_PATH,
+  RUN_HEADER,
+  RUN_HEADER_VALUE,
+  type CheckRequest,
+} from '../core/run-api';
+import { checkCode, checkSnippet } from './check-code';
 import { NO_RUNNER } from './run-code';
 
 const REQ: CheckRequest = {
@@ -54,5 +60,14 @@ describe('오타 검사 요청', () => {
       throw new DOMException('aborted', 'AbortError');
     }) as typeof fetch;
     await expect(checkCode(REQ, ctrl.signal, fn)).rejects.toThrow('aborted');
+  });
+
+  it('퀴즈 답 검사는 /api/check-snippet 에 과목과 코드만 보냄', async () => {
+    const { fn, calls } = fakeFetch(JSON.stringify({ ok: true, diagnostics: [] }), 200);
+    await expect(
+      checkSnippet({ course: 'java', source: 'int a;' }, undefined, fn),
+    ).resolves.toEqual({ ok: true, diagnostics: [] });
+    expect(calls[0].url).toBe(CHECK_SNIPPET_PATH);
+    expect(JSON.parse(calls[0].init?.body as string)).toEqual({ course: 'java', source: 'int a;' });
   });
 });

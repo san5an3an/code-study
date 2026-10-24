@@ -108,9 +108,13 @@ describe('코드 편집기', () => {
 
 describe('오타 자리 계산', () => {
   const doc = Text.of(['int a = ;', '', 'Sytem.out']);
-  it('칸에서 시작하는 이름 전체, 이름 뒤 기호면 앞 이름, 그 밖의 기호면 한 글자, 줄 끝이면 앞 글자를 가리킴', () => {
+  it('칸에서 시작하는 이름이나 문자열 전체, 이름 뒤 기호면 앞 이름, 그 밖의 기호면 한 글자, 줄 끝이면 앞 글자를 가리킴', () => {
     expect(diagnosticRange(doc, { line: 1, column: 0 })).toEqual({ from: 0, to: 3 });
     expect(diagnosticRange(doc, { line: 3, column: 5 })).toEqual({ from: 11, to: 16 });
+    expect(diagnosticRange(Text.of(['int age = "2\\"0";']), { line: 1, column: 10 })).toEqual({
+      from: 10,
+      to: 16,
+    });
     expect(diagnosticRange(doc, { line: 1, column: 8 })).toEqual({ from: 8, to: 9 });
     expect(diagnosticRange(doc, { line: 1, column: 9 })).toEqual({ from: 8, to: 9 });
   });
