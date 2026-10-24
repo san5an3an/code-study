@@ -1,0 +1,174 @@
+{
+  "lectureId": "03",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 **실수**에 해당하는 값은?",
+      "options": [
+        "`3`",
+        "`-5`",
+        "`7.`",
+        "`\"2.4\"`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3번 `7.`",
+      "isExample": false,
+      "explanation": "점(`.`)이 있으면 자바는 실수로 봐요. `7.` 은 출력하면 `7.0` 이 나와요. 1, 2번은 소수점이 없는 정수예요. 4번은 숫자처럼 보이지만 따옴표로 감쌌으니 문자열이에요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`\"true\"` 는 논리형(boolean) 데이터다. (O / X)",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "따옴표가 붙으면 무조건 문자형이에요. 논리형 값은 따옴표 없이 `true` 라고 써야 해요."
+    },
+    {
+      "n": 3,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`System.out.println(123);` 과 `System.out.println(\"123\");` 은 화면에 같은 결과가 나오지만, 앞의 것은 숫자이고 뒤의 것은 문자다. (O / X)",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "화면에는 둘 다 `123` 으로 보이지만, 따옴표가 없는 `123` 은 계산할 수 있는 숫자, `\"123\"` 은 글자예요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "자바에서 `a = 3;` 의 `=` 가 뜻하는 것은?",
+      "options": [
+        "a와 3이 같은지 비교한다",
+        "3을 변수 a에 저장(대입)한다",
+        "a를 3으로 나눈다",
+        "a를 화면에 3번 출력한다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "자바의 `=` 는 대입 연산자예요. 오른쪽 값을 왼쪽 변수에 넣으라는 뜻이에요. \"같은지 비교\"는 다른 기호(`==`)로 하는데, 나중 강의에서 배워요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 실행 결과를 쓰세요.\n\n```java\nSystem.out.println(2.4);\nSystem.out.println(7.);\nSystem.out.println('B');\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n2.4\n7.0\nB\n```\n`7.` 은 실수라서 `7.0` 으로 출력돼요. `'B'` 는 작은따옴표 한 글자 문자라서 따옴표 없이 `B` 만 나와요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 실행 결과를 쓰세요.\n\n```java\nint a = 7;\nSystem.out.println(a);\nSystem.out.println(a + 3);\na = 9;\nSystem.out.println(a);\nSystem.out.println(\"a\");\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n7\n10\n9\na\n```\n- `println(a)` : 따옴표가 없으니 a 안의 값 7.\n- `a + 3` : 7 + 3 = 10.\n- `a = 9;` 로 값이 바뀌어서 9.\n- `\"a\"` 는 따옴표가 있으니 변수가 아니라 글자 a."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 실행 결과를 쓰세요.\n\n```java\nint score = 50;\nSystem.out.println(score + 10);\nSystem.out.println(score);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n60\n50\n```\n`score + 10` 은 계산해서 보여 주기만 할 뿐 score 상자 안의 값을 바꾸지 않아요. 값을 바꾸려면 `score = score + 10;` 처럼 대입해야 해요."
+    },
+    {
+      "n": 8,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "정수를 담는 변수 `age`를 만들고 20을 넣으려고 해요. 빈칸을 채우세요.\n\n```java\n______ age = 20;\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`int`",
+      "isExample": false,
+      "explanation": "`int age = 20;` 처럼 처음 만들 때 자료형을 앞에 붙여요. 이것을 변수 선언이라고 해요."
+    },
+    {
+      "n": 9,
+      "kind": "write",
+      "label": "에러 찾기",
+      "outsideLecture": false,
+      "prompt": "다음 코드는 에러가 나요. 어느 줄이 왜 틀렸는지 설명하고 고쳐 보세요.\n\n```java\nSystem.out.println(KOREA);\nint a = 7;\nint a = 9;\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- 1번째 줄: `KOREA` 에 따옴표가 없어서 자바가 KOREA라는 이름을 찾다가 실패해요 (`cannot find symbol`). `\"KOREA\"` 로 고쳐요.\n- 3번째 줄: 이미 만든 변수 a 앞에 `int` 를 또 붙였어요 (`variable a is already defined ...`). 두 번째부터는 `a = 9;` 처럼 이름만 써요.\n\n고친 코드:\n```java\nSystem.out.println(\"KOREA\");\nint a = 7;\na = 9;\n```"
+    },
+    {
+      "n": 10,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "변수에 대한 설명으로 **틀린** 것은?",
+      "options": [
+        "변수는 값을 담아 두는 이름 붙은 공간이다.",
+        "자바에서 변수는 처음 한 번 자료형을 지정해야 한다.",
+        "변수에 새 값을 넣으면 이전 값과 새 값이 함께 저장된다.",
+        "`int` 로 만든 변수에는 정수를 넣는다."
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3번",
+      "isExample": false,
+      "explanation": "새 값이 들어오면 이전 값은 지워지고(덮어쓰기) 새 값만 남아요. 상자 하나에는 값이 하나만 들어간다고 생각하면 돼요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜 보기",
+      "outsideLecture": false,
+      "prompt": "`main` 안에 다음을 순서대로 하는 코드를 작성해 보세요.\n\n1. 정수 변수 `num` 을 만들고 10을 넣는다.\n2. `num` 을 출력한다.\n3. `num` 에 25를 새로 넣는다.\n4. `num` 을 다시 출력한다.\n5. 문자열 상수 `\"끝\"` 을 출력한다.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class Quiz11 {\n    public static void main(String[] args) {\n        int num = 10;              // 정수 변수 num 선언, 10 저장\n        System.out.println(num);   // 10\n        num = 25;                  // 새 값 25 대입 (int 다시 안 씀)\n        System.out.println(num);   // 25\n        System.out.println(\"끝\");  // 문자열 상수\n    }\n}\n```\n실행 결과:\n```\n10\n25\n끝\n```\n포인트: 두 번째 대입에서 `int` 를 다시 붙이지 않는 것, 그리고 `\"끝\"` 은 큰따옴표로 감싸는 것."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜 보기",
+      "outsideLecture": false,
+      "prompt": "수치형, 문자형, 논리형 데이터를 각각 하나씩 `System.out.println` 으로 출력하는 코드 세 줄을 써 보세요. 각 줄 끝에 주석으로 어떤 종류인지 적어 보세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nSystem.out.println(100);       // 수치형 (정수)\nSystem.out.println(\"자바\");    // 문자형\nSystem.out.println(false);     // 논리형\n```\n실행 결과:\n```\n100\n자바\nfalse\n```\n숫자는 그대로, 글자는 따옴표로, 논리값은 따옴표 없이 소문자 `true`/`false` 로 써요. `\"false\"` 라고 쓰면 문자형이 되니 주의하세요."
+    }
+  ]
+}

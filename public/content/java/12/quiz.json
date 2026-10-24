@@ -1,0 +1,181 @@
+{
+  "lectureId": "12",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "자바 클래스를 이루는 세 가지 구성 요소로 알맞은 것은?",
+      "options": [
+        "패키지, import, main",
+        "멤버 변수(필드), 멤버 함수(메소드), 생성자",
+        "변수, 상수, 배열",
+        "public, private, protected"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "클래스는 멤버 변수(필드, 객체가 가진 값), 멤버 함수(메소드, 객체가 하는 일), 생성자(객체가 처음 만들어질 때 할 일)로 이루어져요. 4번은 접근 제어 키워드예요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "클래스를 작성하기만 하면, `new` 를 쓰지 않아도 그 클래스의 멤버 변수에 바로 값을 넣어 쓸 수 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "클래스는 설계도(붕어빵 틀)일 뿐이에요. `new` 로 객체(붕어빵)를 만들어야 그 객체의 멤버 변수에 값을 넣을 수 있어요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 코드에서 `sj` 에 저장되는 것은?\n\n```java\nSungjuk sj = new Sungjuk();\n```",
+      "options": [
+        "정수 100",
+        "Sungjuk 클래스의 소스 코드",
+        "힙에 만들어진 Sungjuk 객체의 주소",
+        "문자열 \"Sungjuk\""
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`new Sungjuk()` 은 힙에 객체를 만들고 그 **주소**를 돌려줘요. `sj` 는 그 주소를 담는 **참조 변수**예요. 강의에서 \"100번지\"라고 한 건 주소를 쉽게 설명하려고 든 예이지, 정수 100이 저장되는 게 아니에요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "접근 제어를 **접근할 수 있는 범위가 좁은 것부터** 바르게 나열한 것은?",
+      "options": [
+        "public < protected < (생략) < private",
+        "private < (생략) < protected < public",
+        "private < protected < (생략) < public",
+        "(생략) < private < public < protected"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "private(같은 클래스) < 생략(같은 패키지) < protected(같은 패키지 + 자식 클래스) < public(어디서나). 슬라이드의 동심원처럼 안쪽부터 바깥쪽으로 넓어져요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Dog {\n    String name;\n    int age;\n}\npublic class Q5 {\n    public static void main(String[] args) {\n        Dog a = new Dog();\n        Dog b = new Dog();\n        a.name = \"초코\";\n        a.age = 3;\n        b.age = a.age + 2;\n        System.out.println(a.name + \" \" + a.age);\n        System.out.println(b.name + \" \" + b.age);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n초코 3\nnull 5\n```\n\n`a` 와 `b` 는 같은 `Dog` 설계도로 만든 **서로 다른 객체**예요. `a` 에만 이름을 넣었으니 `b.name` 은 값이 없어 `null` 이에요. `b.age` 는 `a.age + 2` = 5 예요. 한 붕어빵에 팥을 넣어도 옆 붕어빵에는 영향이 없는 것과 같아요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Box {\n    Box() {\n        System.out.println(\"A\");\n    }\n    Box(int n) {\n        System.out.println(\"B\" + n);\n    }\n    Box(String s, int n) {\n        System.out.println(\"C\" + s + n);\n    }\n}\npublic class Q6 {\n    public static void main(String[] args) {\n        Box x = new Box(7);\n        Box y = new Box();\n        Box z = new Box(\"가\", 1);\n        System.out.println(\"끝\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nB7\nA\nC가1\n끝\n```\n\n`new` 할 때마다 넘긴 값의 개수와 자료형에 맞는 생성자가 실행돼요. `new Box(7)` 은 정수 하나라 `Box(int n)`, `new Box()` 는 `Box()`, `new Box(\"가\", 1)` 은 `Box(String s, int n)` 이 불려요. 생성자는 객체를 만들 때 자동으로 실행되니까, 따로 부르지 않아도 출력이 나와요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Score {\n    private int kor, eng;\n    private int aver;\n    public Score(int k, int e) {\n        kor = k;\n        eng = e;\n    }\n    public void calc() {\n        aver = (kor + eng) / 2;\n    }\n    public void disp() {\n        System.out.println(aver);\n    }\n}\npublic class Q7 {\n    public static void main(String[] args) {\n        Score s = new Score(85, 90);\n        s.disp();\n        s.calc();\n        s.disp();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n0\n87\n```\n\n생성자에서 점수만 넣었고, 평균 `aver` 는 아직 계산 전이라 기본값 0 이에요. 그래서 첫 `disp()` 는 0 을 찍어요. `calc()` 후에는 (85 + 90) / 2 = 175 / 2 = 87.5 인데, int 끼리 나눠서 소수점이 버려지고 87 이 나와요."
+    },
+    {
+      "n": 8,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "다음 코드는 정상적으로 컴파일된다. (두 클래스는 같은 파일에 있다)\n\n```java\nclass Bank {\n    private int money;\n}\npublic class Q8 {\n    public static void main(String[] args) {\n        Bank b = new Bank();\n        b.money = 1000;\n    }\n}\n```",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`money` 는 `private` 이라 `Bank` 클래스 **안에서만** 쓸 수 있어요. 같은 파일에 있어도 `Q8` 은 다른 클래스라서 접근할 수 없어요. javac 는 `error: money has private access in Bank` 라고 알려 줘요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`Member` 클래스에 이름을 받아서 저장하는 생성자를 만들려고 해요. 빈칸 (가), (나)를 채우세요.\n\n```java\nclass Member {\n    private String name;\n\n    public  (가)  (String n) {\n        (나)  = n;\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "(가) `Member`, (나) `name`",
+      "isExample": false,
+      "explanation": "생성자의 이름은 클래스 이름과 같아야 하니 (가)는 `Member` 예요. 리턴형(`void` 등)은 쓰지 않아요. (나)는 받은 값 `n` 을 저장할 멤버 변수 `name` 이에요. `name` 이 private 이어도 생성자는 클래스 안쪽이라 넣을 수 있어요."
+    },
+    {
+      "n": 10,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "생성자에 대한 설명으로 **틀린** 것은?",
+      "options": [
+        "생성자의 이름은 클래스 이름과 같아야 한다.",
+        "생성자는 `new` 로 객체가 만들어질 때 처음 실행된다.",
+        "생성자 앞에는 반드시 `void` 를 써야 한다.",
+        "매개변수가 다르면 생성자를 여러 개 만들 수 있다."
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "생성자에는 리턴형을 **쓰지 않아요.** `void` 를 붙이면 생성자가 아니라 이름만 같은 일반 메소드가 되어 버려요. 그러면 `new Member(\"홍길동\")` 같은 코드가 `constructor ... cannot be applied to given types` 에러를 내요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "다음 조건대로 프로그램을 작성해 보세요. 파일 이름은 `Rect.java`.\n\n- `Rectangle` 클래스: 가로 `width`, 세로 `height` 를 `private int` 로 가져요.\n- 생성자 `Rectangle(int w, int h)` 로 가로·세로를 받아 저장해요.\n- `public int area()` 메소드는 넓이(가로 x 세로)를 돌려줘요. (11강의 `return 값;`)\n- `main` 에서 3x4, 10x5 사각형을 만들어 넓이를 출력해요.\n\n원하는 실행 결과\n\n```\nr1 넓이: 12\nr2 넓이: 50\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nclass Rectangle {\n    private int width;   // 가로\n    private int height;  // 세로\n\n    public Rectangle(int w, int h) { // 생성자 : 만들 때 가로·세로를 받아 저장\n        width = w;\n        height = h;\n    }\n\n    public int area() {              // 넓이를 계산해서 돌려줌 (11강 return)\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        Rectangle r1 = new Rectangle(3, 4);\n        Rectangle r2 = new Rectangle(10, 5);\n        System.out.println(\"r1 넓이: \" + r1.area());\n        System.out.println(\"r2 넓이: \" + r2.area());\n    }\n}\n```\n\n실행 결과\n\n```\nr1 넓이: 12\nr2 넓이: 50\n```\n\n멤버 변수는 private 으로 숨기고, 값은 생성자로 넣고, 결과는 public 메소드로 꺼내는 구조예요. 강의의 `School` 클래스와 같은 \"가장 일반적인 설계 방식\"이에요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`Cat` 클래스를 만들어요. 멤버 변수는 `private String name;` 과 `private int age;` 예요.\n\n- 전달값 없는 생성자: 이름을 `\"이름없음\"` 으로 넣어요 (나이는 넣지 않아요).\n- 이름과 나이를 받는 생성자: 둘 다 저장해요.\n- `info()` 메소드: `이름 / 나이살` 형태로 출력해요.\n\n`main` 에서 `new Cat()` 과 `new Cat(\"나비\", 2)` 로 두 마리를 만들고 각각 `info()` 를 부르면 어떻게 출력될지도 적어 보세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nclass Cat {\n    private String name;\n    private int age;\n\n    public Cat() {\n        name = \"이름없음\";\n    }\n\n    public Cat(String n, int a) {\n        name = n;\n        age = a;\n    }\n\n    public void info() {\n        System.out.println(name + \" / \" + age + \"살\");\n    }\n}\npublic class Pet {\n    public static void main(String[] args) {\n        Cat c1 = new Cat();\n        Cat c2 = new Cat(\"나비\", 2);\n        c1.info();\n        c2.info();\n    }\n}\n```\n\n실행 결과\n\n```\n이름없음 / 0살\n나비 / 2살\n```\n\n`c1` 은 전달값 없는 생성자로 만들어서 이름만 \"이름없음\"이 들어가고, 나이는 넣지 않아서 int 기본값 0 이 나와요. 생성자를 두 개 만든 것이 바로 생성자 오버로드예요."
+    }
+  ]
+}

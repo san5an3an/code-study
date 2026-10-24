@@ -1,0 +1,50 @@
+[
+  {
+    "file": "StringCutCompare.java",
+    "className": "StringCutCompare",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "With The Wind\nWith T\nGo\ne With The Wi\nd\n---\nGone\nWith\nThe\nWind\n---\n#   HA   P P  Y    #\n#HA   P P  Y#\n서로 다르다\ntrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "StringMethods.java",
+    "className": "StringMethods",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "5\nGone With The Wind\nG\nT\nd\n18\nd\n0\n6\n-1\n15\nGONE WITH THE WIND\ngone with the wind\nGoNe With The WiNd\nGone With The Wind\n비어 있지 않다\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "WrapperClasses.java",
+    "className": "WrapperClasses",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "true\nfalse\ntrue\n3\n5.0\n7\n2\n4.0\n6\n8\n10\n2.3\nfalse\n9.0\nR\nB\nT\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "WrapperParse.java",
+    "className": "WrapperParse",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1231\n124\n7.0\n3\n30\n2147483647\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

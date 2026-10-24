@@ -1,0 +1,50 @@
+[
+  {
+    "file": "ArgumentMethod.java",
+    "className": "ArgumentMethod",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "10\n30\n50\n21\n12\n4.600000047683716\n####################################################################################################\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "Factorial.java",
+    "className": "Factorial",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "24\n6\n3628800\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "NoArgumentMethod.java",
+    "className": "NoArgumentMethod",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "JAVA\nJAVA\nPython\nJAVA\nKOREA\nPython\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ParameterScope.java",
+    "className": "ParameterScope",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "change 안의 a: 999\nmain 안의 a: 5\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

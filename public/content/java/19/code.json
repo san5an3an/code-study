@@ -1,0 +1,38 @@
+[
+  {
+    "file": "AbstractTest.java",
+    "className": "AbstractTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Animal.view()...\nElephant.disp()\nAnimal.view()...\nTuna.disp()\nElephant.disp()\nTuna.disp()\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "InheritanceRules.java",
+    "className": "InheritanceRules",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "(3, 5) 위치로 이동\n상대 유닛 공격! 상대 HP: 100\n(0, 0) 위치로 이동\nasUnit 의 x 좌표: 0\ntrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "InterfaceTest.java",
+    "className": "InterfaceTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "포유류\n허파\n어류\n아가미\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

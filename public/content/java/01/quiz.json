@@ -1,0 +1,177 @@
+{
+  "lectureId": "01",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "\"프로그램\"은 컴퓨터에게 일을 시키기 위해 처리 방법과 순서를 적어 놓은 명령문들의 모음이다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "프로그램은 \"레시피\"처럼 할 일과 순서를 적어 둔 명령문 모음, 즉 완성된 결과물이에요. 그 레시피를 쓰는 기술은 \"프로그래밍(코딩)\"이에요."
+    },
+    {
+      "n": 2,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "컴퓨터가 직접 이해하는 언어는 무엇인가요?",
+      "options": [
+        "한국어 같은 자연어",
+        "0과 1로 된 기계어",
+        "자바",
+        "파이썬"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "컴퓨터는 전기 신호의 꺼짐/켜짐, 즉 0과 1만 알아들어요. 자바와 파이썬은 사람이 쓰는 고급 언어라서 번역이 필요해요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 \"저급 언어\"에 속하는 것을 모두 고르세요.",
+      "options": [
+        "기계어",
+        "자바",
+        "어셈블리어",
+        "파이썬"
+      ],
+      "correct": [
+        1,
+        3
+      ],
+      "answerHead": "1, 3",
+      "isExample": false,
+      "explanation": "저급 언어는 기계에 가까운 언어로 기계어와 어셈블리어가 대표적이에요. 자바와 파이썬은 사람이 읽기 쉬운 고급 언어예요."
+    },
+    {
+      "n": 4,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "고급 언어로 작성한 코드를 ( A )라고 하고, 이것을 컴퓨터가 실행할 수 있게 바꾸는 과정을 ( B )이라고 한다.",
+      "options": [],
+      "correct": [],
+      "answerHead": "A = 소스 코드(원시 코드), B = 번역(컴파일)",
+      "isExample": false,
+      "explanation": "사람이 쓴 코드는 컴퓨터가 그대로 이해하지 못하니까 번역 과정을 거쳐야 실행돼요."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "\"소스 코드 전체를 한꺼번에 읽어 번역하고, 번역된 결과 파일(목적 코드)을 만든다.\" 이 설명에 해당하는 번역기와, 그 방식을 쓰는 대표 언어로 알맞은 것은?",
+      "options": [
+        "인터프리터 - 파이썬",
+        "인터프리터 - 자바",
+        "컴파일러 - 자바",
+        "컴파일러 - 자바스크립트"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "컴파일러는 책 한 권을 통째로 번역하는 번역가처럼 전체를 한꺼번에 번역해서 결과 파일을 만들어요. 자바, C, C++가 이 방식이에요. 파이썬과 자바스크립트는 한 문장씩 해석하는 인터프리터 방식이에요."
+    },
+    {
+      "n": 6,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "자바 소스 파일의 확장자는 `.( A )` 이고, 컴파일러가 번역한 결과 파일의 확장자는 `.( B )` 이다.",
+      "options": [],
+      "correct": [],
+      "answerHead": "A = java, B = class",
+      "isExample": false,
+      "explanation": "`HelloWorld.java`를 컴파일하면 `HelloWorld.class`가 생겨요. 배포할 때는 `.class` 쪽을 나눠 줘요."
+    },
+    {
+      "n": 7,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "자바 프로그램이 윈도우, 맥OS, 리눅스 어디서든 같은 파일로 실행될 수 있는 이유는?",
+      "options": [
+        "자바는 인터넷에서만 실행되기 때문에",
+        "자바 프로그램이 JVM(자바 가상 머신) 위에서 동작하기 때문에",
+        "OS마다 소스 코드를 다시 써야 하기 때문에",
+        "자바는 기계어로 작성하기 때문에"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "OS마다 맞는 JVM이 설치되어 있으면, JVM이 같은 `.class` 파일을 그 OS에 맞게 실행해 줘요. 이를 \"플랫폼 독립성\"이라고 해요. 만능 어댑터를 떠올리면 쉬워요."
+    },
+    {
+      "n": 8,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "자바에서는 개발자가 사용이 끝난 메모리를 하나하나 직접 해제해야 한다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "자바는 JVM이 안 쓰는 메모리를 자동으로 찾아 정리해 줘요(자동 메모리 관리)."
+    },
+    {
+      "n": 9,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 객체지향 언어의 특징이 **아닌** 것은?",
+      "options": [
+        "캡슐화",
+        "상속",
+        "다형성",
+        "순서대로만 실행해야 하는 절차 중심"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "순서가 가장 중요한 것은 \"절차지향\" 언어의 특징이에요. 객체지향의 특징은 캡슐화, 정보 은닉, 추상화, 상속, 다형성이에요."
+    },
+    {
+      "n": 10,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드를 컴파일하고 실행하면 화면에 무엇이 나올까요?\n```java\npublic class HelloWorld {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n        System.out.println(\"나의 첫 자바 프로그램\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nHello, Java!\n나의 첫 자바 프로그램\n```\n`System.out.println`은 따옴표 안의 글자를 출력하고 줄을 바꿔요. 그래서 두 문장이 서로 다른 줄에 나와요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 해보기",
+      "outsideLecture": false,
+      "prompt": "`code/HelloWorld.java`를 복사해서 `MyIntro.java`라는 파일을 만들고, 화면에 아래처럼 세 줄이 나오도록 고쳐 보세요. 파일 이름과 클래스 이름을 어떻게 맞춰야 할지도 생각해 보세요.\n```\n안녕하세요\n제 이름은 홍길동입니다\n자바 공부 시작!\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class MyIntro {                          // 파일 이름이 MyIntro.java이므로 클래스 이름도 MyIntro\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(\"제 이름은 홍길동입니다\");\n        System.out.println(\"자바 공부 시작!\");\n    }\n}\n```\n실행 방법:\n```\njavac -encoding UTF-8 MyIntro.java\njava MyIntro\n```\n핵심은 `public class` 뒤의 이름과 파일 이름을 똑같이(대소문자까지) 맞추는 거예요. `HelloWorld`를 그대로 두면 `class HelloWorld is public, should be declared in a file named HelloWorld.java` 에러가 나요."
+    }
+  ]
+}

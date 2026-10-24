@@ -1,0 +1,50 @@
+[
+  {
+    "file": "ConcatExample.java",
+    "className": "ConcatExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "579\nONETWO\n123456\n123456\n123+456\n나이: 25살\n33\n123\n합: 3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "FormatCharString.java",
+    "className": "FormatCharString",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "A\n#B    #\nAPPLE\n#HI   #\n#   HI#\n이름:홍길동 나이:20 키:175.5 등급:A\nitem    price\napple    1200\nmelon   15000\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "FormatExample.java",
+    "className": "FormatExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "10 20 30\n나이 : 25\n\n\n나\t이 : 30\n나이 : #   25#\n나이 : #25   #\n1.200000 3.400000\n키:165.700000\n키:#   165.70#\n키:#165.70   #\n키:#165.70#\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "PrintExample.java",
+    "className": "PrintExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "JAVA\nPYTHON\n서울\n제주\n사과수박참외\n\"\n'\n\\\n그가 \"안녕\"이라고 말했다\nC:\\Users\\java\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

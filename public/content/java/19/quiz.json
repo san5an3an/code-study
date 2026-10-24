@@ -1,0 +1,169 @@
+{
+  "lectureId": "19",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "추상 메소드는 본체 `{ }` 가 없고 세미콜론 `;` 으로 끝나는 메소드다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "추상 메소드는 `abstract void disp();` 처럼 이름과 모양만 있고 할 일(본체)은 비어 있어요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`abstract class Animal` 이 있을 때, `Animal a = new Animal();` 로 객체를 만들 수 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "추상 클래스는 미완성이라 직접 `new` 할 수 없어요. `Animal is abstract; cannot be instantiated` 에러가 나요. 대신 자식 객체를 만들어 `Animal a = new Elephant();` 처럼 부모 타입 변수에 담는 건 돼요."
+    },
+    {
+      "n": 3,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "인터페이스 안에 메소드를 선언할 때 `abstract` 키워드는 생략해도 된다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "인터페이스의 메소드는 (강의 기준) 모두 추상 메소드라서 `abstract` 를 안 써도 자동으로 추상 메소드가 돼요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "클래스가 **인터페이스**를 상속(구현)할 때 쓰는 키워드는?",
+      "options": [
+        "`extends`",
+        "`implements`",
+        "`abstract`",
+        "`interface`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "클래스 → 클래스는 `extends`, 클래스 → 인터페이스는 `implements` 예요."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 **에러가 나지 않는** 선언은? (`Father`, `Korea` 는 클래스, `Movable`, `Attackable` 은 인터페이스)",
+      "options": [
+        "`class Test extends Father, Korea { }`",
+        "`class Test implements Father { }`",
+        "`interface Fightable extends Movable, Attackable { }`",
+        "`class Test implements Movable extends Father { }`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "1. 클래스는 단일 상속만 돼요. 부모 클래스 두 개 지정 불가.\n2. `Father` 는 클래스라서 `implements` 뒤에 올 수 없어요.\n3. 인터페이스끼리는 `extends` 로 여러 개를 상속할 수 있어요. 정답.\n4. 순서가 틀렸어요. `extends` 가 먼저, `implements` 가 나중이에요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nabstract class Pet {\n    void eat() { System.out.println(\"냠냠\"); }\n    abstract void sound();\n}\nclass Cat extends Pet {\n    void sound() { System.out.println(\"야옹\"); }\n}\nclass Dog extends Pet {\n    void sound() { System.out.println(\"멍멍\"); }\n    void eat() { System.out.println(\"와구와구\"); }\n}\npublic class Q6 {\n    public static void main(String[] args) {\n        Pet p = new Cat();\n        p.eat();\n        p.sound();\n        p = new Dog();\n        p.eat();\n        p.sound();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n냠냠\n야옹\n와구와구\n멍멍\n```\n\nCat 은 `eat()` 을 오버라이드하지 않았으니 부모의 \"냠냠\"이 나오고, Dog 는 `eat()` 까지 오버라이드했으니 \"와구와구\"가 나와요. 변수 타입은 Pet 이지만 실행되는 건 실제 담긴 객체의 메소드예요(다형성)."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\ninterface Greeter {\n    void hello();\n}\nclass Korean implements Greeter {\n    public void hello() { System.out.println(\"안녕하세요\"); }\n}\nclass American implements Greeter {\n    public void hello() { System.out.println(\"Hello\"); }\n}\npublic class Q7 {\n    public static void main(String[] args) {\n        Greeter[] list = { new Korean(), new American(), new Korean() };\n        for (int i = 0; i < list.length; i++) {\n            System.out.print(i + \":\");\n            list[i].hello();\n        }\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n0:안녕하세요\n1:Hello\n2:안녕하세요\n```\n\n인터페이스 타입 배열에 서로 다른 구현 객체를 담고, 반복문으로 같은 `hello()` 를 불렀어요. `print` 는 줄바꿈을 안 하니까 번호와 인사가 한 줄에 붙어요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Robot {\n    void power() { System.out.println(\"전원 켜짐\"); }\n}\ninterface Flyable { void fly(); }\ninterface Swimmable { void swim(); }\nclass SuperRobot extends Robot implements Flyable, Swimmable {\n    public void fly() { System.out.println(\"하늘을 날아요\"); }\n    public void swim() { System.out.println(\"물속을 헤엄쳐요\"); }\n}\npublic class Q8 {\n    public static void main(String[] args) {\n        SuperRobot r = new SuperRobot();\n        r.power();\n        Swimmable s = r;\n        s.swim();\n        Flyable f = r;\n        f.fly();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n전원 켜짐\n물속을 헤엄쳐요\n하늘을 날아요\n```\n\nSuperRobot 은 Robot 을 상속하고 Flyable, Swimmable 을 동시에 구현했어요(다중 구현). 그래서 SuperRobot 객체 하나를 Swimmable 변수에도, Flyable 변수에도 담을 수 있어요."
+    },
+    {
+      "n": 9,
+      "kind": "write",
+      "label": "오류 찾기",
+      "outsideLecture": false,
+      "prompt": "다음 코드는 컴파일 에러가 나요. 이유와 고치는 방법을 말해 보세요.\n\n```java\ninterface Creature {\n    void kind();\n}\nclass Tiger implements Creature {\n    void kind() {\n        System.out.println(\"포유류\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "인터페이스의 메소드는 자동으로 `public` 이에요. 오버라이드할 때 접근 범위를 좁힐 수 없는데, Tiger 의 `kind()` 는 `public` 이 없어서 범위가 좁아졌어요. javac 메시지는 이래요.\n\n```\nerror: kind() in Tiger cannot implement kind() in Creature\n  attempting to assign weaker access privileges; was public\n```\n\n`public void kind()` 로 고치면 돼요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`Shape` 는 직접 객체를 만들 수 없는 미완성 클래스이고, `Circle` 은 `Shape` 를 상속해서 `area()` 를 완성해요. 빈칸을 채워요.\n\n```java\n  ①   class Shape {\n      ②   double area();\n}\n\nclass Circle   ③   Shape {\n    double r = 2;\n\n    @Override\n    double area() {\n        return 3.14 * r * r;\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "① `abstract` ② `abstract` ③ `extends`",
+      "isExample": false,
+      "explanation": "추상 메소드가 있으니 클래스에도 `abstract` 를 붙여야 하고, 추상 클래스를 상속할 때도 키워드는 `extends` 예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`pay(int amount)` 라는 추상 메소드 하나를 가진 인터페이스 `Payment` 를 만들고, 이를 구현한 `Card`, `Cash` 클래스를 만들어요. `main` 에서 `Payment` 타입 변수 하나에 두 객체를 차례로 담아 아래처럼 출력해 보세요.\n\n```\n카드로 5000원 결제\n현금으로 3000원 결제\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\ninterface Payment {\n    void pay(int amount);\n}\n\nclass Card implements Payment {\n    @Override\n    public void pay(int amount) {\n        System.out.println(\"카드로 \" + amount + \"원 결제\");\n    }\n}\n\nclass Cash implements Payment {\n    @Override\n    public void pay(int amount) {\n        System.out.println(\"현금으로 \" + amount + \"원 결제\");\n    }\n}\n\npublic class PaymentTest {\n    public static void main(String[] args) {\n        Payment p = null;\n        p = new Card();\n        p.pay(5000);\n        p = new Cash();\n        p.pay(3000);\n    }\n}\n```\n\n실행 결과\n\n```\n카드로 5000원 결제\n현금으로 3000원 결제\n```\n\n`public` 을 빼먹지 않았는지 꼭 확인해요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "추상 클래스 `Shape` 에 추상 메소드 `double area()` 와 일반 메소드 `void show()`(넓이를 `넓이: 값` 형식으로 출력)를 만들어요. 이를 상속한 `Rect`(가로·세로), `Triangle`(밑변·높이) 클래스를 만들고, `Shape` 타입 변수로 아래처럼 출력해 보세요.\n\n```\n넓이: 12.0\n넓이: 7.5\n```\n\n(Rect 는 가로 3, 세로 4 / Triangle 은 밑변 5, 높이 3)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nabstract class Shape {\n    abstract double area();\n\n    void show() {\n        System.out.println(\"넓이: \" + area());\n    }\n}\n\nclass Rect extends Shape {\n    int w, h;\n    Rect(int w, int h) { this.w = w; this.h = h; }\n\n    @Override\n    double area() { return w * h; }\n}\n\nclass Triangle extends Shape {\n    int base, height;\n    Triangle(int base, int height) { this.base = base; this.height = height; }\n\n    @Override\n    double area() { return base * height / 2.0; }\n}\n\npublic class ShapeTest {\n    public static void main(String[] args) {\n        Shape s = new Rect(3, 4);\n        s.show();\n        s = new Triangle(5, 3);\n        s.show();\n    }\n}\n```\n\n실행 결과\n\n```\n넓이: 12.0\n넓이: 7.5\n```\n\n포인트 두 가지예요.\n\n- 부모의 일반 메소드 `show()` 안에서 추상 메소드 `area()` 를 불러도 돼요. 실행될 때는 실제 객체(Rect, Triangle)가 완성한 `area()` 가 쓰여요.\n- 삼각형 넓이에서 `/ 2` 가 아니라 `/ 2.0` 으로 나눠야 해요. `15 / 2` 는 정수 나눗셈이라 7 이 되거든요."
+    }
+  ]
+}

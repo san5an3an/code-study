@@ -1,0 +1,26 @@
+[
+  {
+    "file": "PrintVsPrintln.java",
+    "className": "PrintVsPrintln",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "가나다\n첫째 줄\n둘째 줄\n2024\n2024\nJava는 대소문자를 구분해요\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "Welcome.java",
+    "className": "Welcome",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "123456789\n10\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

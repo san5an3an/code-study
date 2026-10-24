@@ -1,0 +1,38 @@
+[
+  {
+    "file": "GradeIf.java",
+    "className": "GradeIf",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이름 : 무궁화\n국어 : 100\n영어 : 100\n수학 : 35\n평균 : 78.33\n국어:합격\n수학:F학점\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "SwitchBasic.java",
+    "className": "SwitchBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "BUSAN\n영어\n수학\n기타\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "SwitchChar.java",
+    "className": "SwitchChar",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "10 * 3 = 30\n지원하지 않는 기호예요: %\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

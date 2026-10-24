@@ -1,0 +1,50 @@
+[
+  {
+    "file": "MultiCatchFinally.java",
+    "className": "MultiCatchFinally",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1\n[숫자 형식 예외] java.lang.NumberFormatException: For input string: \"KOREA\"\nEND\n-----\n1\njava.lang.ArithmeticException: / by zero\nEND\n-----\nOPEN\n3\nCLOSE\nOPEN\njava.lang.ArithmeticException: / by zero\nCLOSE\nEND\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ThrowsExample.java",
+    "className": "ThrowsExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "java.lang.ArithmeticException: / by zero\njava.lang.NumberFormatException: For input string: \"KOREA\"\nEND\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "TryCatchBasic.java",
+    "className": "TryCatchBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1\njava.lang.ArithmeticException: / by zero\nEND\n-----\njava.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3\nEND\n-----\n123\njava.lang.NumberFormatException: For input string: \"KOREA\"\nEND\n-----\nNullPointerException 발생!\nEND\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "UncaughtException.java",
+    "className": "UncaughtException",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1\n",
+      "stderr": "Exception in thread \"main\" java.lang.ArithmeticException: / by zero\n\tat UncaughtException.main(UncaughtException.java:7)\n",
+      "exitCode": 1,
+      "timedOut": false
+    }
+  }
+]

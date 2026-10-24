@@ -1,0 +1,156 @@
+[
+  {
+    "id": "01",
+    "questions": 11,
+    "codeFiles": 1,
+    "transcriptLines": 337,
+    "frames": 15
+  },
+  {
+    "id": "02",
+    "questions": 12,
+    "codeFiles": 2,
+    "transcriptLines": 568,
+    "frames": 54
+  },
+  {
+    "id": "03",
+    "questions": 12,
+    "codeFiles": 3,
+    "transcriptLines": 598,
+    "frames": 44
+  },
+  {
+    "id": "04",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 523,
+    "frames": 49
+  },
+  {
+    "id": "05",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 977,
+    "frames": 44
+  },
+  {
+    "id": "06",
+    "questions": 12,
+    "codeFiles": 3,
+    "transcriptLines": 993,
+    "frames": 54
+  },
+  {
+    "id": "07",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 890,
+    "frames": 57
+  },
+  {
+    "id": "08",
+    "questions": 12,
+    "codeFiles": 5,
+    "transcriptLines": 1258,
+    "frames": 61
+  },
+  {
+    "id": "09",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 1124,
+    "frames": 45
+  },
+  {
+    "id": "10",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 595,
+    "frames": 65
+  },
+  {
+    "id": "11",
+    "questions": 11,
+    "codeFiles": 3,
+    "transcriptLines": 538,
+    "frames": 57
+  },
+  {
+    "id": "12",
+    "questions": 12,
+    "codeFiles": 3,
+    "transcriptLines": 609,
+    "frames": 57
+  },
+  {
+    "id": "13",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 489,
+    "frames": 70
+  },
+  {
+    "id": "14",
+    "questions": 11,
+    "codeFiles": 4,
+    "transcriptLines": 1010,
+    "frames": 66
+  },
+  {
+    "id": "15",
+    "questions": 11,
+    "codeFiles": 3,
+    "transcriptLines": 532,
+    "frames": 63
+  },
+  {
+    "id": "16",
+    "questions": 12,
+    "codeFiles": 5,
+    "transcriptLines": 1431,
+    "frames": 59
+  },
+  {
+    "id": "17",
+    "questions": 12,
+    "codeFiles": 3,
+    "transcriptLines": 521,
+    "frames": 67
+  },
+  {
+    "id": "18",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 758,
+    "frames": 61
+  },
+  {
+    "id": "19",
+    "questions": 12,
+    "codeFiles": 3,
+    "transcriptLines": 440,
+    "frames": 54
+  },
+  {
+    "id": "20",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 433,
+    "frames": 54
+  },
+  {
+    "id": "21",
+    "questions": 12,
+    "codeFiles": 4,
+    "transcriptLines": 534,
+    "frames": 63
+  },
+  {
+    "id": "22",
+    "questions": 11,
+    "codeFiles": 5,
+    "transcriptLines": 645,
+    "frames": 75
+  }
+]

@@ -1,0 +1,182 @@
+{
+  "lectureId": "02",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "자바 프로그램을 만들고 실행하는 데 필요한 도구 모음(컴파일러와 실행기 포함)의 이름은?",
+      "options": [
+        "JVM",
+        "JDK",
+        "Eclipse",
+        "workspace"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2 (JDK)",
+      "isExample": false,
+      "explanation": "JDK(Java Development Kit)는 컴파일러 `javac`와 실행기 `java`가 들어 있는 도구 세트예요. JVM은 그 안에서 프로그램을 실제로 돌려 주는 실행 엔진이고, Eclipse는 코딩 툴, workspace는 작업 폴더예요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "JDK를 설치했더라도 환경 변수 `Path`에 JDK의 `bin` 폴더를 등록하지 않으면, 아무 폴더에서나 `javac`, `java` 명령을 바로 쓰기 어렵다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`Path`는 컴퓨터가 명령 프로그램을 찾는 주소록이에요. 등록하지 않으면 \"그런 명령 몰라요\"가 돼요. macOS라면 `~/.zshrc`에 `export PATH=\"$JAVA_HOME/bin:$PATH\"`를 추가해요. (등록하지 않았다면 전체 경로 `/opt/homebrew/opt/openjdk@21/bin/javac`처럼 써야 해요.)"
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "Eclipse에서 코딩을 시작할 때 만드는 순서로 알맞은 것은?",
+      "options": [
+        "클래스 -> 패키지 -> 프로젝트",
+        "패키지 -> 프로젝트 -> 클래스",
+        "프로젝트 -> 패키지 -> 클래스",
+        "프로젝트 -> 클래스 -> 패키지"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "프로젝트(큰 폴더) 안에 패키지(작은 폴더)를 만들고, 그 안에 클래스(코드 파일)를 만들어요."
+    },
+    {
+      "n": 4,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "Eclipse 프로젝트에서 `.java` 소스 파일은 ( A ) 폴더에, 컴파일된 `.class` 파일은 ( B ) 폴더에 저장된다.",
+      "options": [],
+      "correct": [],
+      "answerHead": "A = src, B = bin",
+      "isExample": false,
+      "explanation": "src는 source(소스), bin은 binary(번역된 결과)의 줄임말이에요. Eclipse가 만든 기본 구조는 바꾸지 않는 게 좋아요."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 자바 식별자(이름)로 쓸 수 **없는** 것을 모두 고르세요.",
+      "options": [
+        "`oop02`",
+        "`02oop`",
+        "`basic Java`",
+        "`HelloWorld`"
+      ],
+      "correct": [
+        2,
+        3
+      ],
+      "answerHead": "2, 3",
+      "isExample": false,
+      "explanation": "`02oop`는 숫자로 시작해서 안 되고, `basic Java`는 공백이 있어서 안 돼요. `oop02`처럼 숫자가 뒤에 오는 건 괜찮아요."
+    },
+    {
+      "n": 6,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "자바에서 `System`과 `system`은 같은 단어로 취급된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "자바는 대소문자를 엄격하게 구분해요. `system.out.println`이라고 쓰면 `package system does not exist` 에러가 나요."
+    },
+    {
+      "n": 7,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "한 줄 주석은 ( A ) 로 시작하고, 여러 줄 주석은 ( B ) 로 시작해서 ( C ) 로 끝난다.",
+      "options": [],
+      "correct": [],
+      "answerHead": "A = `//`, B = `/*`, C = `*/`",
+      "isExample": false,
+      "explanation": "주석은 실행되지 않는 메모라서 결과 화면에 아무 영향이 없어요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 실행 결과는?\n```java\npublic class Quiz8 {\n    public static void main(String[] args) {\n        System.out.print(1);\n        System.out.print(2);\n        System.out.println(3);\n        System.out.print(4);\n        System.out.println(5);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n123\n45\n```\n`print(1)`, `print(2)`는 줄을 안 바꾸니 `12`가 붙고, `println(3)`이 `3`을 붙인 뒤 줄을 바꿔요. 다음 줄에 `4`가 찍히고 `println(5)`가 `5`를 붙이고 줄을 바꿔요."
+    },
+    {
+      "n": 9,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 실행 결과는?\n```java\npublic class Quiz9 {\n    public static void main(String[] args) {\n        // System.out.println(\"A\");\n        System.out.println(\"B\");\n        /* System.out.println(\"C\");\n           System.out.println(\"D\"); */\n        System.out.print(\"E\");\n        System.out.println(\"F\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nB\nEF\n```\n`//` 줄의 A와 `/* ... */` 안의 C, D는 주석이라 실행되지 않아요. `print(\"E\")` 뒤에 줄이 안 바뀌어서 `F`가 바로 옆에 붙어요."
+    },
+    {
+      "n": 10,
+      "kind": "write",
+      "label": "에러 찾기",
+      "outsideLecture": false,
+      "prompt": "다음 코드는 컴파일 에러가 2군데 있어요. 어디가 왜 틀렸는지 찾아 보세요.\n```java\npublic class Quiz10 {\n    public static void main(String[] args) {\n        System.out.println(\"안녕\")\n        system.out.println(\"자바\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "1. 3번째 줄 `System.out.println(\"안녕\")` 끝에 세미콜론 `;`이 없어요. -> `error: ';' expected`\n2. 4번째 줄 `system`이 소문자예요. `System`으로 고쳐야 해요. -> `error: package system does not exist`\n\n참고로 자바 컴파일러는 문법 오류(세미콜론)를 먼저 보고하기 때문에, 첫 번째를 고친 뒤 다시 컴파일하면 두 번째 에러가 보일 수 있어요. 에러는 하나씩 고치면서 다시 컴파일하면 돼요."
+    },
+    {
+      "n": 11,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "Eclipse에서 `System.out.println();`을 빨리 입력하는 방법은?",
+      "options": [
+        "`print` 입력 후 Enter",
+        "`syso` 입력 후 Ctrl + Space",
+        "`sout` 입력 후 Ctrl + F11",
+        "Ctrl + S"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "`syso` + Ctrl + Space가 Eclipse의 자동 완성이에요. Ctrl + F11은 실행, Ctrl + S는 저장이에요. (`sout`은 IntelliJ에서 쓰는 단축 입력이에요.)"
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`print`와 `println`을 적절히 섞어서, 아래 결과가 정확히 나오도록 `MyProfile` 클래스를 작성해 보세요. 단, 첫 줄의 \"이름:\"과 \"홍길동\"은 서로 다른 출력 명령 두 개로 찍어야 해요.\n```\n이름: 홍길동\n나이: 20\n취미: 코딩\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class MyProfile {                        // 파일 이름도 MyProfile.java\n    public static void main(String[] args) {\n        System.out.print(\"이름: \");             // 줄을 안 바꿔서\n        System.out.println(\"홍길동\");           // 바로 옆에 이름이 붙고, 여기서 줄 바꿈\n        System.out.println(\"나이: 20\");\n        System.out.println(\"취미: 코딩\");\n    }\n}\n```\n실행 결과:\n```\n이름: 홍길동\n나이: 20\n취미: 코딩\n```\n`\"이름: \"` 끝에 공백을 하나 넣어야 \"이름:\"과 \"홍길동\" 사이가 띄어져요. 따옴표 안의 공백도 그대로 출력돼요."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+{
+  "lectureId": "15",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "자바에서 클래스는 `class EE extends AA, DD { }` 처럼 쉼표로 여러 부모 클래스를 한꺼번에 상속받을 수 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "자바 클래스는 **단일 상속** 만 돼요. 바로 위 부모는 하나뿐이에요. 쉼표로 둘을 적으면 javac 가 `'{' expected` 에러를 내요. (AA-BB-CC 처럼 위로 줄줄이 잇는 건 괜찮아요.)"
+    },
+    {
+      "n": 2,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 \"부모 클래스\"와 같은 뜻으로 쓰는 말이 **아닌** 것은?",
+      "options": [
+        "조상 클래스",
+        "슈퍼(super) 클래스",
+        "상위 클래스",
+        "서브(sub) 클래스"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "서브(sub) 클래스는 **자식** 클래스를 부르는 말이에요. 부모 = 조상 = 슈퍼 = 상위, 자식 = 후손 = 서브 = 하위 = 파생으로 묶어서 기억해요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "```java\nclass AA {\n    private void zero() { }\n    public void one() { }\n    public void two() { }\n}\nclass BB extends AA {\n    public void three() { }\n}\nclass CC extends BB {\n    public void four() { }\n}\n```\n\n`main` 에서 `CC cc = new CC();` 로 만든 `cc` 를 통해 호출할 수 있는 메소드는 몇 개일까요?",
+      "options": [
+        "1개",
+        "2개",
+        "4개",
+        "5개"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3 (4개)",
+      "isExample": false,
+      "explanation": "CC 자기 것 `four()`, BB 에게 받은 `three()`, BB 를 거쳐 AA 에게 받은 `one()`, `two()` 해서 4개예요. `zero()` 는 `private` 이라 물려받지 못해요. private 은 \"부모님 일기장\"이라 상속되지 않아요."
+    },
+    {
+      "n": 4,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "부모 클래스의 `final` 메소드는 자식 클래스에서 오버라이드할 수 없을 뿐 아니라, 자식 객체로 **호출하는 것도** 불가능하다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "final 메소드는 **고칠(오버라이드할) 수 없을 뿐** 이고 호출은 얼마든지 돼요. 강의에서도 `hs.view();` 를 불러서 `School.view() 호출됨` 이 나왔어요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Parent {\n    public void hello() { System.out.println(\"부모: 안녕\"); }\n    public void bye()   { System.out.println(\"부모: 잘 가\"); }\n}\nclass Child extends Parent {\n    @Override\n    public void hello() { System.out.println(\"자식: 하이\"); }\n}\npublic class Q5 {\n    public static void main(String[] args) {\n        Child c = new Child();\n        c.hello();\n        c.bye();\n        Parent p = new Parent();\n        p.hello();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n자식: 하이\n부모: 잘 가\n부모: 안녕\n```\n\n- `c.hello()` : Child 가 오버라이드했으니 자식 버전이 나와요.\n- `c.bye()` : Child 는 bye 를 안 고쳤으니 물려받은 부모 버전이 나와요.\n- `p.hello()` : p 는 Parent 객체예요. 자식이 오버라이드했다고 부모 원래 메소드가 바뀌는 건 아니에요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass A {\n    public void a() { System.out.println(\"A.a\"); }\n}\nclass B extends A {\n    public void b() { System.out.println(\"B.b\"); }\n}\nclass C extends B {\n    @Override\n    public void a() { System.out.println(\"C.a\"); }\n}\npublic class Q6 {\n    public static void main(String[] args) {\n        C c = new C();\n        c.b();\n        c.a();\n        B b = new B();\n        b.a();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nB.b\nC.a\nA.a\n```\n\n- `c.b()` : C 는 B 의 `b()` 를 물려받았어요.\n- `c.a()` : C 가 A 의 `a()` 를 할아버지 것이지만 오버라이드했어요. 부모의 부모 메소드도 오버라이드할 수 있어요.\n- `b.a()` : B 객체는 오버라이드를 안 했으니 A 의 원래 버전이 나와요. C 에서 고친 건 C 에만 적용돼요."
+    },
+    {
+      "n": 7,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`Car` 클래스가 `Vehicle` 클래스를 상속받도록 빈칸을 채우세요.\n\n```java\nclass Car ________ Vehicle { }\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`extends`",
+      "isExample": false,
+      "explanation": "`class 자식 extends 부모` 형식이에요. 앞이 자식(Car), 뒤가 부모(Vehicle)예요."
+    },
+    {
+      "n": 8,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "부모 메소드를 재정의한 것이 맞는지 컴파일러가 확인하도록 붙이는 어노테이션을 완성하세요.\n\n```java\nclass HighSchool extends School {\n    @________\n    public void disp() { System.out.println(\"HighSchool.disp() 호출됨\"); }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`Override`",
+      "isExample": false,
+      "explanation": "`@Override` 를 붙이면 이름 오타 같은 실수가 있을 때 `method does not override or implement a method from a supertype` 에러로 알려 줘요. 오버라이드할 땐 항상 붙이는 습관을 들여요."
+    },
+    {
+      "n": 9,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "메소드를 오버라이드할 때 부모 메소드와 **다르게** 바꿔도 되는 것은?",
+      "options": [
+        "메소드 이름",
+        "매개변수의 개수와 자료형",
+        "리턴형",
+        "중괄호 안의 내용"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "오버라이드는 **내용만** 바꾸는 거예요. 이름이나 매개변수를 바꾸면 오버라이드가 아니라 다른 메소드가 돼요. (같은 클래스에서 이름은 같고 매개변수만 다른 건 11강의 \"오버로드\"예요.)"
+    },
+    {
+      "n": 10,
+      "kind": "write",
+      "label": "에러 찾기",
+      "outsideLecture": false,
+      "prompt": "다음 코드를 컴파일하면 에러가 나요. 몇 번째 줄에서, 왜 날까요?\n\n```java\nfinal class Machine { }                 // 1\nclass Robot extends Machine { }         // 2\npublic class Q10 {                      // 3\n    public static void main(String[] args) { }  // 4\n}                                       // 5\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "2번 줄",
+      "isExample": false,
+      "explanation": "`Machine` 이 `final` 클래스라서 상속받을 수 없어요. javac 메시지는 `error: cannot inherit from final Machine` 이에요. `final class` 는 \"여기서 끝, 자식 금지\"라는 뜻이에요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "아래 조건대로 코드를 짜 보세요. 클래스 이름은 `Phone`(main 이 있는 public 클래스), `BasicPhone`, `SmartPhone` 으로 해요.\n\n1. `BasicPhone` 클래스에 `call()` 메소드를 만들고 \"전화를 걸어요\"를 출력해요.\n2. `SmartPhone` 은 `BasicPhone` 을 상속받아요.\n3. `SmartPhone` 에서 `call()` 을 오버라이드해서 \"영상 통화를 걸어요\"를 출력해요.\n4. `SmartPhone` 에 `internet()` 메소드를 추가해서 \"인터넷을 해요\"를 출력해요.\n5. main 에서 각각 객체를 만들어 아래처럼 출력되게 해요.\n\n```\n전화를 걸어요\n영상 통화를 걸어요\n인터넷을 해요\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nclass BasicPhone {\n    public void call() {\n        System.out.println(\"전화를 걸어요\");\n    }\n}\n\nclass SmartPhone extends BasicPhone {   // BasicPhone 을 상속\n    @Override\n    public void call() {                // 물려받은 call() 을 다시 작성\n        System.out.println(\"영상 통화를 걸어요\");\n    }\n\n    public void internet() {            // 새로 추가한 메소드\n        System.out.println(\"인터넷을 해요\");\n    }\n}\n\npublic class Phone {\n    public static void main(String[] args) {\n        BasicPhone bp = new BasicPhone();\n        bp.call();          // 부모 원래 버전\n\n        SmartPhone sp = new SmartPhone();\n        sp.call();          // 오버라이드한 버전\n        sp.internet();      // 자식이 추가한 메소드\n    }\n}\n```\n\n실행 결과\n\n```\n전화를 걸어요\n영상 통화를 걸어요\n인터넷을 해요\n```\n\n파일 이름은 public 클래스 이름과 같은 `Phone.java` 로 저장해야 해요. `@Override` 를 빼도 동작은 같지만, 붙여 두면 `call` 을 `cal` 처럼 잘못 썼을 때 컴파일러가 바로 알려 줘요."
+    }
+  ]
+}

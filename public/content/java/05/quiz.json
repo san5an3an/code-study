@@ -1,0 +1,167 @@
+{
+  "lectureId": "05",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`System.out.print(\"A\");` 다음에 `System.out.print(\"B\");`를 실행하면 A와 B가 서로 다른 줄에 출력된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`print`는 엔터를 치지 않아서 `AB`처럼 한 줄에 붙어 나와요. 줄을 바꾸는 건 `println`이에요."
+    },
+    {
+      "n": 2,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "화면에 큰따옴표 `\"` 하나만 출력하는 올바른 코드는?",
+      "options": [
+        "`System.out.println(\"\"\");`",
+        "`System.out.println(\"\\\"\");`",
+        "`System.out.println(\"/\"\");`",
+        "`System.out.println('\"\");`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "큰따옴표는 문자열의 시작과 끝을 뜻하는 기호라 그냥 쓰면 짝이 엉켜 에러가 나요(1번). 앞에 **역슬래시** `\\`를 붙여 `\\\"`로 써야 \"그냥 글자\"가 돼요. 3번은 슬래시 `/`라서 틀렸고, 4번은 따옴표 짝이 안 맞아요."
+    },
+    {
+      "n": 3,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "다음 코드의 출력 결과를 순서대로 쓰세요.\n\n```java\nSystem.out.println(10 + 20);\nSystem.out.println(\"10\" + 20);\nSystem.out.println(10 + \"20\");\nSystem.out.println(\"10+20\");\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n30\n1020\n1020\n10+20\n```\n\n숫자끼리는 덧셈(30), 한쪽이라도 문자열이면 이어 붙이기(1020), 따옴표 안의 `+`는 그냥 글자예요."
+    },
+    {
+      "n": 4,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```java\nSystem.out.println(1 + 2 + \"3\");\nSystem.out.println(\"1\" + 2 + 3);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n33\n123\n```\n\n`+`는 왼쪽부터 차례로 계산해요. 첫 줄은 `1 + 2 = 3`(숫자끼리 덧셈) 후 `3 + \"3\"` = `33`. 둘째 줄은 처음부터 `\"1\" + 2` = `\"12\"`, 그다음 `\"12\" + 3` = `\"123\"`."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`printf` 서식과 뜻의 연결이 **틀린** 것은?",
+      "options": [
+        "`%d` - 정수",
+        "`%f` - 실수",
+        "`%c` - 문자열",
+        "`\\t` - 탭"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3번",
+      "isExample": false,
+      "explanation": "`%c`는 문자 **한 개**(char, 예: `'A'`)예요. 문자열은 `%s`예요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "빈칸이 몇 개인지까지 정확히 쓰세요.\n\n```java\nSystem.out.printf(\"#%5d#\\n\", 42);\nSystem.out.printf(\"#%-5d#\\n\", 42);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n#   42#\n#42   #\n```\n\n5칸 중 42가 2칸, 남는 빈칸은 3개. `%5d`는 오른쪽 정렬(빈칸이 앞), `%-5d`는 왼쪽 정렬(빈칸이 뒤)이에요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```java\nSystem.out.printf(\"%f\\n\", 2.5);\nSystem.out.printf(\"%.2f\\n\", 2.5);\nSystem.out.printf(\"%.1f\\n\", 3.14159);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n2.500000\n2.50\n3.1\n```\n\n`%f`는 기본으로 소수점 아래 6자리, `%.2f`는 2자리, `%.1f`는 1자리예요. `3.14159`를 1자리로 줄이면 반올림해서 `3.1`이 돼요."
+    },
+    {
+      "n": 8,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "이름(문자열)과 나이(정수)를 `이름: 김자바, 나이: 30` 형태로 한 줄에 출력하고 줄을 바꾸려고 해요. 빈칸 (가), (나), (다)를 채우세요.\n\n```java\nSystem.out.printf(\"이름: (가), 나이: (나)(다)\", \"김자바\", 30);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "(가) `%s` (나) `%d` (다) `\\n`",
+      "isExample": false,
+      "explanation": "```java\nSystem.out.printf(\"이름: %s, 나이: %d\\n\", \"김자바\", 30);\n```\n\n문자열 자리는 `%s`, 정수 자리는 `%d`, 줄바꿈은 `\\n`이에요. `printf`는 엔터를 자동으로 안 치니까 `\\n`을 꼭 넣어야 해요."
+    },
+    {
+      "n": 9,
+      "kind": "write",
+      "label": "오류 찾기",
+      "outsideLecture": false,
+      "prompt": "다음 코드는 실행하면 에러가 나요. 이유와 고치는 방법을 쓰세요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "`%d`는 3개인데 값은 2개(90, 85)뿐이라서, 세 번째 자리에 넣을 값이 없어요. 실행하면 `java.util.MissingFormatArgumentException: Format specifier '%d'` 에러가 나요. 값을 하나 더 넣으면 돼요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, 100);\n```"
+    },
+    {
+      "n": 10,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`printf`는 `println`처럼 출력 후 자동으로 줄을 바꿔 준다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`printf`는 줄을 자동으로 바꾸지 않아요. 서식 끝에 `\\n`을 넣어야 해요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`C:\\java\\study` 라는 경로를 화면에 그대로 출력하는 코드 한 줄을 작성하세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nSystem.out.println(\"C:\\\\java\\\\study\");\n```\n\n역슬래시 `\\`는 그 자체가 특별한 신호라서, 글자로 찍으려면 `\\\\`처럼 두 번 써야 해요. 실행 결과는 `C:\\java\\study`예요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `String item = \"pen\";`, `int price = 1500;`, `double rate = 0.125;`가 있을 때, `printf` 한 줄로 아래처럼 출력하세요. (상품명은 6칸 왼쪽 정렬, 가격은 6칸 오른쪽 정렬, 비율은 소수 둘째 자리까지)\n\n```\npen     1500 0.13\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%-6s%6d %.2f\\n\", item, price, rate);\n```\n\n- `%-6s`: `pen`(3칸) + 뒤 빈칸 3개\n- `%6d`: 앞 빈칸 2개 + `1500`(4칸)\n- 공백 한 칸 후 `%.2f`: `0.125`를 둘째 자리까지 반올림해 `0.13`\n\n결과: `pen     1500 0.13` (pen 뒤 빈칸 3개 + 1500 앞 빈칸 2개 = 빈칸 5개)"
+    }
+  ]
+}

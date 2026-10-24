@@ -1,0 +1,50 @@
+[
+  {
+    "file": "ArrayBasic.java",
+    "className": "ArrayBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "10\n20\n30\n40\n50\n5\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ArrayInitLoop.java",
+    "className": "ArrayInitLoop",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "70\n80\n90\n무궁화\n진달래\n개나리\n165.2\n180.6\n175.9\nS\nK\nY\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "JaggedArray.java",
+    "className": "JaggedArray",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n5\n2\n3\n10 20 30 40 50 \n60 70 \n80 90 100 \n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "TwoDimArray.java",
+    "className": "TwoDimArray",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2\n3\n3\n10 20 30 \n40 50 60 \n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

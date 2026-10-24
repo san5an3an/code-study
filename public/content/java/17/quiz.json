@@ -1,0 +1,168 @@
+{
+  "lectureId": "17",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "멤버 변수와 같은 이름의 지역 변수를 메소드 안에 선언하면 컴파일 에러가 난다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "이름이 같아도 문법 에러가 아니에요. 그 메소드 안에서는 가까운 쪽(지역 변수)이 우선하고, 멤버 변수는 `this.name` 으로 가리키면 돼요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`this` 는 클래스(설계도) 그 자체가 아니라, 지금 메소드를 실행하고 있는 **객체**를 가리킨다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`this` 는 `new` 로 만든 객체 하나를 가리켜요. 강의 슬라이드의 \"클래스 자신\"이라는 표현은 정확히는 \"객체 자신\"이에요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "기본 생성자에 대한 설명으로 **틀린** 것은?",
+      "options": [
+        "매개변수가 없는 생성자를 기본 생성자라고 한다.",
+        "클래스에 생성자를 하나도 만들지 않으면 자바가 자동으로 넣어 준다.",
+        "매개변수가 있는 생성자를 직접 만들어도 기본 생성자는 항상 자동으로 생긴다.",
+        "그래서 기본 생성자를 직접 적어 두는 습관을 권장한다."
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "매개변수가 있는 생성자를 하나라도 만들면 기본 생성자는 자동으로 생기지 않아요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`this()` 에 대한 규칙으로 **맞는** 것을 모두 고르세요.",
+      "options": [
+        "생성자 안에서 다른 생성자를 부를 때는 첫 줄에 써야 한다.",
+        "생성자는 일반 메소드를 호출할 수 있다.",
+        "일반 메소드에서도 첫 줄에만 쓰면 `this()` 로 생성자를 부를 수 있다.",
+        "생성자를 부를 때는 `Sungjuk(\"무궁화\");` 처럼 이름으로 불러도 된다."
+      ],
+      "correct": [
+        1,
+        2
+      ],
+      "answerHead": "1, 2",
+      "isExample": false,
+      "explanation": "3번: 일반 메소드에서는 `this()` 를 쓸 수 없어요 (`call to this must be first statement in constructor` 에러). 4번: 이름으로 부르면 일반 메소드를 찾는 것으로 처리돼 `cannot find symbol` 에러가 나요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Cat {\n    String name = \"나비\";\n    void show() {\n        String name = \"까망\";\n        System.out.println(name);\n        System.out.println(this.name);\n    }\n}\npublic class Q5 {\n    public static void main(String[] args) {\n        new Cat().show();\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n까망\n나비\n```\n\n첫 줄은 지역 변수, 둘째 줄은 `this.` 를 붙인 멤버 변수예요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Box {\n    int size;\n    Box(int size) {\n        size = size;\n    }\n}\npublic class Q6 {\n    public static void main(String[] args) {\n        Box b = new Box(10);\n        System.out.println(b.size);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n0\n```\n\n`size = size;` 는 매개변수에 매개변수를 넣은 것뿐이에요. 멤버 변수 `size` 는 int 기본값 0 그대로예요. `this.size = size;` 라고 써야 10 이 나와요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\nclass Car {\n    String color;\n    int speed;\n    Car() {\n        this(\"흰색\");\n        System.out.println(\"A\");\n    }\n    Car(String color) {\n        this(color, 0);\n        System.out.println(\"B\");\n    }\n    Car(String color, int speed) {\n        this.color = color;\n        this.speed = speed;\n        System.out.println(\"C\");\n    }\n}\npublic class Q7 {\n    public static void main(String[] args) {\n        Car c = new Car();\n        System.out.println(c.color + \" \" + c.speed);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nC\nB\nA\n흰색 0\n```\n\n`Car()` → 첫 줄 `this(\"흰색\")` 으로 `Car(String)` 으로 가고 → 거기서 또 첫 줄 `this(color, 0)` 으로 `Car(String, int)` 로 가요. 가장 안쪽에서 \"C\" 를 먼저 찍고, 돌아오면서 \"B\", \"A\" 순서로 찍혀요."
+    },
+    {
+      "n": 8,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "필드 `subject` 의 getter 와 setter 를 관례대로 완성하세요.\n\n```java\nprivate String subject;\n\npublic String ①______() {\n    return this.subject;\n}\n\npublic ②______ setSubject(String subject) {\n    ③______ = subject;\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "① `getSubject` ② `void` ③ `this.subject`",
+      "isExample": false,
+      "explanation": "getter 는 `get` + 첫 글자 대문자, setter 는 돌려줄 값이 없으니 `void` 예요."
+    },
+    {
+      "n": 9,
+      "kind": "write",
+      "label": "오류 찾기",
+      "outsideLecture": false,
+      "prompt": "아래 코드에서 컴파일 에러가 나는 줄을 찾고 이유를 말해 보세요.\n\n```java\nclass Sungjuk {\n    private int aver;\n    public Sungjuk(String name) { }\n    public Sungjuk(int k, int e, int m) {\n        this.aver = (k + e + m) / 3;   // (가)\n        this(\"코리아\");                 // (나)\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "(나)",
+      "isExample": false,
+      "explanation": "`this()` 는 생성자의 **첫 줄**에 와야 해요. 에러 메시지는 `call to this must be first statement in constructor`. (나)를 (가) 위로 올리면 돼요."
+    },
+    {
+      "n": 10,
+      "kind": "write",
+      "label": "오류 찾기",
+      "outsideLecture": false,
+      "prompt": "아래 코드에서 `main` 의 어느 줄이 에러가 나는지, 고치는 방법 두 가지를 말해 보세요.\n\n```java\nclass Phone {\n    private String model;\n    public Phone(String model) { this.model = model; }\n}\npublic class Q10 {\n    public static void main(String[] args) {\n        Phone p1 = new Phone(\"갤럭시\");   // (가)\n        Phone p2 = new Phone();          // (나)\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "(나)",
+      "isExample": false,
+      "explanation": "매개변수가 있는 생성자를 만들었으니 기본 생성자가 자동으로 안 생겼어요. 고치는 방법은 ① `Phone` 클래스에 `public Phone() {}` 을 직접 추가하거나, ② `new Phone(\"아이폰\")` 처럼 값을 넘겨서 있는 생성자를 쓰는 거예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`BookInfo` 클래스를 만드세요.\n\n- `private` 필드: `title`(String), `price`(int)\n- 기본 생성자를 직접 적어 두기\n- 관례대로 getter/setter 4개\n- `setPrice` 는 음수가 들어오면 `가격은 0 이상이어야 해요` 를 출력하고 값을 바꾸지 않기\n\n`main` 에서 제목 \"자바 입문\"을 넣고, 가격 -500 을 넣었다가 15000 을 넣은 뒤 `제목 가격원` 형식으로 출력하세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nclass BookInfo {\n    private String title;\n    private int price;\n\n    public BookInfo() {}\n\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = title; }\n    public int getPrice() { return price; }\n    public void setPrice(int price) {\n        if (price < 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            return;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(15000);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```\n\n실행 결과\n\n```\n가격은 0 이상이어야 해요\n자바 입문 15000원\n```\n\nsetter 안에서 검사를 하니까 잘못된 값은 아예 들어가지 않아요. 이게 private + setter 를 쓰는 이유예요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`Rectangle` 클래스를 만드세요. 필드는 `width`, `height` (private int). 생성자는 두 개예요.\n\n- `Rectangle(int width, int height)` : 받은 값을 `this` 로 저장\n- `Rectangle()` : `this()` 를 써서 가로 1, 세로 1 인 사각형을 만듦\n\n넓이를 돌려주는 `area()` 메소드를 만들고, `new Rectangle()` 과 `new Rectangle(3, 4)` 의 넓이를 출력하세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nclass Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle() {\n        this(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(3, 4).area());\n    }\n}\n```\n\n실행 결과\n\n```\n1\n12\n```\n\n기본 생성자는 저장하는 코드를 다시 쓰지 않고 `this(1, 1)` 로 다른 생성자에게 맡겼어요."
+    }
+  ]
+}
