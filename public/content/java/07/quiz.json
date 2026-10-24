@@ -1,0 +1,167 @@
+{
+  "lectureId": "07",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`for (①; ②; ③) { ④ }` 에서 **맨 처음 딱 한 번만** 실행되는 부분은 어디일까요?",
+      "options": [
+        "①",
+        "②",
+        "③",
+        "④"
+      ],
+      "correct": [
+        1
+      ],
+      "answerHead": "1번 (①)",
+      "isExample": false,
+      "explanation": "①(시작값)은 반복 변수를 처음 만드는 곳이라 한 번만 실행돼요. 그 뒤로는 ②, ④, ③만 계속 돌아요."
+    },
+    {
+      "n": 2,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "조건식 ②가 처음으로 true일 때부터 for문의 실행 순서로 알맞은 것은?",
+      "options": [
+        "① → ② → ③ → ④ → ② ...",
+        "① → ② → ④ → ③ → ② ...",
+        "① → ④ → ② → ③ → ① ...",
+        "② → ① → ④ → ③ → ② ..."
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "조건(②)을 물어보고, 맞으면 중괄호 안(④)을 실행하고, 그다음 반복 변수를 바꾸고(③), 다시 조건(②)으로 돌아가요. ③이 ④보다 **뒤**라는 점이 중요해요."
+    },
+    {
+      "n": 3,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`for (int i = 1; i <= 3; i++) { ... }` 의 변수 `i`는 for문이 끝난 뒤 아래 줄에서도 `System.out.println(i);` 처럼 쓸 수 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "for 괄호 안에서 선언한 변수는 for문 안에서만 살아 있어요(유효범위). for가 끝나면 사라지므로 아래에서 쓰면 `cannot find symbol` 에러가 나요."
+    },
+    {
+      "n": 4,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "이중 반복문에서 안쪽 for의 반복 변수는 바깥 for가 한 번 돌 때마다 시작값부터 다시 시작한다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "바깥 for가 한 번 돌 때마다 안쪽 for 전체가 처음부터 다시 실행되고, 그때 안쪽 ①(`int b = 1` 같은 시작값)도 다시 실행돼요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "\"Hi\"는 몇 번 출력될까요?\n\n```java\nfor (int i = 1; i < 4; i++) {\n    System.out.println(\"Hi\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "3번",
+      "isExample": false,
+      "explanation": "`i < 4`라서 i가 1, 2, 3일 때만 true예요. i가 4가 되면 `4 < 4`가 false라 끝나요. `<=`가 아니라 `<`라는 점을 잘 보세요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "출력 결과를 모두 적어 보세요.\n\n```java\nfor (int i = 5; i >= 1; i = i - 2) {\n    System.out.println(i);\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n5\n3\n1\n```\n\ni가 5 → 3 → 1로 2씩 줄어요. 다음 값 -1은 `-1 >= 1`이 false라 끝나요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "마지막 줄에서 출력되는 값은?\n\n```java\nint n = 0;\nfor (n = 1; n <= 3; n++) {\n}\nSystem.out.println(n);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "n이 1, 2, 3일 때 반복하고, 3에서 1 늘어 4가 된 뒤 `4 <= 3`이 false가 되어 끝나요. n은 for 바깥에서 선언했으니 for가 끝난 뒤에도 살아 있고, 마지막 값 4가 출력돼요. 강의의 SEOUL 예제(d = 6)와 같은 원리예요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "출력 결과를 모두 적고, 전체 몇 줄인지도 적어 보세요.\n\n```java\nfor (int a = 1; a <= 3; a++) {\n    for (int b = 1; b <= 2; b++) {\n        System.out.println(a + \"-\" + b);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "(6줄)",
+      "isExample": false,
+      "explanation": "```\n1-1\n1-2\n2-1\n2-2\n3-1\n3-2\n```\n\n바깥 a가 3번, 안쪽 b가 바깥 한 번당 2번 돌아서 3 x 2 = 6줄이에요. a가 1일 때 b가 1, 2를 다 돌고 나서야 a가 2로 바뀌어요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "10부터 1까지 거꾸로 한 줄에 하나씩 출력하려고 해요. 빈칸 (가), (나), (다)를 채우세요.\n\n```java\nfor (int i = (가); i (나) 1; (다)) {\n    System.out.println(i);\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `10`\n- (나) `>=`\n- (다) `i--` (또는 `i = i - 1`)\n\n10에서 시작해 1씩 줄이면서, i가 1 이상인 동안 반복해요. (나)에 `<=`를 쓰면 시작부터 `10 <= 1`이 false라 한 번도 실행되지 않아요."
+    },
+    {
+      "n": 10,
+      "kind": "write",
+      "label": "에러 찾기",
+      "outsideLecture": false,
+      "prompt": "아래 코드는 컴파일 에러가 나요. 몇 번 줄이 문제이고, 왜 그런지 설명해 보세요.\n\n```java\n1  for (int c = 1; c <= 5; c++) {\n2      System.out.println(\"KOREA\");\n3  }\n4  System.out.println(c);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "4번 줄",
+      "isExample": false,
+      "explanation": "c는 1번 줄 for 괄호 안에서 선언되어 for문(1~3번 줄) 안에서만 유효해요. 4번 줄에서는 이미 사라진 변수라 에러가 나요. 쓰고 싶다면 for보다 위에 `int c = 0;`을 선언하고 for 괄호에는 `c = 1`처럼 값만 넣으면 돼요."
+    },
+    {
+      "n": 11,
+      "kind": "output",
+      "label": "함정 문제",
+      "outsideLecture": false,
+      "prompt": "\"JAVA\"는 몇 번 출력될까요?\n\n```java\nfor (int a = 1; a <= 3; a++); {\n    System.out.println(\"JAVA\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "1번",
+      "isExample": false,
+      "explanation": "for 괄호 `)` 바로 뒤의 `;` 때문에 for는 \"아무것도 안 하는 빈 문장\"을 3번 반복하고 끝나요. 그 아래 중괄호는 for와 상관없는 블록이라 한 번만 실행돼요. 에러가 안 나서 더 찾기 어려운 실수예요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "(1) for문을 사용해 1부터 10까지의 합을 구해 `합계: 55` 처럼 출력하는 코드를 작성하세요.\n\n(2) 구구단 3단만 `3*1=3` 부터 `3*9=27` 까지 출력하는 코드를 작성하세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "(1) 합계\n\n```java\nint sum = 0;                       // 합계를 담을 변수는 for 밖에서! (for 뒤에서 출력해야 하니까)\nfor (int i = 1; i <= 10; i++) {\n    sum = sum + i;                 // 지금까지의 합에 i를 더해요\n}\nSystem.out.println(\"합계: \" + sum);\n```\n\n실행 결과:\n\n```\n합계: 55\n```\n\nsum을 for 안에서 선언하면 매번 0으로 새로 만들어지고, for 밖에서 출력할 수도 없어요. 유효범위를 생각하면 sum은 바깥에 둬야 해요.\n\n(2) 3단\n\n```java\nfor (int a = 1; a <= 9; a++) {\n    System.out.println(\"3*\" + a + \"=\" + (3 * a));\n}\n```\n\n실행 결과:\n\n```\n3*1=3\n3*2=6\n3*3=9\n3*4=12\n3*5=15\n3*6=18\n3*7=21\n3*8=24\n3*9=27\n```\n\n단이 하나로 고정이니 반복은 한 겹이면 충분해요. 2단~9단 전체가 필요할 때 바깥 for를 하나 더 씌우면 강의의 구구단 코드가 돼요."
+    }
+  ]
+}

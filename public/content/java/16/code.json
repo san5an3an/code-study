@@ -1,0 +1,62 @@
+[
+  {
+    "file": "AgeProject.java",
+    "className": "AgeProject",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "태어난 연도: 2019\n나이: 7살 (올해 2026년 기준)\n성별: 남자\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "CalendarExample.java",
+    "className": "CalendarExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2026\n9\n10\n24\n4\n16\n50\n59\n7\n토요일\n2026년 10월 24일 16시 50분 59초\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "LeapYearExample.java",
+    "className": "LeapYearExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2023: 평년\n2020: 윤년\n1900: 평년\n2000: 윤년\n2024: 윤년\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "MathExample.java",
+    "className": "MathExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2.718281828459045\n3.141592653589793\n3\n5\n2.4\n6.7\n9\n8\n30\n2.0\n2.0\n4\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "RandomExample.java",
+    "className": "RandomExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "0.5841862412127384\n1.2031458093516287\n0\n3\n1\n주사위: 3\n로또 번호: 10\n주사위 10번: 5 1 2 3 2 3 4 2 6 5 \n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

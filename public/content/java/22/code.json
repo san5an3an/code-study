@@ -1,0 +1,62 @@
+[
+  {
+    "file": "ByteReadTest.java",
+    "className": "ByteReadTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "실패:java.io.FileNotFoundException: data.txt (No such file or directory)\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "CharReadTest.java",
+    "className": "CharReadTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "실패:java.io.FileNotFoundException: data.txt (No such file or directory)\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "FileWriteTest.java",
+    "className": "FileWriteTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[1] false 로 쓰기 (새로 만들기 / 덮어쓰기)\nresult.txt 완성!!\n----- result.txt 내용 -----\nKOREA대한민국\n123\n45.670000\n-------------------------\n[2] true 로 두 번 더 쓰기 (뒤에 이어 쓰기)\nresult.txt 완성!!\nresult.txt 완성!!\n----- result.txt 내용 -----\nKOREA대한민국\n123\n45.670000\nKOREA대한민국\n123\n45.670000\nKOREA대한민국\n123\n45.670000\n-------------------------\n[3] 다시 false 로 쓰기 (앞 내용이 사라짐)\nresult.txt 완성!!\n----- result.txt 내용 -----\nKOREA대한민국\n123\n45.670000\n-------------------------\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "LineReadTest.java",
+    "className": "LineReadTest",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "실패:java.io.FileNotFoundException: data.txt (No such file or directory)\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "MakeDataFile.java",
+    "className": "MakeDataFile",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "data.txt 준비 완료\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

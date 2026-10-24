@@ -1,0 +1,50 @@
+[
+  {
+    "file": "BooleanType.java",
+    "className": "BooleanType",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "true\nfalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "CharAndString.java",
+    "className": "CharAndString",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "A\nKOREA\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "IntegerTypes.java",
+    "className": "IntegerTypes",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n4\n5\n7\n9\n6\n30\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "RealTypes.java",
+    "className": "RealTypes",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1.2\n3.4\n3.4\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

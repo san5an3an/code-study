@@ -1,0 +1,38 @@
+[
+  {
+    "file": "Inheritance.java",
+    "className": "Inheritance",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "AA.one() 호출됨\nAA.two() 호출됨\n----------------\nBB.three() 호출됨\nAA.one() 호출됨\nAA.two() 호출됨\n----------------\nCC.four() 호출됨\nBB.three() 호출됨\nAA.one() 호출됨\nAA.two() 호출됨\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "MethodOverride.java",
+    "className": "MethodOverride",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "학교\nSchool.view() 호출됨\nSchool.disp() 호출됨\n------------------\n고등학교\nSchool.view() 호출됨\nHighSchool.disp() 호출됨\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "OverrideAnimal.java",
+    "className": "OverrideAnimal",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "강아지이(가) 밥을 먹어요\n멍멍\n고양이이(가) 밥을 먹어요\n야옹\n...\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

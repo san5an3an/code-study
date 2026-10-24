@@ -1,0 +1,62 @@
+[
+  {
+    "file": "BreakContinue.java",
+    "className": "BreakContinue",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1234\n12346789\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "DoWhileBasic.java",
+    "className": "DoWhileBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Python\nPython\nPython\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "InfiniteLoopBreak.java",
+    "className": "InfiniteLoopBreak",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "KOREA\nKOREA\nKOREA\nKOREA\n1 2 4 5 6 \n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "WhileBasic.java",
+    "className": "WhileBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "JAVA\nJAVA\nJAVA\n반복이 끝난 뒤 a = 4\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "WhileVsDoWhile.java",
+    "className": "WhileVsDoWhile",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\nBUSAN\n4\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

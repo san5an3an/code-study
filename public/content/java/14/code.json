@@ -1,0 +1,50 @@
+[
+  {
+    "file": "FinalExample.java",
+    "className": "FinalExample",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n5\n2\n2147483647\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "StaticLibrary.java",
+    "className": "StaticLibrary",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "32\n5\n1111\n17\nf\n790\n3\nr\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "StaticSawon.java",
+    "className": "StaticSawon",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "(주)대한민국IT 아카데미\n1001\n무궁화\n100\n10\n세금 : 3\n실수령액 : 107\n----------------------\n(주)대한민국IT 아카데미\n1002\n오필승\n200\n10\n세금 : 6\n실수령액 : 204\n----------------------\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "StaticShared.java",
+    "className": "StaticShared",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "처음 회원 수: 0\n철수, 영희, 민수\n지금 회원 수: 3\n100\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "ClassBasic.java",
+    "className": "ClassBasic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "손흥민\n100\n90\n80\n90\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ConstructorOverload.java",
+    "className": "ConstructorOverload",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "무궁화\n0\n0\n0\n0\nnull\n10\n20\n30\n20\n오필승\n60\n50\n30\n46\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "DefaultConstructor.java",
+    "className": "DefaultConstructor",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "null\n0\n커피\n0 / 500\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

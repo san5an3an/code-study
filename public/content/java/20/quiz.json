@@ -1,0 +1,167 @@
+{
+  "lectureId": "20",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`System.out.println(3 / 0);` 은 이클립스에서 저장하는 순간 빨간 X 가 표시된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`3 / 0` 은 문법상 틀린 곳이 없어서 저장할 때는 아무 표시가 없어요. **실행할 때** `ArithmeticException` 이 생기는 예외예요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "catch 블록은 예외의 원인을 자동으로 고쳐 준다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "catch 는 프로그램이 멈추지 않게 해 주고 예외 정보를 알려줄 뿐이에요. 메시지를 보고 원인을 고치는 건 개발자의 몫이에요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "예외가 발생하든 발생하지 않든 **항상** 실행되는 블록은?",
+      "options": [
+        "try",
+        "catch",
+        "finally",
+        "throws"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "finally 는 예외 여부와 상관없이 항상 실행돼요. 파일 닫기 같은 뒷정리에 써요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`Integer.parseInt(\"hello\");` 를 실행하면 생기는 예외는?",
+      "options": [
+        "ArithmeticException",
+        "NumberFormatException",
+        "NullPointerException",
+        "ArrayIndexOutOfBoundsException"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "숫자가 아닌 문자열을 숫자로 바꾸려 하면 `NumberFormatException` 이 생겨요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\npublic class Q5 {\n    public static void main(String[] args) {\n        try {\n            System.out.println(\"A\");\n            int x = 10 / 0;\n            System.out.println(\"B\");\n        } catch (ArithmeticException e) {\n            System.out.println(\"C\");\n        } finally {\n            System.out.println(\"D\");\n        }\n        System.out.println(\"E\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nA\nC\nD\nE\n```\n\n`10 / 0` 에서 예외가 나서 `B` 는 건너뛰고 catch 의 `C`, finally 의 `D`, 덩어리 밖의 `E` 순서로 출력돼요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\npublic class Q6 {\n    public static void main(String[] args) {\n        int[] arr = {10, 20, 30};\n        try {\n            for (int i = 0; i <= 3; i++) {\n                System.out.println(arr[i]);\n            }\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.out.println(\"범위 초과\");\n        }\n        System.out.println(\"END\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n10\n20\n30\n범위 초과\nEND\n```\n\n`i <= 3` 이라서 `arr[3]` 까지 접근하려 해요. 길이 3인 배열의 마지막 번호는 2라서 `arr[3]` 에서 예외가 나요. 앞의 세 값은 이미 출력된 뒤예요. 조건을 `i < arr.length` 로 고치면 예외가 안 나요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\npublic class Q7 {\n    public static void main(String[] args) {\n        try {\n            int n = Integer.parseInt(\"12a\");\n            System.out.println(n / 0);\n        } catch (ArithmeticException e) {\n            System.out.println(\"0으로 나눔\");\n        } catch (NumberFormatException e) {\n            System.out.println(\"숫자 아님\");\n        }\n        System.out.println(\"끝\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n숫자 아님\n끝\n```\n\ntry 안에서 **처음** 생긴 예외는 `parseInt(\"12a\")` 의 NumberFormatException 이에요. 바로 catch 로 점프하니 `n / 0` 은 실행되지도 않아요. 다중 catch 중 맞는 것 하나만 실행돼요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과",
+      "outsideLecture": false,
+      "prompt": "```java\npublic class Q8 {\n    static void check(int age) throws Exception {\n        System.out.println(\"검사 시작\");\n        int r = 100 / age;\n        System.out.println(\"검사 통과\");\n    }\n    public static void main(String[] args) {\n        try {\n            check(20);\n            check(0);\n            check(30);\n        } catch (Exception e) {\n            System.out.println(\"문제 발생\");\n        }\n        System.out.println(\"END\");\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n검사 시작\n검사 통과\n검사 시작\n문제 발생\nEND\n```\n\n`check(20)` 은 정상 통과. `check(0)` 에서 `100 / 0` 예외가 나고, check 는 throws 로 main 에 떠넘겨요. main 의 try 는 즉시 catch 로 가므로 `check(30)` 은 불리지 않아요."
+    },
+    {
+      "n": 9,
+      "kind": "write",
+      "label": "오류 찾기",
+      "outsideLecture": false,
+      "prompt": "아래 코드는 컴파일 에러가 나요. 이유와 고치는 방법을 말해 보세요.\n\n```java\ntry {\n    int c = 3 / 0;\n} catch (Exception e) {\n    System.out.println(e);\n} catch (ArithmeticException e) {\n    System.out.println(\"0으로 나눔\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "부모인 `Exception` catch 가 위에 있어서 모든 예외를 먼저 받아 버려요. 그래서 아래의 `ArithmeticException` catch 는 절대 실행될 수 없고, 자바가 컴파일 에러(`exception ArithmeticException has already been caught`)로 막아요. **자식 예외 catch 를 위로, `Exception` catch 를 맨 아래로** 옮기면 돼요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "메소드에서 생긴 예외를 호출한 곳으로 떠넘기도록 빈칸을 채워요.\n\n```java\npublic static void disp() ____①____ Exception {\n    int a = Integer.parseInt(\"KOREA\");\n}\n\npublic static void main(String[] args) {\n    ____②____ {\n        disp();\n    } ____③____ (Exception e) {\n        System.out.println(e);\n    }\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "① `throws` ② `try` ③ `catch`",
+      "isExample": false,
+      "explanation": "`throws` 는 끝에 s 가 붙어요. `throws Exception` 이 붙은 메소드는 부르는 곳에서 try ~ catch 로 감싸야 컴파일돼요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "문자열을 받아 정수로 바꿔 돌려주는 `toInt(String s)` 메소드를 만들어요. 숫자로 바꿀 수 없으면 `\"숫자가 아니에요: (입력값)\"` 을 출력하고 `-1` 을 돌려줘요. main 에서 `toInt(\"42\")` 와 `toInt(\"abc\")` 의 결과를 출력해 보세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class SafeParse {\n    static int toInt(String s) {\n        try {\n            return Integer.parseInt(s);\n        } catch (NumberFormatException e) {\n            System.out.println(\"숫자가 아니에요: \" + s);\n            return -1;\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(toInt(\"42\"));\n        System.out.println(toInt(\"abc\"));\n    }\n}\n```\n\n실행 결과\n\n```\n42\n숫자가 아니에요: abc\n-1\n```\n\n`toInt(\"abc\")` 안에서 메시지가 먼저 출력되고, 돌려받은 `-1` 이 main 에서 출력돼요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`divide(int a, int b)` 메소드는 `a / b` 를 돌려주고, 예외는 `throws` 로 떠넘겨요. main 에서 `10 / 2` 와 `10 / 0` 을 차례로 계산하되, 0으로 나누면 `\"0으로는 나눌 수 없어요\"` 를 출력하고, 매번 계산이 끝날 때마다 `\"계산 끝\"` 이 **무조건** 출력되게 해 보세요.",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class SafeDivide {\n    static int divide(int a, int b) throws ArithmeticException {\n        return a / b;\n    }\n    public static void main(String[] args) {\n        int[] bs = {2, 0};\n        for (int i = 0; i < bs.length; i++) {\n            int b = bs[i];\n            try {\n                System.out.println(\"10 / \" + b + \" = \" + divide(10, b));\n            } catch (ArithmeticException e) {\n                System.out.println(\"0으로는 나눌 수 없어요\");\n            } finally {\n                System.out.println(\"계산 끝\");\n            }\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n10 / 2 = 5\n계산 끝\n0으로는 나눌 수 없어요\n계산 끝\n```\n\n반복문으로 나누는 값을 2, 0 차례로 바꿔 가며 같은 try ~ catch ~ finally 를 두 번 실행한 거예요. 0일 때도 finally 의 \"계산 끝\" 이 빠지지 않아요."
+    }
+  ]
+}

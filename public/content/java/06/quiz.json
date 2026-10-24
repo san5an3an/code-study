@@ -1,0 +1,167 @@
+{
+  "lectureId": "06",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "if 바로 뒤 괄호 `( )` 안에는 결과가 true 또는 false로 나오는 조건이 들어가야 한다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "if의 조건은 반드시 \"맞다/틀리다\"로 답이 나와야 해요. 그래서 `kor >= 70`처럼 비교 연산자를 쓴 식이 들어가요. `if (kor)`처럼 숫자만 넣으면 에러가 나요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "switch-case문에서 case 목록 값은 반드시 10, 20, 30처럼 작은 수부터 순서대로 써야 하며, 순서가 섞이면 에러가 난다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "case 값의 순서가 섞여도 에러는 나지 않아요. 자바는 일치하는 값을 찾을 뿐이에요. 다만 사람이 읽기 헷갈리니까 순서대로 쓰는 게 좋아요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "switch-case문에서 `break`의 역할로 맞는 것은?",
+      "options": [
+        "프로그램 전체를 종료한다",
+        "switch 덩어리를 빠져나간다",
+        "다음 case로 강제로 이동한다",
+        "일치하는 값이 없을 때 실행된다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "break는 switch라는 덩어리를 완전히 빠져나가게 해요. 4번은 default 설명이에요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "\"점수가 80점 이상이면 B학점\"처럼 **범위**로 판단해야 할 때 더 알맞은 문법은?",
+      "options": [
+        "switch-case문",
+        "if 조건문",
+        "둘 다 똑같이 편하다",
+        "둘 다 불가능하다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "switch는 \"같은 값\"만 찾을 수 있어요. 이상/이하 같은 범위 판단은 if 조건문으로 해야 해요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```java\nint score = 85;\nif (score >= 90) { System.out.println(\"A\"); }\nelse if (score >= 80) { System.out.println(\"B\"); }\nelse if (score >= 70) { System.out.println(\"C\"); }\nelse { System.out.println(\"F\"); }\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`B`",
+      "isExample": false,
+      "explanation": "위에서부터 차례로 물어봐요. `85 >= 90`은 틀리니 다음으로, `85 >= 80`은 맞으니 \"B\"를 출력하고 if 덩어리 전체를 빠져나가요. `85 >= 70`도 맞지만 이미 빠져나왔으니 C는 출력되지 않아요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```java\nint n = 1;\nswitch (n) {\n    case 1: System.out.println(\"하나\");\n    case 2: System.out.println(\"둘\");\n    case 3: System.out.println(\"셋\"); break;\n    case 4: System.out.println(\"넷\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n하나\n둘\n셋\n```\n`case 1`에서 \"하나\"를 출력했는데 break가 없어서 아래로 계속 흘러내려가요. \"둘\", \"셋\"까지 출력하고 `case 3`의 break에서 멈춰요. \"넷\"은 break 뒤라 실행되지 않아요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```java\nint m = 7;\nswitch (m) {\n    case 1: System.out.println(\"월\"); break;\n    case 2: System.out.println(\"화\"); break;\n    default: System.out.println(\"모름\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`모름`",
+      "isExample": false,
+      "explanation": "7은 case 목록(1, 2)에 없으니 default가 실행돼요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "아래 두 줄의 출력 결과를 각각 쓰세요.\n```java\nint kor = 100, eng = 100, mat = 35;\nSystem.out.printf(\"%.2f\\n\", kor + eng + mat / 3.0);\nSystem.out.printf(\"%.2f\\n\", (kor + eng + mat) / 3.0);\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n211.67\n78.33\n```\n첫 줄은 괄호가 없어서 나눗셈이 먼저 계산돼요. `35 / 3.0 = 11.666...`이 먼저 나오고 `100 + 100 + 11.666... = 211.67`이 돼요. 둘째 줄은 괄호 덕분에 합계 235를 먼저 구한 뒤 3.0으로 나눠 78.33이 나와요. 평균을 구할 땐 꼭 괄호로 묶으세요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "국어 점수(`kor`)가 70점 이상이면 \"합격\", 아니면 \"불합격\"을 출력하도록 빈칸을 채우세요.\n```java\nif (kor ___ 70) {\n    System.out.println(\"합격\");\n} ______ {\n    System.out.println(\"불합격\");\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`>=`, `else`",
+      "isExample": false,
+      "explanation": "\"70점 이상\"은 70을 포함하므로 `>=`예요. `>`를 쓰면 딱 70점인 학생이 불합격이 돼요. 조건이 틀렸을 때 실행할 부분은 `else`로 써요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "변수 `op`에 들어 있는 기호가 더하기일 때 \"더하기\"를 출력하도록 빈칸을 채우세요.\n```java\nchar op = '+';\nswitch (op) {\n    case ___ : System.out.println(\"더하기\"); break;\n    case '-' : System.out.println(\"빼기\"); break;\n}\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "`'+'`",
+      "isExample": false,
+      "explanation": "char(문자)는 작은따옴표로 감싸요. `\"+\"`처럼 큰따옴표로 쓰면 문자열이 되어 char인 `op`와 자료형이 맞지 않아 에러가 나요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "나이(`int age = 15;`)에 따라 다음처럼 출력하는 프로그램을 if~else if~else로 짜 보세요.\n- 65세 이상: `경로 요금: 0원`\n- 20세 이상: `성인 요금: 1500원`\n- 8세 이상: `청소년 요금: 1000원`\n- 그 외: `어린이 요금: 500원`",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class Fee {\n    public static void main(String[] args) {\n        int age = 15;\n        if (age >= 65) {\n            System.out.println(\"경로 요금: 0원\");\n        } else if (age >= 20) {\n            System.out.println(\"성인 요금: 1500원\");\n        } else if (age >= 8) {\n            System.out.println(\"청소년 요금: 1000원\");\n        } else {\n            System.out.println(\"어린이 요금: 500원\");\n        }\n    }\n}\n```\n실행 결과:\n```\n청소년 요금: 1000원\n```\n**큰 값부터** 물어보는 게 핵심이에요. 만약 `age >= 8`을 맨 위에 두면 70세도 청소년 요금이 나와요. 처음 true가 된 곳에서 바로 빠져나가니까요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "요일 번호(`int day = 3;`)를 switch로 판단해서 1~5는 `월요일`~`금요일`, 6과 7은 둘 다 `주말`, 그 밖의 숫자는 `잘못된 번호예요`를 출력하세요. (힌트: break가 없으면 아래로 흘러내린다는 성질을 이용해 보세요.)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\npublic class Day {\n    public static void main(String[] args) {\n        int day = 3;\n        switch (day) {\n            case 1: System.out.println(\"월요일\"); break;\n            case 2: System.out.println(\"화요일\"); break;\n            case 3: System.out.println(\"수요일\"); break;\n            case 4: System.out.println(\"목요일\"); break;\n            case 5: System.out.println(\"금요일\"); break;\n            case 6:                                   // 아무것도 안 하고 break도 없어서\n            case 7: System.out.println(\"주말\"); break; // 6일 때도 여기로 흘러내려와요\n            default: System.out.println(\"잘못된 번호예요\");\n        }\n    }\n}\n```\n실행 결과:\n```\n수요일\n```\n`case 6:` 뒤에 실행문과 break를 비워 두면, 6일 때 아래 `case 7`로 흘러내려가 \"주말\"이 출력돼요. 강의에서 본 \"break가 없으면 아래로 흘러간다\"는 성질을 일부러 활용한 예예요."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "file": "GetterSetter.java",
+    "className": "GetterSetter",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n코리아\n무궁화 꽃이 피었습니다\n-----\n1 kim 김자바\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ThisConstructor.java",
+    "className": "ThisConstructor",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이름 생성자 실행: 무궁화\n기본 생성자 실행\n무궁화 평균: 0\n이름 생성자 실행: 코리아\n코리아 평균: 80\n서울 평균: 90\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ThisKeyword.java",
+    "className": "ThisKeyword",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "오필승\n무궁화\n-----\n홍길동 90 80 70 평균 80\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

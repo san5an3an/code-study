@@ -1,0 +1,164 @@
+{
+  "lectureId": "22",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "입력 스트림으로 읽으려는 파일이 없으면, 자바가 빈 파일을 새로 만들어 준다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "입력(읽기)은 파일이 반드시 있어야 해요. 없으면 `FileNotFoundException`(IOException 의 한 종류)이 나요. macOS 에서 실제로는 `java.io.FileNotFoundException: data.txt (No such file or directory)` 처럼 나와요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "출력 스트림(`FileWriter`)으로 쓰려는 파일이 없으면, 새 파일이 만들어진다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "출력(쓰기)은 파일이 없으면 새로 만들어 줘요. (단, 폴더가 없으면 안 돼요.)"
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "한글이 들어 있는 메모장 파일을 읽어 화면에 찍을 때, 한글이 **깨지는** 방법은?",
+      "options": [
+        "`FileReader` 의 `read()` 로 한 글자씩 읽어 `%c` 로 출력",
+        "`BufferedReader` 의 `readLine()` 으로 한 줄씩 읽어 출력",
+        "`FileInputStream` 의 `read()` 로 1바이트씩 읽어 `%c` 로 출력",
+        "정답 없음 (셋 다 안 깨진다)"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3번",
+      "isExample": false,
+      "explanation": "바이트 단위로 읽으면 한글 한 글자(UTF-8 에서 3바이트)가 조각나서 각각 따로 글자로 찍히기 때문에 깨져요. 1, 2번은 글자 단위라 안 깨져요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "파일 끝에 도착했을 때 돌려주는 값으로 알맞게 짝지은 것은?",
+      "options": [
+        "`read()` → `null`, `readLine()` → `-1`",
+        "`read()` → `-1`, `readLine()` → `null`",
+        "`read()` → `0`, `readLine()` → `\"\"`",
+        "둘 다 예외를 던진다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "`read()` 는 `int` 를 돌려주니 데이터가 될 수 없는 -1 로 끝을 알리고, `readLine()` 은 `String` 을 돌려주니 `null` 로 끝을 알려요."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`new FileWriter(\"result.txt\", true)` 의 `true` 의 뜻은?",
+      "options": [
+        "파일이 있으면 지우고 새로 쓴다",
+        "파일이 있으면 기존 내용 뒤에 이어 쓴다",
+        "파일을 읽기 전용으로 연다",
+        "한글을 깨지지 않게 저장한다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2번",
+      "isExample": false,
+      "explanation": "`true` 는 이어 쓰기(append), `false` 는 덮어쓰기(overwrite)예요."
+    },
+    {
+      "n": 6,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "Windows 경로를 자바 문자열로 쓰려고 해요. 빈칸에 들어갈 것은?\n\n```java\nString fileName = \"D:___workspace___data.txt\";\n```\n\n(역슬래시를 쓰는 방법과, 다른 기호를 쓰는 방법 두 가지를 모두 적어 보세요.)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "`\"D:\\\\workspace\\\\data.txt\"` (역슬래시 두 번) 또는 `\"D:/workspace/data.txt\"` (슬래시). 역슬래시를 한 번만 쓰면 `error: illegal escape character` 컴파일 에러가 나요. (macOS 에서는 이런 드라이브 경로 대신 `\"data.txt\"` 같은 상대경로를 써요.)"
+    },
+    {
+      "n": 7,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "```java\nFileReader fr = new FileReader(\"data.txt\");\nBufferedReader br = new BufferedReader(fr);\nwhile (true) {\n    String line = br.________();   // (가) 한 줄 읽기\n    if (line == ______) {          // (나) 파일 끝 확인\n        break;\n    }\n    System.out.println(line);\n}\n```\n\n그리고 자원을 반납할 때 `br` 과 `fr` 중 무엇을 먼저 닫는 게 강의 방식인가요?",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "(가) `readLine`, (나) `null`. 닫는 순서는 나중에 만든 `br` 을 먼저, `fr` 을 나중에 닫아요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "`result.txt` 가 처음엔 없다고 해요. 아래 코드를 실행한 뒤 `result.txt` 를 열면 무엇이 들어 있을까요?\n\n```java\nFileWriter fw = new FileWriter(\"result.txt\", false);\nPrintWriter out = new PrintWriter(fw, true);\nout.print(\"KOREA\");\nout.println(\"대한민국\");\nout.printf(\"%d\\n%f\", 123, 45.67);\nout.close();\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nKOREA대한민국\n123\n45.670000\n```\n\n`print` 는 줄을 안 바꾸니 KOREA 와 대한민국이 붙고, `println` 이 줄을 바꿔요. `%d\\n%f` 에서 `\\n` 이 줄바꿈이고, `%f` 는 소수점 아래 6자리까지 찍어요. 강의 화면의 메모장 결과와 같아요."
+    },
+    {
+      "n": 9,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "`q.txt` 에 아래 순서로 썼어요(각각 `println` 한 번 하고 `close()`).\n\n1. `new FileWriter(\"q.txt\", false)` 로 \"A\"\n2. `new FileWriter(\"q.txt\", true)` 로 \"B\"\n3. `new FileWriter(\"q.txt\", true)` 로 \"C\"\n\n그다음 아래 코드로 읽으면 출력은?\n\n```java\nBufferedReader br = new BufferedReader(new FileReader(\"q.txt\"));\nint count = 0;\nString line;\nwhile ((line = br.readLine()) != null) {\n    count++;\n    System.out.print(line);\n}\nbr.close();\nSystem.out.println();\nSystem.out.println(count);\n```\n\n이어서 4. `new FileWriter(\"q.txt\", false)` 로 \"D\" 를 쓰고 나서 `readLine()` 을 두 번 찍으면 각각 무엇이 나올까요?",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nABC\n3\n```\n\nfalse 로 \"A\" 를 새로 쓰고, true 로 \"B\", \"C\" 를 이어 써서 세 줄이에요. `readLine()` 은 줄바꿈을 빼고 돌려주고 `print` 로 찍었으니 `ABC` 가 붙어서 나와요.\n\n이어서 false 로 \"D\" 를 쓰면 앞 내용이 지워져요. 첫 `readLine()` 은 `D`, 두 번째는 더 읽을 줄이 없어서 `null` 이 나와요(실제로 돌려 확인)."
+    },
+    {
+      "n": 10,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`PrintWriter` 로 파일에 쓴 뒤 `close()` 를 부르지 않고 프로그램이 끝나도(autoFlush 설정 없이), 쓴 내용은 항상 파일에 안전하게 저장된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "쓴 내용은 버퍼(임시 보관함)에 모였다가 `close()` 나 flush 때 파일로 나가요. 실제로 `close()` 없이 끝낸 파일은 0바이트(빈 파일)였어요. 그래서 다 쓴 자원은 꼭 닫아야 해요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "학생 이름 배열 `{\"kim\", \"lee\", \"park\"}` 과 점수 배열 `{90, 85, 70}` 이 있어요. 이것을 `score.txt` 에 **덮어쓰기 모드**로 `이름 점수` 형식으로 한 줄씩 쓰고, 마지막 줄에 평균을 소수점 한 자리로 쓰세요. 그다음 `BufferedReader` 로 `score.txt` 를 읽어 화면에 출력하는 프로그램 `Diary` 를 작성하세요. (강의처럼 try-catch-finally 로 자원을 반납하세요.)\n\n출력 예:\n\n```\nkim 90\nlee 85\npark 70\n평균 81.7\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```java\nimport java.io.FileWriter;\nimport java.io.PrintWriter;\nimport java.io.BufferedReader;\nimport java.io.FileReader;\n\npublic class Diary {\n    public static void main(String[] args) {\n        String fileName = \"score.txt\";\n        String[] names = {\"kim\", \"lee\", \"park\"};\n        int[] scores = {90, 85, 70};\n\n        // 1) 파일에 쓰기 (false: 덮어쓰기)\n        FileWriter fw = null;\n        try {\n            fw = new FileWriter(fileName, false);\n            PrintWriter out = new PrintWriter(fw);\n            int sum = 0;\n            for (int i = 0; i < names.length; i++) {\n                out.printf(\"%s %d\\n\", names[i], scores[i]);\n                sum += scores[i];\n            }\n            out.printf(\"평균 %.1f\\n\", sum / (double) names.length);\n            out.close();\n        } catch (Exception e) {\n            System.out.println(\"실패:\" + e);\n        } finally {\n            try {\n                if (fw != null) { fw.close(); }\n            } catch (Exception e) {}\n        }\n\n        // 2) 파일 읽어서 화면에 출력\n        FileReader fr = null;\n        BufferedReader br = null;\n        try {\n            fr = new FileReader(fileName);\n            br = new BufferedReader(fr);\n            while (true) {\n                String line = br.readLine();\n                if (line == null) {\n                    break;\n                }\n                System.out.println(line);\n            }\n        } catch (Exception e) {\n            System.out.println(\"실패:\" + e);\n        } finally {\n            try {\n                if (br != null) { br.close(); }\n            } catch (Exception e) {}\n            try {\n                if (fr != null) { fr.close(); }\n            } catch (Exception e) {}\n        }\n    }\n}\n```\n\n- 평균은 245 / 3 = 81.666... 이고 `%.1f` 로 소수점 한 자리까지 반올림해 `81.7` 이 돼요.\n- `sum / (double) names.length` 처럼 한쪽을 실수로 바꿔야 정수 나눗셈(81)이 되지 않아요.\n- 결과 파일이라 강사 팁대로 `false` 로 열었어요. 몇 번을 실행해도 내용이 쌓이지 않아요."
+    }
+  ]
+}

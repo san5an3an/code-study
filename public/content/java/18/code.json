@@ -1,0 +1,50 @@
+[
+  {
+    "file": "ObjectToString.java",
+    "className": "ObjectToString",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Seoul 서울특별시\n[name=서울특별시]\n대한민국\nBusan [name=부산광역시, addr=경상남도]\nBusan [name=부산광역시, addr=경상남도]\ntrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "PolyOverride.java",
+    "className": "PolyOverride",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "...\n멍멍\n야옹\n공을 물어 와요\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "Polymorphism.java",
+    "className": "Polymorphism",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2026\n9\n24\n-----\n아버지\n주소\n손흥민\n영국\n김연아\n한국\n김연아\n한국\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "SuperKeyword.java",
+    "className": "SuperKeyword",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "School()...\nMiddleSchool()...\n서울중학교\n중학교\n학교\n-----\nSchool()...\nHighSchool()...\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

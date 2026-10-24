@@ -1,0 +1,14 @@
+[
+  {
+    "file": "HelloWorld.java",
+    "className": "HelloWorld",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Hello, Java!\n나의 첫 자바 프로그램\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

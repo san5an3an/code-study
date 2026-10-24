@@ -1,0 +1,38 @@
+[
+  {
+    "file": "OverloadMethod.java",
+    "className": "OverloadMethod",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n12\n4.6\nJAVAPython\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "RankDemo.java",
+    "className": "RankDemo",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "60점은 3등\n80점은 1등\n40점은 5등\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "ReturnMethod.java",
+    "className": "ReturnMethod",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "8\n6\n홀수\n짝수\n윤년\n평년\n24\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]
