@@ -33,3 +33,20 @@ export type RunRequest = {
 
 export type RunResponse =
   { ok: true; compile: CodeRun; run: CodeRun | null } | { ok: false; error: string };
+
+// 편집기 오타 표시용. 실행하지 않고 컴파일만 해 보고 에러 위치와 문구를 돌려줌
+export const CHECK_PATH = '/api/check';
+
+export type CheckRequest = Omit<RunRequest, 'stdin'>;
+
+// line 은 1부터, column 은 그 줄 맨 앞을 0 으로 셈. message 는 컴파일러 원문(영어)
+export type CodeDiagnostic = {
+  file: string;
+  line: number;
+  column: number;
+  severity: 'error' | 'warning';
+  message: string;
+};
+
+export type CheckResponse =
+  { ok: true; diagnostics: CodeDiagnostic[] } | { ok: false; error: string };

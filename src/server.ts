@@ -9,7 +9,7 @@ import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 import { createRunHandler } from '../server/run-handler.ts';
-import { RUN_PATH } from './app/core/run-api.ts';
+import { CHECK_PATH, RUN_PATH } from './app/core/run-api.ts';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -25,7 +25,9 @@ const contentDir = process.env['CODE_STUDY_CONTENT']
     : resolve('public/content');
 
 // 모든 HTTP 메서드를 받아야 GET 이나 OPTIONS 요청도 보호 규칙 검사에서 403 으로 거절함
-app.all(RUN_PATH, createRunHandler(contentDir));
+const codeHandler = createRunHandler(contentDir);
+app.all(RUN_PATH, codeHandler);
+app.all(CHECK_PATH, codeHandler);
 
 /**
  * Serve static files from /browser

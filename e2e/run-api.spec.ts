@@ -23,6 +23,7 @@ const BODY = JSON.stringify({
 
 // Host 까지 마음대로 바꾸려고 브라우저가 아닌 node http 로 보냄
 function call(opts: {
+  path?: string;
   method?: string;
   headers?: Record<string, string | undefined>;
   body?: string;
@@ -33,14 +34,19 @@ function call(opts: {
   ) as Record<string, string>;
   return new Promise<{
     status: number;
-    json: { ok: boolean; error?: string; run?: { stdout: string } };
+    json: {
+      ok: boolean;
+      error?: string;
+      run?: { stdout: string };
+      diagnostics?: { line: number; message: string }[];
+    };
     acao?: string;
   }>((resolve, reject) => {
     const req = httpRequest(
       {
         host: opts.host ?? 'localhost',
         port: PORT,
-        path: '/api/run',
+        path: opts.path ?? '/api/run',
         method: opts.method ?? 'POST',
         headers,
       },
@@ -49,7 +55,7 @@ function call(opts: {
         res.on('data', (c) => (text += c));
         res.on('end', () => {
           // 개발 서버(Vite)가 먼저 막으면 JSON 이 아닌 일반 글로 답하므로 그 응답도 거절로 봄
-          let json: { ok: boolean; error?: string; run?: { stdout: string } };
+          let json: Awaited<ReturnType<typeof call>>['json'];
           try {
             json = text ? JSON.parse(text) : { ok: false };
           } catch {
@@ -172,4 +178,28 @@ test('요청한 과목이 없으면 400 으로 답하고 코드를 실행하지 
   });
   expect(r.status).toBe(400);
   expect(r.json.error).toMatch(/과목/);
+});
+
+test('컴파일만 해 보는 오타 검사 주소도 규칙을 지킨 요청엔 에러 위치를 돌려줌', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const r = await call({
+    path: '/api/check',
+    body: JSON.stringify({
+      course: 'java',
+      lectureId: '03',
+      file: 'AssignExample.java',
+      source: 'public class AssignExample {\n  int a = ;\n}\n',
+    }),
+  });
+  expect(r.status).toBe(200);
+  expect(r.json.diagnostics?.map((d) => d.line)).toEqual([2]);
+});
+
+test('오타 검사 주소도 이 앱 전용 헤더가 없으면 403 으로 거절함', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({ path: '/api/check', headers: { 'X-Code-Study': undefined } });
+  expect(r.status).toBe(403);
+  expect(r.json.error).toMatch(/전용 헤더/);
 });
