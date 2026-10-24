@@ -3,7 +3,14 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
 
-import { checkJava, RunRequestError, runJava, validate } from './java-runner.ts';
+import {
+  checkJava,
+  checkJavaSnippet,
+  RunRequestError,
+  runJava,
+  validate,
+  validateSnippet,
+} from './java-runner.ts';
 
 const CONTENT = path.resolve(import.meta.dirname, '../test-fixtures/content');
 
@@ -202,6 +209,44 @@ for (const [name, body, message] of bad) {
   test(`거절: ${name}`, async () => {
     await assert.rejects(
       validate(body, CONTENT),
+      (e: unknown) => e instanceof RunRequestError && message.test(e.message),
+    );
+  });
+}
+
+test('퀴즈 답 검사: 문장만 쓴 코드의 에러를 사용자가 쓴 줄 번호로 돌려줌', async () => {
+  const r = await checkJavaSnippet('int sum = 0;\nSytem.out.println(sum);');
+  assert.ok(r.ok);
+  assert.deepEqual(
+    r.diagnostics.map((d) => [d.line, d.column, d.message]),
+    [[2, 5, 'package Sytem does not exist']],
+  );
+});
+
+test('퀴즈 답 검사: class 까지 쓴 코드는 그대로 컴파일하고, 맞는 코드면 에러가 없음', async () => {
+  const r = await checkJavaSnippet(
+    'public class MyIntro {\n    public static void main(String[] args) {\n        System.out.println("안녕");\n    }\n}\n',
+  );
+  assert.deepEqual(r, { ok: true, diagnostics: [] });
+});
+
+test('퀴즈 답 검사: 닫는 괄호가 모자라 감싼 줄에서 난 에러는 사용자가 쓴 마지막 줄로 옮김', async () => {
+  const r = await checkJavaSnippet('for (int i = 0; i < 3; i++) {\n    System.out.println(i);');
+  assert.ok(r.ok);
+  assert.ok(r.diagnostics.length > 0);
+  assert.ok(r.diagnostics.every((d) => d.line >= 1 && d.line <= 2));
+});
+
+const badSnippet: [string, unknown, RegExp][] = [
+  ['과목이 없음', { source: '' }, /과목/],
+  ['아직 없는 과목', { course: 'python', source: 'print(1)' }, /과목/],
+  ['source 가 글자가 아님', { course: 'java', source: 1 }, /글자/],
+  ['코드가 64KB 초과', { course: 'java', source: 'x'.repeat(65 * 1024) }, /64KB/],
+];
+for (const [name, body, message] of badSnippet) {
+  test(`퀴즈 답 검사 거절: ${name}`, () => {
+    assert.throws(
+      () => validateSnippet(body),
       (e: unknown) => e instanceof RunRequestError && message.test(e.message),
     );
   });

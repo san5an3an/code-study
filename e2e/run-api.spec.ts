@@ -203,3 +203,20 @@ test('오타 검사 주소도 이 앱 전용 헤더가 없으면 403 으로 거�
   expect(r.status).toBe(403);
   expect(r.json.error).toMatch(/전용 헤더/);
 });
+
+test('퀴즈 답 검사 주소는 문장만 쓴 코드도 감싸서 검사하고 사용자가 쓴 줄 번호로 돌려줌', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({
+    path: '/api/check-snippet',
+    body: JSON.stringify({ course: 'java', source: 'int a = 1;\nint b = ;' }),
+  });
+  expect(r.status).toBe(200);
+  expect(r.json.diagnostics?.map((d) => d.line)).toEqual([2]);
+});
+
+test('퀴즈 답 검사 주소도 다른 사이트 Origin 이면 403 으로 거절함', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({ path: '/api/check-snippet', headers: { Origin: 'http://evil.example' } });
+  expect(r.status).toBe(403);
+  expect(r.json.error).toMatch(/Origin/);
+});

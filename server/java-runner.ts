@@ -6,10 +6,12 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 import { parseJavacErrors } from './java-diagnostics.ts';
+import { javaSnippetFile } from './java-snippet.ts';
 import {
   COURSES,
   type CheckResponse,
   type CodeFile,
+  type SnippetCheckRequest,
   type CodeRun,
   type Course,
   type RunRequest,
@@ -183,6 +185,45 @@ export async function checkJava(
     const compile = await compileJava(req, codeDir, files, work);
     if (compile.timedOut) return { ok: false, error: '컴파일이 너무 오래 걸려 멈췄어요' };
     return { ok: true, diagnostics: parseJavacErrors(compile.stderr) };
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
+}
+
+// 퀴즈 답 검사 요청은 과목과 코드만 받음. 강의 자료 폴더를 읽지 않으니 경로 검사는 필요 없음
+export function validateSnippet(body: unknown): SnippetCheckRequest {
+  if (typeof body !== 'object' || body === null)
+    throw new RunRequestError('본문이 JSON 객체가 아님');
+  const { course, source } = body as Record<string, unknown>;
+  if (!isCourse(course)) throw new RunRequestError('없는 과목');
+  if (typeof source !== 'string') throw new RunRequestError('source 는 글자여야 함');
+  if (Buffer.byteLength(source) > LIMITS.sourceBytes)
+    throw new RunRequestError('코드가 64KB를 넘음');
+  return { course, source };
+}
+
+// 코드 한 덩어리를 혼자 컴파일해 봄. 감싸느라 늘어난 줄은 빼서 사용자가 쓴 줄 번호로 돌려줌
+export async function checkJavaSnippet(source: string): Promise<CheckResponse> {
+  const snippet = javaSnippetFile(source);
+  const work = await mkdtemp(path.join(tmpdir(), 'code-study-snippet-'));
+  try {
+    await writeFile(path.join(work, snippet.file), snippet.code);
+    const compile = await exec(
+      'javac',
+      ['-encoding', 'UTF-8', '-d', path.join(work, 'out'), snippet.file],
+      work,
+      LIMITS.compileMs,
+    );
+    if (compile.timedOut) return { ok: false, error: '컴파일이 너무 오래 걸려 멈췄어요' };
+    // 감싼 줄에서 난 에러(예: 닫는 괄호가 모자람)는 사용자가 쓴 첫 줄이나 마지막 줄로 옮김
+    const lastLine = source.split('\n').length;
+    const diagnostics = parseJavacErrors(compile.stderr).map((d) => {
+      const line = d.line - snippet.lineOffset;
+      if (line < 1) return { ...d, line: 1, column: 0 };
+      if (line > lastLine) return { ...d, line: lastLine, column: Number.MAX_SAFE_INTEGER };
+      return { ...d, line };
+    });
+    return { ok: true, diagnostics };
   } finally {
     await rm(work, { recursive: true, force: true });
   }
