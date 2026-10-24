@@ -11,7 +11,8 @@
     "serve:ssr:code-study": "node dist/code-study/server/server.mjs",
     "test:server": "node --test \"server/*.test.ts\"",
     "test:layers": "node --test \"scripts/*.test.ts\"",
-    "test:serve": "playwright test -c playwright.serve.config.ts"
+    "test:serve": "playwright test -c playwright.serve.config.ts",
+    "sync": "node scripts/sync.ts"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
