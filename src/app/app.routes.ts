@@ -2,6 +2,7 @@ import type { CanMatchFn, Routes } from '@angular/router';
 
 import { CourseShellPage } from './components/pages/course-shell-page/course-shell-page';
 import { HomePage } from './components/pages/home-page/home-page';
+import { LecturePage } from './components/pages/lecture-page/lecture-page';
 import { NotFoundPage } from './components/pages/not-found-page/not-found-page';
 import { PendingPage } from './components/pages/pending-page/pending-page';
 import { DEFAULT_COURSE } from './config/courses';
@@ -18,7 +19,7 @@ export const routes: Routes = [
     component: CourseShellPage,
     children: [
       { path: '', component: HomePage },
-      { path: 'lecture/:id', component: PendingPage, data: { title: '강의' } },
+      { path: 'lecture/:id', component: LecturePage },
       { path: 'review', component: PendingPage, data: { title: '오답 노트' } },
       { path: '**', component: NotFoundPage },
     ],
