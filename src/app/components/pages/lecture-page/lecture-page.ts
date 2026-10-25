@@ -14,19 +14,27 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { courseOf } from '../../../config/courses';
 import { findLecture, type CourseId } from '../../../domain/course';
-import { isRunCourse } from '../../../core/run-api';
+import { isRunCourse, type CodeFile } from '../../../core/run-api';
 import { SYNCED_COURSES, type Quiz, type QuizQuestion } from '../../../domain/lecture-content';
 import { applyCheck, applyVisit, isChecked, missingFor } from '../../../domain/lecture-progress';
 import { lectureContext, tabOf, type LectureTab } from '../../../domain/lecture-view';
 import { noteHtml } from '../../../domain/note-markdown';
 import { codeLanguageOf, EMPTY_ANSWER, verdictOf, type Answer } from '../../../domain/quiz-answer';
 import { applyBest, applyVerdict, quizBestOf, wrongKey } from '../../../domain/quiz-record';
-import { checkSnippet } from '../../../services/check-code';
+import { checkCode, checkSnippet } from '../../../services/check-code';
 import { CodeChecks } from '../../../services/code-checks';
 import { contentPath, fetchContentText } from '../../../services/content-text';
 import { ProgressService } from '../../../services/progress.service';
+import { runCode } from '../../../services/run-code';
 import { LectureChecks, type CheckChange } from '../../molecules/lecture-checks/lecture-checks';
 import { LectureNav } from '../../molecules/lecture-nav/lecture-nav';
+import {
+  CodeView,
+  type CodeListStatus,
+  type CodeRunRequest,
+  type CodeSourceStatus,
+  type LiveRun,
+} from '../../organisms/code-view/code-view';
 import { NoteView, type NoteStatus } from '../../organisms/note-view/note-view';
 import {
   QuizView,
@@ -38,7 +46,7 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
 // 강의 화면. 주소의 과목, 강의 번호, 탭 이름으로 화면을 그리고 진도 체크를 저장함
 @Component({
   selector: 'app-lecture-page',
-  imports: [LectureTemplate, LectureChecks, LectureNav, NoteView, QuizView],
+  imports: [LectureTemplate, LectureChecks, LectureNav, NoteView, QuizView, CodeView],
   template: `
     @if (lecture(); as lecture) {
       <app-lecture-template
@@ -65,7 +73,23 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
           (answerChange)="saveAnswer($event)"
           (resetAll)="resetQuiz()"
         />
-        <p tabCode class="text-muted-foreground">코드 탭은 옮기는 중이에요.</p>
+        <app-code-view
+          tabCode
+          [course]="courseId()"
+          [status]="codeStatus()"
+          [files]="codeFiles()"
+          [file]="codeFile()?.file"
+          [sourceStatus]="sourceStatus()"
+          [source]="source()"
+          [running]="running()"
+          [live]="live()"
+          [runError]="runError()"
+          [check]="codeCheck()"
+          (fileChange)="selectFile($event)"
+          (run)="runFile($event)"
+          (codeChange)="requestCodeCheck($event)"
+          (reset)="clearRun()"
+        />
         <p tabMaterial class="text-muted-foreground">강의 자료 탭은 옮기는 중이에요.</p>
         <app-lecture-nav
           lectureNav
@@ -81,10 +105,11 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LecturePage {
-  // 부모 라우트의 :course, 이 라우트의 :id, 주소 뒤 ?tab= 이 input 으로 들어옴
+  // 부모 라우트의 :course, 이 라우트의 :id, 주소 뒤 ?tab= 와 ?file= 이 input 으로 들어옴
   readonly courseId = input.required<CourseId>({ alias: 'course' });
   readonly id = input<string>();
   readonly tab = input<string>();
+  readonly file = input<string>();
 
   private readonly progress = inject(ProgressService);
   private readonly router = inject(Router);
@@ -168,13 +193,88 @@ export class LecturePage {
   // 퀴즈 코드 답의 오타 검사. 문제 번호마다 입력이 멈추면 서버에 물음
   protected readonly quizChecks = new CodeChecks<number>();
 
+  // 코드 탭. 실행 서버가 있는 과목만 예제 목록을 불러옴. 파이썬은 아직 예제가 없음
+  private readonly runnable = computed(() => this.synced() && isRunCourse(this.courseId()));
+  private readonly codeList = resource({
+    params: () => {
+      const lecture = this.lecture();
+      return lecture && this.runnable()
+        ? contentPath(this.courseId(), lecture.id, 'code.json')
+        : undefined;
+    },
+    loader: async ({ params, abortSignal }) =>
+      JSON.parse(await fetchContentText(params, abortSignal)) as CodeFile[],
+  });
+  protected readonly codeStatus = computed<CodeListStatus>(() => {
+    if (!this.runnable()) return 'none';
+    const status = this.codeList.status();
+    if (status === 'error') return 'error';
+    return status === 'resolved' || status === 'local' ? 'ready' : 'loading';
+  });
+  protected readonly codeFiles = computed(() =>
+    this.codeStatus() === 'ready' && this.codeList.hasValue() ? this.codeList.value() : [],
+  );
+  // 주소의 파일 이름이 목록에 없으면 첫 파일
+  protected readonly codeFile = computed(() => {
+    const files = this.codeFiles();
+    return files.find((f) => f.file === this.file()) ?? files[0];
+  });
+  private readonly codeSource = resource({
+    params: () => {
+      const lecture = this.lecture();
+      const code = this.codeFile();
+      return lecture && code
+        ? contentPath(this.courseId(), lecture.id, `code/${code.file}`)
+        : undefined;
+    },
+    loader: ({ params, abortSignal }) => fetchContentText(params, abortSignal),
+  });
+  protected readonly sourceStatus = computed<CodeSourceStatus>(() => {
+    const status = this.codeSource.status();
+    if (status === 'error') return 'error';
+    return status === 'resolved' || status === 'local' ? 'ready' : 'loading';
+  });
+  protected readonly source = computed(() =>
+    this.sourceStatus() === 'ready' && this.codeSource.hasValue() ? this.codeSource.value() : '',
+  );
+
+  // 강의와 파일을 합친 이름. 이 값이 바뀌면 실행 결과와 오타 검사를 비움
+  private readonly codeKey = computed(() => `${this.lecture()?.id}/${this.codeFile()?.file}`);
+  protected readonly running = linkedSignal({ source: this.codeKey, computation: () => false });
+  protected readonly live = linkedSignal<string, LiveRun | null>({
+    source: this.codeKey,
+    computation: () => null,
+  });
+  protected readonly runError = linkedSignal<string, string | null>({
+    source: this.codeKey,
+    computation: () => null,
+  });
+
+  // 코드 탭 편집기의 오타 검사. 같은 강의 다른 파일과 같이 컴파일하므로 결과 중 지금 파일 에러만 넘김
+  protected readonly codeChecks = new CodeChecks<string>();
+  protected readonly codeCheck = computed(() => {
+    const check = this.codeChecks.results().get(this.codeKey());
+    const file = this.codeFile()?.file;
+    return check
+      ? { ...check, diagnostics: check.diagnostics.filter((d) => d.file === file) }
+      : null;
+  });
+
   constructor() {
     // 다른 강의로 가면 앞 강의 답의 검사를 멈추고 결과를 비움
     effect(() => {
       this.lecture();
       untracked(() => this.quizChecks.clear());
     });
-    inject(DestroyRef).onDestroy(() => this.quizChecks.clear());
+    // 다른 파일이나 강의로 가면 앞 파일의 검사를 멈추고 결과를 비움
+    effect(() => {
+      this.codeKey();
+      untracked(() => this.codeChecks.clear());
+    });
+    inject(DestroyRef).onDestroy(() => {
+      this.quizChecks.clear();
+      this.codeChecks.clear();
+    });
     // 강의를 열면 홈의 "이어서 하기"가 이 강의를 가리키게 저장함
     effect(() => {
       const lecture = this.lecture();
@@ -224,6 +324,45 @@ export class LecturePage {
   protected resetQuiz() {
     this.answers.set({});
     this.quizChecks.clear();
+  }
+
+  // 실행 중에 다른 파일로 가면 늦게 온 결과는 버림
+  protected async runFile({ source, stdin }: CodeRunRequest) {
+    const lecture = this.lecture();
+    const code = this.codeFile();
+    const course = this.courseId();
+    if (!lecture || !code || !isRunCourse(course)) return;
+    const key = this.codeKey();
+    this.running.set(true);
+    this.runError.set(null);
+    const result = await runCode({ course, lectureId: lecture.id, file: code.file, source, stdin });
+    if (this.codeKey() !== key) return;
+    if (result.ok) this.live.set({ source, result });
+    else this.runError.set(result.error);
+    this.running.set(false);
+  }
+
+  protected clearRun() {
+    this.live.set(null);
+    this.runError.set(null);
+  }
+
+  protected requestCodeCheck(source: string) {
+    const lecture = this.lecture();
+    const code = this.codeFile();
+    const course = this.courseId();
+    if (!lecture || !code || !isRunCourse(course)) return;
+    this.codeChecks.request(this.codeKey(), source, (text, signal) =>
+      checkCode({ course, lectureId: lecture.id, file: code.file, source: text }, signal),
+    );
+  }
+
+  protected selectFile(file: string) {
+    void this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab: 'code', file },
+      replaceUrl: true,
+    });
   }
 
   // 기본 탭(노트)은 주소에 붙이지 않음. 탭을 바꿀 때마다 뒤로 가기 기록이 쌓이지 않도록 지금 주소를 바꿔 씀
