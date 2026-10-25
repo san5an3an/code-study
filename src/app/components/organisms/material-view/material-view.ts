@@ -79,9 +79,12 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
       }
       @case ('ready') {
         <div class="flex flex-col gap-6">
-          <div hlmAlert>
-            <svg lucideInfo [size]="16"></svg>
-            <p hlmAlertDescription>자동 받아쓰기라 틀린 글자가 있을 수 있어요.</p>
+          <!-- Spartan 의 아이콘 배치 규칙이 ng-icon 에만 걸려 있어 lucide 아이콘에 같은 배치를 직접 줌 -->
+          <div hlmAlert class="grid-cols-[auto_1fr] gap-x-2">
+            <svg lucideInfo class="translate-y-0.5" [size]="16"></svg>
+            <p hlmAlertDescription class="col-start-2">
+              자동 받아쓰기라 틀린 글자가 있을 수 있어요.
+            </p>
           </div>
 
           <section
