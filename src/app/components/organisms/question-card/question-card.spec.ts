@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { EditorView } from '@codemirror/view';
 
 import type { QuizQuestion } from '../../../domain/lecture-content';
 import { EMPTY_ANSWER, type Answer } from '../../../domain/quiz-answer';
@@ -104,5 +105,23 @@ describe('문제 카드', () => {
     button('틀렸어요').click();
     expect(answers.at(-1)!.self).toBe('wrong');
     expect(button('틀렸어요').getAttribute('aria-pressed')).toBe('true');
+  });
+
+  it('예시 답안이 코드인 직접 쓰기 문제는 코드 편집기로, 말로 답하는 문제는 글 칸으로 답함', async () => {
+    const code = render(
+      question({ kind: 'write', label: '코드 작성', explanation: '```java\nint a = 1;\n```' }),
+    );
+    expect(code.el.querySelector('textarea')).toBeNull();
+    await vi.waitFor(() => expect(code.el.querySelector('.cm-content')).not.toBeNull());
+    expect(code.el.querySelector('.cm-content')!.getAttribute('aria-label')).toBe(
+      '3번 문제 내 답 코드',
+    );
+    const view = EditorView.findFromDOM(code.el.querySelector('.cm-editor') as HTMLElement)!;
+    view.dispatch({ changes: { from: 0, insert: 'int b;' } });
+    expect(code.answers.at(-1)).toEqual({ ...EMPTY_ANSWER, text: 'int b;' });
+
+    const prose = render(question({ kind: 'write', label: '에러 찾기', explanation: '세미콜론' }));
+    expect(prose.el.querySelector('textarea')).not.toBeNull();
+    expect(prose.el.querySelector('app-code-editor')).toBeNull();
   });
 });

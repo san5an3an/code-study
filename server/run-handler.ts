@@ -1,7 +1,16 @@
-// /api/run 요청 처리. 보호 규칙 검사, 본문 읽기, 실행 대기열에 넣기, 실행 순서로 진행
+// /api/run(실행), /api/check(컴파일만), /api/check-snippet(퀴즈 답 컴파일만) 요청 처리. 보호 규칙 검사, 본문 읽기, 대기열에 넣기, 실행 순서로 진행. 세 주소가 대기열 하나를 같이 씀
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
-import { LIMITS, RunRequestError, runJava, validate } from './java-runner.ts';
+import { CHECK_PATH, CHECK_SNIPPET_PATH } from '../src/app/core/run-api.ts';
+import {
+  checkJava,
+  checkJavaSnippet,
+  LIMITS,
+  RunRequestError,
+  runJava,
+  validate,
+  validateSnippet,
+} from './java-runner.ts';
 import { rejectReason } from './run-guard.ts';
 
 const MAX_BODY_BYTES = LIMITS.sourceBytes + LIMITS.stdinBytes + 4096;
@@ -80,10 +89,23 @@ export function createRunHandler(contentDir: string) {
       } catch {
         throw new RunRequestError('본문이 JSON 이 아님');
       }
-      const { req: runReq, codeDir, files } = await validate(body, contentDir);
+      const pathname = new URL(req.url ?? '', 'http://localhost').pathname;
+      if (pathname === CHECK_SNIPPET_PATH) {
+        const snippet = validateSnippet(body);
+        await acquire();
+        acquired = true;
+        send(res, 200, await checkJavaSnippet(snippet.source));
+        return;
+      }
+      const checkOnly = pathname === CHECK_PATH;
+      const { req: runReq, codeDir, files } = await validate(body, contentDir, !checkOnly);
       await acquire();
       acquired = true;
-      send(res, 200, await runJava(runReq, codeDir, files));
+      send(
+        res,
+        200,
+        checkOnly ? await checkJava(runReq, codeDir, files) : await runJava(runReq, codeDir, files),
+      );
     } catch (e) {
       if (e instanceof RunRequestError) send(res, 400, { ok: false, error: e.message });
       else send(res, 500, { ok: false, error: '서버에서 실행하다 문제가 생겼어요' });

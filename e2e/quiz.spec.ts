@@ -226,3 +226,31 @@ test('저장이 막혀도 퀴즈는 풀리고 페이지 에러가 없음', async
   await expect(page.getByTestId('quiz-2').getByText('오답 노트에 있어요')).toBeVisible();
   expect(errors).toEqual([]);
 });
+
+test('코드로 답하는 문제는 편집기로 쓰고, 오타를 내면 그 자리에 밑줄과 컴파일러 문구가 뜸', async ({
+  page,
+}) => {
+  await page.goto('/java/lecture/02?tab=quiz');
+  // 02강 10번 에러 찾기는 말로 답하는 문제라 글 칸, 12번 직접 짜보기는 코드 편집기
+  await expect(page.getByTestId('quiz-10').getByLabel('내 답')).toBeVisible();
+  const card = page.getByTestId('quiz-12');
+  const editor = card.locator('.cm-content');
+  await expect(editor).toHaveAttribute('aria-label', '12번 문제 내 답 코드');
+
+  await editor.click();
+  await page.keyboard.insertText('System.out.print("이름: ");\nSytem.out.println("홍길동");');
+  const underline = card.locator('.cm-lintRange-error');
+  await expect(underline).toHaveText('Sytem');
+  await underline.hover();
+  await expect(page.locator('.cm-tooltip-lint')).toHaveText('package Sytem does not exist');
+
+  // 오타를 고치면 밑줄이 사라짐
+  await underline.click();
+  // Sytem 의 Sy 뒤에 s 를 넣어 System 으로 고침
+  await page.keyboard.press('Home');
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.press('ArrowRight');
+  await page.keyboard.insertText('s');
+  await expect(card.locator('.cm-line').nth(1)).toHaveText('System.out.println("홍길동");');
+  await expect(card.locator('.cm-lintRange-error')).toHaveCount(0);
+});

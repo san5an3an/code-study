@@ -1,4 +1,5 @@
 // 문제 하나의 답 상태와 채점 판정. 퀴즈 탭과 오답 노트가 같이 씀
+import type { CourseId } from './course';
 import type { QuizQuestion } from './lecture-content';
 import type { Verdict } from './quiz-record';
 
@@ -31,4 +32,11 @@ export function verdictOf(q: QuizQuestion, a: Answer): Verdict | null {
   if (!a.graded) return null;
   const same = a.picked.length === q.correct.length && q.correct.every((c) => a.picked.includes(c));
   return same ? 'right' : 'wrong';
+}
+
+// 직접 쓰기 문제 중 예시 답안에 코드 블록이 있는 문제는 편집기로 답함. 그 코드 블록의 언어가 편집기 언어. 말로 답하는 문제는 null
+export function codeLanguageOf(q: QuizQuestion): CourseId | null {
+  if (q.kind !== 'write') return null;
+  const lang = /```(java|python)\n/.exec(q.explanation)?.[1];
+  return lang === 'java' || lang === 'python' ? lang : null;
 }

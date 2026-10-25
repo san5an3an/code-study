@@ -4,6 +4,7 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
+import type { CodeCheck } from '../../../core/run-api';
 import type { QuizQuestion } from '../../../domain/lecture-content';
 import { EMPTY_ANSWER, verdictOf, type Answer } from '../../../domain/quiz-answer';
 import type { QuizBest } from '../../../domain/quiz-record';
@@ -59,6 +60,7 @@ export type QuizAnswerChange = { q: QuizQuestion; answer: Answer };
               [q]="q"
               [answer]="answers()[q.n] ?? empty"
               [inReview]="inReview().includes(q.n)"
+              [check]="checks().get(q.n) ?? null"
               (answerChange)="answerChange.emit({ q, answer: $event })"
             />
           }
@@ -82,6 +84,8 @@ export class QuizView {
   readonly best = input<QuizBest | null>(null);
   // 오답 노트에 들어 있는 문제 번호
   readonly inReview = input<readonly number[]>([]);
+  // 문제 번호 → 코드 답의 오타 검사 결과
+  readonly checks = input<ReadonlyMap<number, CodeCheck>>(new Map());
   readonly answerChange = output<QuizAnswerChange>();
   readonly resetAll = output<void>();
 

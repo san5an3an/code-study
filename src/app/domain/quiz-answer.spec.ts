@@ -1,5 +1,5 @@
 import type { QuizQuestion } from './lecture-content';
-import { EMPTY_ANSWER, isAuto, verdictOf } from './quiz-answer';
+import { codeLanguageOf, EMPTY_ANSWER, isAuto, verdictOf } from './quiz-answer';
 
 function question(kind: QuizQuestion['kind'], correct: (string | number)[]): QuizQuestion {
   return {
@@ -45,5 +45,16 @@ describe('퀴즈 답 판정', () => {
     expect(verdictOf(q, { ...EMPTY_ANSWER, revealed: true })).toBeNull();
     expect(verdictOf(q, { ...EMPTY_ANSWER, revealed: true, self: 'wrong' })).toBe('wrong');
     expect(verdictOf(q, { ...EMPTY_ANSWER, revealed: true, self: 'right' })).toBe('right');
+  });
+
+  it('예시 답안에 코드 블록이 있는 직접 쓰기 문제만 그 코드 언어로 편집기를 씀', () => {
+    const write = (explanation: string) => ({ ...question('write', []), explanation });
+    expect(codeLanguageOf(write('```java\npublic class A {}\n```'))).toBe('java');
+    expect(codeLanguageOf(write('설명\n```python\nprint(1)\n```'))).toBe('python');
+    expect(codeLanguageOf(write('1. 세미콜론이 없어요.'))).toBeNull();
+    expect(codeLanguageOf(write('```\n출력\n```'))).toBeNull();
+    expect(
+      codeLanguageOf({ ...question('output', []), explanation: '```java\nint a;\n```' }),
+    ).toBeNull();
   });
 });

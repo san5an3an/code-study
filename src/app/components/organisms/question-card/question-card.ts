@@ -8,7 +8,15 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
 import type { QuizQuestion } from '../../../domain/lecture-content';
 import { inlineHtml, noteHtml } from '../../../domain/note-markdown';
-import { EMPTY_ANSWER, isAuto, verdictOf, type Answer } from '../../../domain/quiz-answer';
+import type { CodeCheck } from '../../../core/run-api';
+import {
+  codeLanguageOf,
+  EMPTY_ANSWER,
+  isAuto,
+  verdictOf,
+  type Answer,
+} from '../../../domain/quiz-answer';
+import { CodeEditor } from '../../atoms/code-editor/code-editor';
 
 // 보기 줄 색 표시. 실제 색은 styles.css 의 [data-quiz-tone] 규칙이 정함
 export type QuizTone = 'picked' | 'right' | 'wrong' | 'dim';
@@ -17,6 +25,7 @@ export type QuizTone = 'picked' | 'right' | 'wrong' | 'dim';
 @Component({
   selector: 'app-question-card',
   imports: [
+    CodeEditor,
     HlmBadgeImports,
     HlmButtonImports,
     HlmCardImports,
@@ -112,16 +121,32 @@ export type QuizTone = 'picked' | 'right' | 'wrong' | 'dim';
           </div>
         } @else {
           <div class="flex flex-col gap-2">
-            <label [for]="inputId()" class="text-sm font-medium">내 답</label>
-            <textarea
-              hlmTextarea
-              class="font-mono"
-              placeholder="여기에 써 보고 정답을 확인해요"
-              [id]="inputId()"
-              [rows]="q().kind === 'blank' ? 1 : 3"
-              [value]="answer().text"
-              (input)="set({ text: $any($event.target).value })"
-            ></textarea>
+            @if (codeLanguage(); as language) {
+              <p class="text-sm font-medium">
+                내 답
+                <span class="font-normal text-muted-foreground"
+                  >(코드로 써 보고, 오타는 밑줄로 알려 줘요)</span
+                >
+              </p>
+              <app-code-editor
+                [value]="answer().text"
+                [label]="q().n + '번 문제 내 답 코드'"
+                [course]="language"
+                [check]="check()"
+                (valueChange)="set({ text: $event })"
+              />
+            } @else {
+              <label [for]="inputId()" class="text-sm font-medium">내 답</label>
+              <textarea
+                hlmTextarea
+                class="font-mono"
+                placeholder="여기에 써 보고 정답을 확인해요"
+                [id]="inputId()"
+                [rows]="q().kind === 'blank' ? 1 : 3"
+                [value]="answer().text"
+                (input)="set({ text: $any($event.target).value })"
+              ></textarea>
+            }
             @if (!answer().revealed) {
               <button hlmBtn variant="outline" class="self-start" (click)="set({ revealed: true })">
                 <svg lucideEye [size]="16"></svg>
@@ -202,6 +227,8 @@ export class QuestionCard {
   // 오답 노트엔 여러 강의 문제가 같이 있어 번호만으론 id 가 겹쳐서 앞에 붙이는 이름
   readonly idPrefix = input('quiz');
   readonly inReview = input(false);
+  // 코드로 답하는 문제의 오타 검사 결과. 검사는 부모가 맡음
+  readonly check = input<CodeCheck | null>(null);
   readonly answerChange = output<Answer>();
 
   protected readonly empty = EMPTY_ANSWER;
@@ -210,6 +237,7 @@ export class QuestionCard {
   protected readonly titleId = computed(() => `${this.idPrefix()}-title-${this.q().n}`);
   protected readonly inputId = computed(() => `${this.idPrefix()}-answer-${this.q().n}`);
   protected readonly auto = computed(() => isAuto(this.q()));
+  protected readonly codeLanguage = computed(() => codeLanguageOf(this.q()));
   protected readonly multi = computed(
     () => this.q().kind === 'choice' && this.q().correct.length > 1,
   );

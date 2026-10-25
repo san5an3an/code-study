@@ -2,7 +2,6 @@ import type { CanMatchFn, Routes } from '@angular/router';
 
 import { CourseShellPage } from './components/pages/course-shell-page/course-shell-page';
 import { HomePage } from './components/pages/home-page/home-page';
-import { LecturePage } from './components/pages/lecture-page/lecture-page';
 import { NotFoundPage } from './components/pages/not-found-page/not-found-page';
 import { PendingPage } from './components/pages/pending-page/pending-page';
 import { DEFAULT_COURSE } from './config/courses';
@@ -19,7 +18,12 @@ export const routes: Routes = [
     component: CourseShellPage,
     children: [
       { path: '', component: HomePage },
-      { path: 'lecture/:id', component: LecturePage },
+      // 강의 화면은 노트, 퀴즈, 코드를 다 담아 커서 그 주소로 들어갈 때만 따로 불러옴. 첫 화면 크기를 한도(1MB) 안에 두기 위함
+      {
+        path: 'lecture/:id',
+        loadComponent: () =>
+          import('./components/pages/lecture-page/lecture-page').then((m) => m.LecturePage),
+      },
       { path: 'review', component: PendingPage, data: { title: '오답 노트' } },
       { path: '**', component: NotFoundPage },
     ],

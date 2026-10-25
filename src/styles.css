@@ -56,6 +56,24 @@
     }
   }
 
+  /* 코드 탭 실행 결과: 노트 코드 블록과 같은 글 토큰을 쓰고, 에러는 Cobalt 위험 색 */
+  .run-output {
+    overflow-x: auto;
+    padding: var(--semantic-space-md);
+    border-radius: var(--semantic-radius-control);
+    background: var(--component-prose-code-bg);
+    outline: var(--semantic-border-width-default) solid var(--component-prose-code-border);
+    outline-offset: var(--semantic-border-inset-default);
+    color: var(--component-prose-code-fg);
+    font-family: var(--base-font-family-mono);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .run-output-error,
+  .run-status-error {
+    color: var(--semantic-fg-danger-default);
+  }
+
   /* 끝낸 강의 체크 아이콘 색 */
   .quiz-right {
     color: var(--semantic-fg-success-default);
