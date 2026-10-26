@@ -292,3 +292,19 @@ test('퀴즈 답 실행: 답이 만든 파일은 지금 폴더에 남지 않음'
   assert.equal(r.run?.stdout, '썼음\n');
   assert.equal(existsSync(name), false);
 });
+
+test('퀴즈 답 실행: public 을 안 붙인 class 에 main 이 있어도 그 class 를 실행함', async () => {
+  const r = await runJavaSnippet('class Fee {\n    public static void main(String[] args) {\n        System.out.println("청소년 요금: 1000원");\n    }\n}\n');
+  assert.ok(r.ok);
+  assert.equal(r.run?.stdout, '청소년 요금: 1000원\n');
+  assert.equal(r.run?.exitCode, 0);
+});
+
+test('퀴즈 답 실행: public 이 붙은 interface 에 main 이 없으면 main 이 있는 class 를 실행함', async () => {
+  const r = await runJavaSnippet(
+    'public interface Payment {\n    void pay(int amount);\n}\nclass Card implements Payment {\n    public void pay(int amount) { System.out.println("카드로 " + amount + "원 결제"); }\n}\nclass PaymentTest {\n    public static void main(String[] args) {\n        Payment p = new Card();\n        p.pay(5000);\n    }\n}\n',
+  );
+  assert.ok(r.ok);
+  assert.deepEqual(r.diagnostics, []);
+  assert.equal(r.run?.stdout, '카드로 5000원 결제\n');
+});

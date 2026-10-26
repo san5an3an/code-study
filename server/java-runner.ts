@@ -221,7 +221,7 @@ async function compileSnippet(source: string, work: string) {
     if (line > lastLine) return { ...d, line: lastLine, column: Number.MAX_SAFE_INTEGER };
     return { ...d, line };
   });
-  return { className: snippet.file.replace(/\.java$/, ''), compile, diagnostics };
+  return { className: snippet.mainClass, compile, diagnostics };
 }
 
 export async function checkJavaSnippet(source: string): Promise<CheckResponse> {

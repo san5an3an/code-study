@@ -56,3 +56,12 @@ test('답안이 만든 파일은 지금 폴더에 남지 않음', () => {
   assert.equal(expectedJavaOutput(code), '썼음\n');
   assert.equal(existsSync(name), false);
 });
+
+test('public 을 안 붙인 class 에 main 이 있는 답안도 실행해 기대 출력을 구함', () => {
+  assert.equal(
+    expectedJavaOutput(
+      'class Fee {\n  public static void main(String[] args) {\n    System.out.println("요금");\n  }\n}\n',
+    ),
+    '요금\n',
+  );
+});

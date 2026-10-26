@@ -28,7 +28,7 @@ export function expectedJavaOutput(source: string, runTimeoutMs = RUN_TIMEOUT_MS
     );
     if (javac.exitCode !== 0) return null;
 
-    const className = snippet.file.replace(/\.java$/, '');
+    const className = snippet.mainClass;
     const once = () =>
       run(
         'java',
