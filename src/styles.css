@@ -81,6 +81,23 @@
   .quiz-wrong {
     color: var(--semantic-fg-danger-default);
   }
+
+  /* 강의 자료 탭: 어두운 화면에선 muted 가 페이지 배경과 같은 색이라 다른 토큰을 씀 */
+  .transcript-line[data-current='true'] {
+    background: var(--semantic-bg-brand-subtlest);
+    box-shadow: inset 2px 0 0 var(--semantic-bg-brand-default);
+  }
+  .transcript-line mark {
+    background: var(--semantic-bg-warning-subtle);
+    color: var(--semantic-fg-warning-default);
+    font-weight: 600;
+    border-radius: 2px;
+  }
+}
+
+/* 슬라이더 길은 bg-muted 유틸리티라 components 층에선 못 이김. 그래서 층 밖에 둠 */
+.frame-viewer [data-slot='slider-track'] {
+  background: var(--semantic-border-neutral-default);
 }
 
 /* 노트 본문: Cobalt 글 스타일(ods-prose)에 Cobalt 에 없는 h4, 굵게, 목록, 코드 블록, 표를 같은 토큰으로 더함 */

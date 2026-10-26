@@ -15,7 +15,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { courseOf } from '../../../config/courses';
 import { findLecture, type CourseId } from '../../../domain/course';
 import { isRunCourse, type CodeFile } from '../../../core/run-api';
-import { SYNCED_COURSES, type Quiz, type QuizQuestion } from '../../../domain/lecture-content';
+import {
+  SYNCED_COURSES,
+  type Frame,
+  type Quiz,
+  type QuizQuestion,
+  type TranscriptLine,
+} from '../../../domain/lecture-content';
 import { applyCheck, applyVisit, isChecked, missingFor } from '../../../domain/lecture-progress';
 import { lectureContext, tabOf, type LectureTab } from '../../../domain/lecture-view';
 import { noteHtml } from '../../../domain/note-markdown';
@@ -35,6 +41,7 @@ import {
   type CodeSourceStatus,
   type LiveRun,
 } from '../../organisms/code-view/code-view';
+import { MaterialView, type MaterialStatus } from '../../organisms/material-view/material-view';
 import { NoteView, type NoteStatus } from '../../organisms/note-view/note-view';
 import {
   QuizView,
@@ -46,7 +53,7 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
 // 강의 화면. 주소의 과목, 강의 번호, 탭 이름으로 화면을 그리고 진도 체크를 저장함
 @Component({
   selector: 'app-lecture-page',
-  imports: [LectureTemplate, LectureChecks, LectureNav, NoteView, QuizView, CodeView],
+  imports: [LectureTemplate, LectureChecks, LectureNav, NoteView, QuizView, CodeView, MaterialView],
   template: `
     @if (lecture(); as lecture) {
       <app-lecture-template
@@ -90,7 +97,14 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
           (codeChange)="requestCodeCheck($event)"
           (reset)="clearRun()"
         />
-        <p tabMaterial class="text-muted-foreground">강의 자료 탭은 옮기는 중이에요.</p>
+        <app-material-view
+          tabMaterial
+          [status]="materialStatus()"
+          [course]="courseId()"
+          [lectureId]="lecture.id"
+          [frames]="frames()"
+          [lines]="transcript()"
+        />
         <app-lecture-nav
           lectureNav
           [prev]="context()?.prev"
@@ -259,6 +273,42 @@ export class LecturePage {
       ? { ...check, diagnostics: check.diagnostics.filter((d) => d.file === file) }
       : null;
   });
+
+  // 강의 자료 탭. 화면 캡처 목록과 받아쓰기를 같이 불러오고, 둘 중 하나라도 실패하면 실패로 봄
+  private readonly framesData = resource({
+    params: () => {
+      const lecture = this.lecture();
+      return lecture && this.synced()
+        ? contentPath(this.courseId(), lecture.id, 'frames.json')
+        : undefined;
+    },
+    loader: async ({ params, abortSignal }) =>
+      JSON.parse(await fetchContentText(params, abortSignal)) as Frame[],
+  });
+  private readonly transcriptData = resource({
+    params: () => {
+      const lecture = this.lecture();
+      return lecture && this.synced()
+        ? contentPath(this.courseId(), lecture.id, 'transcript.json')
+        : undefined;
+    },
+    loader: async ({ params, abortSignal }) =>
+      JSON.parse(await fetchContentText(params, abortSignal)) as TranscriptLine[],
+  });
+  protected readonly materialStatus = computed<MaterialStatus>(() => {
+    if (!this.synced()) return 'none';
+    const statuses = [this.framesData.status(), this.transcriptData.status()];
+    if (statuses.includes('error')) return 'error';
+    return statuses.every((s) => s === 'resolved' || s === 'local') ? 'ready' : 'loading';
+  });
+  protected readonly frames = computed(() =>
+    this.materialStatus() === 'ready' && this.framesData.hasValue() ? this.framesData.value() : [],
+  );
+  protected readonly transcript = computed(() =>
+    this.materialStatus() === 'ready' && this.transcriptData.hasValue()
+      ? this.transcriptData.value()
+      : [],
+  );
 
   constructor() {
     // 다른 강의로 가면 앞 강의 답의 검사를 멈추고 결과를 비움
