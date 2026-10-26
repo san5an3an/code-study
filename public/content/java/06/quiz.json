@@ -150,7 +150,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class Fee {\n    public static void main(String[] args) {\n        int age = 15;\n        if (age >= 65) {\n            System.out.println(\"경로 요금: 0원\");\n        } else if (age >= 20) {\n            System.out.println(\"성인 요금: 1500원\");\n        } else if (age >= 8) {\n            System.out.println(\"청소년 요금: 1000원\");\n        } else {\n            System.out.println(\"어린이 요금: 500원\");\n        }\n    }\n}\n```\n실행 결과:\n```\n청소년 요금: 1000원\n```\n**큰 값부터** 물어보는 게 핵심이에요. 만약 `age >= 8`을 맨 위에 두면 70세도 청소년 요금이 나와요. 처음 true가 된 곳에서 바로 빠져나가니까요.",
-      "expectedOutput": "청소년 요금: 1000원\n"
+      "expectedOutput": "청소년 요금: 1000원\n",
+      "hints": [
+        "나이에 따라 다른 글자를 찍는 문제예요. `if` 는 \"만약 ~라면\", `else if` 는 \"아니고 만약 ~라면\", `else` 는 \"그것도 아니면\" 이에요. 위에서부터 차례로 검사하고 처음 맞는 곳 하나만 실행돼서, 나이가 많은 조건부터 써야 해요.",
+        "- `int age = 15;` 를 만들어요\n- `if (age >= 65)` 로 경로 요금을 찍어요\n- `else if (age >= 20)`, `else if (age >= 8)` 을 차례로 이어요\n- 마지막은 `else` 로 어린이 요금을 찍어요",
+        "```java\npublic class Fee {\n    public static void main(String[] args) {\n        int age = 15;\n        if (age >= ___) {\n            System.out.println(\"경로 요금: 0원\");\n        } ___ (age >= 20) {\n            System.out.println(\"성인 요금: 1500원\");\n        } else if (age >= ___) {\n            System.out.println(\"청소년 요금: 1000원\");\n        } ___ {\n            System.out.println(\"어린이 요금: 500원\");\n        }\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -163,7 +168,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class Day {\n    public static void main(String[] args) {\n        int day = 3;\n        switch (day) {\n            case 1: System.out.println(\"월요일\"); break;\n            case 2: System.out.println(\"화요일\"); break;\n            case 3: System.out.println(\"수요일\"); break;\n            case 4: System.out.println(\"목요일\"); break;\n            case 5: System.out.println(\"금요일\"); break;\n            case 6:                                   // 아무것도 안 하고 break도 없어서\n            case 7: System.out.println(\"주말\"); break; // 6일 때도 여기로 흘러내려와요\n            default: System.out.println(\"잘못된 번호예요\");\n        }\n    }\n}\n```\n실행 결과:\n```\n수요일\n```\n`case 6:` 뒤에 실행문과 break를 비워 두면, 6일 때 아래 `case 7`로 흘러내려가 \"주말\"이 출력돼요. 강의에서 본 \"break가 없으면 아래로 흘러간다\"는 성질을 일부러 활용한 예예요.",
-      "expectedOutput": "수요일\n"
+      "expectedOutput": "수요일\n",
+      "hints": [
+        "`switch` 는 값이 몇인지 보고 맞는 `case` 로 바로 뛰어가요. `break` 는 \"여기서 멈춰\" 예요. `break` 가 없으면 아래 `case` 로 계속 흘러내려가요. 이 성질을 써서 6과 7을 한곳으로 모아요. 어느 `case` 에도 안 맞으면 `default` 가 실행돼요.",
+        "- `switch (day)` 를 써요\n- `case 1:` 부터 `case 5:` 까지 요일을 찍고 각각 `break;` 를 붙여요\n- `case 6:` 은 아무것도 안 쓰고 바로 아래 `case 7:` 에서 \"주말\" 을 찍어요\n- `default:` 에서 \"잘못된 번호예요\" 를 찍어요",
+        "```java\npublic class Day {\n    public static void main(String[] args) {\n        int day = 3;\n        switch (___) {\n            case 1: System.out.println(\"월요일\"); ___;\n            case 2: System.out.println(\"화요일\"); break;\n            case 3: System.out.println(\"수요일\"); break;\n            case 4: System.out.println(\"목요일\"); break;\n            case 5: System.out.println(\"금요일\"); break;\n            case 6:\n            case ___: System.out.println(\"주말\"); break;\n            ___: System.out.println(\"잘못된 번호예요\");\n        }\n    }\n}\n```"
+      ]
     }
   ]
 }

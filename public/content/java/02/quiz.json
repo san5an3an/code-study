@@ -177,7 +177,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class MyProfile {                        // 파일 이름도 MyProfile.java\n    public static void main(String[] args) {\n        System.out.print(\"이름: \");             // 줄을 안 바꿔서\n        System.out.println(\"홍길동\");           // 바로 옆에 이름이 붙고, 여기서 줄 바꿈\n        System.out.println(\"나이: 20\");\n        System.out.println(\"취미: 코딩\");\n    }\n}\n```\n실행 결과:\n```\n이름: 홍길동\n나이: 20\n취미: 코딩\n```\n`\"이름: \"` 끝에 공백을 하나 넣어야 \"이름:\"과 \"홍길동\" 사이가 띄어져요. 따옴표 안의 공백도 그대로 출력돼요.",
-      "expectedOutput": "이름: 홍길동\n나이: 20\n취미: 코딩\n"
+      "expectedOutput": "이름: 홍길동\n나이: 20\n취미: 코딩\n",
+      "hints": [
+        "글자를 찍는 명령은 두 가지예요. `print` 는 찍고 나서 그 줄에 그대로 있고, `println` 은 찍고 나서 다음 줄로 내려가요. 첫 줄 \"이름: 홍길동\" 을 두 번에 나눠 찍어야 하니, 앞쪽은 줄을 안 바꾸는 `print` 로 찍어요.",
+        "- `System.out.print(\"이름: \");` 으로 앞부분을 찍어요. 콜론 뒤 공백도 같이 넣어요\n- `System.out.println(\"홍길동\");` 으로 이어서 찍고 줄을 바꿔요\n- 나머지 두 줄은 `println` 으로 한 줄씩 찍어요",
+        "```java\npublic class MyProfile {\n    public static void main(String[] args) {\n        System.out.___(\"이름: \");\n        System.out.___(\"홍길동\");\n        System.out.println(\"나이: 20\");\n        System.out.println(___);\n    }\n}\n```"
+      ]
     }
   ]
 }

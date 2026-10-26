@@ -157,7 +157,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class HeightPrint {\n    public static void main(String[] args) {\n        double[] height = {165.2, 180.6, 175.9};\n        for (int i = 0; i < height.length; i++) {\n            System.out.println(height[i]);\n        }\n    }\n}\n```\n실행 결과:\n```\n165.2\n180.6\n175.9\n```\n`height.length`를 쓰면 나중에 값이 늘어나도 반복문은 고치지 않아도 돼요.",
-      "expectedOutput": "165.2\n180.6\n175.9\n"
+      "expectedOutput": "165.2\n180.6\n175.9\n",
+      "hints": [
+        "배열은 값 여러 개를 한 줄로 담는 상자예요. 칸 번호는 0부터 시작하고, `height.length` 가 칸 개수(여기서는 3)를 알려 줘요. 반복으로 0번 칸부터 마지막 칸까지 하나씩 찍어요.",
+        "- 문제의 배열을 그대로 만들어요\n- `for (int i = 0; i < height.length; i++)` 로 칸 번호를 0부터 돌아요\n- 안에서 `height[i]` 를 찍어요",
+        "```java\npublic class HeightPrint {\n    public static void main(String[] args) {\n        double[] height = {165.2, 180.6, 175.9};\n        for (int i = ___; i < height.___; i++) {\n            System.out.println(height[___]);\n        }\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -170,7 +175,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class EngPrint {\n    public static void main(String[] args) {\n        int[][] eng = new int[2][3];\n        eng[1][0] = 40;\n        eng[1][1] = 50;\n        eng[1][2] = 60;\n        System.out.println(eng[1][1]);\n    }\n}\n```\n실행 결과:\n```\n50\n```\n\"두 번째 줄\"은 인덱스로는 1행이에요. 행도 열도 0부터 센다는 점을 기억하세요.",
-      "expectedOutput": "50\n"
+      "expectedOutput": "50\n",
+      "hints": [
+        "2행 3열 배열은 줄이 2개, 칸이 3개인 표예요. 줄 번호와 칸 번호 모두 0부터 세서, \"두 번째 줄\" 은 줄 번호 1이에요. `eng[줄][칸]` 으로 칸을 가리켜요.",
+        "- `int[][] eng = new int[2][3];` 으로 표를 만들어요\n- `eng[1][0] = 40;` 처럼 두 번째 줄의 세 칸에 40, 50, 60 을 넣어요\n- `eng[1][1]` 을 찍어요",
+        "```java\npublic class EngPrint {\n    public static void main(String[] args) {\n        int[][] eng = new int[___][___];\n        eng[1][0] = 40;\n        eng[1][1] = ___;\n        eng[1][2] = 60;\n        System.out.println(eng[___][___]);\n    }\n}\n```"
+      ]
     }
   ]
 }

@@ -164,7 +164,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nclass Rectangle {\n    private int width;   // 가로\n    private int height;  // 세로\n\n    public Rectangle(int w, int h) { // 생성자 : 만들 때 가로·세로를 받아 저장\n        width = w;\n        height = h;\n    }\n\n    public int area() {              // 넓이를 계산해서 돌려줌 (11강 return)\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        Rectangle r1 = new Rectangle(3, 4);\n        Rectangle r2 = new Rectangle(10, 5);\n        System.out.println(\"r1 넓이: \" + r1.area());\n        System.out.println(\"r2 넓이: \" + r2.area());\n    }\n}\n```\n\n실행 결과\n\n```\nr1 넓이: 12\nr2 넓이: 50\n```\n\n멤버 변수는 private 으로 숨기고, 값은 생성자로 넣고, 결과는 public 메소드로 꺼내는 구조예요. 강의의 `School` 클래스와 같은 \"가장 일반적인 설계 방식\"이에요.",
-      "expectedOutput": "r1 넓이: 12\nr2 넓이: 50\n"
+      "expectedOutput": "r1 넓이: 12\nr2 넓이: 50\n",
+      "hints": [
+        "클래스는 물건의 설계도예요. `Rectangle`(사각형) 설계도에 가로, 세로 값을 적어 두고, 넓이를 계산하는 기능을 붙여요. 생성자는 `new Rectangle(3, 4)` 처럼 물건을 만들 때 실행되는 코드로, 받은 가로·세로를 저장해요. `private` 는 \"밖에서 직접 못 건드림\" 이라는 뜻이에요.",
+        "- `class Rectangle` 안에 `private int width;` 와 `private int height;` 를 만들어요\n- 생성자 `public Rectangle(int w, int h)` 에서 `width = w;`, `height = h;` 로 저장해요\n- `public int area()` 에서 `width * height` 를 돌려줘요\n- `public class Rect` 의 `main` 에서 사각형 두 개를 만들어 `area()` 를 찍어요",
+        "```java\nclass Rectangle {\n    private int width;\n    private int ___;\n    public Rectangle(int w, int h) {\n        width = ___;\n        height = h;\n    }\n    public int area() {\n        return width ___ height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        Rectangle r1 = ___ Rectangle(3, 4);\n        Rectangle r2 = new Rectangle(10, 5);\n        System.out.println(\"r1 넓이: \" + r1.___());\n        System.out.println(\"r2 넓이: \" + r2.area());\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -177,7 +182,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nclass Cat {\n    private String name;\n    private int age;\n\n    public Cat() {\n        name = \"이름없음\";\n    }\n\n    public Cat(String n, int a) {\n        name = n;\n        age = a;\n    }\n\n    public void info() {\n        System.out.println(name + \" / \" + age + \"살\");\n    }\n}\npublic class Pet {\n    public static void main(String[] args) {\n        Cat c1 = new Cat();\n        Cat c2 = new Cat(\"나비\", 2);\n        c1.info();\n        c2.info();\n    }\n}\n```\n\n실행 결과\n\n```\n이름없음 / 0살\n나비 / 2살\n```\n\n`c1` 은 전달값 없는 생성자로 만들어서 이름만 \"이름없음\"이 들어가고, 나이는 넣지 않아서 int 기본값 0 이 나와요. 생성자를 두 개 만든 것이 바로 생성자 오버로드예요.",
-      "expectedOutput": "이름없음 / 0살\n나비 / 2살\n"
+      "expectedOutput": "이름없음 / 0살\n나비 / 2살\n",
+      "hints": [
+        "생성자(물건을 만들 때 실행되는 코드)를 두 개 만들어요. 하나는 아무것도 안 받고 이름만 \"이름없음\" 으로 정해요. 다른 하나는 이름과 나이를 받아 저장해요. 나이를 안 넣으면 `int` 는 저절로 0 이에요.",
+        "- `class Cat` 안에 `private String name;` 과 `private int age;` 를 만들어요\n- `public Cat() { }` 안에서 `name = \"이름없음\";` 을 해요\n- `public Cat(String n, int a) { }` 안에서 이름과 나이를 저장해요\n- `info()` 에서 `name + \" / \" + age + \"살\"` 을 찍어요\n- `main` 에서 `new Cat()` 과 `new Cat(\"나비\", 2)` 로 만들고 각각 `info()` 를 불러요",
+        "```java\nclass Cat {\n    private String name;\n    private int age;\n    public Cat() {\n        name = ___;\n    }\n    public Cat(String n, int a) {\n        name = n;\n        age = ___;\n    }\n    public void info() {\n        System.out.println(name + \" / \" + age + ___);\n    }\n}\npublic class Pet {\n    public static void main(String[] args) {\n        Cat c1 = new Cat();\n        Cat c2 = new Cat(___, 2);\n        c1.info();\n        c2.___();\n    }\n}\n```"
+      ]
     }
   ]
 }

@@ -157,7 +157,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nclass BasicPhone {\n    public void call() {\n        System.out.println(\"전화를 걸어요\");\n    }\n}\n\nclass SmartPhone extends BasicPhone {   // BasicPhone 을 상속\n    @Override\n    public void call() {                // 물려받은 call() 을 다시 작성\n        System.out.println(\"영상 통화를 걸어요\");\n    }\n\n    public void internet() {            // 새로 추가한 메소드\n        System.out.println(\"인터넷을 해요\");\n    }\n}\n\npublic class Phone {\n    public static void main(String[] args) {\n        BasicPhone bp = new BasicPhone();\n        bp.call();          // 부모 원래 버전\n\n        SmartPhone sp = new SmartPhone();\n        sp.call();          // 오버라이드한 버전\n        sp.internet();      // 자식이 추가한 메소드\n    }\n}\n```\n\n실행 결과\n\n```\n전화를 걸어요\n영상 통화를 걸어요\n인터넷을 해요\n```\n\n파일 이름은 public 클래스 이름과 같은 `Phone.java` 로 저장해야 해요. `@Override` 를 빼도 동작은 같지만, 붙여 두면 `call` 을 `cal` 처럼 잘못 썼을 때 컴파일러가 바로 알려 줘요.",
-      "expectedOutput": "전화를 걸어요\n영상 통화를 걸어요\n인터넷을 해요\n"
+      "expectedOutput": "전화를 걸어요\n영상 통화를 걸어요\n인터넷을 해요\n",
+      "hints": [
+        "기본 전화기(BasicPhone)를 바탕으로 스마트폰(SmartPhone)을 만드는 문제예요. 자바에서는 이미 만든 클래스의 기능을 그대로 물려받아 새 클래스를 만들 수 있어요(상속). 물려받은 기능 중 `call()` 만 내용을 바꾸고(오버라이드), 인터넷 기능을 하나 더 붙여요.",
+        "- `BasicPhone` 클래스를 만들고, 그 안에 \"전화를 걸어요\" 를 출력하는 `call()` 을 만들어요\n- `SmartPhone` 클래스를 만들면서 `BasicPhone` 을 물려받아요\n- `SmartPhone` 안에 `call()` 을 다시 만들어 \"영상 통화를 걸어요\" 를 출력해요\n- `SmartPhone` 안에 \"인터넷을 해요\" 를 출력하는 `internet()` 을 만들어요\n- `Phone` 클래스의 `main` 에서 두 전화기를 만들어 차례로 불러요",
+        "```java\nclass BasicPhone {\n    public void call() {\n        System.out.println(\"전화를 걸어요\");\n    }\n}\nclass SmartPhone ___ BasicPhone {\n    @Override\n    public void ___() {\n        System.out.println(\"영상 통화를 걸어요\");\n    }\n    public void internet() {\n        System.out.println(___);\n    }\n}\npublic class Phone {\n    public static void main(String[] args) {\n        BasicPhone bp = new BasicPhone();\n        bp.call();\n        SmartPhone sp = ___ SmartPhone();\n        sp.call();\n        sp.___();\n    }\n}\n```"
+      ]
     }
   ]
 }

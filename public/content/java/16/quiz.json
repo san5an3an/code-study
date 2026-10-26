@@ -157,7 +157,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class TwoDice {\n    public static void main(String[] args) {\n        int d1 = (int) (Math.random() * 6) + 1; // 첫 번째 주사위 1~6\n        int d2 = (int) (Math.random() * 6) + 1; // 두 번째 주사위 1~6\n        System.out.println(\"첫 번째 주사위: \" + d1);\n        System.out.println(\"두 번째 주사위: \" + d2);\n        System.out.println(\"합: \" + (d1 + d2));          // 괄호가 없으면 문자열로 이어 붙어요\n        System.out.println(\"더 큰 눈: \" + Math.max(d1, d2));\n    }\n}\n```\n\n실행 결과 예시 (실행할 때마다 달라짐)\n\n```\n첫 번째 주사위: 5\n두 번째 주사위: 4\n합: 9\n더 큰 눈: 5\n```\n\n`\"합: \" + (d1 + d2)` 에서 괄호를 빼면 `\"합: \" + d1` 이 먼저 문자열이 되어 `합: 54` 처럼 나와요. 숫자 덧셈을 먼저 하려면 괄호로 묶어요.",
-      "expectedOutput": null
+      "expectedOutput": null,
+      "hints": [
+        "`Math.random()` 은 0 이상 1 미만의 아무 소수를 줘요. 여기에 6을 곱하고 소수점을 버리면(`(int)`) 0~5, 1을 더하면 1~6 주사위 눈이 돼요. 두 수 중 큰 것은 `Math.max` 가 골라 줘요.",
+        "- `int d1 = (int) (Math.random() * 6) + 1;` 로 첫 번째 주사위를 만들어요\n- 같은 방법으로 `d2` 를 만들어요\n- 두 눈, 합 `d1 + d2`, 큰 눈 `Math.max(d1, d2)` 를 차례로 찍어요",
+        "```java\npublic class TwoDice {\n    public static void main(String[] args) {\n        int d1 = (int) (Math.random() * ___) + 1;\n        int d2 = (int) (Math.random() * 6) + ___;\n        System.out.println(\"첫 번째 주사위: \" + d1);\n        System.out.println(\"두 번째 주사위: \" + d2);\n        System.out.println(\"합: \" + (d1 ___ d2));\n        System.out.println(\"더 큰 눈: \" + Math.___(d1, d2));\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -170,7 +175,13 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nimport java.util.GregorianCalendar;\n\npublic class LeapList {\n    public static void main(String[] args) {\n        GregorianCalendar gc = new GregorianCalendar();\n        for (int year = 2020; year <= 2030; year++) {\n            if (gc.isLeapYear(year)) {   // boolean 이라 if 조건에 바로 넣어요\n                System.out.println(year + \"년은 윤년\");\n            }\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n```",
-      "expectedOutput": "2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n"
+      "expectedOutput": "2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n",
+      "hints": [
+        "자바에 들어 있는 달력 도구 `GregorianCalendar` 에는 윤년인지 알려 주는 `isLeapYear(연도)` 가 있어요. 2020년부터 2030년까지 하나씩 넣어 보고, 윤년이라고 하면 찍어요. 다른 파일의 도구를 쓰려면 맨 위에 `import` 를 적어요.",
+        "- 맨 위에 `import java.util.GregorianCalendar;` 를 써요\n- `GregorianCalendar gc = new GregorianCalendar();` 로 달력 도구를 만들어요\n- `for (int year = 2020; year <= 2030; year++)` 로 연도를 돌아요\n- `if (gc.isLeapYear(year))` 이면 `year + \"년은 윤년\"` 을 찍어요",
+        "```java\nimport java.util.___;\n\npublic class LeapList {\n    public static void main(String[] args) {\n        GregorianCalendar gc = new GregorianCalendar();\n        for (int year = 2020; year <= ___; year++) {\n            if (gc.___(year)) {\n                System.out.println(year + ___);\n            }\n        }\n    }\n}\n```"
+      ],
+      "outputExample": "2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n"
     }
   ]
 }

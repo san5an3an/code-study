@@ -18,12 +18,11 @@ import type {
   Frame,
   LectureContentSummary,
   Quiz,
-  QuizQuestion,
   TranscriptLine,
 } from '../src/app/domain/lecture-content.ts';
 import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
-import { codeLanguageOf } from '../src/app/domain/quiz-answer.ts';
-import { expectedJavaOutput, javaAnswerSource } from './expected-output.ts';
+import { checkAllUsed, readCodeQuizExtras, withCodeQuiz } from './code-quiz.ts';
+import { expectedJavaOutput } from './expected-output.ts';
 import { parseQuiz } from './quiz-parser.ts';
 import { COMPILE_TIMEOUT_MS, run, RUN_TIMEOUT_MS } from './run-command.ts';
 
@@ -31,6 +30,8 @@ const SOURCE = process.env['JAVA_NOTES'] ?? path.join(homedir(), 'Downloads/Java
 const APP = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(APP, 'public/content/java');
 const FRAMES = path.join(APP, 'public/frames/java');
+// 원본 노트에 없는 코드 문제 힌트. public/content/java 는 sync 때마다 지우므로 밖에 둠
+const CODE_QUIZ = path.join(APP, 'content-extra/java/code-quiz.json');
 
 function writeJson(file: string, data: unknown) {
   writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
@@ -65,13 +66,6 @@ function syncFrames(id: string): Frame[] {
     .filter((x) => x.m)
     .map(({ file, m }) => ({ t: toSeconds(m![1], m![2]), file }))
     .sort((a, b) => a.t - b.t);
-}
-
-// 자바 코드로 답하는 문제에만 기대 출력을 붙임. 채점할 수 없으면 null 이라 화면은 스스로 체크로 둠
-function withExpectedOutput(q: QuizQuestion): QuizQuestion {
-  if (codeLanguageOf(q) !== 'java') return q;
-  const source = javaAnswerSource(q.explanation);
-  return { ...q, expectedOutput: source === null ? null : expectedJavaOutput(source) };
 }
 
 // 같은 강의 폴더의 자바 파일끼리 서로 쓰기도 해서(21강 Mountain) 한꺼번에 컴파일함
@@ -126,10 +120,13 @@ function main() {
   if (!existsSync(path.join(SOURCE, 'lectures'))) {
     throw new Error(`원본 폴더가 없음: ${SOURCE}/lectures`);
   }
+  // 힌트 파일 형식이 틀리면 자료를 지우기 전에 멈춤
+  const extras = readCodeQuizExtras(CODE_QUIZ);
   // 다른 과목 자료는 두고 자바 폴더만 새로 만듦
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(OUT, { recursive: true });
 
+  const usedExtras = new Set<string>();
   const summary: LectureContentSummary[] = [];
   let gradedTotal = 0;
   let codingTotal = 0;
@@ -143,8 +140,8 @@ function main() {
 
     const quiz: Quiz = {
       lectureId: lecture.id,
-      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id).map(
-        withExpectedOutput,
+      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id).map((q) =>
+        withCodeQuiz(q, lecture.id, extras, usedExtras, expectedJavaOutput),
       ),
     };
     writeJson(path.join(out, 'quiz.json'), quiz);
@@ -177,6 +174,7 @@ function main() {
         `  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`,
     );
   }
+  checkAllUsed(extras, usedExtras);
   writeJson(path.join(OUT, 'index.json'), summary);
   const total = (k: keyof Omit<LectureContentSummary, 'id'>) =>
     summary.reduce((s, x) => s + x[k], 0);

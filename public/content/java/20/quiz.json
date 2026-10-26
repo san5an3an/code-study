@@ -150,7 +150,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class SafeParse {\n    static int toInt(String s) {\n        try {\n            return Integer.parseInt(s);\n        } catch (NumberFormatException e) {\n            System.out.println(\"숫자가 아니에요: \" + s);\n            return -1;\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(toInt(\"42\"));\n        System.out.println(toInt(\"abc\"));\n    }\n}\n```\n\n실행 결과\n\n```\n42\n숫자가 아니에요: abc\n-1\n```\n\n`toInt(\"abc\")` 안에서 메시지가 먼저 출력되고, 돌려받은 `-1` 이 main 에서 출력돼요.",
-      "expectedOutput": "42\n숫자가 아니에요: abc\n-1\n"
+      "expectedOutput": "42\n숫자가 아니에요: abc\n-1\n",
+      "hints": [
+        "`Integer.parseInt(\"42\")` 는 글자 \"42\" 를 숫자 42 로 바꿔요. 그런데 \"abc\" 처럼 숫자가 아니면 에러(예외)가 나요. `try` 안에서 해 보고, 에러가 나면 `catch` 가 받아서 안내를 찍고 -1 을 돌려줘요.",
+        "- `static int toInt(String s)` 메소드를 만들어요\n- `try { return Integer.parseInt(s); }` 로 바꿔 보고 돌려줘요\n- `catch (NumberFormatException e) { }` 안에서 `\"숫자가 아니에요: \" + s` 를 찍고 `return -1;` 해요\n- `main` 에서 `toInt(\"42\")` 와 `toInt(\"abc\")` 를 찍어요",
+        "```java\npublic class SafeParse {\n    static int toInt(String s) {\n        ___ {\n            return Integer.parseInt(s);\n        } ___ (NumberFormatException e) {\n            System.out.println(\"숫자가 아니에요: \" + s);\n            return ___;\n        }\n    }\n    public static void main(String[] args) {\n        System.out.println(toInt(\"42\"));\n        System.out.println(toInt(___));\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -163,7 +168,13 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\npublic class SafeDivide {\n    static int divide(int a, int b) throws ArithmeticException {\n        return a / b;\n    }\n    public static void main(String[] args) {\n        int[] bs = {2, 0};\n        for (int i = 0; i < bs.length; i++) {\n            int b = bs[i];\n            try {\n                System.out.println(\"10 / \" + b + \" = \" + divide(10, b));\n            } catch (ArithmeticException e) {\n                System.out.println(\"0으로는 나눌 수 없어요\");\n            } finally {\n                System.out.println(\"계산 끝\");\n            }\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n10 / 2 = 5\n계산 끝\n0으로는 나눌 수 없어요\n계산 끝\n```\n\n반복문으로 나누는 값을 2, 0 차례로 바꿔 가며 같은 try ~ catch ~ finally 를 두 번 실행한 거예요. 0일 때도 finally 의 \"계산 끝\" 이 빠지지 않아요.",
-      "expectedOutput": "10 / 2 = 5\n계산 끝\n0으로는 나눌 수 없어요\n계산 끝\n"
+      "expectedOutput": "10 / 2 = 5\n계산 끝\n0으로는 나눌 수 없어요\n계산 끝\n",
+      "hints": [
+        "0으로 나누면 에러(예외)가 나요. `divide` 메소드는 그 에러를 직접 처리하지 않고 부른 쪽에 넘겨요(`throws`). `main` 이 `try` 로 계산해 보고, 에러가 나면 `catch` 에서 안내를 찍어요. `finally` 는 에러가 나든 안 나든 마지막에 꼭 실행돼요.",
+        "- `static int divide(int a, int b) throws ArithmeticException` 을 만들고 `a / b` 를 돌려줘요\n- `main` 에 나눌 수 배열 `{2, 0}` 을 만들고 `for` 로 하나씩 꺼내요\n- `try` 안에서 `\"10 / \" + b + \" = \" + divide(10, b)` 를 찍어요\n- `catch (ArithmeticException e)` 에서 \"0으로는 나눌 수 없어요\" 를 찍어요\n- `finally` 에서 \"계산 끝\" 을 찍어요",
+        "```java\npublic class SafeDivide {\n    static int divide(int a, int b) ___ ArithmeticException {\n        return a / b;\n    }\n    public static void main(String[] args) {\n        int[] bs = {2, ___};\n        for (int i = 0; i < bs.length; i++) {\n            int b = bs[i];\n            try {\n                System.out.println(\"10 / \" + b + \" = \" + divide(10, b));\n            } ___ (ArithmeticException e) {\n                System.out.println(\"0으로는 나눌 수 없어요\");\n            } ___ {\n                System.out.println(\"계산 끝\");\n            }\n        }\n    }\n}\n```"
+      ],
+      "outputExample": "10 / 2 = 5\n계산 끝\n0으로는 나눌 수 없어요\n계산 끝\n"
     }
   ]
 }

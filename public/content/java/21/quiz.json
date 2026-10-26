@@ -157,7 +157,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nimport java.util.ArrayList;\n\npublic class FruitList {\n    public static void main(String[] args) {\n        ArrayList<String> fruits = new ArrayList<>();\n        fruits.add(\"사과\");\n        fruits.add(\"바나나\");\n        fruits.add(\"포도\");\n\n        for (int i = 0; i < fruits.size(); i++) {\n            System.out.println(i + \"번: \" + fruits.get(i));\n        }\n        System.out.println(\"과일 개수: \" + fruits.size());\n    }\n}\n```\n\n`import java.util.ArrayList;` 를 빼먹지 않았는지, `for` 조건이 `i < fruits.size()` 인지 확인하세요.",
-      "expectedOutput": "0번: 사과\n1번: 바나나\n2번: 포도\n과일 개수: 3\n"
+      "expectedOutput": "0번: 사과\n1번: 바나나\n2번: 포도\n과일 개수: 3\n",
+      "hints": [
+        "`ArrayList` 는 값을 몇 개든 넣을 수 있는 목록이에요. `<String>` 은 \"글자만 담는 목록\" 이라는 뜻이에요. `add` 로 넣고, `get(번호)` 로 꺼내고, `size()` 로 개수를 알아요. 번호는 0부터 세요.",
+        "- 맨 위에 `import java.util.ArrayList;` 를 써요\n- `ArrayList<String> fruits = new ArrayList<>();` 로 목록을 만들어요\n- `fruits.add(\"사과\");` 처럼 세 과일을 넣어요\n- `for (int i = 0; i < fruits.size(); i++)` 로 돌며 `i + \"번: \" + fruits.get(i)` 를 찍어요\n- 마지막에 `\"과일 개수: \" + fruits.size()` 를 찍어요",
+        "```java\nimport java.util.ArrayList;\n\npublic class FruitList {\n    public static void main(String[] args) {\n        ArrayList<String> fruits = new ArrayList<>();\n        fruits.___(\"사과\");\n        fruits.add(\"바나나\");\n        fruits.add(___);\n        for (int i = 0; i < fruits.___(); i++) {\n            System.out.println(i + \"번: \" + fruits.___(i));\n        }\n        System.out.println(\"과일 개수: \" + fruits.size());\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -170,7 +175,12 @@
       "answerHead": "",
       "isExample": true,
       "explanation": "```java\nimport java.util.HashMap;\n\npublic class ScoreMap {\n    public static void main(String[] args) {\n        HashMap<String, Integer> score = new HashMap<>();\n        score.put(\"kim\", 90);\n        score.put(\"lee\", 85);\n        score.put(\"park\", 70);\n\n        System.out.println(\"lee 의 점수: \" + score.get(\"lee\"));\n        score.put(\"lee\", 95);\n        System.out.println(\"lee 의 바뀐 점수: \" + score.get(\"lee\"));\n        System.out.println(\"학생 수: \" + score.size());\n    }\n}\n```\n\n같은 Key(\"lee\")로 다시 `put` 하면 값이 바뀔 뿐 쌍이 늘어나지 않아서 학생 수는 계속 3이에요.",
-      "expectedOutput": "lee 의 점수: 85\nlee 의 바뀐 점수: 95\n학생 수: 3\n"
+      "expectedOutput": "lee 의 점수: 85\nlee 의 바뀐 점수: 95\n학생 수: 3\n",
+      "hints": [
+        "`HashMap` 은 이름표(Key)를 붙여 값(Value)을 넣는 사물함이에요. `put(이름표, 값)` 으로 넣고, `get(이름표)` 로 꺼내요. 같은 이름표로 다시 `put` 하면 값이 바뀌어요. `size()` 는 사물함 개수예요.",
+        "- 맨 위에 `import java.util.HashMap;` 을 써요\n- `HashMap<String, Integer> score = new HashMap<>();` 으로 만들어요\n- `score.put(\"kim\", 90);` 처럼 세 명을 넣어요\n- `score.get(\"lee\")` 를 찍고, `score.put(\"lee\", 95);` 로 바꾼 뒤 다시 찍어요\n- `score.size()` 로 학생 수를 찍어요",
+        "```java\nimport java.util.HashMap;\n\npublic class ScoreMap {\n    public static void main(String[] args) {\n        HashMap<String, Integer> score = new HashMap<>();\n        score.put(\"kim\", 90);\n        score.___(\"lee\", 85);\n        score.put(\"park\", 70);\n        System.out.println(\"lee 의 점수: \" + score.___(\"lee\"));\n        score.put(\"lee\", ___);\n        System.out.println(\"lee 의 바뀐 점수: \" + score.get(\"lee\"));\n        System.out.println(\"학생 수: \" + score.___());\n    }\n}\n```"
+      ]
     }
   ]
 }
