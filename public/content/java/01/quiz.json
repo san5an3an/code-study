@@ -171,7 +171,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class MyIntro {                          // 파일 이름이 MyIntro.java이므로 클래스 이름도 MyIntro\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(\"제 이름은 홍길동입니다\");\n        System.out.println(\"자바 공부 시작!\");\n    }\n}\n```\n실행 방법:\n```\njavac -encoding UTF-8 MyIntro.java\njava MyIntro\n```\n핵심은 `public class` 뒤의 이름과 파일 이름을 똑같이(대소문자까지) 맞추는 거예요. `HelloWorld`를 그대로 두면 `class HelloWorld is public, should be declared in a file named HelloWorld.java` 에러가 나요."
+      "explanation": "```java\npublic class MyIntro {                          // 파일 이름이 MyIntro.java이므로 클래스 이름도 MyIntro\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(\"제 이름은 홍길동입니다\");\n        System.out.println(\"자바 공부 시작!\");\n    }\n}\n```\n실행 방법:\n```\njavac -encoding UTF-8 MyIntro.java\njava MyIntro\n```\n핵심은 `public class` 뒤의 이름과 파일 이름을 똑같이(대소문자까지) 맞추는 거예요. `HelloWorld`를 그대로 두면 `class HelloWorld is public, should be declared in a file named HelloWorld.java` 에러가 나요.",
+      "expectedOutput": "안녕하세요\n제 이름은 홍길동입니다\n자바 공부 시작!\n"
     }
   ]
 }

@@ -156,7 +156,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class HeightPrint {\n    public static void main(String[] args) {\n        double[] height = {165.2, 180.6, 175.9};\n        for (int i = 0; i < height.length; i++) {\n            System.out.println(height[i]);\n        }\n    }\n}\n```\n실행 결과:\n```\n165.2\n180.6\n175.9\n```\n`height.length`를 쓰면 나중에 값이 늘어나도 반복문은 고치지 않아도 돼요."
+      "explanation": "```java\npublic class HeightPrint {\n    public static void main(String[] args) {\n        double[] height = {165.2, 180.6, 175.9};\n        for (int i = 0; i < height.length; i++) {\n            System.out.println(height[i]);\n        }\n    }\n}\n```\n실행 결과:\n```\n165.2\n180.6\n175.9\n```\n`height.length`를 쓰면 나중에 값이 늘어나도 반복문은 고치지 않아도 돼요.",
+      "expectedOutput": "165.2\n180.6\n175.9\n"
     },
     {
       "n": 12,
@@ -168,7 +169,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class EngPrint {\n    public static void main(String[] args) {\n        int[][] eng = new int[2][3];\n        eng[1][0] = 40;\n        eng[1][1] = 50;\n        eng[1][2] = 60;\n        System.out.println(eng[1][1]);\n    }\n}\n```\n실행 결과:\n```\n50\n```\n\"두 번째 줄\"은 인덱스로는 1행이에요. 행도 열도 0부터 센다는 점을 기억하세요."
+      "explanation": "```java\npublic class EngPrint {\n    public static void main(String[] args) {\n        int[][] eng = new int[2][3];\n        eng[1][0] = 40;\n        eng[1][1] = 50;\n        eng[1][2] = 60;\n        System.out.println(eng[1][1]);\n    }\n}\n```\n실행 결과:\n```\n50\n```\n\"두 번째 줄\"은 인덱스로는 1행이에요. 행도 열도 0부터 센다는 점을 기억하세요.",
+      "expectedOutput": "50\n"
     }
   ]
 }

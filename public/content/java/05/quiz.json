@@ -123,7 +123,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": false,
-      "explanation": "`%d`는 3개인데 값은 2개(90, 85)뿐이라서, 세 번째 자리에 넣을 값이 없어요. 실행하면 `java.util.MissingFormatArgumentException: Format specifier '%d'` 에러가 나요. 값을 하나 더 넣으면 돼요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, 100);\n```"
+      "explanation": "`%d`는 3개인데 값은 2개(90, 85)뿐이라서, 세 번째 자리에 넣을 값이 없어요. 실행하면 `java.util.MissingFormatArgumentException: Format specifier '%d'` 에러가 나요. 값을 하나 더 넣으면 돼요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, 100);\n```",
+      "expectedOutput": "90점 85점 100점\n"
     },
     {
       "n": 10,
@@ -149,7 +150,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nSystem.out.println(\"C:\\\\java\\\\study\");\n```\n\n역슬래시 `\\`는 그 자체가 특별한 신호라서, 글자로 찍으려면 `\\\\`처럼 두 번 써야 해요. 실행 결과는 `C:\\java\\study`예요."
+      "explanation": "```java\nSystem.out.println(\"C:\\\\java\\\\study\");\n```\n\n역슬래시 `\\`는 그 자체가 특별한 신호라서, 글자로 찍으려면 `\\\\`처럼 두 번 써야 해요. 실행 결과는 `C:\\java\\study`예요.",
+      "expectedOutput": "C:\\java\\study\n"
     },
     {
       "n": 12,
@@ -161,7 +163,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%-6s%6d %.2f\\n\", item, price, rate);\n```\n\n- `%-6s`: `pen`(3칸) + 뒤 빈칸 3개\n- `%6d`: 앞 빈칸 2개 + `1500`(4칸)\n- 공백 한 칸 후 `%.2f`: `0.125`를 둘째 자리까지 반올림해 `0.13`\n\n결과: `pen     1500 0.13` (pen 뒤 빈칸 3개 + 1500 앞 빈칸 2개 = 빈칸 5개)"
+      "explanation": "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%-6s%6d %.2f\\n\", item, price, rate);\n```\n\n- `%-6s`: `pen`(3칸) + 뒤 빈칸 3개\n- `%6d`: 앞 빈칸 2개 + `1500`(4칸)\n- 공백 한 칸 후 `%.2f`: `0.125`를 둘째 자리까지 반올림해 `0.13`\n\n결과: `pen     1500 0.13` (pen 뒤 빈칸 3개 + 1500 앞 빈칸 2개 = 빈칸 5개)",
+      "expectedOutput": "pen     1500 0.13\n"
     }
   ]
 }

@@ -150,7 +150,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass BookInfo {\n    private String title;\n    private int price;\n\n    public BookInfo() {}\n\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = title; }\n    public int getPrice() { return price; }\n    public void setPrice(int price) {\n        if (price < 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            return;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(15000);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```\n\n실행 결과\n\n```\n가격은 0 이상이어야 해요\n자바 입문 15000원\n```\n\nsetter 안에서 검사를 하니까 잘못된 값은 아예 들어가지 않아요. 이게 private + setter 를 쓰는 이유예요."
+      "explanation": "```java\nclass BookInfo {\n    private String title;\n    private int price;\n\n    public BookInfo() {}\n\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = title; }\n    public int getPrice() { return price; }\n    public void setPrice(int price) {\n        if (price < 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            return;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(15000);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```\n\n실행 결과\n\n```\n가격은 0 이상이어야 해요\n자바 입문 15000원\n```\n\nsetter 안에서 검사를 하니까 잘못된 값은 아예 들어가지 않아요. 이게 private + setter 를 쓰는 이유예요.",
+      "expectedOutput": "가격은 0 이상이어야 해요\n자바 입문 15000원\n"
     },
     {
       "n": 12,
@@ -162,7 +163,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle() {\n        this(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(3, 4).area());\n    }\n}\n```\n\n실행 결과\n\n```\n1\n12\n```\n\n기본 생성자는 저장하는 코드를 다시 쓰지 않고 `this(1, 1)` 로 다른 생성자에게 맡겼어요."
+      "explanation": "```java\nclass Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle() {\n        this(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(3, 4).area());\n    }\n}\n```\n\n실행 결과\n\n```\n1\n12\n```\n\n기본 생성자는 저장하는 코드를 다시 쓰지 않고 `this(1, 1)` 로 다른 생성자에게 맡겼어요.",
+      "expectedOutput": "1\n12\n"
     }
   ]
 }

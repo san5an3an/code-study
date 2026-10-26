@@ -1,6 +1,5 @@
 // npm run sync: ~/Downloads/Java-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를 public/content/java 로 가져옴
 // 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/java 에 미리 복사해 두고 목록만 만듦
-import { spawnSync } from 'node:child_process';
 import {
   cpSync,
   existsSync,
@@ -14,24 +13,24 @@ import {
 import { homedir, tmpdir } from 'node:os';
 import path from 'node:path';
 
-import type { CodeFile, CodeRun } from '../src/app/core/run-api.ts';
+import type { CodeFile } from '../src/app/core/run-api.ts';
 import type {
   Frame,
   LectureContentSummary,
   Quiz,
+  QuizQuestion,
   TranscriptLine,
 } from '../src/app/domain/lecture-content.ts';
 import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
+import { codeLanguageOf } from '../src/app/domain/quiz-answer.ts';
+import { expectedJavaOutput, javaAnswerSource } from './expected-output.ts';
 import { parseQuiz } from './quiz-parser.ts';
+import { COMPILE_TIMEOUT_MS, run, RUN_TIMEOUT_MS } from './run-command.ts';
 
 const SOURCE = process.env['JAVA_NOTES'] ?? path.join(homedir(), 'Downloads/Java-notes');
 const APP = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(APP, 'public/content/java');
 const FRAMES = path.join(APP, 'public/frames/java');
-
-const COMPILE_TIMEOUT_MS = 10_000;
-const RUN_TIMEOUT_MS = 5_000;
-const OUTPUT_LIMIT = 64 * 1024;
 
 function writeJson(file: string, data: unknown) {
   writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
@@ -44,12 +43,6 @@ function findByNumber(dir: string, id: string) {
 
 function toSeconds(mm: string, ss: string, hh?: string) {
   return Number(hh ?? 0) * 3600 + Number(mm) * 60 + Number(ss);
-}
-
-function clip(text: string) {
-  return text.length > OUTPUT_LIMIT
-    ? text.slice(0, OUTPUT_LIMIT) + '\n…(출력이 64KB를 넘어 잘림)'
-    : text;
 }
 
 function syncTranscript(id: string): TranscriptLine[] {
@@ -74,20 +67,11 @@ function syncFrames(id: string): Frame[] {
     .sort((a, b) => a.t - b.t);
 }
 
-function run(cmd: string, args: string[], cwd: string, timeout: number): CodeRun {
-  const r = spawnSync(cmd, args, {
-    cwd,
-    timeout,
-    encoding: 'utf8',
-    input: '',
-    maxBuffer: OUTPUT_LIMIT * 4,
-  });
-  return {
-    stdout: clip(r.stdout ?? ''),
-    stderr: clip(r.stderr ?? ''),
-    exitCode: r.status,
-    timedOut: (r.error as NodeJS.ErrnoException | undefined)?.code === 'ETIMEDOUT',
-  };
+// 자바 코드로 답하는 문제에만 기대 출력을 붙임. 채점할 수 없으면 null 이라 화면은 스스로 체크로 둠
+function withExpectedOutput(q: QuizQuestion): QuizQuestion {
+  if (codeLanguageOf(q) !== 'java') return q;
+  const source = javaAnswerSource(q.explanation);
+  return { ...q, expectedOutput: source === null ? null : expectedJavaOutput(source) };
 }
 
 // 같은 강의 폴더의 자바 파일끼리 서로 쓰기도 해서(21강 Mountain) 한꺼번에 컴파일함
@@ -147,6 +131,8 @@ function main() {
   mkdirSync(OUT, { recursive: true });
 
   const summary: LectureContentSummary[] = [];
+  let gradedTotal = 0;
+  let codingTotal = 0;
   for (const lecture of JAVA_COURSE.lectures) {
     const src = path.join(SOURCE, 'lectures', lecture.folder);
     const out = path.join(OUT, lecture.id);
@@ -157,9 +143,15 @@ function main() {
 
     const quiz: Quiz = {
       lectureId: lecture.id,
-      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id),
+      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id).map(
+        withExpectedOutput,
+      ),
     };
     writeJson(path.join(out, 'quiz.json'), quiz);
+    const coding = quiz.questions.filter((q) => q.expectedOutput !== undefined);
+    const gradable = coding.filter((q) => q.expectedOutput !== null).length;
+    gradedTotal += gradable;
+    codingTotal += coding.length;
 
     const code = syncCode(lecture.id, path.join(src, 'code'), path.join(out, 'code'));
     writeJson(path.join(out, 'code.json'), code);
@@ -181,6 +173,7 @@ function main() {
     console.log(
       `${lecture.id}강  퀴즈 ${quiz.questions.length}  코드 ${code.length}` +
         (failed.length ? ` (실패 ${failed.join(', ')})` : '') +
+        (coding.length ? `  채점 ${gradable}/${coding.length}` : '') +
         `  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`,
     );
   }
@@ -189,7 +182,8 @@ function main() {
     summary.reduce((s, x) => s + x[k], 0);
   console.log(
     `합계  퀴즈 ${total('questions')}  코드 ${total('codeFiles')}  ` +
-      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장`,
+      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장  ` +
+      `채점 ${gradedTotal}/${codingTotal}`,
   );
 }
 

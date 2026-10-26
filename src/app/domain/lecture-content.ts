@@ -20,6 +20,8 @@ export type QuizQuestion = {
   answerHead: string;
   isExample: boolean;
   explanation: string;
+  // 자바 코드로 답하는 문제만 있음. 예시 답안을 돌린 출력이고, 채점할 수 없는 문제(돌릴 때마다 출력이 다름 등)는 null
+  expectedOutput?: string | null;
 };
 
 export type Quiz = {

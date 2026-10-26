@@ -156,7 +156,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass Calc {\n    static final double PI = 3.14; // 바뀌면 안 되는 원주율\n\n    static double area(int r) {     // 반지름을 받아 원의 넓이를 돌려줘요\n        return PI * r * r;\n    }\n}\n\npublic class Answer {\n    public static void main(String[] args) {\n        System.out.println(Calc.PI);       // 객체 없이 클래스 이름으로\n        System.out.println(Calc.area(2));  // 3.14 * 2 * 2\n    }\n}\n```\n\n실행 결과\n\n```\n3.14\n12.56\n```\n\n- `static final` : static 이라 클래스 이름으로 쓰고, final 이라 값을 못 바꿔요. 이런 상수는 보통 이름을 대문자로 써요.\n- `static double area(int r)` : 리턴형이 double 인 static 함수예요 (리턴형은 11강).\n- `Calc c = new Calc();` 같은 줄이 하나도 없다는 걸 확인해 보세요. static 이니까 필요 없어요."
+      "explanation": "```java\nclass Calc {\n    static final double PI = 3.14; // 바뀌면 안 되는 원주율\n\n    static double area(int r) {     // 반지름을 받아 원의 넓이를 돌려줘요\n        return PI * r * r;\n    }\n}\n\npublic class Answer {\n    public static void main(String[] args) {\n        System.out.println(Calc.PI);       // 객체 없이 클래스 이름으로\n        System.out.println(Calc.area(2));  // 3.14 * 2 * 2\n    }\n}\n```\n\n실행 결과\n\n```\n3.14\n12.56\n```\n\n- `static final` : static 이라 클래스 이름으로 쓰고, final 이라 값을 못 바꿔요. 이런 상수는 보통 이름을 대문자로 써요.\n- `static double area(int r)` : 리턴형이 double 인 static 함수예요 (리턴형은 11강).\n- `Calc c = new Calc();` 같은 줄이 하나도 없다는 걸 확인해 보세요. static 이니까 필요 없어요.",
+      "expectedOutput": "3.14\n12.56\n"
     }
   ]
 }

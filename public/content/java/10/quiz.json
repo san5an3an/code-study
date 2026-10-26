@@ -149,7 +149,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class SumMethod {\n    public static void sum(int n) {\n        int total = 0;                 // 덧셈 누적은 0 에서 시작\n        for (int i = 1; i <= n; i++) { // 1부터 n까지\n            total = total + i;         // 하나씩 더해요\n        }\n        System.out.println(total);\n    }\n\n    public static void main(String[] args) {\n        sum(10);  // 55\n        sum(100); // 5050\n    }\n}\n```\n\n곱셈 누적(팩토리얼)은 1 에서, 덧셈 누적은 0 에서 시작한다는 차이를 기억해요. 메소드 하나로 10 이든 100 이든 값만 바꿔서 부를 수 있어요."
+      "explanation": "```java\npublic class SumMethod {\n    public static void sum(int n) {\n        int total = 0;                 // 덧셈 누적은 0 에서 시작\n        for (int i = 1; i <= n; i++) { // 1부터 n까지\n            total = total + i;         // 하나씩 더해요\n        }\n        System.out.println(total);\n    }\n\n    public static void main(String[] args) {\n        sum(10);  // 55\n        sum(100); // 5050\n    }\n}\n```\n\n곱셈 누적(팩토리얼)은 1 에서, 덧셈 누적은 0 에서 시작한다는 차이를 기억해요. 메소드 하나로 10 이든 100 이든 값만 바꿔서 부를 수 있어요.",
+      "expectedOutput": "55\n5050\n"
     },
     {
       "n": 12,
@@ -161,7 +162,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class GugudanMethod {\n    public static void gugudan(int dan) {\n        for (int i = 1; i <= 9; i++) {\n            System.out.println(dan + \" x \" + i + \" = \" + (dan * i));\n        }\n    }\n\n    public static void main(String[] args) {\n        gugudan(3);\n    }\n}\n```\n\n실행 결과\n\n```\n3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15\n3 x 6 = 18\n3 x 7 = 21\n3 x 8 = 24\n3 x 9 = 27\n```\n\n`(dan * i)` 처럼 계산 부분을 괄호로 묶어 두면 안전해요. 곱셈(`*`)은 괄호가 없어도 먼저 계산되지만, 덧셈이라면 `\"= \" + dan + i` 가 숫자 덧셈이 아니라 글자 이어 붙이기(`= 31`)가 되어 버려요. 문자열과 섞을 때 계산은 괄호로 묶는 습관을 들여요."
+      "explanation": "```java\npublic class GugudanMethod {\n    public static void gugudan(int dan) {\n        for (int i = 1; i <= 9; i++) {\n            System.out.println(dan + \" x \" + i + \" = \" + (dan * i));\n        }\n    }\n\n    public static void main(String[] args) {\n        gugudan(3);\n    }\n}\n```\n\n실행 결과\n\n```\n3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15\n3 x 6 = 18\n3 x 7 = 21\n3 x 8 = 24\n3 x 9 = 27\n```\n\n`(dan * i)` 처럼 계산 부분을 괄호로 묶어 두면 안전해요. 곱셈(`*`)은 괄호가 없어도 먼저 계산되지만, 덧셈이라면 `\"= \" + dan + i` 가 숫자 덧셈이 아니라 글자 이어 붙이기(`= 31`)가 되어 버려요. 문자열과 섞을 때 계산은 괄호로 묶는 습관을 들여요.",
+      "expectedOutput": "3 x 1 = 3\n3 x 2 = 6\n3 x 3 = 9\n3 x 4 = 12\n3 x 5 = 15\n3 x 6 = 18\n3 x 7 = 21\n3 x 8 = 24\n3 x 9 = 27\n"
     }
   ]
 }

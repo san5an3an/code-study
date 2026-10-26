@@ -156,7 +156,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nimport java.util.ArrayList;\n\npublic class FruitList {\n    public static void main(String[] args) {\n        ArrayList<String> fruits = new ArrayList<>();\n        fruits.add(\"사과\");\n        fruits.add(\"바나나\");\n        fruits.add(\"포도\");\n\n        for (int i = 0; i < fruits.size(); i++) {\n            System.out.println(i + \"번: \" + fruits.get(i));\n        }\n        System.out.println(\"과일 개수: \" + fruits.size());\n    }\n}\n```\n\n`import java.util.ArrayList;` 를 빼먹지 않았는지, `for` 조건이 `i < fruits.size()` 인지 확인하세요."
+      "explanation": "```java\nimport java.util.ArrayList;\n\npublic class FruitList {\n    public static void main(String[] args) {\n        ArrayList<String> fruits = new ArrayList<>();\n        fruits.add(\"사과\");\n        fruits.add(\"바나나\");\n        fruits.add(\"포도\");\n\n        for (int i = 0; i < fruits.size(); i++) {\n            System.out.println(i + \"번: \" + fruits.get(i));\n        }\n        System.out.println(\"과일 개수: \" + fruits.size());\n    }\n}\n```\n\n`import java.util.ArrayList;` 를 빼먹지 않았는지, `for` 조건이 `i < fruits.size()` 인지 확인하세요.",
+      "expectedOutput": "0번: 사과\n1번: 바나나\n2번: 포도\n과일 개수: 3\n"
     },
     {
       "n": 12,
@@ -168,7 +169,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nimport java.util.HashMap;\n\npublic class ScoreMap {\n    public static void main(String[] args) {\n        HashMap<String, Integer> score = new HashMap<>();\n        score.put(\"kim\", 90);\n        score.put(\"lee\", 85);\n        score.put(\"park\", 70);\n\n        System.out.println(\"lee 의 점수: \" + score.get(\"lee\"));\n        score.put(\"lee\", 95);\n        System.out.println(\"lee 의 바뀐 점수: \" + score.get(\"lee\"));\n        System.out.println(\"학생 수: \" + score.size());\n    }\n}\n```\n\n같은 Key(\"lee\")로 다시 `put` 하면 값이 바뀔 뿐 쌍이 늘어나지 않아서 학생 수는 계속 3이에요."
+      "explanation": "```java\nimport java.util.HashMap;\n\npublic class ScoreMap {\n    public static void main(String[] args) {\n        HashMap<String, Integer> score = new HashMap<>();\n        score.put(\"kim\", 90);\n        score.put(\"lee\", 85);\n        score.put(\"park\", 70);\n\n        System.out.println(\"lee 의 점수: \" + score.get(\"lee\"));\n        score.put(\"lee\", 95);\n        System.out.println(\"lee 의 바뀐 점수: \" + score.get(\"lee\"));\n        System.out.println(\"학생 수: \" + score.size());\n    }\n}\n```\n\n같은 Key(\"lee\")로 다시 `put` 하면 값이 바뀔 뿐 쌍이 늘어나지 않아서 학생 수는 계속 3이에요.",
+      "expectedOutput": "lee 의 점수: 85\nlee 의 바뀐 점수: 95\n학생 수: 3\n"
     }
   ]
 }

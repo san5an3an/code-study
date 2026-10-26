@@ -149,7 +149,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nint cnt = 0;\nwhile (true) {          // 무한루프\n    cnt = cnt + 1;      // 1씩 증가\n    if (cnt == 3) {     // 3이 되면\n        break;          // 빠져나오기\n    }\n}\nSystem.out.println(cnt);   // 3\n```\n\n강의의 KOREA 예제와 같은 구조예요. 비교할 때는 `=`(대입)가 아니라 `==`(같으냐)를 써야 해요."
+      "explanation": "```java\nint cnt = 0;\nwhile (true) {          // 무한루프\n    cnt = cnt + 1;      // 1씩 증가\n    if (cnt == 3) {     // 3이 되면\n        break;          // 빠져나오기\n    }\n}\nSystem.out.println(cnt);   // 3\n```\n\n강의의 KOREA 예제와 같은 구조예요. 비교할 때는 `=`(대입)가 아니라 `==`(같으냐)를 써야 해요.",
+      "expectedOutput": "3\n"
     },
     {
       "n": 12,
@@ -161,7 +162,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nint n = 5;                       // 5부터 시작\nwhile (n >= 1) {                 // 1 이상인 동안 반복\n    System.out.print(n + \" \");   // 줄바꿈 없이 출력\n    n = n - 1;                   // 1씩 줄이기\n}\n```\n\n거꾸로 셀 때는 조건을 `n >= 1`로, 변화를 `n = n - 1`로 바꾸면 돼요. 끝에 공백이 하나 붙은 `5 4 3 2 1 `이 출력돼요."
+      "explanation": "```java\nint n = 5;                       // 5부터 시작\nwhile (n >= 1) {                 // 1 이상인 동안 반복\n    System.out.print(n + \" \");   // 줄바꿈 없이 출력\n    n = n - 1;                   // 1씩 줄이기\n}\n```\n\n거꾸로 셀 때는 조건을 `n >= 1`로, 변화를 `n = n - 1`로 바꾸면 돼요. 끝에 공백이 하나 붙은 `5 4 3 2 1 `이 출력돼요.",
+      "expectedOutput": "5 4 3 2 1 "
     }
   ]
 }

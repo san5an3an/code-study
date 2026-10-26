@@ -156,7 +156,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class TwoDice {\n    public static void main(String[] args) {\n        int d1 = (int) (Math.random() * 6) + 1; // 첫 번째 주사위 1~6\n        int d2 = (int) (Math.random() * 6) + 1; // 두 번째 주사위 1~6\n        System.out.println(\"첫 번째 주사위: \" + d1);\n        System.out.println(\"두 번째 주사위: \" + d2);\n        System.out.println(\"합: \" + (d1 + d2));          // 괄호가 없으면 문자열로 이어 붙어요\n        System.out.println(\"더 큰 눈: \" + Math.max(d1, d2));\n    }\n}\n```\n\n실행 결과 예시 (실행할 때마다 달라짐)\n\n```\n첫 번째 주사위: 5\n두 번째 주사위: 4\n합: 9\n더 큰 눈: 5\n```\n\n`\"합: \" + (d1 + d2)` 에서 괄호를 빼면 `\"합: \" + d1` 이 먼저 문자열이 되어 `합: 54` 처럼 나와요. 숫자 덧셈을 먼저 하려면 괄호로 묶어요."
+      "explanation": "```java\npublic class TwoDice {\n    public static void main(String[] args) {\n        int d1 = (int) (Math.random() * 6) + 1; // 첫 번째 주사위 1~6\n        int d2 = (int) (Math.random() * 6) + 1; // 두 번째 주사위 1~6\n        System.out.println(\"첫 번째 주사위: \" + d1);\n        System.out.println(\"두 번째 주사위: \" + d2);\n        System.out.println(\"합: \" + (d1 + d2));          // 괄호가 없으면 문자열로 이어 붙어요\n        System.out.println(\"더 큰 눈: \" + Math.max(d1, d2));\n    }\n}\n```\n\n실행 결과 예시 (실행할 때마다 달라짐)\n\n```\n첫 번째 주사위: 5\n두 번째 주사위: 4\n합: 9\n더 큰 눈: 5\n```\n\n`\"합: \" + (d1 + d2)` 에서 괄호를 빼면 `\"합: \" + d1` 이 먼저 문자열이 되어 `합: 54` 처럼 나와요. 숫자 덧셈을 먼저 하려면 괄호로 묶어요.",
+      "expectedOutput": null
     },
     {
       "n": 12,
@@ -168,7 +169,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nimport java.util.GregorianCalendar;\n\npublic class LeapList {\n    public static void main(String[] args) {\n        GregorianCalendar gc = new GregorianCalendar();\n        for (int year = 2020; year <= 2030; year++) {\n            if (gc.isLeapYear(year)) {   // boolean 이라 if 조건에 바로 넣어요\n                System.out.println(year + \"년은 윤년\");\n            }\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n```"
+      "explanation": "```java\nimport java.util.GregorianCalendar;\n\npublic class LeapList {\n    public static void main(String[] args) {\n        GregorianCalendar gc = new GregorianCalendar();\n        for (int year = 2020; year <= 2030; year++) {\n            if (gc.isLeapYear(year)) {   // boolean 이라 if 조건에 바로 넣어요\n                System.out.println(year + \"년은 윤년\");\n            }\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n```",
+      "expectedOutput": "2020년은 윤년\n2024년은 윤년\n2028년은 윤년\n"
     }
   ]
 }

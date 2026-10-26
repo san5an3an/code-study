@@ -166,7 +166,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class EmailSplit {\n    public static void main(String[] args) {\n        String email = \"san3an5an@icloud.com\";   // 나눌 이메일 주소\n        int at = email.indexOf(\"@\");             // @ 의 위치 -> 9\n        String id = email.substring(0, at);      // 0번부터 @ 바로 전까지 -> san3an5an\n        String domain = email.substring(at + 1); // @ 다음 글자부터 끝까지 -> icloud.com\n        System.out.println(\"아이디: \" + id);\n        System.out.println(\"도메인: \" + domain);\n    }\n}\n```\n\n실행 결과\n\n```\n아이디: san3an5an\n도메인: icloud.com\n```\n\n- `indexOf(\"@\")` 로 @ 위치(9)를 먼저 찾아요. 숫자 9 를 직접 쓰지 않고 찾아 쓰기 때문에 이메일이 바뀌어도 그대로 동작해요.\n- `substring(0, at)` : 끝 번호는 포함되지 않으니 @ 는 빠지고 `san3an5an` 만 나와요.\n- `substring(at + 1)` : @ 다음 칸부터 끝까지라서 `icloud.com`.\n\n`String[] parts = email.split(\"@\");` 로 나눈 뒤 `parts[0]`, `parts[1]` 을 출력해도 정답이에요."
+      "explanation": "```java\npublic class EmailSplit {\n    public static void main(String[] args) {\n        String email = \"san3an5an@icloud.com\";   // 나눌 이메일 주소\n        int at = email.indexOf(\"@\");             // @ 의 위치 -> 9\n        String id = email.substring(0, at);      // 0번부터 @ 바로 전까지 -> san3an5an\n        String domain = email.substring(at + 1); // @ 다음 글자부터 끝까지 -> icloud.com\n        System.out.println(\"아이디: \" + id);\n        System.out.println(\"도메인: \" + domain);\n    }\n}\n```\n\n실행 결과\n\n```\n아이디: san3an5an\n도메인: icloud.com\n```\n\n- `indexOf(\"@\")` 로 @ 위치(9)를 먼저 찾아요. 숫자 9 를 직접 쓰지 않고 찾아 쓰기 때문에 이메일이 바뀌어도 그대로 동작해요.\n- `substring(0, at)` : 끝 번호는 포함되지 않으니 @ 는 빠지고 `san3an5an` 만 나와요.\n- `substring(at + 1)` : @ 다음 칸부터 끝까지라서 `icloud.com`.\n\n`String[] parts = email.split(\"@\");` 로 나눈 뒤 `parts[0]`, `parts[1]` 을 출력해도 정답이에요.",
+      "expectedOutput": "아이디: san3an5an\n도메인: icloud.com\n"
     }
   ]
 }

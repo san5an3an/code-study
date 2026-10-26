@@ -149,7 +149,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class Fee {\n    public static void main(String[] args) {\n        int age = 15;\n        if (age >= 65) {\n            System.out.println(\"경로 요금: 0원\");\n        } else if (age >= 20) {\n            System.out.println(\"성인 요금: 1500원\");\n        } else if (age >= 8) {\n            System.out.println(\"청소년 요금: 1000원\");\n        } else {\n            System.out.println(\"어린이 요금: 500원\");\n        }\n    }\n}\n```\n실행 결과:\n```\n청소년 요금: 1000원\n```\n**큰 값부터** 물어보는 게 핵심이에요. 만약 `age >= 8`을 맨 위에 두면 70세도 청소년 요금이 나와요. 처음 true가 된 곳에서 바로 빠져나가니까요."
+      "explanation": "```java\npublic class Fee {\n    public static void main(String[] args) {\n        int age = 15;\n        if (age >= 65) {\n            System.out.println(\"경로 요금: 0원\");\n        } else if (age >= 20) {\n            System.out.println(\"성인 요금: 1500원\");\n        } else if (age >= 8) {\n            System.out.println(\"청소년 요금: 1000원\");\n        } else {\n            System.out.println(\"어린이 요금: 500원\");\n        }\n    }\n}\n```\n실행 결과:\n```\n청소년 요금: 1000원\n```\n**큰 값부터** 물어보는 게 핵심이에요. 만약 `age >= 8`을 맨 위에 두면 70세도 청소년 요금이 나와요. 처음 true가 된 곳에서 바로 빠져나가니까요.",
+      "expectedOutput": "청소년 요금: 1000원\n"
     },
     {
       "n": 12,
@@ -161,7 +162,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class Day {\n    public static void main(String[] args) {\n        int day = 3;\n        switch (day) {\n            case 1: System.out.println(\"월요일\"); break;\n            case 2: System.out.println(\"화요일\"); break;\n            case 3: System.out.println(\"수요일\"); break;\n            case 4: System.out.println(\"목요일\"); break;\n            case 5: System.out.println(\"금요일\"); break;\n            case 6:                                   // 아무것도 안 하고 break도 없어서\n            case 7: System.out.println(\"주말\"); break; // 6일 때도 여기로 흘러내려와요\n            default: System.out.println(\"잘못된 번호예요\");\n        }\n    }\n}\n```\n실행 결과:\n```\n수요일\n```\n`case 6:` 뒤에 실행문과 break를 비워 두면, 6일 때 아래 `case 7`로 흘러내려가 \"주말\"이 출력돼요. 강의에서 본 \"break가 없으면 아래로 흘러간다\"는 성질을 일부러 활용한 예예요."
+      "explanation": "```java\npublic class Day {\n    public static void main(String[] args) {\n        int day = 3;\n        switch (day) {\n            case 1: System.out.println(\"월요일\"); break;\n            case 2: System.out.println(\"화요일\"); break;\n            case 3: System.out.println(\"수요일\"); break;\n            case 4: System.out.println(\"목요일\"); break;\n            case 5: System.out.println(\"금요일\"); break;\n            case 6:                                   // 아무것도 안 하고 break도 없어서\n            case 7: System.out.println(\"주말\"); break; // 6일 때도 여기로 흘러내려와요\n            default: System.out.println(\"잘못된 번호예요\");\n        }\n    }\n}\n```\n실행 결과:\n```\n수요일\n```\n`case 6:` 뒤에 실행문과 break를 비워 두면, 6일 때 아래 `case 7`로 흘러내려가 \"주말\"이 출력돼요. 강의에서 본 \"break가 없으면 아래로 흘러간다\"는 성질을 일부러 활용한 예예요.",
+      "expectedOutput": "수요일\n"
     }
   ]
 }

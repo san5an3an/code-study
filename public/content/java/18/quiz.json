@@ -149,7 +149,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass Person {\n    String name;\n    Person(String name) { this.name = name; }\n}\n\npublic class Student extends Person {\n    int grade;\n\n    Student(String name, int grade) {\n        super(name);          // 이름은 부모 생성자에게 맡겨요\n        this.grade = grade;   // 학년은 내가 저장해요\n    }\n\n    @Override\n    public String toString() {\n        return \"Student [name=\" + name + \", grade=\" + grade + \"]\";\n    }\n\n    public static void main(String[] args) {\n        Student s = new Student(\"홍길동\", 2);\n        System.out.println(s);\n    }\n}\n```\n\n실행 결과\n\n```\nStudent [name=홍길동, grade=2]\n```\n\n`Person` 에는 기본 생성자가 없어서, `super(name);` 을 빼먹으면 `constructor Person in class Person cannot be applied to given types;` 에러가 나요."
+      "explanation": "```java\nclass Person {\n    String name;\n    Person(String name) { this.name = name; }\n}\n\npublic class Student extends Person {\n    int grade;\n\n    Student(String name, int grade) {\n        super(name);          // 이름은 부모 생성자에게 맡겨요\n        this.grade = grade;   // 학년은 내가 저장해요\n    }\n\n    @Override\n    public String toString() {\n        return \"Student [name=\" + name + \", grade=\" + grade + \"]\";\n    }\n\n    public static void main(String[] args) {\n        Student s = new Student(\"홍길동\", 2);\n        System.out.println(s);\n    }\n}\n```\n\n실행 결과\n\n```\nStudent [name=홍길동, grade=2]\n```\n\n`Person` 에는 기본 생성자가 없어서, `super(name);` 을 빼먹으면 `constructor Person in class Person cannot be applied to given types;` 에러가 나요.",
+      "expectedOutput": "Student [name=홍길동, grade=2]\n"
     },
     {
       "n": 12,
@@ -161,7 +162,8 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass Figure { void draw() { System.out.println(\"도형\"); } }\nclass Circle extends Figure { @Override void draw() { System.out.println(\"원을 그려요\"); } }\nclass Rect extends Figure { @Override void draw() { System.out.println(\"사각형을 그려요\"); } }\n\npublic class Shape {\n    public static void main(String[] args) {\n        Figure[] list = { new Circle(), new Rect(), new Circle() };\n        for (Figure f : list) {\n            f.draw();\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n원을 그려요\n사각형을 그려요\n원을 그려요\n```\n\n변수 타입은 모두 Figure 지만, 각 객체가 오버라이드한 `draw()` 가 실행돼요. 이게 다형성을 쓰는 가장 큰 이유예요."
+      "explanation": "```java\nclass Figure { void draw() { System.out.println(\"도형\"); } }\nclass Circle extends Figure { @Override void draw() { System.out.println(\"원을 그려요\"); } }\nclass Rect extends Figure { @Override void draw() { System.out.println(\"사각형을 그려요\"); } }\n\npublic class Shape {\n    public static void main(String[] args) {\n        Figure[] list = { new Circle(), new Rect(), new Circle() };\n        for (Figure f : list) {\n            f.draw();\n        }\n    }\n}\n```\n\n실행 결과\n\n```\n원을 그려요\n사각형을 그려요\n원을 그려요\n```\n\n변수 타입은 모두 Figure 지만, 각 객체가 오버라이드한 `draw()` 가 실행돼요. 이게 다형성을 쓰는 가장 큰 이유예요.",
+      "expectedOutput": "원을 그려요\n사각형을 그려요\n원을 그려요\n"
     }
   ]
 }
