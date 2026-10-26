@@ -25,13 +25,14 @@ import {
 import { applyCheck, applyVisit, isChecked, missingFor } from '../../../domain/lecture-progress';
 import { lectureContext, tabOf, type LectureTab } from '../../../domain/lecture-view';
 import { noteHtml } from '../../../domain/note-markdown';
+import { gradeOf, gradeVerdict } from '../../../domain/code-grade';
 import { codeLanguageOf, EMPTY_ANSWER, verdictOf, type Answer } from '../../../domain/quiz-answer';
 import { applyBest, applyVerdict, quizBestOf, wrongKey } from '../../../domain/quiz-record';
 import { checkCode, checkSnippet } from '../../../services/check-code';
 import { CodeChecks } from '../../../services/code-checks';
 import { contentPath, fetchContentText } from '../../../services/content-text';
 import { ProgressService } from '../../../services/progress.service';
-import { runCode } from '../../../services/run-code';
+import { runCode, runSnippet } from '../../../services/run-code';
 import { LectureChecks, type CheckChange } from '../../molecules/lecture-checks/lecture-checks';
 import { LectureNav } from '../../molecules/lecture-nav/lecture-nav';
 import {
@@ -46,6 +47,7 @@ import { NoteView, type NoteStatus } from '../../organisms/note-view/note-view';
 import {
   QuizView,
   type QuizAnswerChange,
+  type QuizGradeRequest,
   type QuizStatus,
 } from '../../organisms/quiz-view/quiz-view';
 import { LectureTemplate } from '../../templates/lecture-template/lecture-template';
@@ -77,7 +79,9 @@ import { LectureTemplate } from '../../templates/lecture-template/lecture-templa
           [best]="quizBest()"
           [inReview]="inReview()"
           [checks]="quizChecks.results()"
+          [grading]="grading()"
           (answerChange)="saveAnswer($event)"
+          (gradeRequest)="gradeAnswer($event)"
           (resetAll)="resetQuiz()"
         />
         <app-code-view
@@ -206,6 +210,11 @@ export class LecturePage {
 
   // 퀴즈 코드 답의 오타 검사. 문제 번호마다 입력이 멈추면 서버에 물음
   protected readonly quizChecks = new CodeChecks<number>();
+  // 채점 결과를 기다리는 문제 번호. 다른 강의로 가면 비움
+  protected readonly grading = linkedSignal<string | undefined, ReadonlySet<number>>({
+    source: () => this.lecture()?.id,
+    computation: () => new Set(),
+  });
 
   // 코드 탭. 실행 서버가 있는 과목만 예제 목록을 불러옴. 파이썬은 아직 예제가 없음
   private readonly runnable = computed(() => this.synced() && isRunCourse(this.courseId()));
@@ -369,6 +378,23 @@ export class LecturePage {
     this.quizChecks.request(q.n, text, (source, signal) =>
       checkSnippet({ course: language, source }, signal),
     );
+  }
+
+  // 서버가 돌린 출력을 예시 답안 출력과 비교해 답에 붙임. 맞음/틀림이 나면 스스로 체크처럼 기록함(사용자가 바꿀 수 있음)
+  // 기다리는 사이 다른 강의로 갔거나 다시 풀기로 답을 비웠으면 늦게 온 결과는 버림
+  protected async gradeAnswer({ q, source }: QuizGradeRequest) {
+    const lecture = this.lecture();
+    const expected = q.expectedOutput;
+    const language = codeLanguageOf(q);
+    if (!lecture || typeof expected !== 'string' || !language || !isRunCourse(language)) return;
+    this.grading.update((s) => new Set(s).add(q.n));
+    const res = await runSnippet({ course: language, source });
+    if (this.lecture()?.id !== lecture.id) return;
+    this.grading.update((s) => new Set([...s].filter((n) => n !== q.n)));
+    const before = this.answers()[q.n];
+    if (!before || before === EMPTY_ANSWER) return;
+    const grade = gradeOf(expected, source, res);
+    this.saveAnswer({ q, answer: { ...before, grade, self: gradeVerdict(grade) ?? before.self } });
   }
 
   protected resetQuiz() {
