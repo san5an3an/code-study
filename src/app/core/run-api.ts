@@ -49,6 +49,15 @@ export const CHECK_SNIPPET_PATH = '/api/check-snippet';
 
 export type SnippetCheckRequest = { course: Course; source: string };
 
+// 퀴즈 코드 문제 채점용. 코드 한 덩어리를 검사 주소처럼 감싸서 컴파일하고 입력 없이 실행함
+export const RUN_SNIPPET_PATH = '/api/run-snippet';
+
+export type SnippetRunRequest = SnippetCheckRequest;
+
+// 컴파일 에러가 나면 diagnostics 에 사용자가 쓴 줄 번호로 담고 run 은 null
+export type SnippetRunResponse =
+  { ok: true; diagnostics: CodeDiagnostic[]; run: CodeRun | null } | { ok: false; error: string };
+
 // line 은 1부터, column 은 그 줄 맨 앞을 0 으로 셈. message 는 컴파일러 원문(영어)
 export type CodeDiagnostic = {
   file: string;

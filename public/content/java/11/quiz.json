@@ -144,7 +144,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class Average {\n    public static double average(int a, int b, int c) {\n        int sum = a + b + c;\n        return sum / 3.0;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(average(80, 90, 100));\n        System.out.println(average(1, 2, 2));\n    }\n}\n```\n\n실행 결과\n\n```\n90.0\n1.6666666666666667\n```\n\n포인트: `sum / 3` 이라고 쓰면 정수끼리 나눠서 소수점이 버려져요(`average(1, 2, 2)` 가 1 이 돼요). `3.0` 으로 나눠야 double 결과가 나와요. 리턴형도 `double` 로 맞춰요."
+      "explanation": "```java\npublic class Average {\n    public static double average(int a, int b, int c) {\n        int sum = a + b + c;\n        return sum / 3.0;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(average(80, 90, 100));\n        System.out.println(average(1, 2, 2));\n    }\n}\n```\n\n실행 결과\n\n```\n90.0\n1.6666666666666667\n```\n\n포인트: `sum / 3` 이라고 쓰면 정수끼리 나눠서 소수점이 버려져요(`average(1, 2, 2)` 가 1 이 돼요). `3.0` 으로 나눠야 double 결과가 나와요. 리턴형도 `double` 로 맞춰요.",
+      "expectedOutput": "90.0\n1.6666666666666667\n",
+      "hints": [
+        "이번 메소드는 찍지 않고 계산한 값을 돌려줘요(`return`). 돌려주는 값이 소수라서 메소드 앞에 `double` 을 써요. 그리고 정수끼리 나누면 소수점 아래가 버려지니 `3` 대신 `3.0` 으로 나눠요.",
+        "- `public static double average(int a, int b, int c)` 로 정수 세 개를 받아요\n- 세 수를 더해요\n- `return 합 / 3.0;` 으로 평균을 돌려줘요\n- `main` 에서 `System.out.println(average(80, 90, 100));` 처럼 두 번 찍어요",
+        "```java\npublic class Average {\n    public static ___ average(int a, int b, int c) {\n        int sum = a + b + c;\n        ___ sum / 3.0;\n    }\n    public static void main(String[] args) {\n        System.out.println(average(80, 90, 100));\n        System.out.println(average(___, ___, ___));\n    }\n}\n```"
+      ]
     },
     {
       "n": 11,
@@ -156,7 +162,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class Multiply {\n    public static int multiply(int a, int b) {\n        return a * b;\n    }\n\n    public static int multiply(int a, int b, int c) {\n        return a * b * c;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(multiply(3, 4));\n        System.out.println(multiply(2, 3, 4));\n    }\n}\n```\n\n실행 결과\n\n```\n12\n24\n```\n\n이름은 둘 다 `multiply` 지만 매개변수 **개수**(2개 vs 3개)가 달라서 오버로드가 돼요. 자바는 넘긴 값의 개수를 보고 알맞은 메소드를 골라요."
+      "explanation": "```java\npublic class Multiply {\n    public static int multiply(int a, int b) {\n        return a * b;\n    }\n\n    public static int multiply(int a, int b, int c) {\n        return a * b * c;\n    }\n\n    public static void main(String[] args) {\n        System.out.println(multiply(3, 4));\n        System.out.println(multiply(2, 3, 4));\n    }\n}\n```\n\n실행 결과\n\n```\n12\n24\n```\n\n이름은 둘 다 `multiply` 지만 매개변수 **개수**(2개 vs 3개)가 달라서 오버로드가 돼요. 자바는 넘긴 값의 개수를 보고 알맞은 메소드를 골라요.",
+      "expectedOutput": "12\n24\n",
+      "hints": [
+        "이름이 같은 메소드를 두 개 만들어도 돼요. 받는 값의 개수가 다르면 자바가 알아서 맞는 쪽을 불러요(오버로드). 하나는 숫자 두 개, 하나는 세 개를 받아서 곱한 값을 돌려줘요.",
+        "- `public static int multiply(int a, int b)` 를 만들고 `return a * b;` 를 해요\n- 같은 이름으로 `int c` 를 하나 더 받는 `multiply` 를 만들어요\n- `main` 에서 `multiply(3, 4)` 와 `multiply(2, 3, 4)` 를 찍어요",
+        "```java\npublic class Multiply {\n    public static int multiply(int a, int b) {\n        return a ___ b;\n    }\n    public static int ___(int a, int b, int c) {\n        return a * b * ___;\n    }\n    public static void main(String[] args) {\n        System.out.println(multiply(3, 4));\n        System.out.println(multiply(2, 3, ___));\n    }\n}\n```"
+      ]
     }
   ]
 }

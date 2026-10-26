@@ -1,4 +1,5 @@
 // 문제 하나의 답 상태와 채점 판정. 퀴즈 탭과 오답 노트가 같이 씀
+import type { CodeGrade } from './code-grade';
 import type { CourseId } from './course';
 import type { QuizQuestion } from './lecture-content';
 import type { Verdict } from './quiz-record';
@@ -11,6 +12,9 @@ export type Answer = {
   text: string;
   revealed: boolean;
   self: Verdict | null;
+  // 코드 문제에서 열어 본 힌트 단계 수(0 이면 안 엶)와 마지막 채점 결과
+  hintsShown: number;
+  grade: CodeGrade | null;
 };
 
 export const EMPTY_ANSWER: Answer = {
@@ -19,6 +23,8 @@ export const EMPTY_ANSWER: Answer = {
   text: '',
   revealed: false,
   self: null,
+  hintsShown: 0,
+  grade: null,
 };
 
 // OX 와 객관식은 누르면 바로 채점하고, 나머지 종류는 정답을 본 뒤 스스로 체크함

@@ -150,7 +150,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass BookInfo {\n    private String title;\n    private int price;\n\n    public BookInfo() {}\n\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = title; }\n    public int getPrice() { return price; }\n    public void setPrice(int price) {\n        if (price < 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            return;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(15000);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```\n\n실행 결과\n\n```\n가격은 0 이상이어야 해요\n자바 입문 15000원\n```\n\nsetter 안에서 검사를 하니까 잘못된 값은 아예 들어가지 않아요. 이게 private + setter 를 쓰는 이유예요."
+      "explanation": "```java\nclass BookInfo {\n    private String title;\n    private int price;\n\n    public BookInfo() {}\n\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = title; }\n    public int getPrice() { return price; }\n    public void setPrice(int price) {\n        if (price < 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            return;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(15000);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```\n\n실행 결과\n\n```\n가격은 0 이상이어야 해요\n자바 입문 15000원\n```\n\nsetter 안에서 검사를 하니까 잘못된 값은 아예 들어가지 않아요. 이게 private + setter 를 쓰는 이유예요.",
+      "expectedOutput": "가격은 0 이상이어야 해요\n자바 입문 15000원\n",
+      "hints": [
+        "필드(클래스가 가진 값)를 `private` 로 숨기고, 값을 읽는 메소드(getter)와 바꾸는 메소드(setter)로만 다뤄요. 가격을 바꾸는 `setPrice` 에서 음수가 들어오면 안내를 찍고 바로 끝내서(`return`) 값이 안 바뀌게 해요. `this.price` 는 \"이 물건의 price\" 라는 뜻이에요.",
+        "- `class BookInfo` 에 `private String title;`, `private int price;` 를 만들어요\n- 빈 생성자 `public BookInfo() {}` 를 적어요\n- `getTitle`, `setTitle`, `getPrice`, `setPrice` 를 만들어요\n- `setPrice` 안에서 `if (price < 0)` 이면 안내를 찍고 `return;` 해요\n- `main` 에서 제목을 넣고, -500, 15000 을 차례로 넣은 뒤 `제목 가격원` 을 찍어요",
+        "```java\nclass BookInfo {\n    private String title;\n    private int price;\n    public BookInfo() {}\n    public String getTitle() { return title; }\n    public void setTitle(String title) { this.title = ___; }\n    public int getPrice() { return ___; }\n    public void setPrice(int price) {\n        if (price ___ 0) {\n            System.out.println(\"가격은 0 이상이어야 해요\");\n            ___;\n        }\n        this.price = price;\n    }\n}\npublic class Book {\n    public static void main(String[] args) {\n        BookInfo b = new BookInfo();\n        b.setTitle(\"자바 입문\");\n        b.setPrice(-500);\n        b.setPrice(___);\n        System.out.println(b.getTitle() + \" \" + b.getPrice() + \"원\");\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -162,7 +168,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nclass Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle() {\n        this(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(3, 4).area());\n    }\n}\n```\n\n실행 결과\n\n```\n1\n12\n```\n\n기본 생성자는 저장하는 코드를 다시 쓰지 않고 `this(1, 1)` 로 다른 생성자에게 맡겼어요."
+      "explanation": "```java\nclass Rectangle {\n    private int width;\n    private int height;\n\n    public Rectangle() {\n        this(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = width;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(3, 4).area());\n    }\n}\n```\n\n실행 결과\n\n```\n1\n12\n```\n\n기본 생성자는 저장하는 코드를 다시 쓰지 않고 `this(1, 1)` 로 다른 생성자에게 맡겼어요.",
+      "expectedOutput": "1\n12\n",
+      "hints": [
+        "생성자(물건을 만들 때 실행되는 코드)를 두 개 만들어요. 가로·세로를 받는 생성자가 진짜 저장을 하고, 아무것도 안 받는 생성자는 `this(1, 1)` 로 앞의 생성자를 불러 1, 1 을 넘겨요. `this.width` 는 \"이 물건의 width\" 예요.",
+        "- `private int width;`, `private int height;` 를 만들어요\n- `public Rectangle(int width, int height)` 에서 `this.width = width;` 처럼 저장해요\n- `public Rectangle()` 안에 `this(1, 1);` 한 줄만 써요\n- `area()` 에서 `width * height` 를 돌려줘요\n- `main` 에서 `new Rectangle().area()` 와 `new Rectangle(3, 4).area()` 를 찍어요",
+        "```java\nclass Rectangle {\n    private int width;\n    private int height;\n    public Rectangle() {\n        ___(1, 1);\n    }\n    public Rectangle(int width, int height) {\n        this.width = ___;\n        this.height = height;\n    }\n    public int area() {\n        return width * height;\n    }\n}\npublic class Rect {\n    public static void main(String[] args) {\n        System.out.println(new Rectangle().area());\n        System.out.println(new Rectangle(___, 4).___());\n    }\n}\n```"
+      ]
     }
   ]
 }

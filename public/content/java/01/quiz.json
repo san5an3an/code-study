@@ -171,7 +171,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class MyIntro {                          // 파일 이름이 MyIntro.java이므로 클래스 이름도 MyIntro\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(\"제 이름은 홍길동입니다\");\n        System.out.println(\"자바 공부 시작!\");\n    }\n}\n```\n실행 방법:\n```\njavac -encoding UTF-8 MyIntro.java\njava MyIntro\n```\n핵심은 `public class` 뒤의 이름과 파일 이름을 똑같이(대소문자까지) 맞추는 거예요. `HelloWorld`를 그대로 두면 `class HelloWorld is public, should be declared in a file named HelloWorld.java` 에러가 나요."
+      "explanation": "```java\npublic class MyIntro {                          // 파일 이름이 MyIntro.java이므로 클래스 이름도 MyIntro\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(\"제 이름은 홍길동입니다\");\n        System.out.println(\"자바 공부 시작!\");\n    }\n}\n```\n실행 방법:\n```\njavac -encoding UTF-8 MyIntro.java\njava MyIntro\n```\n핵심은 `public class` 뒤의 이름과 파일 이름을 똑같이(대소문자까지) 맞추는 거예요. `HelloWorld`를 그대로 두면 `class HelloWorld is public, should be declared in a file named HelloWorld.java` 에러가 나요.",
+      "expectedOutput": "안녕하세요\n제 이름은 홍길동입니다\n자바 공부 시작!\n",
+      "hints": [
+        "화면에 글자 세 줄을 찍는 프로그램을 만드는 문제예요. HelloWorld 예제를 거의 그대로 쓰고, 두 군데만 바꾸면 돼요. 하나는 프로그램 이름(클래스 이름), 하나는 찍을 글자예요. 자바는 파일 이름과 `public class` 뒤의 이름이 똑같아야 해요.",
+        "- `public class` 뒤의 이름을 파일 이름과 같은 `MyIntro` 로 써요\n- `main` 안에 `System.out.println(\"...\");` 을 세 줄 써요\n- 따옴표 안에 찍을 글자를 한 줄씩 넣어요",
+        "```java\npublic class ___ {\n    public static void main(String[] args) {\n        System.out.println(\"안녕하세요\");\n        System.out.println(___);\n        System.out.___(\"자바 공부 시작!\");\n    }\n}\n```"
+      ]
     }
   ]
 }

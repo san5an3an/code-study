@@ -254,3 +254,108 @@ test('코드로 답하는 문제는 편집기로 쓰고, 오타를 내면 그 �
   await expect(card.locator('.cm-line').nth(1)).toHaveText('System.out.println("홍길동");');
   await expect(card.locator('.cm-lintRange-error')).toHaveCount(0);
 });
+
+// 코드 문제 편집기에 글을 붙여 넣음. 붙여 넣기라 괄호 자동 닫기가 끼어들지 않음
+async function writeCode(page: Page, card: ReturnType<Page['getByTestId']>, code: string) {
+  await card.locator('.cm-content').click();
+  await page.keyboard.insertText(code);
+}
+
+const CNT_ANSWER =
+  'int cnt = 0;\nwhile (true) {\ncnt = cnt + 1;\nif (cnt == 3) {\nbreak;\n}\n}\nSystem.out.println(cnt);';
+
+test('코드 문제에 맞는 답을 쓰고 채점하기를 누르면 맞았어요가 뜨고 맞음으로 기록되며, 코드를 고치면 다시 채점하라고 함', async ({
+  page,
+}) => {
+  await page.goto('/java/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await writeCode(page, q, CNT_ANSWER);
+  await q.getByRole('button', { name: '채점하기' }).click();
+  await expect(q.getByTestId('quiz-grade')).toContainText('맞았어요. 출력이 정답과 같아요');
+  await expect(page.getByTestId('quiz-summary')).toContainText('맞음 1 · 틀림 0');
+  await expect(q.getByTestId('quiz-explanation')).toHaveCount(0);
+
+  // 채점하는 동안 버튼이 잠기며 편집기 포커스가 빠지므로 마지막 줄 끝을 다시 눌러서 이어 씀
+  await q.locator('.cm-line').last().click();
+  await page.keyboard.press('End');
+  await page.keyboard.insertText('\nSystem.out.println(cnt);');
+  await expect(q.locator('.cm-line').last()).toHaveText('System.out.println(cnt);');
+  await expect(q.locator('.cm-line')).toHaveCount(9);
+  await expect(q.getByTestId('quiz-grade')).toContainText('채점한 뒤에 코드를 고쳤어요');
+  await q.getByRole('button', { name: '다시 채점하기' }).click();
+  await expect(q.getByTestId('quiz-grade')).toContainText('틀렸어요. 2번째 줄이 달라요');
+  await expect(page.getByTestId('quiz-summary')).toContainText('맞음 0 · 틀림 1');
+});
+
+test('코드 문제를 틀리면 처음 다른 줄을 보여 주고 오답 노트에 넣으며, 맞았어요로 바꾸면 빠짐', async ({
+  page,
+}) => {
+  await page.goto('/java/lecture/07?tab=quiz');
+  const q = page.getByTestId('quiz-12');
+  // (1) 만 쓰고 (2) 구구단을 빼먹은 답
+  await writeCode(
+    page,
+    q,
+    'int sum = 0;\nfor (int i = 1; i <= 10; i++) {\nsum = sum + i;\n}\nSystem.out.println("합계: " + sum);',
+  );
+  await q.getByRole('button', { name: '채점하기' }).click();
+  const grade = q.getByTestId('quiz-grade');
+  await expect(grade).toContainText('틀렸어요. 2번째 줄이 달라요');
+  await expect(grade).toContainText('3*1=3');
+  await expect(grade).toContainText('(줄 없음)');
+  expect(await wrongKeys(page)).toEqual(['07-12']);
+  await q.getByRole('button', { name: '맞았어요' }).click();
+  expect(await wrongKeys(page)).toEqual([]);
+  await expect(page.getByTestId('quiz-summary')).toContainText('맞음 1 · 틀림 0');
+});
+
+test('컴파일 에러면 밑줄부터 고치라고 하고 기록하지 않으며, 실행 중 에러는 틀림으로 기록함', async ({
+  page,
+}) => {
+  await page.goto('/java/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await writeCode(page, q, 'int a = ;');
+  await q.getByRole('button', { name: '채점하기' }).click();
+  await expect(q.getByTestId('quiz-grade')).toContainText('먼저 빨간 밑줄을 고쳐 봐요');
+  await expect(q.getByTestId('quiz-grade')).toContainText('1번째 줄:');
+  await expect(page.getByTestId('quiz-summary')).toContainText('0문제 풀었어요');
+
+  await q.getByRole('button', { name: '다시 풀기' }).click();
+  await writeCode(page, q, 'int[] a = new int[1];\na[3] = 1;');
+  await q.getByRole('button', { name: '채점하기' }).click();
+  await expect(q.getByTestId('quiz-grade')).toContainText('실행 중에 에러가 나서 멈췄어요');
+  await expect(q.getByTestId('quiz-grade')).toContainText('ArrayIndexOutOfBoundsException');
+  expect(await wrongKeys(page)).toEqual(['08-11']);
+});
+
+test('힌트 보기를 누를 때마다 한 단계씩 열리고, 다시 풀기를 누르면 닫힘', async ({ page }) => {
+  await page.goto('/java/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await expect(q.getByTestId('quiz-hint-1')).toHaveCount(0);
+  await q.getByRole('button', { name: '힌트 보기 (1/3)' }).click();
+  await expect(q.getByTestId('quiz-hint-1')).toContainText('while (true)');
+  await expect(q.getByTestId('quiz-hint-2')).toHaveCount(0);
+  await q.getByRole('button', { name: '힌트 보기 (2/3)' }).click();
+  await q.getByRole('button', { name: '힌트 보기 (3/3)' }).click();
+  await expect(q.getByTestId('quiz-hint-3').locator('pre')).toContainText('cnt = cnt + ___;');
+  await expect(q.getByRole('button', { name: /힌트 보기/ })).toHaveCount(0);
+  await q.getByRole('button', { name: '다시 풀기' }).click();
+  await expect(q.getByTestId('quiz-hint-1')).toHaveCount(0);
+  await expect(q.getByRole('button', { name: '힌트 보기 (1/3)' })).toBeVisible();
+});
+
+test('출력이 사람마다 다른 코드 문제는 채점하기 대신 스스로 체크 안내가 뜸', async ({ page }) => {
+  await page.goto('/java/lecture/05?tab=quiz');
+  const q = page.getByTestId('quiz-9');
+  await expect(q.getByTestId('quiz-no-grading')).toContainText('자동 채점을 안 해요');
+  await expect(q.getByRole('button', { name: '채점하기' })).toHaveCount(0);
+  await expect(q.getByRole('button', { name: '힌트 보기 (1/3)' })).toBeVisible();
+});
+
+test('문제 글에 출력 모양이 없는 16강 12번에만 출력 예가 뜸', async ({ page }) => {
+  await page.goto('/java/lecture/16?tab=quiz');
+  await expect(page.getByTestId('quiz-12').getByTestId('quiz-output-example')).toContainText(
+    '2020년은 윤년',
+  );
+  await expect(page.getByTestId('quiz-output-example')).toHaveCount(1);
+});

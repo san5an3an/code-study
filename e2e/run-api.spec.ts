@@ -220,3 +220,27 @@ test('퀴즈 답 검사 주소도 다른 사이트 Origin 이면 403 으로 거�
   expect(r.status).toBe(403);
   expect(r.json.error).toMatch(/Origin/);
 });
+
+test('퀴즈 답 실행 주소는 문장만 쓴 코드를 감싸서 돌리고 출력을 돌려줌', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({
+    path: '/api/run-snippet',
+    body: JSON.stringify({ course: 'java', source: 'System.out.println("합계: " + (1 + 2));' }),
+  });
+  expect(r.status).toBe(200);
+  expect(r.json.run?.stdout).toBe('합계: 3\n');
+});
+
+test('퀴즈 답 실행 주소도 다른 사이트 Origin 이면 403 으로 거절함', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({ path: '/api/run-snippet', headers: { Origin: 'http://evil.example' } });
+  expect(r.status).toBe(403);
+  expect(r.json.error).toMatch(/Origin/);
+});
+
+test('퀴즈 답 실행 주소도 이 앱 전용 헤더가 없으면 403 으로 거절함', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({ path: '/api/run-snippet', headers: { 'X-Code-Study': undefined } });
+  expect(r.status).toBe(403);
+  expect(r.json.error).toMatch(/전용 헤더/);
+});

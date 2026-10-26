@@ -123,7 +123,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": false,
-      "explanation": "`%d`는 3개인데 값은 2개(90, 85)뿐이라서, 세 번째 자리에 넣을 값이 없어요. 실행하면 `java.util.MissingFormatArgumentException: Format specifier '%d'` 에러가 나요. 값을 하나 더 넣으면 돼요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, 100);\n```"
+      "explanation": "`%d`는 3개인데 값은 2개(90, 85)뿐이라서, 세 번째 자리에 넣을 값이 없어요. 실행하면 `java.util.MissingFormatArgumentException: Format specifier '%d'` 에러가 나요. 값을 하나 더 넣으면 돼요.\n\n```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, 100);\n```",
+      "expectedOutput": null,
+      "hints": [
+        "`printf` 는 글자 속 `%d` 자리에 뒤에 적은 숫자를 차례로 끼워 넣어요. `%d` 가 세 개인데 뒤의 숫자는 두 개뿐이라 마지막 자리를 채울 값이 없어서 에러가 나요.",
+        "- `%d` 가 몇 개인지 세어요(세 개)\n- 뒤에 넘기는 숫자도 몇 개인지 세어요(두 개)\n- 모자란 점수 하나를 쉼표 뒤에 더해요",
+        "```java\nSystem.out.printf(\"%d점 %d점 %d점\\n\", 90, 85, ___);\n```"
+      ]
     },
     {
       "n": 10,
@@ -149,7 +155,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nSystem.out.println(\"C:\\\\java\\\\study\");\n```\n\n역슬래시 `\\`는 그 자체가 특별한 신호라서, 글자로 찍으려면 `\\\\`처럼 두 번 써야 해요. 실행 결과는 `C:\\java\\study`예요."
+      "explanation": "```java\nSystem.out.println(\"C:\\\\java\\\\study\");\n```\n\n역슬래시 `\\`는 그 자체가 특별한 신호라서, 글자로 찍으려면 `\\\\`처럼 두 번 써야 해요. 실행 결과는 `C:\\java\\study`예요.",
+      "expectedOutput": "C:\\java\\study\n",
+      "hints": [
+        "글자 안의 역슬래시(`\\`)는 특별한 기호를 만들 때 써요. 예를 들어 `\\n` 은 줄바꿈이에요. 그래서 역슬래시 자체를 찍고 싶으면 역슬래시를 두 번 써야 해요.",
+        "- 경로 `C:\\java\\study` 를 큰따옴표 안에 써요\n- 역슬래시가 나올 때마다 두 번(`\\\\`)으로 바꿔요\n- `System.out.println(...)` 으로 찍어요",
+        "```java\nSystem.out.println(\"C:___java___study\");\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +173,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%-6s%6d %.2f\\n\", item, price, rate);\n```\n\n- `%-6s`: `pen`(3칸) + 뒤 빈칸 3개\n- `%6d`: 앞 빈칸 2개 + `1500`(4칸)\n- 공백 한 칸 후 `%.2f`: `0.125`를 둘째 자리까지 반올림해 `0.13`\n\n결과: `pen     1500 0.13` (pen 뒤 빈칸 3개 + 1500 앞 빈칸 2개 = 빈칸 5개)"
+      "explanation": "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%-6s%6d %.2f\\n\", item, price, rate);\n```\n\n- `%-6s`: `pen`(3칸) + 뒤 빈칸 3개\n- `%6d`: 앞 빈칸 2개 + `1500`(4칸)\n- 공백 한 칸 후 `%.2f`: `0.125`를 둘째 자리까지 반올림해 `0.13`\n\n결과: `pen     1500 0.13` (pen 뒤 빈칸 3개 + 1500 앞 빈칸 2개 = 빈칸 5개)",
+      "expectedOutput": "pen     1500 0.13\n",
+      "hints": [
+        "`printf` 는 칸 너비를 정해서 찍을 수 있어요. `%6d` 는 \"6칸을 잡고 오른쪽에 붙여 정수를 찍어\", `%-6s` 는 \"6칸을 잡고 왼쪽에 붙여 글자를 찍어\", `%.2f` 는 \"소수 둘째 자리까지 찍어\" 라는 뜻이에요.",
+        "- 변수 세 개(`item`, `price`, `rate`)를 문제대로 만들어요\n- 글자 자리는 `%-6s`, 가격 자리는 `%6d`, 비율 자리는 `%.2f` 를 써요\n- 가격과 비율 사이에 공백 하나를 넣고, 맨 끝에 `\\n` 으로 줄을 바꿔요\n- 뒤에 `item, price, rate` 를 차례로 넘겨요",
+        "```java\nString item = \"pen\";\nint price = 1500;\ndouble rate = 0.125;\nSystem.out.printf(\"%___s%___d %.___f\\n\", item, price, rate);\n```"
+      ]
     }
   ]
 }

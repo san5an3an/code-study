@@ -1,5 +1,5 @@
-import { RUN_HEADER, RUN_HEADER_VALUE, type RunRequest } from '../core/run-api';
-import { NO_RUNNER, runCode } from './run-code';
+import { RUN_HEADER, RUN_HEADER_VALUE, RUN_SNIPPET_PATH, type RunRequest } from '../core/run-api';
+import { NO_RUNNER, runCode, runSnippet } from './run-code';
 
 const REQ: RunRequest = {
   course: 'java',
@@ -58,5 +58,35 @@ describe('코드 실행 요청', () => {
       throw new TypeError('Failed to fetch');
     }) as typeof fetch;
     await expect(runCode(REQ, fn)).resolves.toEqual({ ok: false, error: NO_RUNNER });
+  });
+});
+
+describe('퀴즈 답 실행 요청', () => {
+  it('/api/run-snippet 에 POST 로 실행 헤더와 과목, 코드만 보내고 응답 JSON 을 그대로 돌려줌', async () => {
+    const reply = {
+      ok: true,
+      diagnostics: [],
+      run: { stdout: '1\n', stderr: '', exitCode: 0, timedOut: false },
+    };
+    const { fn, calls } = fakeFetch(JSON.stringify(reply), 200);
+    const req = { course: 'java' as const, source: 'System.out.println(1);' };
+    await expect(runSnippet(req, fn)).resolves.toEqual(reply);
+    expect(calls).toHaveLength(1);
+    expect(calls[0].url).toBe(RUN_SNIPPET_PATH);
+    expect(calls[0].init?.method).toBe('POST');
+    expect((calls[0].init?.headers as Record<string, string>)[RUN_HEADER]).toBe(RUN_HEADER_VALUE);
+    expect(JSON.parse(calls[0].init?.body as string)).toEqual(req);
+  });
+
+  it('실행 주소가 404 글로 오거나 연결하지 못하면 실행 서버가 없다고 알림', async () => {
+    const req = { course: 'java' as const, source: '' };
+    await expect(runSnippet(req, fakeFetch('Not Found', 404).fn)).resolves.toEqual({
+      ok: false,
+      error: NO_RUNNER,
+    });
+    const down = (async () => {
+      throw new TypeError('Failed to fetch');
+    }) as typeof fetch;
+    await expect(runSnippet(req, down)).resolves.toEqual({ ok: false, error: NO_RUNNER });
   });
 });

@@ -14,6 +14,9 @@ export type QuizStatus = 'loading' | 'error' | 'none' | 'ready';
 
 export type QuizAnswerChange = { q: QuizQuestion; answer: Answer };
 
+// 채점하기를 누른 문제와 그때 편집기 글
+export type QuizGradeRequest = { q: QuizQuestion; source: string };
+
 // 퀴즈 탭 화면. 요약 줄, 최고 기록, 문제 카드 목록, 처음부터 다시. 답과 기록은 이 컴포넌트를 쓰는 부모가 들고 있음
 @Component({
   selector: 'app-quiz-view',
@@ -61,7 +64,9 @@ export type QuizAnswerChange = { q: QuizQuestion; answer: Answer };
               [answer]="answers()[q.n] ?? empty"
               [inReview]="inReview().includes(q.n)"
               [check]="checks().get(q.n) ?? null"
+              [grading]="grading().has(q.n)"
               (answerChange)="answerChange.emit({ q, answer: $event })"
+              (gradeRequest)="gradeRequest.emit({ q, source: $event })"
             />
           }
           @if (started()) {
@@ -86,7 +91,10 @@ export class QuizView {
   readonly inReview = input<readonly number[]>([]);
   // 문제 번호 → 코드 답의 오타 검사 결과
   readonly checks = input<ReadonlyMap<number, CodeCheck>>(new Map());
+  // 채점 결과를 기다리는 문제 번호
+  readonly grading = input<ReadonlySet<number>>(new Set());
   readonly answerChange = output<QuizAnswerChange>();
+  readonly gradeRequest = output<QuizGradeRequest>();
   readonly resetAll = output<void>();
 
   protected readonly empty = EMPTY_ANSWER;

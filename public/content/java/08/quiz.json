@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nint cnt = 0;\nwhile (true) {          // 무한루프\n    cnt = cnt + 1;      // 1씩 증가\n    if (cnt == 3) {     // 3이 되면\n        break;          // 빠져나오기\n    }\n}\nSystem.out.println(cnt);   // 3\n```\n\n강의의 KOREA 예제와 같은 구조예요. 비교할 때는 `=`(대입)가 아니라 `==`(같으냐)를 써야 해요."
+      "explanation": "```java\nint cnt = 0;\nwhile (true) {          // 무한루프\n    cnt = cnt + 1;      // 1씩 증가\n    if (cnt == 3) {     // 3이 되면\n        break;          // 빠져나오기\n    }\n}\nSystem.out.println(cnt);   // 3\n```\n\n강의의 KOREA 예제와 같은 구조예요. 비교할 때는 `=`(대입)가 아니라 `==`(같으냐)를 써야 해요.",
+      "expectedOutput": "3\n",
+      "hints": [
+        "계속 1씩 세다가 3이 되면 멈추는 문제예요. `while (true)` 는 \"멈추라고 할 때까지 계속 반복해\" 라는 뜻이고, `break` 가 \"이제 멈춰\" 예요.",
+        "- 숫자를 셀 변수 `cnt`(count 를 줄인 이름)를 만들고 0을 넣어요\n- 계속 반복하면서 `cnt` 에 1을 더해요\n- `cnt` 가 3이면 반복을 멈춰요\n- 반복이 끝난 뒤 `cnt` 를 출력해요",
+        "```java\nint cnt = 0;\nwhile (true) {\n    cnt = cnt + ___;\n    if (cnt == ___) {\n        ___;\n    }\n}\nSystem.out.println(cnt);\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nint n = 5;                       // 5부터 시작\nwhile (n >= 1) {                 // 1 이상인 동안 반복\n    System.out.print(n + \" \");   // 줄바꿈 없이 출력\n    n = n - 1;                   // 1씩 줄이기\n}\n```\n\n거꾸로 셀 때는 조건을 `n >= 1`로, 변화를 `n = n - 1`로 바꾸면 돼요. 끝에 공백이 하나 붙은 `5 4 3 2 1 `이 출력돼요."
+      "explanation": "```java\nint n = 5;                       // 5부터 시작\nwhile (n >= 1) {                 // 1 이상인 동안 반복\n    System.out.print(n + \" \");   // 줄바꿈 없이 출력\n    n = n - 1;                   // 1씩 줄이기\n}\n```\n\n거꾸로 셀 때는 조건을 `n >= 1`로, 변화를 `n = n - 1`로 바꾸면 돼요. 끝에 공백이 하나 붙은 `5 4 3 2 1 `이 출력돼요.",
+      "expectedOutput": "5 4 3 2 1 ",
+      "hints": [
+        "5부터 1까지 하나씩 줄이면서 한 줄에 찍는 문제예요. `while (조건)` 은 조건이 맞는 동안 계속 반복해요. 한 줄에 찍어야 하니 줄을 안 바꾸는 `print` 를 써요.",
+        "- `int n = 5;` 로 시작 숫자를 만들어요\n- `while (n >= 1)` 로 n 이 1 이상인 동안 반복해요\n- 안에서 `System.out.print(n + \" \");` 으로 숫자와 공백을 찍어요\n- `n = n - 1;` 로 하나 줄여요",
+        "```java\nint n = 5;\nwhile (n >= ___) {\n    System.out.___(n + \" \");\n    n = n ___ 1;\n}\n```"
+      ]
     }
   ]
 }

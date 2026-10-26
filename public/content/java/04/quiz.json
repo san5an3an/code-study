@@ -156,7 +156,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\npublic class MyProfile {\n    public static void main(String[] args) {\n        String name = \"Kim\";       // 여러 글자 -> String, 큰따옴표\n        int age = 20;              // 소수점 없는 수 -> int\n        double height = 175.5;     // 소수점 있는 수 -> double\n        char grade = 'A';          // 글자 하나 -> char, 작은따옴표\n        boolean student = true;    // 참/거짓 -> boolean\n\n        System.out.println(name);\n        System.out.println(age);\n        System.out.println(height);\n        System.out.println(grade);\n        System.out.println(student);\n    }\n}\n```\n실행 결과:\n```\nKim\n20\n175.5\nA\ntrue\n```\n파일 이름은 클래스 이름과 똑같이 `MyProfile.java`로 저장해야 해요."
+      "explanation": "```java\npublic class MyProfile {\n    public static void main(String[] args) {\n        String name = \"Kim\";       // 여러 글자 -> String, 큰따옴표\n        int age = 20;              // 소수점 없는 수 -> int\n        double height = 175.5;     // 소수점 있는 수 -> double\n        char grade = 'A';          // 글자 하나 -> char, 작은따옴표\n        boolean student = true;    // 참/거짓 -> boolean\n\n        System.out.println(name);\n        System.out.println(age);\n        System.out.println(height);\n        System.out.println(grade);\n        System.out.println(student);\n    }\n}\n```\n실행 결과:\n```\nKim\n20\n175.5\nA\ntrue\n```\n파일 이름은 클래스 이름과 똑같이 `MyProfile.java`로 저장해야 해요.",
+      "expectedOutput": "Kim\n20\n175.5\nA\ntrue\n",
+      "hints": [
+        "값의 종류마다 맞는 상자(자료형)가 있어요. 글자 여러 개는 `String`, 정수는 `int`, 소수는 `double`, 글자 하나는 `char`, 참/거짓은 `boolean` 이에요. 다섯 상자를 만들어 값을 넣고 하나씩 찍어요.",
+        "- `String name = \"Kim\";` 처럼 다섯 변수를 만들어요\n- 글자 하나(`char`)는 작은따옴표로 감싸요: `'A'`\n- 참은 따옴표 없이 `true` 예요\n- 변수 이름을 `System.out.println(...)` 에 넣어 하나씩 찍어요",
+        "```java\npublic class MyProfile {\n    public static void main(String[] args) {\n        ___ name = \"Kim\";\n        int age = ___;\n        ___ height = 175.5;\n        char grade = ___;\n        boolean student = ___;\n        System.out.println(name);\n        System.out.println(age);\n        System.out.println(height);\n        System.out.println(grade);\n        System.out.println(student);\n    }\n}\n```"
+      ]
     },
     {
       "n": 12,
@@ -168,7 +174,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```java\nint a = 3, b = 4;          // 같은 자료형은 쉼표로 한 줄에 선언\nSystem.out.println(a + b); // 7\na = 100;                   // 값 바꾸기 (int를 다시 붙이지 않음)\nSystem.out.println(a + b); // 104\n```\n실행 결과:\n```\n7\n104\n```\n두 번째 대입에서 `int a = 100;`이라고 쓰면 중복 선언 에러가 나니 주의하세요."
+      "explanation": "```java\nint a = 3, b = 4;          // 같은 자료형은 쉼표로 한 줄에 선언\nSystem.out.println(a + b); // 7\na = 100;                   // 값 바꾸기 (int를 다시 붙이지 않음)\nSystem.out.println(a + b); // 104\n```\n실행 결과:\n```\n7\n104\n```\n두 번째 대입에서 `int a = 100;`이라고 쓰면 중복 선언 에러가 나니 주의하세요.",
+      "expectedOutput": "7\n104\n",
+      "hints": [
+        "같은 종류의 변수 여러 개는 쉼표로 이어서 한 줄에 만들 수 있어요. 합은 `a + b` 를 그대로 찍으면 돼요. 그다음 `a` 에 새 값을 넣고 똑같이 한 번 더 찍어요.",
+        "- `int a = 3, b = 4;` 로 두 변수를 한 줄에 만들어요\n- `System.out.println(a + b);` 로 합을 찍어요\n- `a = 100;` 으로 값을 바꿔요\n- 합을 한 번 더 찍어요",
+        "```java\nint a = 3, ___ = 4;\nSystem.out.println(a ___ b);\na = ___;\nSystem.out.println(a + b);\n```"
+      ]
     }
   ]
 }
