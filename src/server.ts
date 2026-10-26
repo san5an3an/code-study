@@ -9,7 +9,7 @@ import { existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
 import { createRunHandler } from '../server/run-handler.ts';
-import { CHECK_PATH, CHECK_SNIPPET_PATH, RUN_PATH } from './app/core/run-api.ts';
+import { CHECK_PATH, CHECK_SNIPPET_PATH, RUN_PATH, RUN_SNIPPET_PATH } from './app/core/run-api.ts';
 
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
@@ -29,6 +29,7 @@ const codeHandler = createRunHandler(contentDir);
 app.all(RUN_PATH, codeHandler);
 app.all(CHECK_PATH, codeHandler);
 app.all(CHECK_SNIPPET_PATH, codeHandler);
+app.all(RUN_SNIPPET_PATH, codeHandler);
 
 /**
  * Serve static files from /browser

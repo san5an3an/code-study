@@ -12,6 +12,7 @@ import {
   type CheckResponse,
   type CodeFile,
   type SnippetCheckRequest,
+  type SnippetRunResponse,
   type CodeRun,
   type Course,
   type RunRequest,
@@ -202,28 +203,60 @@ export function validateSnippet(body: unknown): SnippetCheckRequest {
   return { course, source };
 }
 
-// 코드 한 덩어리를 혼자 컴파일해 봄. 감싸느라 늘어난 줄은 빼서 사용자가 쓴 줄 번호로 돌려줌
-export async function checkJavaSnippet(source: string): Promise<CheckResponse> {
+// 코드 한 덩어리를 work 폴더에서 혼자 컴파일함. 감싸느라 늘어난 줄은 빼서 사용자가 쓴 줄 번호로 돌려줌
+async function compileSnippet(source: string, work: string) {
   const snippet = javaSnippetFile(source);
+  await writeFile(path.join(work, snippet.file), snippet.code);
+  const compile = await exec(
+    'javac',
+    ['-encoding', 'UTF-8', '-d', path.join(work, 'out'), snippet.file],
+    work,
+    LIMITS.compileMs,
+  );
+  // 감싼 줄에서 난 에러(예: 닫는 괄호가 모자람)는 사용자가 쓴 첫 줄이나 마지막 줄로 옮김
+  const lastLine = source.split('\n').length;
+  const diagnostics = parseJavacErrors(compile.stderr).map((d) => {
+    const line = d.line - snippet.lineOffset;
+    if (line < 1) return { ...d, line: 1, column: 0 };
+    if (line > lastLine) return { ...d, line: lastLine, column: Number.MAX_SAFE_INTEGER };
+    return { ...d, line };
+  });
+  return { className: snippet.file.replace(/\.java$/, ''), compile, diagnostics };
+}
+
+export async function checkJavaSnippet(source: string): Promise<CheckResponse> {
   const work = await mkdtemp(path.join(tmpdir(), 'code-study-snippet-'));
   try {
-    await writeFile(path.join(work, snippet.file), snippet.code);
-    const compile = await exec(
-      'javac',
-      ['-encoding', 'UTF-8', '-d', path.join(work, 'out'), snippet.file],
-      work,
-      LIMITS.compileMs,
-    );
+    const { compile, diagnostics } = await compileSnippet(source, work);
     if (compile.timedOut) return { ok: false, error: '컴파일이 너무 오래 걸려 멈췄어요' };
-    // 감싼 줄에서 난 에러(예: 닫는 괄호가 모자람)는 사용자가 쓴 첫 줄이나 마지막 줄로 옮김
-    const lastLine = source.split('\n').length;
-    const diagnostics = parseJavacErrors(compile.stderr).map((d) => {
-      const line = d.line - snippet.lineOffset;
-      if (line < 1) return { ...d, line: 1, column: 0 };
-      if (line > lastLine) return { ...d, line: lastLine, column: Number.MAX_SAFE_INTEGER };
-      return { ...d, line };
-    });
     return { ok: true, diagnostics };
+  } finally {
+    await rm(work, { recursive: true, force: true });
+  }
+}
+
+// 퀴즈 답 채점용 실행. 입력 없이 돌리고, 답이 만든 파일은 work 폴더째 지움
+export async function runJavaSnippet(source: string): Promise<SnippetRunResponse> {
+  const work = await mkdtemp(path.join(tmpdir(), 'code-study-snippet-run-'));
+  try {
+    const { className, compile, diagnostics } = await compileSnippet(source, work);
+    if (compile.timedOut) return { ok: false, error: '컴파일이 너무 오래 걸려 멈췄어요' };
+    if (compile.exitCode !== 0) return { ok: true, diagnostics, run: null };
+    const run = await exec(
+      'java',
+      [
+        `-Xmx${LIMITS.javaHeap}`,
+        '-Dfile.encoding=UTF-8',
+        '-Dstdout.encoding=UTF-8',
+        '-Dstderr.encoding=UTF-8',
+        '-cp',
+        path.join(work, 'out'),
+        className,
+      ],
+      work,
+      LIMITS.runMs,
+    );
+    return { ok: true, diagnostics, run };
   } finally {
     await rm(work, { recursive: true, force: true });
   }

@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { existsSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
@@ -8,6 +9,7 @@ import {
   checkJavaSnippet,
   RunRequestError,
   runJava,
+  runJavaSnippet,
   validate,
   validateSnippet,
 } from './java-runner.ts';
@@ -251,3 +253,42 @@ for (const [name, body, message] of badSnippet) {
     );
   });
 }
+
+test('퀴즈 답 실행: 문장만 쓴 코드를 감싸서 돌리고 출력의 한글이 깨지지 않음', async () => {
+  const r = await runJavaSnippet('int sum = 0;\nfor (int i = 1; i <= 10; i++) sum += i;\nSystem.out.println("합계: " + sum);');
+  assert.ok(r.ok);
+  assert.deepEqual(r.diagnostics, []);
+  assert.equal(r.run?.stdout, '합계: 55\n');
+  assert.equal(r.run?.exitCode, 0);
+});
+
+test('퀴즈 답 실행: class 까지 쓴 코드는 public class 를 실행함', async () => {
+  const r = await runJavaSnippet(
+    'class Dog { String name() { return "멍"; } }\npublic class Zoo {\n    public static void main(String[] args) {\n        System.out.println(new Dog().name());\n    }\n}\n',
+  );
+  assert.ok(r.ok);
+  assert.equal(r.run?.stdout, '멍\n');
+});
+
+test('퀴즈 답 실행: 컴파일 에러면 실행하지 않고 사용자가 쓴 줄 번호로 에러를 돌려줌', async () => {
+  const r = await runJavaSnippet('int a = 1;\nint b = ;');
+  assert.ok(r.ok);
+  assert.equal(r.run, null);
+  assert.deepEqual(r.diagnostics.map((d) => d.line), [2]);
+});
+
+test('퀴즈 답 실행: 5초를 넘기면 멈추고 시간 초과로 알림', async () => {
+  const r = await runJavaSnippet('while (true) {}');
+  assert.ok(r.ok);
+  assert.equal(r.run?.timedOut, true);
+});
+
+test('퀴즈 답 실행: 답이 만든 파일은 지금 폴더에 남지 않음', async () => {
+  const name = 'run-snippet-test-file.txt';
+  const r = await runJavaSnippet(
+    `java.nio.file.Files.writeString(java.nio.file.Path.of("${name}"), "x");\nSystem.out.println("썼음");`,
+  );
+  assert.ok(r.ok);
+  assert.equal(r.run?.stdout, '썼음\n');
+  assert.equal(existsSync(name), false);
+});
