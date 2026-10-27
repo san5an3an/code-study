@@ -109,7 +109,12 @@ function gradeViewOf(grade: CodeGrade): GradeView {
       [attr.data-testid]="idPrefix() + '-' + q().n"
     >
       <div hlmCardHeader class="flex flex-wrap items-center gap-2">
-        <span [id]="titleId()" class="font-semibold">{{ q().n }}번 문제</span>
+        <span [id]="titleId()" class="font-semibold">
+          @if (lectureLabel()) {
+            <span class="sr-only">{{ lectureLabel() }} </span>
+          }
+          {{ q().n }}번 문제
+        </span>
         <span hlmBadge variant="secondary">{{ q().label }}</span>
         @if (q().outsideLecture) {
           <span hlmBadge variant="outline">강의 밖 내용</span>
@@ -201,7 +206,7 @@ function gradeViewOf(grade: CodeGrade): GradeView {
               </p>
               <app-code-editor
                 [value]="answer().text"
-                [label]="q().n + '번 문제 내 답 코드'"
+                [label]="editorLabel()"
                 [course]="language"
                 [check]="check()"
                 (valueChange)="set({ text: $event })"
@@ -391,6 +396,8 @@ export class QuestionCard {
   // 오답 노트엔 여러 강의 문제가 같이 있어 번호만으론 id 가 겹쳐서 앞에 붙이는 이름
   readonly idPrefix = input('quiz');
   readonly inReview = input(false);
+  // 오답 노트처럼 여러 강의 문제가 섞인 곳에서 화면 낭독기와 편집기 이름 앞에 붙이는 강의 이름(예: "03강"). 눈에 보이는 글은 그대로
+  readonly lectureLabel = input('');
   // 코드로 답하는 문제의 오타 검사 결과. 검사는 부모가 맡음
   readonly check = input<CodeCheck | null>(null);
   // 채점하기를 눌러 서버 답을 기다리는 중. 채점은 부모가 맡고 결과는 answer.grade 로 돌아옴
@@ -404,6 +411,9 @@ export class QuestionCard {
 
   protected readonly titleId = computed(() => `${this.idPrefix()}-title-${this.q().n}`);
   protected readonly inputId = computed(() => `${this.idPrefix()}-answer-${this.q().n}`);
+  protected readonly editorLabel = computed(() =>
+    [this.lectureLabel(), `${this.q().n}번 문제 내 답 코드`].filter(Boolean).join(' '),
+  );
   protected readonly auto = computed(() => isAuto(this.q()));
   protected readonly codeLanguage = computed(() => codeLanguageOf(this.q()));
   protected readonly multi = computed(
