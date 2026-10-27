@@ -25,7 +25,7 @@ import {
 import { applyCheck, applyVisit, isChecked, missingFor } from '../../../domain/lecture-progress';
 import { lectureContext, tabOf, type LectureTab } from '../../../domain/lecture-view';
 import { noteHtml } from '../../../domain/note-markdown';
-import { gradeOf, gradeVerdict } from '../../../domain/code-grade';
+import { gradedAnswer, gradeOf } from '../../../domain/code-grade';
 import { codeLanguageOf, EMPTY_ANSWER, verdictOf, type Answer } from '../../../domain/quiz-answer';
 import { applyBest, applyVerdict, quizBestOf, wrongKey } from '../../../domain/quiz-record';
 import { checkCode, checkSnippet } from '../../../services/check-code';
@@ -393,8 +393,7 @@ export class LecturePage {
     this.grading.update((s) => new Set([...s].filter((n) => n !== q.n)));
     const before = this.answers()[q.n];
     if (!before || before === EMPTY_ANSWER) return;
-    const grade = gradeOf(expected, source, res);
-    this.saveAnswer({ q, answer: { ...before, grade, self: gradeVerdict(grade) ?? before.self } });
+    this.saveAnswer({ q, answer: gradedAnswer(before, gradeOf(expected, source, res)) });
   }
 
   protected resetQuiz() {

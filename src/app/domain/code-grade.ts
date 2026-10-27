@@ -1,6 +1,7 @@
 // 퀴즈 코드 문제 채점 판정. 서버가 내 코드를 돌린 결과와 예시 답안 출력을 비교함
 import type { CodeDiagnostic, SnippetRunResponse } from '../core/run-api';
 import { firstOutputDiff, type OutputDiff } from './output-compare';
+import type { Answer } from './quiz-answer';
 import type { Verdict } from './quiz-record';
 
 // source 는 채점한 코드. 편집기 글과 다르면 채점 뒤에 코드를 고친 것
@@ -47,4 +48,9 @@ export function gradeVerdict(grade: CodeGrade): Verdict | null {
     default:
       return null;
   }
+}
+
+// 채점 결과를 답에 붙임. 맞음/틀림이 나면 스스로 체크처럼 넣고(사용자가 바꿀 수 있음), 기록하지 않는 결과면 앞 체크를 그대로 둠
+export function gradedAnswer(before: Answer, grade: CodeGrade): Answer {
+  return { ...before, grade, self: gradeVerdict(grade) ?? before.self };
 }

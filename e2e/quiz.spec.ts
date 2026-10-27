@@ -1,25 +1,9 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+
+import { CNT_ANSWER, writeCode } from './code-answer';
+import { AT, seedOnce, wrongKeys } from './progress-seed';
 
 // 퀴즈 탭 확인. 03강: 1번 객관식(정답 3), 2번 OX(정답 X), 5번 실행 결과(스스로 체크), 11번 예시 답안
-
-const KEY = 'code-study:java:progress';
-const AT = '2026-10-19T12:00:00.000Z';
-
-// 새로고침할 때마다 저장값을 다시 넣지 않도록 페이지를 처음 열 때 한 번만 넣음
-function seedOnce(page: Page, value: object) {
-  return page.addInitScript(
-    ([key, json]) => {
-      if (sessionStorage.getItem('seeded')) return;
-      sessionStorage.setItem('seeded', '1');
-      localStorage.setItem(key, json);
-    },
-    [KEY, JSON.stringify(value)] as const,
-  );
-}
-
-function wrongKeys(page: Page) {
-  return page.evaluate((key) => Object.keys(JSON.parse(localStorage.getItem(key)!).wrong), KEY);
-}
 
 test('03강 퀴즈는 문제 12개를 차례로 보여 주고, 요약 줄은 0문제에서 시작함', async ({ page }) => {
   await page.goto('/java/lecture/03?tab=quiz');
@@ -254,15 +238,6 @@ test('코드로 답하는 문제는 편집기로 쓰고, 오타를 내면 그 �
   await expect(card.locator('.cm-line').nth(1)).toHaveText('System.out.println("홍길동");');
   await expect(card.locator('.cm-lintRange-error')).toHaveCount(0);
 });
-
-// 코드 문제 편집기에 글을 붙여 넣음. 붙여 넣기라 괄호 자동 닫기가 끼어들지 않음
-async function writeCode(page: Page, card: ReturnType<Page['getByTestId']>, code: string) {
-  await card.locator('.cm-content').click();
-  await page.keyboard.insertText(code);
-}
-
-const CNT_ANSWER =
-  'int cnt = 0;\nwhile (true) {\ncnt = cnt + 1;\nif (cnt == 3) {\nbreak;\n}\n}\nSystem.out.println(cnt);';
 
 test('코드 문제에 맞는 답을 쓰고 채점하기를 누르면 맞았어요가 뜨고 맞음으로 기록되며, 코드를 고치면 다시 채점하라고 함', async ({
   page,

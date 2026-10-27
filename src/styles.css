@@ -240,6 +240,10 @@
 [data-theme='dark'] [data-slot='tabs-list']:not([data-variant='line']) {
   background: var(--semantic-bg-neutral-subtlest);
 }
+/* 빈 화면 아이콘 칸 바탕: 탭 목록과 같은 이유로 어두운 화면에서 한 단계 어둡게 함 */
+[data-theme='dark'] [data-slot='empty-media'][data-variant='icon'] {
+  background: var(--semantic-bg-neutral-subtlest);
+}
 
 @keyframes marquee-slide {
   0%,

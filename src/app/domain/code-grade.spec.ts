@@ -1,5 +1,6 @@
 import type { CodeRun, SnippetRunResponse } from '../core/run-api';
-import { gradeOf, gradeVerdict } from './code-grade';
+import { gradedAnswer, gradeOf, gradeVerdict } from './code-grade';
+import { EMPTY_ANSWER } from './quiz-answer';
 
 const SOURCE = 'System.out.println(1);';
 
@@ -76,5 +77,25 @@ describe('퀴즈 코드 채점 판정', () => {
     const g = gradeOf('1\n', SOURCE, { ok: false, error: '코드 실행 서버가 없어요.' });
     expect(g).toEqual({ source: SOURCE, outcome: 'failed', error: '코드 실행 서버가 없어요.' });
     expect(gradeVerdict(g)).toBeNull();
+  });
+});
+
+describe('채점 결과를 답에 붙이기', () => {
+  const typed = { ...EMPTY_ANSWER, text: SOURCE, hintsShown: 2 };
+
+  it('맞음이 나면 스스로 체크를 맞음으로 넣고 쓴 답과 힌트 단계는 그대로 둠', () => {
+    const grade = gradeOf('1\n', SOURCE, ran({ stdout: '1\n' }));
+    expect(gradedAnswer(typed, grade)).toEqual({ ...typed, grade, self: 'right' });
+  });
+
+  it('실행 중 에러는 틀림으로 넣음', () => {
+    const grade = gradeOf('1\n', SOURCE, ran({ exitCode: 1 }));
+    expect(gradedAnswer(typed, grade).self).toBe('wrong');
+  });
+
+  it('컴파일 에러나 서버 문제면 앞 체크를 그대로 두고 결과만 붙임', () => {
+    const before = { ...typed, self: 'right' as const };
+    const grade = gradeOf('1\n', SOURCE, { ok: false, error: '서버 없음' });
+    expect(gradedAnswer(before, grade)).toEqual({ ...before, grade });
   });
 });

@@ -310,3 +310,25 @@ describe('문제 카드 코드 채점과 힌트', () => {
     ).toContain('채점한 뒤에 코드를 고쳤어요');
   });
 });
+
+describe('문제 카드 강의 이름', () => {
+  it('강의 이름을 주면 화면 낭독기 글과 편집기 이름 앞에만 붙고, 안 주면 그대로임', async () => {
+    const fixture = TestBed.createComponent(QuestionCard);
+    fixture.componentRef.setInput('q', CODE_Q);
+    fixture.componentRef.setInput('lectureLabel', '07강');
+    fixture.detectChanges();
+    const el = fixture.nativeElement as HTMLElement;
+    await vi.waitFor(() => expect(el.querySelector('.cm-content')).not.toBeNull());
+    expect(el.querySelector('.cm-content')!.getAttribute('aria-label')).toBe(
+      '07강 3번 문제 내 답 코드',
+    );
+    expect(el.querySelector('.sr-only')!.textContent!.trim()).toBe('07강');
+
+    const plain = renderCode(CODE_Q);
+    await vi.waitFor(() => expect(plain.el.querySelector('.cm-content')).not.toBeNull());
+    expect(plain.el.querySelector('.cm-content')!.getAttribute('aria-label')).toBe(
+      '3번 문제 내 답 코드',
+    );
+    expect(plain.el.querySelector('.sr-only')).toBeNull();
+  });
+});
