@@ -1,5 +1,6 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
+import { CNT_ANSWER, writeCode } from './code-answer';
 import { AT, seedOnce, wrongKeys } from './progress-seed';
 
 // 퀴즈 탭 확인. 03강: 1번 객관식(정답 3), 2번 OX(정답 X), 5번 실행 결과(스스로 체크), 11번 예시 답안
@@ -237,15 +238,6 @@ test('코드로 답하는 문제는 편집기로 쓰고, 오타를 내면 그 �
   await expect(card.locator('.cm-line').nth(1)).toHaveText('System.out.println("홍길동");');
   await expect(card.locator('.cm-lintRange-error')).toHaveCount(0);
 });
-
-// 코드 문제 편집기에 글을 붙여 넣음. 붙여 넣기라 괄호 자동 닫기가 끼어들지 않음
-async function writeCode(page: Page, card: ReturnType<Page['getByTestId']>, code: string) {
-  await card.locator('.cm-content').click();
-  await page.keyboard.insertText(code);
-}
-
-const CNT_ANSWER =
-  'int cnt = 0;\nwhile (true) {\ncnt = cnt + 1;\nif (cnt == 3) {\nbreak;\n}\n}\nSystem.out.println(cnt);';
 
 test('코드 문제에 맞는 답을 쓰고 채점하기를 누르면 맞았어요가 뜨고 맞음으로 기록되며, 코드를 고치면 다시 채점하라고 함', async ({
   page,
