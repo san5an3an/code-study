@@ -3,7 +3,6 @@ import type { CanMatchFn, Routes } from '@angular/router';
 import { CourseShellPage } from './components/pages/course-shell-page/course-shell-page';
 import { HomePage } from './components/pages/home-page/home-page';
 import { NotFoundPage } from './components/pages/not-found-page/not-found-page';
-import { PendingPage } from './components/pages/pending-page/pending-page';
 import { DEFAULT_COURSE } from './config/courses';
 import { isCourseId } from './domain/course';
 
@@ -24,7 +23,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/pages/lecture-page/lecture-page').then((m) => m.LecturePage),
       },
-      { path: 'review', component: PendingPage, data: { title: '오답 노트' } },
+      // 오답 노트도 여러 강의 퀴즈와 문제 카드를 담아서 그 주소로 들어갈 때만 따로 불러옴
+      {
+        path: 'review',
+        loadComponent: () =>
+          import('./components/pages/review-page/review-page').then((m) => m.ReviewPage),
+      },
       { path: '**', component: NotFoundPage },
     ],
   },
