@@ -134,9 +134,9 @@ test('파이썬 강의 자료도 첫 장면과 받아쓰기가 보이고, 시각
   await expect(page.getByTestId('transcript').locator('mark').first()).toHaveText('따옴표');
 });
 
-test('파이썬은 노트와 퀴즈가 없어도 강의 자료 탭은 보임', async ({ page }) => {
-  await page.goto('/python/lecture/08');
-  await expect(page.getByTestId('note-none')).toBeVisible();
+test('파이썬은 코드 탭이 준비 중 안내이고 강의 자료 탭은 보임', async ({ page }) => {
+  await page.goto('/python/lecture/08?tab=code');
+  await expect(page.getByTestId('code-none')).toContainText('코드 탭은 준비 중이에요');
   await page.getByTestId('tab-material').click();
   await expect(page.getByTestId('material-none')).toHaveCount(0);
   await expect(page.getByTestId('frame-image')).toBeVisible();
