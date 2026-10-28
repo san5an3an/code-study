@@ -3,6 +3,8 @@ import type { CourseId } from './course';
 
 // 가져오기 스크립트로 강의 자료를 만드는 과목. 파이썬은 노트, 퀴즈, 코드가 아직 없음
 export const SYNCED_COURSES: readonly CourseId[] = ['java'];
+// 강의 자료 탭(화면 캡처, 받아쓰기)이 있는 과목. 파이썬은 이것만 먼저 가져옴
+export const MATERIAL_COURSES: readonly CourseId[] = ['java', 'python'];
 
 export type QuizKind = 'ox' | 'choice' | 'output' | 'blank' | 'write';
 
