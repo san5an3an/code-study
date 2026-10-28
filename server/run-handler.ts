@@ -1,9 +1,20 @@
-// /api/run(실행), /api/check(컴파일만), /api/check-snippet(퀴즈 답 컴파일만), /api/run-snippet(퀴즈 답 실행) 요청 처리. 보호 규칙 검사, 본문 읽기, 대기열에 넣기, 실행 순서로 진행. 네 주소가 대기열 하나를 같이 씀
+// /api/run(실행), /api/check(컴파일·문법 검사만), /api/check-snippet(퀴즈 답 검사만), /api/run-snippet(퀴즈 답 실행) 요청 처리. 과목에 따라 자바·파이썬 실행기로 나눔. 보호 규칙 검사, 본문 읽기, 대기열에 넣기, 실행 순서로 진행. 네 주소가 대기열 하나를 같이 씀
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
-import { CHECK_PATH, CHECK_SNIPPET_PATH, RUN_SNIPPET_PATH } from '../src/app/core/run-api.ts';
+import {
+  CHECK_PATH,
+  CHECK_SNIPPET_PATH,
+  RUN_SNIPPET_PATH,
+  type CheckResponse,
+  type CodeFile,
+  type Course,
+  type RunRequest,
+  type RunResponse,
+  type SnippetRunResponse,
+} from '../src/app/core/run-api.ts';
 import { LIMITS, RunRequestError, validate, validateSnippet } from './code-exec.ts';
 import { checkJava, checkJavaSnippet, runJava, runJavaSnippet } from './java-runner.ts';
+import { checkPython, checkPythonSnippet, runPython, runPythonSnippet } from './python-runner.ts';
 import { rejectReason } from './run-guard.ts';
 
 const MAX_BODY_BYTES = LIMITS.sourceBytes + LIMITS.stdinBytes + 4096;
@@ -47,6 +58,29 @@ function readBody(req: IncomingMessage): Promise<string> {
   });
 }
 
+type Runner = {
+  run: (req: RunRequest, codeDir: string, files: CodeFile[]) => Promise<RunResponse>;
+  check: (req: RunRequest, codeDir: string, files: CodeFile[]) => Promise<CheckResponse>;
+  checkSnippet: (source: string) => Promise<CheckResponse>;
+  runSnippet: (source: string) => Promise<SnippetRunResponse>;
+};
+
+// 과목마다 실행기 하나. 과목을 더하면 run-api 의 COURSES 와 이 표에 한 줄씩
+const RUNNERS: Record<Course, Runner> = {
+  java: {
+    run: runJava,
+    check: checkJava,
+    checkSnippet: checkJavaSnippet,
+    runSnippet: runJavaSnippet,
+  },
+  python: {
+    run: runPython,
+    check: checkPython,
+    checkSnippet: checkPythonSnippet,
+    runSnippet: runPythonSnippet,
+  },
+};
+
 export function createRunHandler(contentDir: string) {
   let running = 0;
   const waiting: (() => void)[] = [];
@@ -87,12 +121,13 @@ export function createRunHandler(contentDir: string) {
         const snippet = validateSnippet(body);
         await acquire();
         acquired = true;
+        const runner = RUNNERS[snippet.course];
         send(
           res,
           200,
           pathname === RUN_SNIPPET_PATH
-            ? await runJavaSnippet(snippet.source)
-            : await checkJavaSnippet(snippet.source),
+            ? await runner.runSnippet(snippet.source)
+            : await runner.checkSnippet(snippet.source),
         );
         return;
       }
@@ -100,10 +135,13 @@ export function createRunHandler(contentDir: string) {
       const { req: runReq, codeDir, files } = await validate(body, contentDir, !checkOnly);
       await acquire();
       acquired = true;
+      const runner = RUNNERS[runReq.course];
       send(
         res,
         200,
-        checkOnly ? await checkJava(runReq, codeDir, files) : await runJava(runReq, codeDir, files),
+        checkOnly
+          ? await runner.check(runReq, codeDir, files)
+          : await runner.run(runReq, codeDir, files),
       );
     } catch (e) {
       if (e instanceof RunRequestError) send(res, 400, { ok: false, error: e.message });

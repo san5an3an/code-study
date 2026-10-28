@@ -159,7 +159,7 @@ const bad: [string, unknown, RegExp][] = [
   ],
   [
     '아직 없는 과목',
-    { course: 'python', lectureId: '03', file: 'a.py', source: '', stdin: '' },
+    { course: 'ruby', lectureId: '03', file: 'a.rb', source: '', stdin: '' },
     /과목/,
   ],
   [
@@ -234,7 +234,7 @@ test('퀴즈 답 검사: 닫는 괄호가 모자라 감싼 줄에서 난 에러�
 
 const badSnippet: [string, unknown, RegExp][] = [
   ['과목이 없음', { source: '' }, /과목/],
-  ['아직 없는 과목', { course: 'python', source: 'print(1)' }, /과목/],
+  ['아직 없는 과목', { course: 'ruby', source: 'puts 1' }, /과목/],
   ['source 가 글자가 아님', { course: 'java', source: 1 }, /글자/],
   ['코드가 64KB 초과', { course: 'java', source: 'x'.repeat(65 * 1024) }, /64KB/],
 ];

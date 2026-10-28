@@ -5,7 +5,7 @@ export const RUN_PATH = '/api/run';
 export const RUN_HEADER = 'x-code-study';
 export const RUN_HEADER_VALUE = 'run';
 
-export const COURSES = ['java'] as const;
+export const COURSES = ['java', 'python'] as const;
 export type Course = (typeof COURSES)[number];
 
 // 실행 서버가 코드를 돌리고 검사할 수 있는 과목인지
