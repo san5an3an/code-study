@@ -16,6 +16,7 @@ import { courseOf } from '../../../config/courses';
 import { findLecture, type CourseId } from '../../../domain/course';
 import { isRunCourse, type CodeFile } from '../../../core/run-api';
 import {
+  MATERIAL_COURSES,
   SYNCED_COURSES,
   type Frame,
   type Quiz,
@@ -284,10 +285,11 @@ export class LecturePage {
   });
 
   // 강의 자료 탭. 화면 캡처 목록과 받아쓰기를 같이 불러오고, 둘 중 하나라도 실패하면 실패로 봄
+  private readonly hasMaterial = computed(() => MATERIAL_COURSES.includes(this.courseId()));
   private readonly framesData = resource({
     params: () => {
       const lecture = this.lecture();
-      return lecture && this.synced()
+      return lecture && this.hasMaterial()
         ? contentPath(this.courseId(), lecture.id, 'frames.json')
         : undefined;
     },
@@ -297,7 +299,7 @@ export class LecturePage {
   private readonly transcriptData = resource({
     params: () => {
       const lecture = this.lecture();
-      return lecture && this.synced()
+      return lecture && this.hasMaterial()
         ? contentPath(this.courseId(), lecture.id, 'transcript.json')
         : undefined;
     },
@@ -305,7 +307,7 @@ export class LecturePage {
       JSON.parse(await fetchContentText(params, abortSignal)) as TranscriptLine[],
   });
   protected readonly materialStatus = computed<MaterialStatus>(() => {
-    if (!this.synced()) return 'none';
+    if (!this.hasMaterial()) return 'none';
     const statuses = [this.framesData.status(), this.transcriptData.status()];
     if (statuses.includes('error')) return 'error';
     return statuses.every((s) => s === 'resolved' || s === 'local') ? 'ready' : 'loading';

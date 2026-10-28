@@ -117,9 +117,29 @@ test('자료 파일이 없으면 sync 안내가 나옴', async ({ page }) => {
   await expect(page.getByText('강의 자료를 못 불러왔어요')).toBeVisible();
 });
 
-test('파이썬은 아직 강의 자료가 없다고 알려 줌', async ({ page }) => {
-  await page.goto('/python/lecture/01?tab=material');
-  await expect(page.getByTestId('material-none')).toContainText('아직 강의 자료가 없어요');
+test('파이썬 강의 자료도 첫 장면과 받아쓰기가 보이고, 시각을 누르면 필기가 다 찬 그 구간 장면으로 감', async ({
+  page,
+}) => {
+  await page.goto('/python/lecture/08?tab=material');
+  const image = page.getByTestId('frame-image');
+  await expect(image).toHaveAttribute('src', '/frames/python/08/t00m00s.jpg');
+  await expect(position(page)).toHaveText('1 / 66 · 00:00');
+  await expect(page.getByTestId('transcript-count')).toHaveText('292줄');
+  // 01:25~02:30 은 같은 슬라이드라 한 장으로 합쳤고, 사진은 필기가 다 찬 02:30 화면
+  await page.getByRole('button', { name: '01:56 장면 보기' }).click();
+  await expect(position(page)).toHaveText('8 / 66 · 01:25');
+  await expect(image).toHaveAttribute('src', '/frames/python/08/t01m25s.jpg');
+  await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(1280);
+  await page.getByRole('searchbox', { name: '받아쓰기 검색' }).fill('따옴표');
+  await expect(page.getByTestId('transcript').locator('mark').first()).toHaveText('따옴표');
+});
+
+test('파이썬은 노트와 퀴즈가 없어도 강의 자료 탭은 보임', async ({ page }) => {
+  await page.goto('/python/lecture/08');
+  await expect(page.getByTestId('note-none')).toBeVisible();
+  await page.getByTestId('tab-material').click();
+  await expect(page.getByTestId('material-none')).toHaveCount(0);
+  await expect(page.getByTestId('frame-image')).toBeVisible();
 });
 
 test('어두운 화면에서도 지금 장면 줄, 슬라이더 길, 검색어 칠하기가 배경과 다른 색임', async ({

@@ -1,5 +1,6 @@
-// npm run sync: ~/Downloads/Java-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를 public/content/java 로 가져옴
-// 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/java 에 미리 복사해 두고 목록만 만듦
+// npm run sync: ~/Downloads/Java-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를 public/content/java 로,
+// ~/Downloads/Python-notes 의 받아쓰기를 public/content/python 으로 가져옴. 파이썬은 아직 노트, 퀴즈, 코드가 없음
+// 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/<과목> 에 미리 넣어 두고(파이썬은 npm run capture) 목록만 만듦
 import {
   cpSync,
   existsSync,
@@ -21,7 +22,13 @@ import type {
   TranscriptLine,
 } from '../src/app/domain/lecture-content.ts';
 import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
-import { checkAllUsed, readCodeQuizExtras, withCodeQuiz } from './code-quiz.ts';
+import { PYTHON_COURSE } from '../src/app/domain/lectures-python.ts';
+import {
+  checkAllUsed,
+  readCodeQuizExtras,
+  withCodeQuiz,
+  type CodeQuizExtras,
+} from './code-quiz.ts';
 import { expectedJavaOutput } from './expected-output.ts';
 import { parseQuiz } from './quiz-parser.ts';
 import { COMPILE_TIMEOUT_MS, run, RUN_TIMEOUT_MS } from './run-command.ts';
@@ -30,6 +37,9 @@ const SOURCE = process.env['JAVA_NOTES'] ?? path.join(homedir(), 'Downloads/Java
 const APP = path.resolve(import.meta.dirname, '..');
 const OUT = path.join(APP, 'public/content/java');
 const FRAMES = path.join(APP, 'public/frames/java');
+const PYTHON_SOURCE = process.env['PYTHON_NOTES'] ?? path.join(homedir(), 'Downloads/Python-notes');
+const PYTHON_OUT = path.join(APP, 'public/content/python');
+const PYTHON_FRAMES = path.join(APP, 'public/frames/python');
 // 원본 노트에 없는 코드 문제 힌트. public/content/java 는 sync 때마다 지우므로 밖에 둠
 const CODE_QUIZ = path.join(APP, 'content-extra/java/code-quiz.json');
 
@@ -46,11 +56,12 @@ function toSeconds(mm: string, ss: string, hh?: string) {
   return Number(hh ?? 0) * 3600 + Number(mm) * 60 + Number(ss);
 }
 
-function syncTranscript(id: string): TranscriptLine[] {
-  const name = findByNumber(path.join(SOURCE, 'transcripts'), id);
+// transcripts 는 과목 원본의 받아쓰기 폴더
+function syncTranscript(transcripts: string, id: string): TranscriptLine[] {
+  const name = findByNumber(transcripts, id);
   if (!name) throw new Error(`${id}강: 받아쓰기 파일이 없음`);
   const lines: TranscriptLine[] = [];
-  for (const line of readFileSync(path.join(SOURCE, 'transcripts', name), 'utf8').split(/\r?\n/)) {
+  for (const line of readFileSync(path.join(transcripts, name), 'utf8').split(/\r?\n/)) {
     const m = line.match(/^\[(?:(\d+):)?(\d+):(\d{2})\]\s*(.*)$/);
     if (m) lines.push({ t: toSeconds(m[2], m[3], m[1]), text: m[4] });
   }
@@ -58,9 +69,10 @@ function syncTranscript(id: string): TranscriptLine[] {
   return lines;
 }
 
-function syncFrames(id: string): Frame[] {
-  const dir = path.join(FRAMES, id);
-  if (!existsSync(dir)) throw new Error(`${id}강: public/frames/java/${id} 가 없음`);
+// framesRoot 는 public/frames/<과목>
+function syncFrames(framesRoot: string, id: string): Frame[] {
+  const dir = path.join(framesRoot, id);
+  if (!existsSync(dir)) throw new Error(`${id}강: ${path.relative(APP, dir)} 가 없음`);
   return readdirSync(dir)
     .map((file) => ({ file, m: file.match(/^t(\d+)m(\d{2})s\.jpg$/) }))
     .filter((x) => x.m)
@@ -116,12 +128,7 @@ function syncCode(id: string, codeDir: string, outDir: string): CodeFile[] {
   }
 }
 
-function main() {
-  if (!existsSync(path.join(SOURCE, 'lectures'))) {
-    throw new Error(`원본 폴더가 없음: ${SOURCE}/lectures`);
-  }
-  // 힌트 파일 형식이 틀리면 자료를 지우기 전에 멈춤
-  const extras = readCodeQuizExtras(CODE_QUIZ);
+function syncJava(extras: CodeQuizExtras) {
   // 다른 과목 자료는 두고 자바 폴더만 새로 만듦
   rmSync(OUT, { recursive: true, force: true });
   mkdirSync(OUT, { recursive: true });
@@ -153,10 +160,10 @@ function main() {
     const code = syncCode(lecture.id, path.join(src, 'code'), path.join(out, 'code'));
     writeJson(path.join(out, 'code.json'), code);
 
-    const transcript = syncTranscript(lecture.id);
+    const transcript = syncTranscript(path.join(SOURCE, 'transcripts'), lecture.id);
     writeJson(path.join(out, 'transcript.json'), transcript);
 
-    const frames = syncFrames(lecture.id);
+    const frames = syncFrames(FRAMES, lecture.id);
     writeJson(path.join(out, 'frames.json'), frames);
 
     summary.push({
@@ -183,6 +190,55 @@ function main() {
       `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장  ` +
       `채점 ${gradedTotal}/${codingTotal}`,
   );
+}
+
+// 파이썬은 받아쓰기와 화면 캡처 목록만 씀. 노트, 퀴즈, 코드가 생기면 자바처럼 더함
+function syncPython() {
+  rmSync(PYTHON_OUT, { recursive: true, force: true });
+  mkdirSync(PYTHON_OUT, { recursive: true });
+  const summary: LectureContentSummary[] = [];
+  for (const lecture of PYTHON_COURSE.lectures) {
+    const out = path.join(PYTHON_OUT, lecture.id);
+    mkdirSync(out, { recursive: true });
+    const transcript = syncTranscript(path.join(PYTHON_SOURCE, 'transcripts'), lecture.id);
+    writeJson(path.join(out, 'transcript.json'), transcript);
+    const frames = syncFrames(PYTHON_FRAMES, lecture.id);
+    writeJson(path.join(out, 'frames.json'), frames);
+    summary.push({
+      id: lecture.id,
+      questions: 0,
+      codeFiles: 0,
+      transcriptLines: transcript.length,
+      frames: frames.length,
+    });
+    console.log(`${lecture.id}강  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`);
+  }
+  writeJson(path.join(PYTHON_OUT, 'index.json'), summary);
+  const lines = summary.reduce((s, x) => s + x.transcriptLines, 0);
+  const frames = summary.reduce((s, x) => s + x.frames, 0);
+  console.log(`합계  받아쓰기 ${lines}줄  캡처 ${frames}장`);
+}
+
+function main() {
+  // 원본이나 힌트 파일에 문제가 있으면 어느 과목 자료든 지우기 전에 멈춤
+  if (!existsSync(path.join(SOURCE, 'lectures'))) {
+    throw new Error(`원본 폴더가 없음: ${SOURCE}/lectures (JAVA_NOTES 로 바꿀 수 있음)`);
+  }
+  if (!existsSync(path.join(PYTHON_SOURCE, 'transcripts'))) {
+    throw new Error(
+      `원본 폴더가 없음: ${PYTHON_SOURCE}/transcripts (PYTHON_NOTES 로 바꿀 수 있음)`,
+    );
+  }
+  if (!existsSync(PYTHON_FRAMES)) {
+    throw new Error(
+      `화면 캡처가 없음: ${path.relative(APP, PYTHON_FRAMES)} (npm run capture -- python --all 로 찍어 주세요)`,
+    );
+  }
+  const extras = readCodeQuizExtras(CODE_QUIZ);
+  console.log('[자바]');
+  syncJava(extras);
+  console.log('[파이썬]');
+  syncPython();
 }
 
 main();

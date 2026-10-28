@@ -12,7 +12,8 @@
     "test:server": "node --test \"server/*.test.ts\"",
     "test:layers": "node --test \"scripts/*.test.ts\"",
     "test:serve": "playwright test -c playwright.serve.config.ts",
-    "sync": "node scripts/sync.ts"
+    "sync": "node scripts/sync.ts",
+    "capture": "node scripts/capture-frames.ts"
   },
   "private": true,
   "packageManager": "npm@11.19.0",
