@@ -2,16 +2,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 
 import { CHECK_PATH, CHECK_SNIPPET_PATH, RUN_SNIPPET_PATH } from '../src/app/core/run-api.ts';
-import {
-  checkJava,
-  checkJavaSnippet,
-  LIMITS,
-  RunRequestError,
-  runJava,
-  runJavaSnippet,
-  validate,
-  validateSnippet,
-} from './java-runner.ts';
+import { LIMITS, RunRequestError, validate, validateSnippet } from './code-exec.ts';
+import { checkJava, checkJavaSnippet, runJava, runJavaSnippet } from './java-runner.ts';
 import { rejectReason } from './run-guard.ts';
 
 const MAX_BODY_BYTES = LIMITS.sourceBytes + LIMITS.stdinBytes + 4096;

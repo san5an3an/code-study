@@ -4,15 +4,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
 
-import {
-  checkJava,
-  checkJavaSnippet,
-  RunRequestError,
-  runJava,
-  runJavaSnippet,
-  validate,
-  validateSnippet,
-} from './java-runner.ts';
+import { RunRequestError, validate, validateSnippet } from './code-exec.ts';
+import { checkJava, checkJavaSnippet, runJava, runJavaSnippet } from './java-runner.ts';
 
 const CONTENT = path.resolve(import.meta.dirname, '../test-fixtures/content');
 
