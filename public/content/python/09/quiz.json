@@ -1,0 +1,167 @@
+{
+  "lectureId": "09",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "문자열에서 띄어쓰기(공백)도 인덱스 번호를 하나 차지한다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "공백도 한 글자로 처리돼요. `\"You need Python\"`에서 인덱스 3과 8이 공백이에요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`msg = \"You need Python\"`일 때 `msg[4:8]`은 인덱스 8의 글자까지 포함해서 가져온다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "슬라이싱의 끝위치 글자는 들어가지 않아요. `msg[4:8]`은 인덱스 4부터 7까지라서 `need`예요. 강사님 꿀팁대로 \"끝위치는 지정한 번호의 왼쪽 글자까지\"로 기억하세요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`msg = \"You need Python\"`일 때 `need`가 **나오지 않는** 것을 고르세요.",
+      "options": [
+        "`msg[4:8]`",
+        "`msg[-11:-7]`",
+        "`msg[4:-7]`",
+        "`msg[4:7]`"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "`msg[4:7]`은 인덱스 4, 5, 6만 가져와서 `nee`가 나와요. 1, 2, 3번은 모두 `need`예요. `-7`은 `need` 뒤의 공백 자리라서 `-7` 전까지면 `d`까지예요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`word = \"Python\"`에서 마지막 글자 `n`을 꺼내는 코드로 옳은 것을 고르세요.",
+      "options": [
+        "`word[6]`",
+        "`word[-0]`",
+        "`word[-1]`",
+        "`word[0]`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "음수 인덱스는 맨 뒤 글자가 `-1`이에요. 1번 `word[6]`은 마지막 번호가 5라서 `IndexError: string index out of range`가 나요. 2번 `word[-0]`은 `-0`이 `0`과 같은 값이라 첫 글자 `P`가 나와요. 그래서 음수 인덱스가 `-1`부터 시작하는 거예요. 4번도 `P`예요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nword = \"Python\"\nprint(word[0])\nprint(word[-2])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nP\no\n```\n\n`word[0]`은 첫 글자 `P`, `word[-2]`는 뒤에서 -1(n), -2(o)라서 `o`예요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ntext = \"Life is too short\"\nprint(text[8:11])\nprint(text[:4])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\ntoo\nLife\n```\n\n`Life is too short`에서 인덱스 8, 9, 10이 `t`, `o`, `o`예요(4와 7은 공백). `[:4]`는 처음부터 인덱스 4(공백) 전까지라서 `Life`예요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmsg = \"You need Python\"\nprint(msg[9:])\nprint(msg[:3])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nPython\nYou\n```\n\n`[9:]`는 인덱스 9(`P`)부터 끝까지, `[:3]`은 처음부터 인덱스 3(공백) 전까지예요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ns = \"Hello World\"\nprint(s[-5:])\nprint(s[6:-2])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nWorld\nWor\n```\n\n`[-5:]`는 뒤에서 다섯 번째(`W`)부터 끝까지예요. `[6:-2]`는 인덱스 6(`W`)부터 -2(`l`) 왼쪽까지라서 `Wor`예요. 양수와 음수를 섞어도 왼쪽에서 오른쪽 방향만 지키면 돼요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "양의 정수 인덱스만 써서 `need`가 출력되도록 빈칸을 채우세요.\n\n```python\nmsg = \"You need Python\"\nprint(msg[____(가)____:____(나)____])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `4`\n- (나) `8`\n\n`need`는 인덱스 4~7이지만, 끝위치 글자는 안 들어가니까 끝위치에는 7이 아니라 8을 써야 해요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`yyyymmdd` 형식의 날짜에서 월 부분 `10`만 출력되도록 빈칸을 채우세요.\n\n```python\ndate = \"20261028\"\nprint(date[____(가)____:____(나)____])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `4`\n- (나) `6`\n\n`2026`이 인덱스 0~3, 월 `10`이 인덱스 4~5예요. 끝위치는 그 다음 번호인 6을 써요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `birthday`에 `\"19930523\"`을 넣고, 슬라이싱과 문자열 덧셈을 써서 아래처럼 출력하세요.\n\n```\n1993년 05월 23일\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nbirthday = \"19930523\"\nprint(birthday[0:4] + \"년 \" + birthday[4:6] + \"월 \" + birthday[6:8] + \"일\")\n```\n\n연도는 `[0:4]`, 월은 `[4:6]`, 일은 `[6:8]`이에요. 일은 끝까지니까 `birthday[6:]`로 써도 같아요. 잘라 낸 값이 모두 문자열이라 `+`로 바로 이어 붙일 수 있어요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `birthday`에 `\"19930523\"`을, 변수 `this_year`에 `2026`을 넣고, `birthday`에서 연도를 잘라 **세는 나이**(올해 - 태어난 해 + 1)를 출력하세요. (출력: `34`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nbirthday = \"19930523\"\nthis_year = 2026\nprint(this_year - int(birthday[:4]) + 1)\n```\n\n`birthday[:4]`는 `\"1993\"`이라는 **문자열**이라서 `int()`로 정수로 바꿔야 빼기를 할 수 있어요. 바꾸지 않으면 `TypeError`가 나요. 2026 - 1993 + 1 = 34예요."
+    }
+  ]
+}

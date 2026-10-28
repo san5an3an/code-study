@@ -131,10 +131,10 @@ describe('코드 탭 화면', () => {
     expect(el.querySelector('textarea')).toBeNull();
   });
 
-  it('목록 불러오는 중, 실패, 예제 없는 과목, 빈 목록, 파일 불러오기 실패를 그림', () => {
+  it('목록 불러오는 중, 실패, 코드 실행이 없는 과목, 빈 목록, 파일 불러오기 실패를 그림', () => {
     expect(render({ status: 'loading' }).el.querySelector('[aria-busy="true"]')).not.toBeNull();
     expect(render({ status: 'error' }).el.textContent).toContain('npm run sync');
-    expect(render({ status: 'none' }).el.textContent).toContain('아직 예제가 없어요');
+    expect(render({ status: 'none' }).el.textContent).toContain('코드 탭은 준비 중이에요');
     expect(render({ files: [] }).el.querySelector('[data-testid="code-error"]')).not.toBeNull();
     expect(
       render({ sourceStatus: 'error' }).el.querySelector('[data-testid="code-error"]'),

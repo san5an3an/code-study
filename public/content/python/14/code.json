@@ -1,0 +1,122 @@
+[
+  {
+    "file": "list_add_items.py",
+    "className": "list_add_items",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[1, 2, 3, 4]\n[1, 2, 3, [5, 6]]\n[1, 10, 2, 3]\n[10, 1, 2, 3]\n[1, 2, 10, 3]\n[1, 2, 3, 10]\n[1, 2, 3, 10, 9, 8, 7]\n[1, 2, 3, 10, 9, 8, 7]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_builtin_functions.py",
+    "className": "list_builtin_functions",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n[4, 2, 5, 3, 1]\n[1, 2, 3, 4, 5]\n[5, 4, 3, 2, 1]\n[4, 2, 5, 3, 1]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_count_index.py",
+    "className": "list_count_index",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n3\n5는 리스트에 없어요\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_indexing.py",
+    "className": "list_indexing",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[10, 20, 30, 40, 50]\n20\n50\n83\n[92, 83, 88]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_remove_items.py",
+    "className": "list_remove_items",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[1, 3]\n3\n[1, 2]\n1\n[2, 3]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_reorder.py",
+    "className": "list_reorder",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[9, 3, 5, 7, 1]\n[1, 2, 3, 4, 5]\n[5, 4, 3, 2, 1]\nNone\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_slice_assign.py",
+    "className": "list_slice_assign",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[100, 2, 3, 4, 500]\n[100, 2, 3, 4, 5, 6, 7, 500]\n[100, 2, 500]\n[100, 500]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_slicing.py",
+    "className": "list_slicing",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[70, 80]\n[60, 70, 80]\n[90, 100]\n[60, 70, 80, 90, 100]\n[70, 80]\n<class 'list'>\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "split_join.py",
+    "className": "split_join",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "['Hello', 'Python', 'World', 'Good']\nHello/Python/World/Good\nHelloPythonWorldGood\nHello Python World Good\nHello$Python$World$Good\nHello~Python~World~Good\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "tuple_basics.py",
+    "className": "tuple_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "(98, 82, 73, 64, 100)\n('철수', '영희', '나영', '민식', '호영')\n('철수', 98)\n철수\n98\n(82, 73)\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

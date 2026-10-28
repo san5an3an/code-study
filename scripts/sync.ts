@@ -1,5 +1,5 @@
-// npm run sync: ~/Downloads/Java-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를 public/content/java 로,
-// ~/Downloads/Python-notes 의 받아쓰기를 public/content/python 으로 가져옴. 파이썬은 아직 노트, 퀴즈, 코드가 없음
+// npm run sync: ~/Downloads/Java-notes, ~/Downloads/Python-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를
+// public/content/java, public/content/python 으로 가져옴
 // 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/<과목> 에 미리 넣어 두고(파이썬은 npm run capture) 목록만 만듦
 import {
   cpSync,
@@ -192,31 +192,76 @@ function syncJava(extras: CodeQuizExtras) {
   );
 }
 
-// 파이썬은 받아쓰기와 화면 캡처 목록만 씀. 노트, 퀴즈, 코드가 생기면 자바처럼 더함
+// 파이썬 예제는 원본을 더럽히지 않게 임시 폴더에 복사해 돌림. input() 을 쓰는 예제는 돌리지 않음
+function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[] {
+  const files = readdirSync(codeDir)
+    .filter((f) => f.endsWith('.py'))
+    .sort();
+  if (files.length === 0) throw new Error(`${id}강: 예제 코드가 없음 ${codeDir}`);
+  mkdirSync(outDir, { recursive: true });
+  for (const f of files) cpSync(path.join(codeDir, f), path.join(outDir, f));
+
+  const work = mkdtempSync(path.join(tmpdir(), `code-study-sync-py-${id}-`));
+  try {
+    for (const f of files) cpSync(path.join(codeDir, f), path.join(work, f));
+    return files.map((file) => {
+      // 주석 속 input( 은 빼고 봄
+      const code = readFileSync(path.join(codeDir, file), 'utf8').replace(/#.*$/gm, '');
+      const needsInput = /\binput\s*\(/.test(code);
+      const result = needsInput
+        ? null
+        : run('python3', ['-X', 'utf8', '-B', file], work, RUN_TIMEOUT_MS);
+      return { file, className: file.replace(/\.py$/, ''), hasMain: true, needsInput, run: result };
+    });
+  } finally {
+    rmSync(work, { recursive: true, force: true });
+  }
+}
+
 function syncPython() {
   rmSync(PYTHON_OUT, { recursive: true, force: true });
   mkdirSync(PYTHON_OUT, { recursive: true });
   const summary: LectureContentSummary[] = [];
   for (const lecture of PYTHON_COURSE.lectures) {
+    const src = path.join(PYTHON_SOURCE, 'lectures', lecture.folder);
     const out = path.join(PYTHON_OUT, lecture.id);
+    if (!existsSync(src)) throw new Error(`${lecture.id}강: 원본 폴더가 없음 ${src}`);
     mkdirSync(out, { recursive: true });
+
+    cpSync(path.join(src, '노트.md'), path.join(out, 'note.md'));
+    const quiz: Quiz = {
+      lectureId: lecture.id,
+      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id),
+    };
+    writeJson(path.join(out, 'quiz.json'), quiz);
+    const code = syncPythonCode(lecture.id, path.join(src, 'code'), path.join(out, 'code'));
+    writeJson(path.join(out, 'code.json'), code);
+
     const transcript = syncTranscript(path.join(PYTHON_SOURCE, 'transcripts'), lecture.id);
     writeJson(path.join(out, 'transcript.json'), transcript);
     const frames = syncFrames(PYTHON_FRAMES, lecture.id);
     writeJson(path.join(out, 'frames.json'), frames);
     summary.push({
       id: lecture.id,
-      questions: 0,
-      codeFiles: 0,
+      questions: quiz.questions.length,
+      codeFiles: code.length,
       transcriptLines: transcript.length,
       frames: frames.length,
     });
-    console.log(`${lecture.id}강  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`);
+    const failed = code.filter((c) => c.run && c.run.exitCode !== 0).map((c) => c.className);
+    console.log(
+      `${lecture.id}강  퀴즈 ${quiz.questions.length}  코드 ${code.length}` +
+        (failed.length ? ` (실패 ${failed.join(', ')})` : '') +
+        `  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`,
+    );
   }
   writeJson(path.join(PYTHON_OUT, 'index.json'), summary);
-  const lines = summary.reduce((s, x) => s + x.transcriptLines, 0);
-  const frames = summary.reduce((s, x) => s + x.frames, 0);
-  console.log(`합계  받아쓰기 ${lines}줄  캡처 ${frames}장`);
+  const total = (k: keyof Omit<LectureContentSummary, 'id'>) =>
+    summary.reduce((s, x) => s + x[k], 0);
+  console.log(
+    `합계  퀴즈 ${total('questions')}  코드 ${total('codeFiles')}  ` +
+      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장`,
+  );
 }
 
 function main() {
@@ -224,10 +269,10 @@ function main() {
   if (!existsSync(path.join(SOURCE, 'lectures'))) {
     throw new Error(`원본 폴더가 없음: ${SOURCE}/lectures (JAVA_NOTES 로 바꿀 수 있음)`);
   }
-  if (!existsSync(path.join(PYTHON_SOURCE, 'transcripts'))) {
-    throw new Error(
-      `원본 폴더가 없음: ${PYTHON_SOURCE}/transcripts (PYTHON_NOTES 로 바꿀 수 있음)`,
-    );
+  for (const dir of ['lectures', 'transcripts']) {
+    if (!existsSync(path.join(PYTHON_SOURCE, dir))) {
+      throw new Error(`원본 폴더가 없음: ${PYTHON_SOURCE}/${dir} (PYTHON_NOTES 로 바꿀 수 있음)`);
+    }
   }
   if (!existsSync(PYTHON_FRAMES)) {
     throw new Error(

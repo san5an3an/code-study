@@ -1,0 +1,86 @@
+[
+  {
+    "file": "align_formatting.py",
+    "className": "align_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이         사과(은)는       1200원 입니다.\n이 사과        (은)는 1200      원 입니다.\n이     사과    (은)는    1200   원 입니다.\n[   Hi]!!Python, [  Welcome]~Python\n[Hi   ]!!Python, [Welcome  ]~Python\n[    Hi    ]!!Python, [  Hello  ]~Python\n[ab   ] [   12]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "brace_escape.py",
+    "className": "brace_escape",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{python}은 쉽다\n{python}은 좋다\n우리가 배우는은 쉽다\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "fill_char_formatting.py",
+    "className": "fill_char_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이 ********사과(은)는 @@@@@@1200원 입니다.\n이 사과********(은)는 1200@@@@@@원 입니다.\n이 ****사과****(은)는 @@@1200@@@원 입니다.\n[Hi~~~]!!Python!! [**Hello**]!!Python\n1200000000\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "float_formatting.py",
+    "className": "float_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "123.456789 + 12.346\n12.345670 / 12.34567\n123.4568\n123.4568\n[  123.4568]\n[  123.4568] + [    12.346]\n00123.4568\n00123.4568 + 000012.346\n123.456800 + 12.3460000\n0123.45680 + 0012.34600\n$$$$$$3.14 3.14!!!!!!\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "index_formatting.py",
+    "className": "index_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이 과자는 2000원입니다.\nI eat 3 apples\n개강일은 2023년 1월 26일 입니다.\nB, A, B\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "mixed_formatting.py",
+    "className": "mixed_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이 책(은)는 좋은 교과서입니다.\n좋은 책은 교과서입니다.\n교과서는 좋은 책입니다.\n생일은 2023년 1월 31일 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "name_formatting.py",
+    "className": "name_formatting",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "이 과자는 2000원입니다.\n종강일은 2023년 10월 20일 입니다.\n종강일은 2023년 10월 20일 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

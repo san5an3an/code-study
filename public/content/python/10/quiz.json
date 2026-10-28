@@ -1,0 +1,167 @@
+{
+  "lectureId": "10",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "형식문자 `%d`, `%s`는 이스케이프 문자처럼 자기 자신이 화면에 출력되는 특수문자다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "이스케이프 문자는 줄바꿈, 탭처럼 자기 자신이 무언가를 출력하지만, 형식문자는 자기는 출력되지 않고 그 자리에 `%` 연산자 뒤의 값이 들어가요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`%10.3f`로 출력할 때 소수점(`.`)도 전체 10자리 안에 한 자리로 들어간다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`123.457`은 숫자 6개와 소수점 1개를 합쳐 7자리예요. 그래서 `%10.3f`로 출력하면 앞에 공백이 3칸 붙어요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "형식문자와 뜻이 바르게 짝지어진 것을 고르세요.",
+      "options": [
+        "`%d` - 실수",
+        "`%f` - 문자열",
+        "`%s` - 문자열",
+        "`%x` - 8진수"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`%d`는 10진 정수, `%f`는 실수, `%s`는 문자열, `%o`는 8진수, `%x`는 16진수예요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 에러 없이 `나는 10개의 사과를 갖고 있다.`가 출력되는 것을 고르세요.",
+      "options": [
+        "`print(\"나는 %d개의 %s를 갖고 있다.\" % 10, \"사과\")`",
+        "`print(\"나는 %d개의 %s를 갖고 있다.\" % (10, \"사과\"))`",
+        "`print(\"나는 %d개의 %s를 갖고 있다.\" % (\"사과\", 10))`",
+        "`print(\"나는 %d개의 %s를 갖고 있다.\", 10, \"사과\")`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "형식문자가 두 개 이상이면 값을 괄호로 묶고 콤마로 구분해요.\n1번은 괄호가 없어서 `%` 뒤에 `10` 하나만 넘어가 `TypeError: not enough arguments for format string`이 나요. 3번은 순서가 바뀌어 `%d` 자리에 `\"사과\"`가 들어가서 `TypeError: %d format: a real number is required, not str`이 나요. 4번은 `%` 연산자를 안 써서 `나는 %d개의 %s를 갖고 있다. 10 사과`가 그대로 나와요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"[%6d]\" % 350)\nprint(\"[%-6d]\" % 350)\nprint(\"[%06d]\" % 350)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[   350]\n[350   ]\n[000350]\n```\n\n6자리로 맞추는데 `350`은 3자리라서 3칸이 남아요. 그냥 숫자는 오른쪽 정렬, `-`는 왼쪽 정렬, 앞의 `0`은 빈자리를 0으로 채워요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"[%8s]\" % \"Hello\")\nprint(\"[%-8s]\" % \"Hello\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[   Hello]\n[Hello   ]\n```\n\n`Hello`는 5글자라서 8자리로 맞추면 공백 3칸이 붙어요. 문자열도 정수와 같은 정렬 규칙이에요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\npi = 3.14159\nprint(\"[%0.2f]\" % pi)\nprint(\"[%8.2f]\" % pi)\nprint(\"[%08.2f]\" % pi)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[3.14]\n[    3.14]\n[00003.14]\n```\n\n소수점 둘째 자리까지라서 셋째 자리 `1`에서 반올림해 `3.14`가 돼요. `3.14`는 소수점까지 4자리라서 8자리로 맞추면 4칸이 남아요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ntpl = \"%s님의 점수는 %d점입니다.\"\nprint(tpl % (\"철수\", 90))\nprint(tpl % (\"민수\", 85))\nprint(\"합격률 %d%%\" % 80)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n철수님의 점수는 90점입니다.\n민수님의 점수는 85점입니다.\n합격률 80%\n```\n\n틀 `tpl`을 한 번 만들어 두고 값만 바꿔 재사용했어요. `%` 기호 자체는 `%%`로 써요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`[00042]`가 출력되도록 빈칸을 채우세요.\n\n```python\nprint(\"[____(가)____]\" % 42)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `%05d`\n\n전체 5자리, 오른쪽 정렬, 빈자리는 0으로 채워요. `42`는 2자리라서 0이 3개 붙어요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`이름: Python, 버전: 3`이 출력되도록 빈칸을 채우세요.\n\n```python\nprint(\"이름: ____(가)____, 버전: ____(나)____\" % (\"Python\", 3))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `%s`\n- (나) `%d`\n\n값이 들어가는 순서대로 `\"Python\"`은 문자열이라 `%s`, `3`은 정수라 `%d`예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `price`에 `4500`, `count`에 `3`을 넣고, 형식문자와 `%` 연산자를 써서 아래처럼 출력하세요. 합계는 `price * count`로 계산해요.\n\n```\n4500원짜리 3개, 합계 13500원\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nprice = 4500\ncount = 3\nprint(\"%d원짜리 %d개, 합계 %d원\" % (price, count, price * count))\n```\n\n형식문자가 세 개라서 값 세 개를 괄호로 묶어 순서대로 넣어요. 괄호 안에서 `price * count`처럼 계산한 결과를 바로 넣어도 돼요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `rate`에 `12.3456`을 넣고, 소수점 첫째 자리까지 반올림하고 전체 6자리 오른쪽 정렬로 맞춰서, `%` 기호까지 붙여 아래처럼 출력하세요.\n\n```\n[  12.3]%\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nrate = 12.3456\nprint(\"[%6.1f]%%\" % rate)\n```\n\n`%6.1f`는 전체 6자리, 소수점 첫째 자리까지예요. `12.3`은 소수점까지 4자리라서 공백 2칸이 붙어요. `%` 연산자를 쓰는 문자열이라 `%` 기호 자체는 `%%`로 써요."
+    }
+  ]
+}

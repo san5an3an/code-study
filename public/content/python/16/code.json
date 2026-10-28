@@ -1,0 +1,98 @@
+[
+  {
+    "file": "bool_conditions.py",
+    "className": "bool_conditions",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "한국사람입니다...(1)\n한국사람입니다...(4)\n한국사람입니다...(5)\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "comparison_logical_if.py",
+    "className": "comparison_logical_if",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "19살 입니다.\n20살이 아닙니다.\n청소년입니다.\nC학점 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "elif_grades.py",
+    "className": "elif_grades",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "시험시작\nC학점\n시험 끝\nB학점\nelse 가 없어서 위에서는 아무것도 안 나왔어요\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "else_basics.py",
+    "className": "else_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "한국사람이 아닙니다.\n시험시작\n불합격입니다.\n시험 끝\n한국사람 입니다...(1)\n한국사람 입니다...(4)\nhello는 이미 가입되어 있습니다.\nworld는 가입되어 있지 않습니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "if_basics.py",
+    "className": "if_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "a는 100보다 크거나 같습니다.\n그러므로 이 부분은 출력됩니다.\n시험시작\n합격입니다.\n시험 끝\n시험시작\n시험 끝\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "in_conditions.py",
+    "className": "in_conditions",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "True\nFalse\nhello(은)는 이미 가입되어 있습니다.\nworld(은)는 가입되어 있지 않습니다.\nTrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "is_conditions.py",
+    "className": "is_conditions",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "a와 b는 같다\n1) x와 y는 같다\n2) a와 b는 다르다\nTrue\nTrue\nFalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "truthy_conditions.py",
+    "className": "truthy_conditions",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "택시를 타고\n집에가자\n집에가자\nPython\n프로그래밍\n프로그래밍\n국어: 100, 영어: 80, 수학: 70\n성적처리\n성적처리\nTrue False\nTrue False\nFalse False False\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

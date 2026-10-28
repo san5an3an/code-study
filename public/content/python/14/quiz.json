@@ -1,0 +1,167 @@
+{
+  "lectureId": "14",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "리스트를 슬라이싱한 결과(`mylist[1:3]` 같은 것)는 원소 하나가 아니라 새 리스트다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "슬라이싱의 결과는 항상 새 리스트예요. 원소가 하나만 잘려도 `[70]`처럼 리스트로 나와요. 원소 값 하나만 꺼내는 건 인덱싱(`mylist[1]`)이에요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "리스트의 `index()` 메서드는 찾는 값이 없으면 문자열의 `find()`처럼 `-1`을 돌려준다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "리스트의 `index()`는 못 찾으면 에러(`ValueError`)가 나요. 3.14에서는 `ValueError: list.index(x): x not in list`라고 나와요. 먼저 `값 in 리스트`로 확인하면 에러를 피할 수 있어요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`mylist = [4, 2, 5, 3, 1]`일 때, 실행한 뒤에도 `mylist`가 `[4, 2, 5, 3, 1]` 그대로 남아 있는 것을 고르세요.",
+      "options": [
+        "`mylist.sort()`",
+        "`mylist.reverse()`",
+        "`asc = sorted(mylist)`",
+        "`mylist.append(6)`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`sorted()`는 원본은 그대로 두고 정렬된 복사본을 돌려줘요. `asc`에는 `[1, 2, 3, 4, 5]`가 담기고 `mylist`는 그대로예요.\n1번 `sort()`, 2번 `reverse()`, 4번 `append()`는 모두 원본을 직접 바꿔요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "튜플에 대한 설명으로 **틀린** 것을 고르세요.",
+      "options": [
+        "소괄호 `( )`로 만든다.",
+        "인덱싱과 슬라이싱을 쓸 수 있다.",
+        "숫자와 문자열을 섞어서 원소로 넣을 수 있다.",
+        "`stud1[0] = \"철호\"`처럼 원소 값을 바꿀 수 있다."
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "튜플은 읽기 전용이라 원소 값을 바꿀 수 없어요. 바꾸려 하면 `TypeError: 'tuple' object does not support item assignment`가 나요. 나머지는 모두 맞는 설명이에요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmylist = [60, 70, 80, 90, 100]\nprint(mylist[1:-2])\nprint(mylist[3:])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[70, 80]\n[90, 100]\n```\n\n`[1:-2]`는 1번째(70)부터 -2번째(90) 전까지라 90은 안 들어가요. `[3:]`는 3번째(90)부터 끝까지예요. 시작 위치는 포함돼요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ndata = [100, 200, 300, 400, 500]\ndata[1:4] = [7]\nprint(data)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[100, 7, 500]\n```\n\n`data[1:4]`는 200, 300, 400 세 개인데, 원소가 1개인 리스트를 넣었으니 축소돼요. 세 개 자리가 `7` 하나로 바뀌고 500이 앞으로 당겨져요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmylist = [1, 2, 3]\nmylist.append([4, 5])\nprint(mylist)\nprint(len(mylist))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[1, 2, 3, [4, 5]]\n4\n```\n\n리스트를 `append`하면 리스트 통째로 원소 하나가 들어가요. 그래서 원소는 `1`, `2`, `3`, `[4, 5]` 네 개예요. 4와 5를 따로 넣으려면 `extend([4, 5])`를 써요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmylist = [1, 2, 3]\nk = mylist.pop()\nmylist.insert(0, k)\nprint(mylist)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[3, 1, 2]\n```\n\n`pop()`이 맨 마지막 3을 꺼내 `k`에 담고 원본은 `[1, 2]`가 돼요. 그다음 `insert(0, k)`로 맨 앞에 3을 넣어요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`['Hello', 'Python', 'World']`를 `Hello-Python-World`로 출력하도록 빈칸을 채우세요.\n\n```python\nmylist = ['Hello', 'Python', 'World']\nprint(____(가)____.____(나)____(mylist))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `\"-\"`\n- (나) `join`\n\n`join`은 연결할 기호를 앞에 쓰고 리스트를 괄호 안에 넣어요. `\"-\".join(mylist)`처럼요. `mylist.join(\"-\")`처럼 거꾸로 쓰면 리스트에는 `join`이 없어서 AttributeError가 나요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`mylist`의 1번째부터 3번째 전까지 구간을 지워서 `[100, 400, 500]`이 출력되도록 빈칸을 채우세요.\n\n```python\nmylist = [100, 200, 300, 400, 500]\nmylist[1:3] = ____(가)____\nprint(mylist)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `[]`\n\n슬라이싱 구간에 빈 리스트를 넣으면 그 구간이 삭제돼요. `del mylist[1:3]`으로 써도 같은 결과예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "문자열 `\"5,3,9,1\"`을 쉼표로 잘라 리스트로 만든 뒤, 그 리스트를 큰 것부터(내림차순) 정렬해서 출력하세요. (출력: `['9', '5', '3', '1']`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\ntext = \"5,3,9,1\"\nmylist = text.split(\",\")\nmylist.sort(reverse=True)\nprint(mylist)\n```\n\n`split(\",\")`로 `['5', '3', '9', '1']`을 만들고 `sort(reverse=True)`로 내림차순 정렬해요. 원소가 글자라서 따옴표가 붙어 나와요. `print(sorted(text.split(\",\"), reverse=True))`처럼 한 줄로 써도 돼요. `print(mylist.sort(reverse=True))`처럼 쓰면 `None`이 나오니 조심하세요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`mylist = [1, 2, 3]`에 `insert()`만 써서 맨 뒤에 `4`를 넣고 출력하세요. 위치에 숫자를 직접 쓰지 말고 `len()`으로 구하세요. (출력: `[1, 2, 3, 4]`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nmylist = [1, 2, 3]\nmylist.insert(len(mylist), 4)\nprint(mylist)\n```\n\n`len(mylist)`는 3이에요. `insert(3, 4)`는 인덱스 3 자리, 즉 맨 뒤에 넣어서 `append(4)`와 같은 효과예요. `len(mylist) - 1`을 쓰면 마지막 원소 앞에 들어가 `[1, 2, 4, 3]`이 돼요."
+    }
+  ]
+}

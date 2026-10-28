@@ -1,0 +1,110 @@
+[
+  {
+    "file": "arithmetic.py",
+    "className": "arithmetic",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "7\n-1\n12\n0.75\n2.2\n32\n243\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "assignment.py",
+    "className": "assignment",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3.14\n12000\n3 3\n15\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "augmented_assignment.py",
+    "className": "augmented_assignment",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "105\n105\n1\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "bmi_example.py",
+    "className": "bmi_example",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "27.755102040816325\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "comparison.py",
+    "className": "comparison",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "False\nTrue\nTrue\nTrue\nFalse\nFalse\nTrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "division.py",
+    "className": "division",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3.3333333333333335\n2.5\n3\n2\n1\n2\n2.0\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "is_operator.py",
+    "className": "is_operator",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "True\nFalse\nFalse\nTrue\nTrue\nTrue\nFalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "logical.py",
+    "className": "logical",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "True\nFalse\nFalse\nFalse\nTrue\nTrue\nTrue\nFalse\nTrue\nFalse\nTrue\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "precedence.py",
+    "className": "precedence",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "14\n20\n-5\nTrue\nFalse\nFalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

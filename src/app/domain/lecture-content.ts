@@ -1,8 +1,8 @@
 // 가져오기 스크립트가 public/content 에 쓰는 강의 자료 형식. 앱과 스크립트가 같이 씀
 import type { CourseId } from './course';
 
-// 가져오기 스크립트로 강의 자료를 만드는 과목. 파이썬은 노트, 퀴즈, 코드가 아직 없음
-export const SYNCED_COURSES: readonly CourseId[] = ['java'];
+// 가져오기 스크립트로 노트, 퀴즈, 예제 코드를 만드는 과목
+export const SYNCED_COURSES: readonly CourseId[] = ['java', 'python'];
 // 강의 자료 탭(화면 캡처, 받아쓰기)이 있는 과목. 파이썬은 이것만 먼저 가져옴
 export const MATERIAL_COURSES: readonly CourseId[] = ['java', 'python'];
 

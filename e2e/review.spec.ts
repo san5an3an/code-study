@@ -173,12 +173,19 @@ test('저장이 막혀도 오답 노트 빈 화면이 뜨고 페이지 에러가
   expect(errors).toEqual([]);
 });
 
-test('파이썬 오답 노트는 아직 퀴즈가 없다는 안내만 뜨고 퀴즈 풀러 가기 버튼이 없음', async ({
+test('파이썬 퀴즈에서 틀린 문제가 파이썬 오답 노트에 나오고, 자바 오답 노트에는 안 나옴', async ({
   page,
 }) => {
   await page.goto('/python/review');
-  await expect(page.getByTestId('review-none')).toContainText('이 과목은 아직 퀴즈가 없어요');
-  await expect(page.getByRole('link', { name: '퀴즈 풀러 가기' })).toHaveCount(0);
+  await expect(page.getByTestId('review-empty')).toBeVisible();
+  await page.goto('/python/lecture/08?tab=quiz');
+  // 08강 1번은 OX 이고 정답은 O
+  await page.getByTestId('quiz-1').getByRole('button', { name: 'X', exact: true }).click();
+  await page.getByRole('link', { name: '오답 노트' }).click();
+  await expect(page).toHaveURL(/\/python\/review$/);
+  await expect(page.getByTestId('review-08-1')).toBeVisible();
+  await page.goto('/java/review');
+  await expect(page.getByTestId('review-empty')).toBeVisible();
 });
 
 test('어두운 화면에서 빈 화면 아이콘 칸 바탕이 페이지 바탕과 다름', async ({ page }) => {

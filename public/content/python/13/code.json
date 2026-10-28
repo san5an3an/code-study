@@ -1,0 +1,74 @@
+[
+  {
+    "file": "list_create.py",
+    "className": "list_create",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[98, 82, 73, 64, 100]\n['철수', '영희', '나영', '민식', '호영']\n['철수', 98]\n['영희', 82]\n['나영', 73]\n[1, 1.5, True, 'a']\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_format.py",
+    "className": "list_format",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "철호(이)의 점수는 100점 입니다.\n영희(이)의 점수는 82점 입니다.\n나영(이)의 점수는 73점 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_indexing.py",
+    "className": "list_indexing",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[92, 83, 96]\n92\n83\n[92, 83, 88]\n철수\n98\n['철호', 100]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_operations.py",
+    "className": "list_operations",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[1, 2, 3, 4, 5]\n[10, 20, 30, 10, 20, 30, 10, 20, 30]\nHelloPy\npypypy\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "two_dim_access.py",
+    "className": "two_dim_access",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[1, 2, 3]\n[10, 20, 30]\n[100, 200, 300]\n1\n30\n['민식', 64, 172.3]\n['호영', 100, 175.8]\n['철민', 89, 168.7]\n민식\n100\n168.7\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "two_dim_create.py",
+    "className": "two_dim_create",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[['철수', 98], ['영희', 82], ['나영', 73]]\n[[1, 2, 3], [10, 20, 30], [100, 200, 300]]\n[['민식', 64, 172.3], ['호영', 100, 175.8], ['철민', 89, 168.7]]\n[[1, 2, 3], [10, 20], [100]]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

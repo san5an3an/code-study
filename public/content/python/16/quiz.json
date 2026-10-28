@@ -1,0 +1,167 @@
+{
+  "lectureId": "16",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`else`는 `if` 없이 혼자 써도 된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`else`는 \"그렇지 않으면\"이라서 앞에 비교할 `if`가 꼭 있어야 해요. 혼자 쓰면 `SyntaxError: invalid syntax`가 나요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "띄어쓰기 한 칸만 들어 있는 문자열 `\" \"`을 조건으로 쓰면 참(True)으로 판단된다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "빈 문자열은 따옴표를 열자마자 닫은 `\"\"`뿐이에요. 띄어쓰기도 엄연한 글자라서 `\" \"`은 참이에요. `bool(\" \")`을 찍어 보면 `True`예요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 `if` 조건으로 썼을 때 **거짓**으로 판단되는 것을 고르세요.",
+      "options": [
+        "`-1`",
+        "`\"0\"`",
+        "`[]`",
+        "`[0]`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "빈 리스트 `[]`는 원소가 하나도 없어서 거짓이에요.\n1번 `-1`은 0이 아닌 숫자라 참, 2번 `\"0\"`은 글자 `0`이 들어 있는 문자열이라 참, 4번 `[0]`은 원소(0)가 하나 있는 리스트라 참이에요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`if ~ elif ~ else`문에 대한 설명으로 **틀린** 것을 고르세요.",
+      "options": [
+        "위에서부터 순서대로 조건을 따진다.",
+        "참인 조건이 여러 개면 참인 블록을 모두 실행한다.",
+        "`elif`는 필요한 만큼 여러 개 쓸 수 있다.",
+        "맨 끝의 `else`는 필요 없으면 생략할 수 있다."
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "`if ~ elif ~ else`는 **가장 처음 만나는 참인 조건**의 블록 하나만 실행하고 나머지는 보지 않아요. 아래에 참인 조건이 더 있어도 무시해요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmoney = 0\nif money:\n    print(\"택시를 타고\")\nprint(\"집에가자\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n집에가자\n```\n\n숫자 0은 거짓이라 \"택시를 타고\"는 건너뛰어요. `print(\"집에가자\")`는 if 밖이라 무조건 실행돼요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmyage = 20\nif myage == 19:\n    print(\"19살 입니다.\")\nif myage != 20:\n    print(\"20살이 아닙니다.\")\nif myage > 19:\n    print(\"성인입니다.\")\nif myage <= 19:\n    print(\"청소년입니다.\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n성인입니다.\n```\n\n`if`가 네 개 따로 있어서 각각 검사해요. 20이면 `20 > 19`만 참이에요. `20 != 20`은 거짓이라 \"20살이 아닙니다.\"는 안 나와요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nisKorean = False\nif isKorean == True:\n    print(\"(1)\")\nif isKorean != True:\n    print(\"(2)\")\nif isKorean:\n    print(\"(3)\")\nif not isKorean:\n    print(\"(4)\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n(2)\n(4)\n```\n\n`False == True`는 거짓, `False != True`는 참, `if isKorean:`은 `False`라서 거짓, `not False`는 `True`라서 참이에요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\npoint = 85\nif point > 90:\n    print(\"A학점\")\nelif point > 80:\n    print(\"B학점\")\nelif point > 70:\n    print(\"C학점\")\nelse:\n    print(\"F학점\")\nprint(\"시험 끝\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nB학점\n시험 끝\n```\n\n`85 > 90`은 거짓, `85 > 80`은 참이라 \"B학점\"을 출력하고 나머지 조건은 보지 않아요. `85 > 70`도 참이지만 이미 앞에서 실행했어요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`world(은)는 가입되어 있지 않습니다.`가 출력되도록 빈칸을 채우세요. (두 단어예요)\n\n```python\nuser2 = \"world\"\nmemberList = ['hello', 'python', 'life']\nif user2 ____(가)____ memberList:\n    print(user2 + \"(은)는 가입되어 있지 않습니다.\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `not in`\n\n`not in`은 왼쪽 값이 오른쪽에 들어 있지 **않을 때** 참이에요. `world`는 `memberList`에 없으니 참이라 출력돼요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "입력이 소문자 `y`여도 `한국사람입니다.`가 나오도록 빈칸을 채우세요.\n\n```python\nanswer = \"y\"\nif answer.____(가)____() == \"Y\":\n    print(\"한국사람입니다.\")\n____(나)____\n    print(\"한국사람이 아닙니다.\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `upper`\n- (나) `else:`\n\n`upper()`로 무조건 대문자로 바꾸면 `y`와 `Y`를 한 번에 검사할 수 있어요. `else` 뒤에는 콜론(`:`)을 꼭 붙여요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `score`에 점수를 넣고, 60점 이상이면 `합격입니다.`, 아니면 `불합격입니다.`를 출력하세요. 그다음 if 밖에서 `시험 끝`을 출력하세요. (`score = 53`일 때 출력: `불합격입니다.` 다음 줄에 `시험 끝`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nscore = 53\nif score >= 60:\n    print(\"합격입니다.\")\nelse:\n    print(\"불합격입니다.\")\nprint(\"시험 끝\")\n```\n\n53은 60보다 작아서 `else` 블록이 실행돼요. `print(\"시험 끝\")`은 들여쓰지 않아서 if, else 어느 쪽이든 마지막에 실행돼요. 강의처럼 `score = int(input(\"점수를 입력하세요\"))`로 받아도 돼요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `temp`(기온)에 값을 넣고, `if ~ elif ~ else`로 아래처럼 출력하세요. `temp = 30`이면 `더워요`가 나와야 해요.\n\n- 28 이상: `더워요`\n- 18 이상 28 미만: `좋아요`\n- 18 미만: `추워요`",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\ntemp = 30\nif temp >= 28:\n    print(\"더워요\")\nelif temp >= 18:\n    print(\"좋아요\")\nelse:\n    print(\"추워요\")\n```\n\n위에서부터 따지니까 두 번째 조건에는 \"28 미만\"을 따로 안 써도 돼요. 28 이상이면 이미 첫 번째에서 끝나기 때문이에요. 순서를 바꿔 `temp >= 18`을 먼저 쓰면 30도도 \"좋아요\"가 나와 버려요."
+    }
+  ]
+}

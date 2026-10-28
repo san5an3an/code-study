@@ -1,0 +1,86 @@
+[
+  {
+    "file": "address_book.py",
+    "className": "address_book",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[{'name': '홍길동', 'phone': '010-2345-6789'}, {'name': '김철수', 'phone': '010-1111-2222'}]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "enumerate_loop.py",
+    "className": "enumerate_loop",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "0번째 값 >> 서울\n1번째 값 >> 인천\n2번째 값 >> 대구\n3번째 값 >> 대전\n4번째 값 >> 광주\n5번째 값 >> 부산\n0 봄\n1 여름\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "for_basics.py",
+    "className": "for_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "x=1\nx=2\nx=3\nx=4\nx=5\nx=6\nx=7\nx=8\nx=9\nx=10\n7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "for_total_sum.py",
+    "className": "for_total_sum",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "x=1, sum=1\nx=2, sum=3\nx=3, sum=6\nx=4, sum=10\nx=5, sum=15\nx=6, sum=21\nx=7, sum=28\nx=8, sum=36\nx=9, sum=45\nx=10, sum=55\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_loop.py",
+    "className": "list_loop",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "0번째 원소: 봄\n1번째 원소: 여름\n2번째 원소: 가을\n3번째 원소: 겨울\npython\nis\ngood\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "range_step.py",
+    "className": "range_step",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "a=0\na=10\na=20\na=30\na=40\na=50\na=60\na=70\na=80\na=90\nb=10\nb=8\nb=6\nb=4\nb=2\n[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]\n[10, 8, 6, 4, 2]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "score_total_avg.py",
+    "className": "score_total_avg",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "총점: 407, 평균: 81\n81.4\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -61,8 +61,10 @@ export type CodeRunRequest = { source: string; stdin: string };
       @case ('none') {
         <div hlmEmpty class="border" data-testid="code-none">
           <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>아직 예제가 없어요</h3>
-            <p hlmEmptyDescription>이 과목은 강의 예제 코드를 아직 만들지 않았어요.</p>
+            <h3 hlmEmptyTitle>코드 탭은 준비 중이에요</h3>
+            <p hlmEmptyDescription>
+              이 과목은 코드 실행을 아직 붙이지 않았어요. 예제 코드는 노트에서 볼 수 있어요.
+            </p>
           </div>
         </div>
       }

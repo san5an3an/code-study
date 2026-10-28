@@ -1,0 +1,167 @@
+{
+  "lectureId": "03",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "맥의 터미널은 글자로 명령어를 입력하고 결과를 보는 CLI 환경이다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "CLI(Command Line Interface)는 글자로 명령하는 환경이에요. 윈도우에는 명령 프롬프트(CMD), 맥에는 터미널이 있어요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "맥에 원래 들어 있는 파이썬 3.9는 헷갈리니까 지우고 나서 새 버전을 설치해야 한다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "원래 들어 있는 파이썬은 컴퓨터가 안에서 쓰는 거라 잘못 지우면 문제가 생길 수 있어요. 그대로 두고 새 버전을 **추가로** 설치해요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "맥 Finder에서 파일 확장자가 보이게 하려면 어디를 체크해야 할까요?",
+      "options": [
+        "Finder → 설정 → 일반 → 새로운 Finder 윈도우에서 보기",
+        "Finder → 설정 → 고급 → 모든 파일 확장자 보기",
+        "Finder → 설정 → 사이드바 → 최근 항목",
+        "Finder → 설정 → 태그 → 빨간색"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "고급 탭의 **모든 파일 확장자 보기**를 체크해요. 1번은 새 Finder 창이 처음에 보여 줄 폴더를 정하는 곳이에요(강사님은 사용자 홈 폴더로 바꾸라고 권했어요)."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "맥 터미널에서 주피터랩을 설치하는 명령으로 강의에서 쓴 것은?",
+      "options": [
+        "`pip install jupyterlab`",
+        "`pip3 install jupyterlab`",
+        "`python3 install jupyterlab`",
+        "`pip3 install jupyter lab`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "맥에서는 `pip` 뒤에 숫자 3을 붙여서 `pip3`를 써요. 패키지 이름은 띄어쓰기 없는 `jupyterlab`이에요. 4번처럼 띄어 쓰면 `jupyter`와 `lab`이라는 서로 다른 패키지 두 개를 설치하라는 뜻이 돼요. 3번은 `python3`가 `install`을 실행할 파이썬 파일 이름으로 읽어서 `can't open file ... 'install'` 에러가 나요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nname = \"보고서.hwp\"\nprint(name.rsplit(\".\", 1)[1])\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nhwp\n```\n\n맨 뒤의 점을 기준으로 둘로 나누면 `[\"보고서\", \"hwp\"]`가 되고, `[1]`은 두 번째인 확장자예요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "맥 터미널에서 `python3`로 실행했어요.\n\n```python\nimport sys\nprint(sys.version_info.major)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n3\n```\n\n`python3`로 실행했으니 파이썬 3이에요. `sys.version_info.major`는 버전의 큰 번호예요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nfrom fnmatch import fnmatch\nprint(fnmatch(\"노래.mp3\", \"*.mp3\"))\nprint(fnmatch(\"사진.jpg\", \"*.mp3\"))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nTrue\nFalse\n```\n\n`*.mp3`는 \"이름은 아무거나, 확장자는 mp3\"라는 뜻이에요. `사진.jpg`는 확장자가 jpg라서 맞지 않아요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nsource = \"hello.txt\"\nprint(source.replace(\".txt\", \".py\"))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nhello.py\n```\n\n소스 코드는 텍스트 파일의 확장자만 프로그래밍 언어에 맞게 바꾼 파일이에요. `.txt`를 `.py`로 바꿨어요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "맥 터미널에서 파이썬 3의 버전을 확인하는 명령이에요. 빈칸을 채우세요.\n\n```\n____(가)____ --version\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `python3`\n\n맥에서는 `python` 뒤에 숫자 3을 붙여요. 요즘 맥에서 `python --version`이라고 치면 `zsh: command not found: python`이 나올 수 있어요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "지금 쓰는 파이썬이 3.11 이상이면 `True`가 나오도록 빈칸에 들어갈 비교 연산자를 채우세요.\n\n```python\nimport sys\nprint(sys.version_info ____(가)____ (3, 11))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `>=`\n\n`>=`는 \"크거나 같다\"예요. 버전을 `(3, 11)`과 비교하면 3.11 이상일 때 `True`가 나와요. 3.14로 실행하면 `True`예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`print`를 두 번 써서 윈도우와 맥의 명령어 차이를 아래처럼 출력하세요.\n\n```\n윈도우: python, pip\n맥: python3, pip3\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nprint(\"윈도우: python, pip\")\nprint(\"맥: python3, pip3\")\n```\n\n수업 자료에 `python`, `pip`이라고 나와도 맥에서는 뒤에 3을 붙여 친다는 걸 기억해 두세요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`sys`를 불러와서, 지금 실행 중인 파이썬이 3점대인지 아래처럼 출력하세요. (python3로 실행하면 `True`가 나와야 해요.)\n\n```\n파이썬 3 인가요? True\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nimport sys\nprint(\"파이썬 3 인가요?\", sys.version_info.major == 3)\n```\n\n`print`에 쉼표로 값을 넘기면 사이에 공백 하나가 들어가요. `sys.version_info.major == 3`은 큰 번호가 3이면 `True`가 돼요."
+    }
+  ]
+}

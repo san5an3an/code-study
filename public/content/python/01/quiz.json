@@ -1,0 +1,176 @@
+{
+  "lectureId": "01",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "컴퓨터의 중앙처리장치(CPU)는 기계어만 해석할 수 있어서, 모든 프로그래밍 언어는 결국 기계어로 바뀌어야 실행된다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "CPU는 2진수의 모음인 기계어만 해석할 수 있어요. 그래서 고급 언어로 짠 프로그램도 반드시 기계어로 변환하거나 해석해야 실행돼요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "컴파일 언어는 프로그램을 실행할 때마다 매번 컴파일 과정을 다시 거쳐야 한다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "컴파일은 **최초 1회만** 해요. 컴파일러가 만든 실행 파일(바이너리 파일)을 저장해 두고, 그 뒤로는 실행 파일을 바로 실행해요. 실행할 때마다 매번 해석하는 건 인터프리터 언어예요."
+    },
+    {
+      "n": 3,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "파이썬은 변수를 쓰기 전에 `int x;`처럼 자료형을 미리 선언해야 한다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "파이썬은 실행할 때 실시간으로 자료형을 검사하기 때문에 **변수 선언이 없어요.** `x = 10`처럼 값을 넣는 순간 변수가 생겨요. 강사님 말로 이 특징이 초보자의 진입 장벽을 크게 낮춰 줘요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "강의에서 나눈 프로그래밍 언어의 세대 중 파이썬이 속하는 세대는?",
+      "options": [
+        "1세대 기계어",
+        "2세대 어셈블리어",
+        "3세대 고급 언어(절차지향)",
+        "4세대 객체지향 언어"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "파이썬은 4세대로 구분되는 인터프리터 언어예요. 오늘날 쓰는 대부분의 언어(C++, Java, Swift, JavaScript 등)가 4세대예요. 3세대 절차지향 언어의 대표는 C예요."
+    },
+    {
+      "n": 5,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "인터프리터 언어에 대한 설명으로 **틀린** 것을 고르세요.",
+      "options": [
+        "다른 말로 스크립트 언어라고도 한다.",
+        "소스 코드를 해석해 줄 전용 프로그램(인터프리터)이 필요하다.",
+        "최초 1회만 변환해서 실행 파일(.exe)을 저장해 두고, 그 뒤로는 실행 파일만 실행한다.",
+        "실행할 때마다 해석 과정을 거쳐서 컴파일 언어보다 다소 느리다."
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "3번은 **컴파일 언어**의 설명이에요. 인터프리터 언어는 실행 파일을 따로 만들지 않고, 실행할 때마다 인터프리터가 소스 코드를 해석해서 실행해요. MP3를 들으려면 재생 프로그램이 필요하듯 소스 코드를 해석할 전용 프로그램이 필요해요."
+    },
+    {
+      "n": 6,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "강사님이 라이브러리를 쉽게 풀어서 부른 말과 그 예로 바르게 짝지은 것은?",
+      "options": [
+        "확장팩 - pandas는 데이터 분석, matplotlib은 그래프 그리기",
+        "번역기 - pandas는 그래프 그리기, matplotlib은 데이터 분석",
+        "실행 파일 - pandas와 matplotlib은 돈을 내고 사야 하는 프로그램",
+        "컴파일러 - pandas는 소스 코드를 기계어로 바꾸는 도구"
+      ],
+      "correct": [
+        1
+      ],
+      "answerHead": "1",
+      "isExample": false,
+      "explanation": "강사님은 라이브러리를 \"확장팩\"이라고 풀어 말해요. 파이썬에 필요한 기능을 덧붙이는 거예요. pandas는 데이터 분석, matplotlib은 그래프 표현에 쓰고, 대부분 무료예요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": true,
+      "prompt": "```python\nprint(\"Life is too short, You need Python\")\nprint(1 + 2)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nLife is too short, You need Python\n3\n```\n\n따옴표로 감싼 글자는 그대로 나오고, 따옴표 없는 `1 + 2`는 계산한 값 `3`이 나와요. 이 문구는 강의 슬라이드에 나온 문장이에요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": true,
+      "prompt": "슬라이드의 기계어 예시 `01000001`을 10진수로 바꿔 봐요.\n\n```python\nprint(int(\"01000001\", 2))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n65\n```\n\n`int(글자, 2)`는 글자를 2진수로 읽어서 10진수 정수로 바꿔요. 2진수 `01000001`은 64 + 1 = 65예요. 컴퓨터 안에서 65는 영문자 `A`의 번호이기도 해요."
+    },
+    {
+      "n": 9,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": true,
+      "prompt": "```python\nx = 10\nprint(type(x))\nx = \"파이썬\"\nprint(type(x))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n<class 'int'>\n<class 'str'>\n```\n\n`type()`은 값의 자료형을 알려 줘요. 처음엔 정수(`int`)를 넣었다가 글자를 넣자 문자열(`str`)이 됐어요. 미리 선언하지 않고, 값을 넣을 때 파이썬이 자료형을 정해요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "강의 슬라이드의 프로그래밍 언어 발전 순서를 완성하세요.\n\n```\n1세대 기계어 -> 2세대 ____(가)____ -> 3세대 고급 언어 -> 4세대 객체지향 언어 -> 5세대 ____(나)____\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `어셈블리어`\n- (나) `초고급 언어`\n\n어셈블리어는 기계어를 알파벳 기호로 바꾼 언어, 초고급 언어는 인공지능 원리를 쓰는 시스템을 위해 제안된 개념이에요."
+    },
+    {
+      "n": 11,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "컴파일 언어의 동작 과정을 완성하세요.\n\n```\n소스 코드 -> ____(가)____ -> (기계어) -> ____(나)____ 저장 -> 컴퓨터를 통한 실행\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `컴파일러`\n- (나) `실행 파일`\n\n컴파일러가 소스 코드를 기계어로 바꿔 실행 파일(바이너리 파일)로 저장해요. \"바이너리 파일\"이라고 써도 맞아요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": true,
+      "prompt": "`print`를 두 번 써서 아래처럼 출력하세요. 둘째 줄은 직접 계산하지 말고 파이썬이 `1991 + 35`를 계산하게 하세요.\n\n```\nHello, Python!\n2026\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nprint(\"Hello, Python!\")\nprint(1991 + 35)\n```\n\n따옴표 안은 글자 그대로, 따옴표 없는 `1991 + 35`는 계산 결과 `2026`이 출력돼요. `print(\"2026\")`처럼 써도 화면은 같지만, 이 문제는 파이썬에게 계산을 맡기는 연습이에요. 1991은 파이썬이 처음 나온 해예요."
+    }
+  ]
+}

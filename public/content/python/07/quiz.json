@@ -1,0 +1,167 @@
+{
+  "lectureId": "07",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "파이썬에서 `=`는 \"대입한다\"는 뜻으로만 쓰고, 두 값이 같은지 비교할 때는 `==`를 쓴다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "수학의 `=`는 \"대입\"과 \"같다\" 두 뜻이 있지만, 프로그래밍의 `=`는 대입뿐이에요. 같은지 비교는 `==`예요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`10 / 5`의 결과는 나눠 떨어지니까 정수 `2`로 출력된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`/`는 나눠 떨어져도 결과가 실수라서 `2.0`이 나와요. 정수 몫을 원하면 `10 // 5`로 써서 `2`를 얻어요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`10`을 `3`으로 나눈 **나머지** `1`을 구하는 식을 고르세요.",
+      "options": [
+        "`10 / 3`",
+        "`10 // 3`",
+        "`10 % 3`",
+        "`10 ** 3`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`%`는 나머지만 구해요. 1번 `10 / 3`은 `3.3333333333333335`, 2번 `10 // 3`은 몫 `3`, 4번 `10 ** 3`은 10의 세제곱 `1000`이에요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 에러 없이 실행되는 것을 고르세요.",
+      "options": [
+        "`print(x not is y)`",
+        "`print(10 / 0)`",
+        "`print(1 = 1)`",
+        "`print(x is not y)` (`x`, `y`는 미리 만들어 둔 변수)"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "맞는 순서는 `is not`이에요. 1번은 `not is`라는 연산자가 없어서 SyntaxError, 2번은 0으로 나눠서 ZeroDivisionError, 3번은 식 안에 대입 `=`를 써서 SyntaxError예요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(10 // 4)\nprint(10 % 4)\nprint(2 ** 3)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n2\n2\n8\n```\n\n`10 // 4`는 몫 2, `10 % 4`는 나머지 2, `2 ** 3`은 2 × 2 × 2 = 8이에요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\na = 2\na += 8\na *= 3\na //= 4\nprint(a)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n7\n```\n\n`a`가 한 줄마다 바뀌어요. 2 + 8 = 10, 10 × 3 = 30, 30 // 4 = 7(나머지 2는 버려요)."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(100 >= 100)\nprint(100 != 100)\nresult = 7 < 3\nprint(result)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nTrue\nFalse\nFalse\n```\n\n100은 100 이상이라 `True`, 100과 100은 같으니 \"다르다\"는 `False`예요. `7 < 3`은 거짓이라 `result`에 `False`가 담겨요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nx = 100\ny = 100.0\nprint(x == y)\nprint(True and False or True)\nprint(5 > 3 and 2 == 2)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nTrue\nTrue\nTrue\n```\n\n`==`는 값만 비교해서 `100 == 100.0`은 `True`예요. 둘째 줄은 `and`가 먼저라서 `True and False`가 `False`, 그다음 `False or True`가 `True`예요. 셋째 줄은 비교가 먼저 계산돼서 `True and True`가 돼요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`x = x - 3`을 줄여 쓴 표현이 되도록 빈칸을 채우세요.\n\n```python\nx = 10\nx ____(가)____ 3\nprint(x)   # 7\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `-=`\n\n`x -= 3`은 \"x 스스로 3 감소\", 즉 `x = x - 3`이에요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`17`을 `5`로 나눈 몫과 나머지를 출력하도록 빈칸을 채우세요. (출력: `3 2`)\n\n```python\nprint(17 ____(가)____ 5, 17 ____(나)____ 5)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `//`\n- (나) `%`\n\n`17 // 5`는 몫 3, `17 % 5`는 나머지 2예요. `print`에 쉼표로 넘기면 사이에 공백 하나가 들어가서 `3 2`가 돼요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `total`에 `0`을 넣고, `+=`만 써서 `100`, `250`, `50`을 차례로 더한 뒤 `total`을 출력하세요. (출력: `400`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\ntotal = 0\ntotal += 100\ntotal += 250\ntotal += 50\nprint(total)\n```\n\n`total += 100`은 `total = total + 100`과 같아요. 0 → 100 → 350 → 400으로 바뀌어요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "몸무게 `myWeight = 60`, 키 `myHeight = 1.6`일 때 BMI(체중 ÷ 키의 제곱)를 계산해 변수 `bmi`에 담고, `bmi`가 `20` 이상이면서 `25` 미만인지를 `and`로 판단한 결과(`True`/`False`)를 출력하세요. (출력: `True`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nmyWeight = 60\nmyHeight = 1.6\nbmi = myWeight / myHeight ** 2\nprint(bmi >= 20 and bmi < 25)\n```\n\n`**`가 `/`보다 먼저라서 `1.6 ** 2`가 먼저 계산돼요. `bmi`는 약 23.4라서 `20` 이상(`True`)이고 `25` 미만(`True`)이니 `True and True`로 `True`예요."
+    }
+  ]
+}

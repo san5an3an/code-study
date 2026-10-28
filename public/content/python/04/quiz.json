@@ -1,0 +1,167 @@
+{
+  "lectureId": "04",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "코드 블록에서 `#` 뒤에 쓴 내용은 프로그램이 실행될 때 제외된다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`#` 뒤는 주석(설명문)이라 실행할 때 빠져요. 그래서 실행 결과에 영향을 주지 않아요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "주피터 노트북의 블록은 서로 독립된 프로그램이라서, 앞 블록을 실행하지 않아도 뒤 블록에서 앞 블록의 변수를 쓸 수 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "블록이 나눠져 있어도 전체가 하나의 프로그램이에요. 앞 블록(`a = 100` 등)을 실행하지 않았다면 변수가 아직 없어서 `NameError: name 'a' is not defined`가 나요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "주피터 코드 블록에서 \"실행한 뒤 다음 블록으로 이동하고, 밑에 블록이 없으면 새 블록을 추가\"하는 단축키는?",
+      "options": [
+        "`Ctrl + Enter`",
+        "`Shift + Enter`",
+        "`ESC`",
+        "`Ctrl + Shift + P`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "`Shift + Enter`는 실행 후 다음 블록으로 이동하고, 밑에 블록이 없으면 블록을 추가해요. 1번 `Ctrl + Enter`는 실행하고 그 블록에 머물러 있어요. 3번 `ESC`는 이동 모드로 바꾸는 키, 4번은 명령 팔레트를 여는 단축키예요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "주피터의 **마크다운 블록**에 `## Title2`라고 쓰고 실행하면 어떻게 될까요?",
+      "options": [
+        "주석이라서 아무것도 안 보인다",
+        "`# Title1`보다 한 단계 낮은 소제목으로 보인다",
+        "SyntaxError가 난다",
+        "`## Title2` 글자가 그대로 보통 글로 보인다"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "마크다운 블록에서 `#`은 제목이에요. `#`이 하나 늘 때마다 제목 수준이 낮아지니까 `##`은 `#`보다 한 단계 낮은 소제목이에요. `#`이 주석인 건 코드 블록일 때예요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"Hello World\")\na = 100\nb = 200\nprint(a + b)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nHello World\n300\n```\n\n`a = 100`, `b = 200`은 데이터를 만들기만 해서 출력이 없어요. `print`가 있는 두 줄만 결과가 나와요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\n# print(\"A\")\nprint(\"B\")   # print(\"C\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nB\n```\n\n첫 줄은 맨 앞에 `#`이 있어서 통째로 주석이에요. 둘째 줄은 `#` 앞의 `print(\"B\")`까지만 코드이고, 뒤의 `print(\"C\")`는 주석이에요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nx = 10\n# x = 20\nprint(x)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n10\n```\n\n`x = 20`은 주석으로 막혀서 실행되지 않아요. 그래서 `x`는 10 그대로예요. 이렇게 명령문을 차단하는 용도로도 주석을 써요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"# 이건 주석이 아니에요\")\na = 1\nb = 2   # b = 200\nprint(a + b)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n# 이건 주석이 아니에요\n3\n```\n\n따옴표 안의 `#`은 주석이 아니라 그냥 글자라서 그대로 출력돼요. `b = 2` 뒤의 `# b = 200`은 주석이라 `b`는 2이고, `1 + 2`로 3이 나와요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "파일 확장자를 채우세요. 파이썬 소스 코드 파일과 주피터 전용 파일이에요.\n\n```\n소스코드.____(가)____\nHelloWorld.____(나)____\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `py`\n- (나) `ipynb`\n\n파이썬 소스 코드의 확장자는 `py`, 주피터 전용 파일의 확장자는 `ipynb`예요. 주피터 파일을 저장할 때는 확장자를 꼭 적어 줘요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "첫 줄이 주석이 되고, `300`이 출력되도록 빈칸을 채우세요.\n\n```python\n____(가)____ 합산 결과 출력하기\na = 100\nb = 200\nprint(a ____(나)____ b)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `#`\n- (나) `+`\n\n코드 블록에서 한 줄 주석은 문장 앞에 `#`을 붙여요. `100 + 200`이라서 300이 나와요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`x`에 3, `y`에 4를 넣고 두 수의 합을 출력하세요. 각 변수를 만드는 줄 뒤에 그 변수를 설명하는 주석을 달고, 출력하는 줄 위에도 한 줄 주석을 다세요. (출력: `7`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nx = 3   # 3을 의미하는 x\ny = 4   # 4를 의미하는 y\n# 합을 출력해요\nprint(x + y)\n```\n\n코드 뒤에 `#`을 붙이면 `#` 앞까지는 코드, 뒤는 주석이에요. 주석 내용은 자유롭게 써도 결과는 `7`로 같아요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "아래 코드에서 **한 글자만 더해서** `Hello Python`만 출력되게 바꾸세요.\n\n```python\nprint(\"Hello World\")\nprint(\"Hello Python\")\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\n# print(\"Hello World\")\nprint(\"Hello Python\")\n```\n\n첫 줄 맨 앞에 `#` 한 글자를 붙이면 그 줄이 주석이 되어 실행되지 않아요. 지우지 않고 잠깐 막아 둘 때 편해요."
+    }
+  ]
+}
