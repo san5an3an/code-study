@@ -1,0 +1,62 @@
+[
+  {
+    "file": "builtin_type.py",
+    "className": "builtin_type",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Hello World\n300\n<class 'int'>\n<class 'float'>\n<class 'str'>\n출력만 해요\nNone\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "define_function.py",
+    "className": "define_function",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "5\n11\n3\n7\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "input_to_number.py",
+    "className": "input_to_number",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Hello Python\n<class 'str'>\n123\n<class 'str'>\n123\n<class 'int'>\n3.14\n<class 'str'>\n3.14\n<class 'float'>\n123123\n246\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "int_float_conversion.py",
+    "className": "int_float_conversion",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "100.0\n<class 'float'>\n123\n<class 'int'>\n-3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "object_methods.py",
+    "className": "object_methods",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "4\n3\n3.14\nFalse\nTrue\n4\n3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

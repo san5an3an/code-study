@@ -1,0 +1,167 @@
+{
+  "lectureId": "15",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "딕셔너리는 중괄호(`{ }`) 안에 `이름: 값` 쌍을 쉼표로 나열해서 만든다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "중괄호를 쓰고, 리스트처럼 쉼표로 구별하되 값만이 아니라 `이름: 값` 쌍으로 나열해요. 이름을 key, 값을 value라고 해요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`data = {\"msg\": \"hello\", \"msg\": \"python\"}`처럼 같은 키를 두 번 쓰면 에러가 난다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "에러는 나지 않아요. 하나만 남고 나머지는 무시되는데, 가장 마지막에 적은 `\"python\"`이 앞의 값을 덮어써서 `{'msg': 'python'}`이 돼요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`d = {\"name\": \"철수\", \"age\": 17}`일 때, 실행하면 에러가 나는 것을 고르세요.",
+      "options": [
+        "`print(d[\"name\"])`",
+        "`print(d.get(\"phone\"))`",
+        "`print(d[\"phone\"])`",
+        "`d[\"phone\"] = \"010\"`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`phone`이라는 키가 없어서 `KeyError: 'phone'`이 나요.\n2번 `get()`은 없는 키라도 에러 대신 `None`을 돌려줘요. 4번처럼 없는 키에 값을 **넣는** 건 에러가 아니라 새 항목이 추가돼요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "```python\ngrade = [{\"name\": \"철수\", \"kor\": 95}, {\"name\": \"영희\", \"kor\": 92}]\n```\n\n영희의 국어 점수 `92`를 바르게 꺼낸 것을 고르세요.",
+      "options": [
+        "`grade[\"영희\"][\"kor\"]`",
+        "`grade[1][\"kor\"]`",
+        "`grade[\"kor\"][1]`",
+        "`grade[2][\"kor\"]`"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "바깥이 대괄호라서 전체는 리스트예요. 영희는 1번째(0부터 세요) 딕셔너리니까 `grade[1]`로 먼저 꺼내고, 그다음 이름 `\"kor\"`로 값을 꺼내요.\n1번과 3번은 리스트를 이름(문자열)으로 꺼내려 해서 TypeError, 4번은 2번째 원소가 없어서 IndexError가 나요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ndata = {\"msg\": \"hello\", \"msg\": \"python\"}\nprint(data)\nprint(len(data))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n{'msg': 'python'}\n1\n```\n\n키가 겹쳐서 마지막 값 하나만 남아요. 그래서 원소 수도 1이에요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ndic = {\"a\": 1}\ndic[\"b\"] = 2\ndic[\"a\"] = 10\nprint(dic)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n{'a': 10, 'b': 2}\n```\n\n없는 키 `b`에 값을 넣으면 추가되고, 있는 키 `a`에 값을 넣으면 바뀌어요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nd = {\"name\": \"민수\"}\nprint(d.get(\"name\"))\nprint(d.get(\"age\"))\nprint(d.get(\"age\", 0))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n민수\nNone\n0\n```\n\n`get()`은 키가 있으면 그 값을, 없으면 `None`을 돌려줘요. 두 번째 자리에 기본값을 주면 키가 없을 때 그 값을 대신 돌려줘요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nstudent = {\"name\": [\"철수\", \"민수\"], \"age\": [16, 17]}\nprint(student[\"name\"][0], student[\"age\"][0])\nprint(list(student.keys()))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n철수 16\n['name', 'age']\n```\n\n바깥이 중괄호라 전체는 딕셔너리예요. 이름으로 리스트를 꺼낸 뒤 번호로 값을 꺼내요. `keys()`로 키만 모은 걸 `list()`로 바꾸면 키 리스트가 돼요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "key가 `birth`인 데이터를 지워서 `{'name': '철수'}`가 출력되도록 빈칸을 채우세요.\n\n```python\nmydic = {\"name\": \"철수\", \"birth\": \"0115\"}\n____(가)____ mydic[\"birth\"]\nprint(mydic)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `del`\n\n`del`은 딕셔너리의 원소를 지우는 예약어예요. 괄호를 넣어 `del (mydic[\"birth\"])`처럼 써도 되지만 필요는 없어요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "키만 모아 리스트로 바꿔서 `['name', 'phone']`이 출력되도록 빈칸을 채우세요.\n\n```python\ndic = {\"name\": \"철수\", \"phone\": \"010-1234-5678\"}\nkey_list = ____(가)____(dic.____(나)____())\nprint(key_list)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `list`\n- (나) `keys`\n\n`dic.keys()`는 `dict_keys` 객체를 돌려주고, `list()`가 그걸 리스트로 바꿔요. 강의처럼 두 과정을 한 줄로 한꺼번에 쓰는 모양이에요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "딕셔너리 `fruit`에 `\"apple\"`은 `1000`, `\"banana\"`는 `500`을 넣어 만드세요. 그다음 `\"melon\"`을 `3000`으로 추가하고, 딕셔너리 전체와 원소 수를 출력하세요.\n\n```\n{'apple': 1000, 'banana': 500, 'melon': 3000}\n3\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nfruit = {\"apple\": 1000, \"banana\": 500}\nfruit[\"melon\"] = 3000\nprint(fruit)\nprint(len(fruit))\n```\n\n없는 키에 값을 넣으면 바로 추가돼요. `len()`은 이름: 값 한 쌍을 원소 하나로 세요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "아래 `review`에서 이름으로 값을 꺼내고 `format()`을 써서 다음처럼 출력하세요.\n\n```python\nreview = {\n    \"items\": [\n        {\"email\": \"user1@python.com\", \"comment\": \"Good~!!\"},\n        {\"email\": \"user2@python.com\", \"comment\": \"Nice~!!\"}\n    ]\n}\n```\n\n```\nuser1@python.com - Good~!!\nuser2@python.com - Nice~!!\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nreview = {\n    \"items\": [\n        {\"email\": \"user1@python.com\", \"comment\": \"Good~!!\"},\n        {\"email\": \"user2@python.com\", \"comment\": \"Nice~!!\"}\n    ]\n}\ntpl = \"{0} - {1}\"\nprint(tpl.format(review[\"items\"][0][\"email\"], review[\"items\"][0][\"comment\"]))\nprint(tpl.format(review[\"items\"][1][\"email\"], review[\"items\"][1][\"comment\"]))\n```\n\n바깥부터 차근차근 들어가요. `review[\"items\"]`는 리스트라 번호로, 그 안의 원소는 딕셔너리라 이름으로 꺼내요."
+    }
+  ]
+}

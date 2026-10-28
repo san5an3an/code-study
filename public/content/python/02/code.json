@@ -1,0 +1,38 @@
+[
+  {
+    "file": "file_extension.py",
+    "className": "file_extension",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "hello.txt -> 이름: hello / 확장자: .txt / 글자 수: 3\nhello.py -> 이름: hello / 확장자: .py / 글자 수: 2\nstudy.ipynb -> 이름: study / 확장자: .ipynb / 글자 수: 5\nmovie.avi -> 이름: movie / 확장자: .avi / 글자 수: 3\nsong.mp3 -> 이름: song / 확장자: .mp3 / 글자 수: 3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "python_version.py",
+    "className": "python_version",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "큰 버전: 3\n3.11.1 이상인가요? True\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "source_code_example.py",
+    "className": "source_code_example",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "123\n-456\n10000\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -1,0 +1,167 @@
+{
+  "lectureId": "17",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`while`문은 주어진 조건식이 참인 동안 블록 안의 구문을 반복해서 수행한다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`while`문은 조건식이 참인 동안 반복하고, 조건이 거짓이 되면 빠져나와요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "파이썬에도 다른 언어처럼 `do-while`문이 있다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "파이썬의 반복문은 `while`문과 `for`문 두 가지뿐이에요. `do-while`이나 `until`문은 없어요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "강의에서 말한 반복문의 세 가지 구성요소가 아닌 것을 고르세요.",
+      "options": [
+        "초기식",
+        "조건식",
+        "증감식",
+        "출력식"
+      ],
+      "correct": [
+        4
+      ],
+      "answerHead": "4",
+      "isExample": false,
+      "explanation": "반복문의 세 가지 구성요소는 초기식(기준값 만들기), 조건식(반복할지 판별), 증감식(기준값 바꾸기)이에요. 출력식이라는 구성요소는 없어요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "아래 코드가 끝난 뒤 `x`의 값은?\n\n```python\nx = 1\nwhile x <= 10:\n    x += 1\n```",
+      "options": [
+        "`9`",
+        "`10`",
+        "`11`",
+        "무한루프라 끝나지 않는다"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`x`가 10일 때도 조건 `x <= 10`이 참이라 1을 더해 11이 돼요. 11에서 조건이 처음으로 거짓이 되어 빠져나오니까 최종값은 `11`이에요. 증감식 `x += 1`이 있으니 무한루프는 아니에요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\na = 0\nwhile a < 5:\n    print(a)\n    a += 2\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n0\n2\n4\n```\n\n`a`가 0, 2, 4일 때 출력해요. 6이 되면 `6 < 5`가 거짓이라 끝나요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nb = 10\nwhile b > 0:\n    print(b)\n    b -= 3\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n10\n7\n4\n1\n```\n\n3씩 줄어서 10, 7, 4, 1을 출력해요. 다음 값 -2는 `0`보다 크지 않아서 끝나요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nx = 1\ntotal = 0\nwhile x <= 5:\n    total += x\n    x += 1\nprint(total)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n15\n```\n\n`total`이 0에서 시작해 1, 2, 3, 4, 5를 차례로 더해서 15가 돼요. `print`가 반복문 밖에 있어서 마지막 합만 한 번 출력해요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nnums = [1, 2, 3]\ni = 0\nwhile i < len(nums):\n    nums[i] = nums[i] + 1\n    i += 1\nprint(nums)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[2, 3, 4]\n```\n\n`i`가 0, 1, 2로 변하면서 각 원소를 꺼내 1을 더한 뒤 같은 자리에 다시 넣어요. `i`가 3이 되면 `len(nums)`인 3보다 작지 않아서 끝나요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "구구단 7단(`7 x 1 = 7`부터 `7 x 9 = 63`까지)이 출력되도록 빈칸을 채우세요. 조건식은 `<`를 써요.\n\n```python\ny = ____(가)____\nwhile y < ____(나)____:\n    print(\"7 x %d = %d\" % (y, 7 * y))\n    y += 1\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `1`\n- (나) `10`\n\n`y`는 1부터 시작하고, `y < 10`이면 10은 포함되지 않아서 1부터 9까지 반복해요. `y <= 9`라고 써도 같은 뜻이에요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "1부터 10까지의 합 `55`가 출력되도록 빈칸을 채우세요.\n\n```python\nx = 1\ntotal = ____(가)____\nwhile x <= 10:\n    total ____(나)____ x\n    x += 1\nprint(total)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `0`\n- (나) `+=`\n\n합계를 누적할 변수는 반복문 전에 꼭 0으로 시작해요. `total += x`는 `total`이 스스로 `x`만큼 증가한다는 뜻이에요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`while`문을 써서 1부터 10까지의 짝수만 한 줄에 하나씩 출력하세요. 짝수인지 검사하지 말고 증감식으로만 해결해 보세요.\n\n```\n2\n4\n6\n8\n10\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nn = 2\nwhile n <= 10:\n    print(n)\n    n += 2\n```\n\n초기식을 2로, 증감식을 2씩 증가로 잡으면 짝수만 돌아요. 12가 되면 `12 <= 10`이 거짓이라 끝나요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "리스트 `data = [3, 6, 9]`의 모든 원소를 `while`문과 인덱스로 하나씩 꺼내 더한 합을 출력하세요. 리스트 길이는 `len()`으로 구해요. (출력: `18`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\ndata = [3, 6, 9]\ntotal = 0\ni = 0\nwhile i < len(data):\n    total += data[i]\n    i += 1\nprint(total)\n```\n\n인덱스 `i`를 0부터 `len(data)`보다 작은 동안 1씩 늘리면 모든 원소를 하나씩 꺼낼 수 있어요. 합계 변수 `total`은 반복문 전에 0으로 만들어 둬요."
+    }
+  ]
+}

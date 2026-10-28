@@ -1,0 +1,98 @@
+[
+  {
+    "file": "case_conversion.py",
+    "className": "case_conversion",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "LIFE IS TOO SHORT, YOU NEED PYTHON\nLife is too short, You need Python\nlife is too short, you need python\nlIFE IS TOO SHORT, yOU NEED pYTHON\nLife is too short, you need python\nLife Is Too Short, You Need Python\nLife is too short, You need Python\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "count_method.py",
+    "className": "count_method",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "2\n0\n1\n0\n1\n0\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "find_rfind.py",
+    "className": "find_rfind",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "8\n12\n-1\n-1\n30\n12\n-1\n-1\n33\n33\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "len_function.py",
+    "className": "len_function",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is too short, You need Python\n34\n34\n66\n6\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "replace_method.py",
+    "className": "replace_method",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Your height is too short, You need Python\nLife is too short, You need Python\na/b/c\nLife is too short, You need Python\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "review_search.py",
+    "className": "review_search",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "16\n-1\n0\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "startswith_endswith.py",
+    "className": "startswith_endswith",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "True\nFalse\nTrue\nFalse\nFalse\nFalse\nFalse\nTrue\nTrue\nFalse\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "strip_methods.py",
+    "className": "strip_methods",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[     python     ]\n[python]\n[python     ]\n[     python]\n[you need  python]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

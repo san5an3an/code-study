@@ -1,0 +1,50 @@
+[
+  {
+    "file": "hello_python.py",
+    "className": "hello_python",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is too short, You need Python\n인생은 짧다. 그래서 당신은 파이썬이 필요하다.\n3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "machine_code_numbers.py",
+    "className": "machine_code_numbers",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "65\n0b1000001\n0x41\nA\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "no_variable_declaration.py",
+    "className": "no_variable_declaration",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "10 <class 'int'>\n파이썬 <class 'str'>\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "zen_of_python.py",
+    "className": "zen_of_python",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "The Zen of Python, by Tim Peters\n\nBeautiful is better than ugly.\nExplicit is better than implicit.\nSimple is better than complex.\nComplex is better than complicated.\nFlat is better than nested.\nSparse is better than dense.\nReadability counts.\nSpecial cases aren't special enough to break the rules.\nAlthough practicality beats purity.\nErrors should never pass silently.\nUnless explicitly silenced.\nIn the face of ambiguity, refuse the temptation to guess.\nThere should be one-- and preferably only one --obvious way to do it.\nAlthough that way may not be obvious at first unless you're Dutch.\nNow is better than never.\nAlthough never is often better than *right* now.\nIf the implementation is hard to explain, it's a bad idea.\nIf the implementation is easy to explain, it may be a good idea.\nNamespaces are one honking great idea -- let's do more of those!\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "file": "dict_basics.py",
+    "className": "dict_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{'name': '철수', 'phone': '010-1234-5678', 'birth': '0115'}\n철수\n010-1234-5678\n{'name': '호영', 'phone': '010-1234-5678', 'birth': '0115'}\n{'name': '호영', 'phone': '010-1234-5678'}\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_get.py",
+    "className": "dict_get",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "철수\nNone\n남자\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_keys_values_items.py",
+    "className": "dict_keys_values_items",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "dict_keys(['name', 'phone', 'birth'])\n['name', 'phone', 'birth']\n['name', 'phone', 'birth']\ndict_values(['철수', '010-1234-5678', '0115'])\n['철수', '010-1234-5678', '0115']\n['철수', '010-1234-5678', '0115']\ndict_items([('name', '철수'), ('phone', '010-1234-5678'), ('birth', '0115')])\n[('name', '철수'), ('phone', '010-1234-5678'), ('birth', '0115')]\n[('name', '철수'), ('phone', '010-1234-5678'), ('birth', '0115')]\n['korean', 'math', 'english']\n[98, 77, 82]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_len.py",
+    "className": "dict_len",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_nested.py",
+    "className": "dict_nested",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{'address': {'addr1': '서울특별시 ...', 'addr2': '123-4'}, 'body': {'height': 175, 'weight': 80}}\n{'userid': 'python', 'age': 20, 'addr': ['서울', '서초구', '강남대로'], 'grade': {'korean': 98, 'math': 77, 'english': 82}}\n서울\n98\n{'total': 1962, 'city': ['서울', '대전', '광주'], 'population': [987, 654, 321], 'date': {'yy': 2023, 'mm': 9, 'dd': 10}}\n서울\n987\n2023\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_of_lists.py",
+    "className": "dict_of_lists",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{'name': ['철수', '민수', '호영', '수민'], 'age': [16, 17, 19, 18], 'height': [172.4, 168.2, 170.5, 165.8]}\n민수 17 168.2\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "dict_rules.py",
+    "className": "dict_rules",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{'name': '호영', 'phone': '010-1234-5678', 'height': 175}\npython\n{'msg': 'python'}\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_of_dicts.py",
+    "className": "list_of_dicts",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "{'items': [{'email': 'user1@python.com', 'comment': 'Good~!!'}, {'email': 'user2@python.com', 'comment': 'Nice~!!'}, {'email': 'user3@python.com', 'comment': 'Not Bad'}]}\n<class 'list'>\n0번째 원소 {'name': '철수', 'kor': 95, 'eng': 88}\n1번째 원소 {'name': '영희', 'kor': 92, 'eng': 90}\n2번째 원소 {'name': '철민', 'kor': 88, 'eng': 76}\n철수의 국어점수:95, 영어점수: 88\n영희의 국어점수:92, 영어점수: 90\n철민의 국어점수:88, 영어점수: 76\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -1,0 +1,167 @@
+{
+  "lectureId": "06",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "파이썬에서 함수를 정의할 때는 define을 줄인 예약어 `def`를 쓴다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`def` 다음에 함수 이름, 괄호 안에 파라미터, 끝에 콜론(`:`)을 써요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`input()`으로 키보드에서 `123`을 입력받으면, 그 결과의 데이터 타입은 정수(`int`)다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "`input()`으로 받은 값은 숫자를 입력해도 **무조건 문자열(`str`)** 이에요. 정수로 쓰려면 `int()`로 바꿔야 해요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`print(int(123.78))`을 실행했을 때 출력되는 것은?",
+      "options": [
+        "`124`",
+        "`123`",
+        "`123.0`",
+        "ValueError"
+      ],
+      "correct": [
+        2
+      ],
+      "answerHead": "2",
+      "isExample": false,
+      "explanation": "실수를 `int()`로 바꾸면 소수점 아래를 무조건 버려요. 반올림이 아니라서 124가 아니라 `123`이에요. 결과는 정수라서 `123.0`처럼 `.0`도 붙지 않아요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`b = pi.__floor__()`라는 코드를 바르게 읽은 것을 고르세요.",
+      "options": [
+        "`pi`는 함수이고 `__floor__`는 그 함수의 파라미터다.",
+        "점 오른쪽 `__floor__`에 괄호가 있으니 변수다.",
+        "`pi`는 객체이고, `__floor__()`는 그 객체에 들어 있는 함수(메서드)다. 그 리턴값이 `b`에 대입된다.",
+        "점 왼쪽은 항상 함수 이름이다."
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "점이 나오면 점 왼쪽은 객체예요. 점 오른쪽에 괄호가 있으면 함수(메서드), 괄호가 없으면 변수예요. `객체.함수()`를 대입하면 그 함수의 리턴값이 왼쪽 변수에 들어가요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ndef f(x):\n    return 2 * x + 1\n\nprint(f(4))\nprint(f(0))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n9\n1\n```\n\n4가 `x`로 들어가 `2 * 4 + 1 = 9`, 0이 들어가 `2 * 0 + 1 = 1`이 돌아와요. 같은 함수를 입력값만 바꿔 재사용했어요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nage = 20\nprint(type(age))\nprint(type(float(age)))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n<class 'int'>\n<class 'float'>\n```\n\n`20`은 정수라 `int`예요. `float(age)`는 `20.0`이 되어 `float`예요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "`num`에는 `input()`으로 `7`을 입력받았다고 생각하세요.\n\n```python\nnum = \"7\"\nprint(num + num)\nprint(int(num) + int(num))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n77\n14\n```\n\n문자열끼리 `+`는 숫자 덧셈이 아니라 이어 붙이기라서 `77`이 돼요. `int()`로 바꾼 다음 더해야 `14`가 나와요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(float(100))\nprint(int(9.99))\npi = 3.14\nprint(pi.__ceil__())\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n100.0\n9\n4\n```\n\n정수를 `float()`에 주면 `.0`이 붙어요. `int(9.99)`는 소수점을 버려서 `9`예요(반올림 아님). `__ceil__()`은 소수점을 올림해서 3.14가 `4`가 돼요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`6`이 출력되도록 빈칸을 채우세요.\n\n```python\n____(가)____ f(x):\n    ____(나)____ 3 * x\n\nprint(f(2))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `def`\n- (나) `return`\n\n`def`로 함수를 정의하고, 돌려줄 값은 `return` 뒤에 써요. 2가 `x`로 들어가 `3 * 2 = 6`이 돌아와요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "입력받은 문자열 `\"3.14\"`를 실수로 바꿔서 `<class 'float'>`가 출력되도록 빈칸을 채우세요.\n\n```python\nmsg = \"3.14\"\nnum = ____(가)____(msg)\nprint(type(num))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `float`\n\n소수점이 있는 수로 바꾸려면 `float()`를 써요. `int(\"3.14\")`는 `ValueError`가 나요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "파라미터 `x`를 받아 `x * x`를 돌려주는 함수 `square`를 정의하고, 그 함수를 두 번 재사용해서 아래처럼 출력하세요.\n\n```\n9\n25\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\ndef square(x):\n    return x * x\n\nprint(square(3))\nprint(square(5))\n```\n\n한 번 정의한 `square`를 3과 5로 두 번 재사용했어요. `return`을 빼먹으면 `None`이 출력되니 조심하세요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`input()`이 돌려준 값이라고 생각하고 `a = \"25\"`, `b = \"17\"`을 만들었어요. 둘을 숫자로 바꿔 더한 값과, 그 값의 데이터 타입을 아래처럼 출력하세요.\n\n```\n42\n<class 'int'>\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\na = \"25\"\nb = \"17\"\ntotal = int(a) + int(b)\nprint(total)\nprint(type(total))\n```\n\n`int()`로 각각 정수로 바꾼 뒤 더해요. 바꾸지 않고 `a + b`를 하면 `2517`이 나와요."
+    }
+  ]
+}

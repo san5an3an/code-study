@@ -1,0 +1,26 @@
+[
+  {
+    "file": "check_python_version.py",
+    "className": "check_python_version",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "큰 번호(major): 3\n3.11 이상인가요? True\n파이썬 3 인가요? True\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "file_extension.py",
+    "className": "file_extension",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "성적표.xlsx => 이름: 성적표 / 확장자: xlsx\n보고서.hwp => 이름: 보고서 / 확장자: hwp\n02강-파이썬.ipynb => 이름: 02강-파이썬 / 확장자: ipynb\n노래.mp3 => 이름: 노래 / 확장자: mp3\n사진.jpg => 이름: 사진 / 확장자: jpg\n메모.txt => 이름: 메모 / 확장자: txt\nhello.py => 이름: hello / 확장자: py\nhello.txt -> hello.py\n*.mp3 또는 *.jpg 에 해당해요: 노래.mp3\n*.mp3 또는 *.jpg 에 해당해요: 사진.jpg\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

@@ -1,0 +1,62 @@
+[
+  {
+    "file": "gugudan_7.py",
+    "className": "gugudan_7",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "7 x 1 = 7\n7 x 2 = 14\n7 x 3 = 21\n7 x 4 = 28\n7 x 5 = 35\n7 x 6 = 42\n7 x 7 = 49\n7 x 8 = 56\n7 x 9 = 63\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "list_traverse.py",
+    "className": "list_traverse",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[100, 200, 300, 400, 500]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "step_control.py",
+    "className": "step_control",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "a=0\na=10\na=20\na=30\na=40\na=50\na=60\na=70\na=80\na=90\nb=10\nb=8\nb=6\nb=4\nb=2\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "total_sum.py",
+    "className": "total_sum",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "x=1, sum=1\nx=2, sum=3\nx=3, sum=6\nx=4, sum=10\nx=5, sum=15\nx=6, sum=21\nx=7, sum=28\nx=8, sum=36\nx=9, sum=45\nx=10, sum=55\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "while_basics.py",
+    "className": "while_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "x=1\nx=2\nx=3\nx=4\nx=5\nx=6\nx=7\nx=8\nx=9\nx=10\nx의 최종값 = 11\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

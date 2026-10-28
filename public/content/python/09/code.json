@@ -1,0 +1,50 @@
+[
+  {
+    "file": "korean_age.py",
+    "className": "korean_age",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "태어난 해: 1993\n세는 나이: 34\n월: 05 일: 23\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "slicing_practice.py",
+    "className": "slicing_practice",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life\nis\nYou need Python\nLife is too short\nLife is too short, You need Python\nYou need\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "string_indexing.py",
+    "className": "string_indexing",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "u\nt\n' '\ne\nh\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "string_slicing.py",
+    "className": "string_slicing",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "need\nneed\nneed\nneed Python\nneed Python\nYou need\nYou need\nYou need Python\n''\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

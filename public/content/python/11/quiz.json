@@ -1,0 +1,167 @@
+{
+  "lectureId": "11",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`format()` 메서드의 치환 문자 `{0}`, `{1}`에서 번호는 1부터 시작한다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "인덱스 번호는 항상 **0부터** 시작해요. `format()`에 넘긴 첫 번째 값이 `{0}`, 두 번째 값이 `{1}`이에요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "이름 형식의 치환 문자를 쓸 때는 `format()`에 `이름=값`을 넘기는 순서를 바꿔도 결과가 같다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "이름으로 자리를 찾아가니까 순서는 상관없어요. `msg.format(mm=10, name=\"종강일\", dd=20, yy=2023)`과 `msg.format(name=\"종강일\", yy=2023, mm=10, dd=20)`은 결과가 같아요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 에러 없이 실행되는 것을 고르세요.",
+      "options": [
+        "`\"{0} {name}\".format(name=\"교과서\", \"책\")`",
+        "`\"{2}\".format(1, 2)`",
+        "`\"{0} {name}\".format(\"책\", name=\"교과서\")`",
+        "`\"{python}은 {0}다\".format(\"쉽\")`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "이름 없는 값을 먼저, `이름=값`을 뒤에 썼으니 `책 교과서`가 출력돼요.\n1번은 이름=값이 먼저 와서 `SyntaxError: positional argument follows keyword argument`, 2번은 값이 2개라 `{2}`가 없어서 `IndexError`, 4번은 `python`이라는 이름의 값을 안 넘겨서 `KeyError: 'python'`이에요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "`\"[{0:^10}]\".format(\"Hi\")`의 실행 결과는?",
+      "options": [
+        "`[Hi        ]`",
+        "`[        Hi]`",
+        "`[    Hi    ]`",
+        "`[^^^^Hi^^^^]`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "`^`는 가운데 정렬이에요. `Hi`(2글자)를 10칸에 넣으면 남는 8칸이 양쪽에 4칸씩 공백으로 들어가요. `^`는 채우는 글자가 아니라 정렬 기호예요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nmsg = \"{1}님, {0}원 결제됐어요.\"\nprint(msg.format(5000, \"민수\"))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n민수님, 5000원 결제됐어요.\n```\n\n`{1}`은 두 번째로 넘긴 `\"민수\"`, `{0}`은 첫 번째로 넘긴 `5000`이에요. 문자열 안에서 번호 순서가 바뀌어도 괜찮아요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"[{0:>6}][{1:<6}]\".format(\"ab\", \"cd\"))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n[    ab][cd    ]\n```\n\n`>6`은 6칸 오른쪽 정렬이라 앞에 공백 4칸, `<6`은 6칸 왼쪽 정렬이라 뒤에 공백 4칸이 붙어요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"{0:*^9}\".format(\"cat\"))\nprint(\"{0:0>6}\".format(42))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n***cat***\n000042\n```\n\n정렬 기호 왼쪽에 쓴 글자로 빈칸을 채워요. `cat`(3글자)을 9칸 가운데에 두면 양쪽에 `*`이 3개씩, `42`를 6칸 오른쪽에 두면 앞에 `0`이 4개 붙어요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nprint(\"{0:.2f}\".format(3.14159))\nprint(\"{0:08.3f}\".format(3.14159))\nprint(\"{{0}}는 {0}\".format(\"영\"))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n3.14\n0003.142\n{0}는 영\n```\n\n`.2f`는 소수점 아래 2자리, `08.3f`는 전체 8칸·소수점 아래 3자리·빈칸은 0이에요. `3.142`가 소수점 포함 5칸이라 앞에 0이 3개 붙어요. `{{0}}`은 중괄호를 그대로 출력하라는 뜻이라 치환되지 않고 `{0}`으로 나와요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`종강일은 2023년 10월 20일 입니다.`가 출력되도록 빈칸을 채우세요.\n\n```python\nmsg = \"{name}은 {yy}년 {mm}월 {dd}일 입니다.\"\nprint(msg.format(mm=10, ____(가)____=\"종강일\", dd=20, yy=2023))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `name`\n\n문자열 안의 치환 문자가 `{name}`이니까 `format()`에도 같은 이름 `name=`으로 넘겨요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`[    3.1416]`이 출력되도록 빈칸을 채우세요. (전체 10칸, 소수점 아래 4자리)\n\n```python\nprint(\"[{0:____(가)____}]\".format(3.14159265))\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `10.4f`\n\n전체 10칸, 소수점 아래 4자리예요. `3.1416`이 소수점 포함 6칸이라 앞에 공백 4칸이 붙어요. 정렬 기호를 안 쓰면 숫자는 오른쪽 정렬이에요. `>10.4f`라고 써도 같은 결과예요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `item = \"사과\"`, `price = 1200`을 `format()`과 인덱스 번호로 넣어 아래처럼 출력하세요. 상품명은 6칸 왼쪽 정렬, 가격은 6칸 오른쪽 정렬이에요.\n\n```\n[사과    ][  1200]원\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nitem = \"사과\"\nprice = 1200\nprint(\"[{0:<6}][{1:>6}]원\".format(item, price))\n```\n\n`<6`으로 `사과` 뒤에 공백 4칸, `>6`으로 `1200` 앞에 공백 2칸이 붙어요. 숫자는 기본이 오른쪽 정렬이라 `{1:6}`이라고만 써도 같은 결과예요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "`format()`과 `{{ }}`를 써서 아래를 출력하세요. `98.765`는 `score = 98.765` 변수에서 가져오고 소수점 아래 1자리로 반올림해요.\n\n```\n{score} = 98.8\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nscore = 98.765\nprint(\"{{score}} = {0:.1f}\".format(score))\n```\n\n`{{score}}`는 중괄호를 그대로 출력해서 `{score}`가 되고, `{0:.1f}`는 소수점 아래 1자리로 반올림해서 `98.8`이 돼요. 이름 형식으로 `\"{{score}} = {s:.1f}\".format(s=score)`처럼 써도 돼요."
+    }
+  ]
+}

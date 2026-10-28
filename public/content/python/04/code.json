@@ -1,0 +1,38 @@
+[
+  {
+    "file": "comments.py",
+    "className": "comments",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Hello World\n300\n끝\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "hello_world.py",
+    "className": "hello_world",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Hello World\n300\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "jupyter_cells.py",
+    "className": "jupyter_cells",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "300\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

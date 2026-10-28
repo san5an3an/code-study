@@ -1,0 +1,62 @@
+[
+  {
+    "file": "float_precision_align.py",
+    "className": "float_precision_align",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[123.456789]원 입니다.\n[123.457]원 입니다.\n[123.457]원 입니다.\n[   123.457]원 입니다.\n[123.457   ]원 입니다.\n[000123.457]원 입니다.\n[1.500000]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "format_basics.py",
+    "className": "format_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "나는 10000원을 갖고 있다.\nHello Python\n나는 점심을 먹었다\n나는 10개의 사과을 갖고 있다.\n정모 날짜는 2023년 1월 1일 입니다.\n약속 날짜는 2023년 3월 5일 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "int_width_align.py",
+    "className": "int_width_align",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[    120000]원을 입금했습니다.\n[0000120000]원을 입금했습니다.\n[120000    ]원을 입금했습니다.\n[120000    ]원을 입금했습니다.\n판매금액은   350원 입니다.\n판매금액은 350  원 입니다.\n판매금액은 00350원 입니다.\n[1234567]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "other_format_chars.py",
+    "className": "other_format_chars",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "8진수: 10\n16진수: ff\n할인율은 30% 입니다.\n할인율은 30% 입니다.\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "str_width_align.py",
+    "className": "str_width_align",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "[      대한민국]에 살고 있습니다.\n[대한민국      ]에 살고 있습니다.\nHello     Python.\nHello Python    .\n[    Python]\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

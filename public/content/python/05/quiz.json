@@ -1,0 +1,167 @@
+{
+  "lectureId": "05",
+  "questions": [
+    {
+      "n": 1,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "`a = 100`은 오른쪽의 100을 왼쪽의 이름 `a`에 넣는다는 뜻이다.",
+      "options": [],
+      "correct": [
+        "O"
+      ],
+      "answerHead": "O",
+      "isExample": false,
+      "explanation": "`=`는 대입 연산자예요. 항상 오른쪽 값을 왼쪽 이름에 넣어요. 거꾸로 `100 = a`라고 쓰면 SyntaxError가 나요."
+    },
+    {
+      "n": 2,
+      "kind": "ox",
+      "label": "OX",
+      "outsideLecture": false,
+      "prompt": "파이썬에서 참과 거짓은 `true`, `false`처럼 소문자로 써도 된다.",
+      "options": [],
+      "correct": [
+        "X"
+      ],
+      "answerHead": "X",
+      "isExample": false,
+      "explanation": "파이썬은 `True`, `False`처럼 첫 글자가 반드시 대문자예요. `true`라고 쓰면 `NameError: name 'true' is not defined. Did you mean: 'True'?`가 나요."
+    },
+    {
+      "n": 3,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "다음 중 변수 이름으로 쓸 수 **없는** 것을 고르세요.",
+      "options": [
+        "`num1`",
+        "`user_name`",
+        "`1num`",
+        "`점수`"
+      ],
+      "correct": [
+        3
+      ],
+      "answerHead": "3",
+      "isExample": false,
+      "explanation": "변수 이름의 첫 글자는 숫자가 될 수 없어요. `1num = 3`은 `SyntaxError: invalid decimal literal`이 나요. 숫자를 뒤에 붙인 `num1`, 스네이크 표기법 `user_name`, 한글 `점수`는 모두 돼요."
+    },
+    {
+      "n": 4,
+      "kind": "choice",
+      "label": "객관식",
+      "outsideLecture": false,
+      "prompt": "변수에 맨 처음으로 값을 넣는 것을 무엇이라고 하나요?",
+      "options": [
+        "초기화",
+        "예약어",
+        "연결",
+        "지수 표기법"
+      ],
+      "correct": [
+        1
+      ],
+      "answerHead": "1",
+      "isExample": false,
+      "explanation": "맨 처음 값을 넣는 것을 초기화라고 해요. 예약어는 파이썬이 기능을 정해 둔 단어, 연결은 문자열을 `+`로 이어 붙이는 것, 지수 표기법은 `4.24e5` 같은 수 표현법이에요."
+    },
+    {
+      "n": 5,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\na = 123\na = 10000\nprint(a)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n10000\n```\n\n두 번째 줄은 새 변수를 만드는 게 아니라 이미 있는 `a`의 값을 바꾸는 거예요. 그래서 마지막 값인 10000이 나와요."
+    },
+    {
+      "n": 6,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ne = 4.24e5\nf = 4.24e-3\nprint(e)\nprint(f)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n424000.0\n0.00424\n```\n\n`e5`는 소수점을 오른쪽으로 5칸, `e-3`은 왼쪽으로 3칸 옮겨요. 지수 표기법으로 쓴 수는 실수라서 `424000`이 아니라 `424000.0`이에요."
+    },
+    {
+      "n": 7,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\ng = 0o177\nh = 0xABC\nprint(g)\nprint(h)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\n127\n2748\n```\n\n`0o`는 8진수, `0x`는 16진수 표시예요. 출력할 때는 파이썬이 10진수로 바꿔서 보여 줘요. 0o177은 1×64 + 7×8 + 7 = 127, 0xABC는 10×256 + 11×16 + 12 = 2748이에요."
+    },
+    {
+      "n": 8,
+      "kind": "output",
+      "label": "실행 결과 맞히기",
+      "outsideLecture": false,
+      "prompt": "```python\nhello = None\nprint(hello)\nb = False\nprint(b)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "```\nNone\nFalse\n```\n\n내용이 없는 변수는 `print`로 출력하면 `None`이라고 나와요. `False`는 거짓을 뜻하는 논리값이에요."
+    },
+    {
+      "n": 9,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "16진수 `ABC`를 변수 `h`에 넣으려고 해요. 빈칸에 들어갈 글자를 채우세요.\n\n```python\nh = ____(가)____ABC\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `0x`\n\n16진수는 숫자 0과 알파벳 x를 앞에 붙여요. `print(h)`를 하면 10진수 2748이 나와요."
+    },
+    {
+      "n": 10,
+      "kind": "blank",
+      "label": "빈칸 채우기",
+      "outsideLecture": false,
+      "prompt": "`300000.0`이 출력되도록 지수 표기법으로 빈칸을 채우세요.\n\n```python\ne = 3____(가)____\nprint(e)\n```",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": false,
+      "explanation": "- (가) `e5`\n\n`3e5`는 3 × 10의 5제곱이라 300000.0이에요. `e-5`를 쓰면 0.00003이 되고, 파이썬은 그걸 `3e-05`로 보여 줘요."
+    },
+    {
+      "n": 11,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "변수 `price`에 `5000`을 넣어 출력한 다음, 같은 변수의 값을 `7000`으로 바꿔서 다시 출력하세요. (출력: 첫 줄 `5000`, 둘째 줄 `7000`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nprice = 5000\nprint(price)\nprice = 7000\nprint(price)\n```\n\n`price = 5000`이 초기화이고, `price = 7000`은 같은 변수의 값을 바꾸는 거예요."
+    },
+    {
+      "n": 12,
+      "kind": "write",
+      "label": "직접 짜보기",
+      "outsideLecture": false,
+      "prompt": "스네이크 표기법으로 이름을 지은 변수 두 개를 만드세요. 하나에는 문자열 `\"홍길동\"`, 하나에는 논리값 참을 넣고, `print` 한 번으로 둘을 출력하세요. (출력: `홍길동 True`)",
+      "options": [],
+      "correct": [],
+      "answerHead": "",
+      "isExample": true,
+      "explanation": "```python\nuser_name = \"홍길동\"\nis_member = True\nprint(user_name, is_member)\n```\n\n스네이크 표기법은 단어 사이를 언더바로 이어요. `print`에 쉼표로 두 값을 넘기면 사이에 공백 하나를 넣어 출력해요. `True`는 첫 글자를 대문자로 써야 해요."
+    }
+  ]
+}

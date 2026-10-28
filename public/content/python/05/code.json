@@ -1,0 +1,62 @@
+[
+  {
+    "file": "bool_none.py",
+    "className": "bool_none",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "True\nFalse\nNone\nHello\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "float_exponent.py",
+    "className": "float_exponent",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "1.2\n-3.45\n300000.0\n3e-05\nTrue\n424000.0\n0.00424\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "octal_hex.py",
+    "className": "octal_hex",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "127\n2748\n3\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "variable_basics.py",
+    "className": "variable_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "123\n-456\n10000\n안녕하세요. 파이썬\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "variable_names.py",
+    "className": "variable_names",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "100 3\n20 30\n홍길동 홍길동\n90\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]
