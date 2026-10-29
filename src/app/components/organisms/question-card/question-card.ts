@@ -17,7 +17,7 @@ import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 import { gradeVerdict, type CodeGrade } from '../../../domain/code-grade';
 import type { QuizQuestion } from '../../../domain/lecture-content';
 import { inlineHtml, noteHtml } from '../../../domain/note-markdown';
-import type { CodeCheck } from '../../../core/run-api';
+import { isRunCourse, MEMORY_STOPPED, type CodeCheck } from '../../../core/run-api';
 import {
   codeLanguageOf,
   EMPTY_ANSWER,
@@ -46,9 +46,14 @@ function diffRow(label: string, line: string | null) {
   return { label, text: line, placeholder: false };
 }
 
-// 자바 에러는 첫 줄에 예외 이름과 이유가 나오고 그 아래는 호출 위치라, 앞 세 줄만 보여 줌
-function firstLines(text: string) {
-  const lines = text.trim().split('\n').slice(0, 3).join('\n');
+// 자바 에러는 첫 줄에 예외 이름과 이유가 나오고 그 아래는 호출 위치라 앞 세 줄을 보여 줌
+// 파이썬 에러는 Traceback 으로 시작해 호출 위치가 먼저 나오고 맨 끝 줄이 에러 이름과 이유라 끝 세 줄을 보여 줌
+function errorLines(text: string) {
+  const all = text.trim().split('\n');
+  const picked = all[0]?.startsWith('Traceback (most recent call last)')
+    ? all.slice(-3)
+    : all.slice(0, 3);
+  const lines = picked.join('\n');
   return lines === '' ? undefined : lines;
 }
 
@@ -63,15 +68,20 @@ function gradeViewOf(grade: CodeGrade): GradeView {
         diff: [diffRow('기대한 출력', grade.diff.expected), diffRow('내 출력', grade.diff.actual)],
       };
     case 'runError': {
+      const overMemory = grade.stderr.includes(MEMORY_STOPPED);
       const why = grade.timedOut
         ? '5초가 넘게 걸려서 멈췄어요. 끝나지 않는 반복이 있는지 봐요'
-        : grade.exitCode === null
-          ? '출력이 너무 많아서 멈췄어요. 끝나지 않는 반복이 있는지 봐요'
-          : '실행 중에 에러가 나서 멈췄어요';
-      return { tone: 'wrong', title: `틀렸어요. ${why}`, detail: firstLines(grade.stderr) };
+        : overMemory
+          ? '메모리를 너무 많이 써서 멈췄어요. 끝없이 커지는 목록이 있는지 봐요'
+          : grade.exitCode === null
+            ? '출력이 너무 많아서 멈췄어요. 끝나지 않는 반복이 있는지 봐요'
+            : '실행 중에 에러가 나서 멈췄어요';
+      const detail = overMemory ? undefined : errorLines(grade.stderr);
+      return { tone: 'wrong', title: `틀렸어요. ${why}`, detail };
     }
     case 'compileError': {
-      const first = grade.diagnostics[0];
+      // 파이썬은 경고와 에러를 줄 순서로 섞어 돌려줘서, 실행을 막은 에러를 먼저 고름
+      const first = grade.diagnostics.find((d) => d.severity === 'error') ?? grade.diagnostics[0];
       return {
         tone: 'info',
         title: '먼저 빨간 밑줄을 고쳐 봐요',
@@ -430,12 +440,16 @@ export class QuestionCard {
   protected readonly answerHeadHtml = computed(() => inlineHtml(this.q().answerHead));
   protected readonly explanationHtml = computed(() => noteHtml(this.q().explanation));
 
-  // 자동 채점은 예시 답안 출력이 있는 자바 코드 문제만. 출력이 null 이면 채점할 수 없는 문제라 안내만 함
+  // 자동 채점은 실행 서버가 있는 과목의 코드 문제 중 예시 답안 출력이 있는 것만. 출력이 null 이면 채점할 수 없는 문제라 안내만 함
+  private readonly runnable = computed(() => {
+    const language = this.codeLanguage();
+    return language !== null && isRunCourse(language);
+  });
   protected readonly gradable = computed(
-    () => this.codeLanguage() === 'java' && typeof this.q().expectedOutput === 'string',
+    () => this.runnable() && typeof this.q().expectedOutput === 'string',
   );
   protected readonly noGrading = computed(
-    () => this.codeLanguage() === 'java' && this.q().expectedOutput === null,
+    () => this.runnable() && this.q().expectedOutput === null,
   );
   protected readonly hints = computed(() => this.q().hints ?? []);
   protected readonly shownHintsHtml = computed(() =>

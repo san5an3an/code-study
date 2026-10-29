@@ -1,5 +1,5 @@
 // 임시 폴더에 파이썬 코드를 써서 python3 로 실행하고, 실행 전에 문법만 검사함
-import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, realpath, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -72,7 +72,13 @@ async function runSource(file: string, source: string, stdin: string): Promise<C
   const work = await mkdtemp(path.join(tmpdir(), 'code-study-py-run-'));
   try {
     await writeFile(path.join(work, file), source);
-    return await exec('python3', [...PYTHON_ARGS, file], work, LIMITS.runMs, stdin, true);
+    const run = await exec('python3', [...PYTHON_ARGS, file], work, LIMITS.runMs, stdin, true);
+    // 파이썬은 에러 위치에 파일 전체 경로를 찍음. 임시 폴더 경로를 지워 파일 이름만 남김(맥은 /var 가 /private/var 의 바로가기라 둘 다)
+    const real = await realpath(work);
+    const stderr = run.stderr
+      .replaceAll(`${real}${path.sep}`, '')
+      .replaceAll(`${work}${path.sep}`, '');
+    return { ...run, stderr };
   } finally {
     await rm(work, { recursive: true, force: true });
   }

@@ -6,6 +6,7 @@ import path from 'node:path';
 
 import {
   COURSES,
+  MEMORY_STOPPED,
   type CodeFile,
   type SnippetCheckRequest,
   type CodeRun,
@@ -29,6 +30,11 @@ export class RunRequestError extends Error {}
 
 type Proc = CodeRun & { truncated: boolean };
 
+// 개발 서버가 FORCE_COLOR 를 물려주면 파이썬 3.13+ 이 에러에 색 코드를 섞어 찍음. NO_COLOR 를 주면 FORCE_COLOR 보다 먼저 봐서 꺼짐(3.14.7 실측)
+function childEnv(): NodeJS.ProcessEnv {
+  return { ...process.env, NO_COLOR: '1' };
+}
+
 // 프로세스의 실제 메모리(RSS) 크기를 KB 로 잼. 이미 끝난 프로세스면 null
 function rssKb(pid: number): Promise<number | null> {
   return new Promise((resolve) => {
@@ -49,7 +55,7 @@ export function exec(
   watchMemory = false,
 ): Promise<Proc> {
   return new Promise((resolve) => {
-    const child = spawn(cmd, args, { cwd, stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(cmd, args, { cwd, env: childEnv(), stdio: ['pipe', 'pipe', 'pipe'] });
     let stdout = '';
     let stderr = '';
     let size = 0;
@@ -98,7 +104,7 @@ export function exec(
       clearInterval(poll);
       if (truncated) stdout += '\n…(출력이 64KB를 넘어 멈췄어요)';
       if (overMemory)
-        stderr += `${stderr && !stderr.endsWith('\n') ? '\n' : ''}…(메모리를 256MB 넘게 써서 멈췄어요)\n`;
+        stderr += `${stderr && !stderr.endsWith('\n') ? '\n' : ''}${MEMORY_STOPPED}\n`;
       resolve({ stdout, stderr, exitCode: code, timedOut, truncated });
     });
 

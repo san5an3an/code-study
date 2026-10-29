@@ -184,6 +184,22 @@ test('퀴즈 답 실행: 실행 중 에러는 run 의 stderr 와 끝 코드로 �
   assert.match(r.run?.stderr ?? '', /NameError/);
 });
 
+test('퀴즈 답 실행: 서버에 FORCE_COLOR 가 있어도 에러에 색 코드와 임시 폴더 경로가 안 섞임', async () => {
+  const before = process.env['FORCE_COLOR'];
+  process.env['FORCE_COLOR'] = '1';
+  try {
+    const r = await runPythonSnippet('print(nope)\n');
+    assert.ok(r.ok);
+    const stderr = r.run?.stderr ?? '';
+    assert.doesNotMatch(stderr, /\x1b\[/);
+    assert.match(stderr, /^ {2}File "main\.py", line 1, in <module>$/m);
+    assert.match(stderr, /^NameError: name 'nope' is not defined/m);
+  } finally {
+    if (before === undefined) delete process.env['FORCE_COLOR'];
+    else process.env['FORCE_COLOR'] = before;
+  }
+});
+
 test('퀴즈 답 실행: 5초를 넘기면 멈추고 시간 초과로 알림', async () => {
   const r = await runPythonSnippet('while True:\n    pass\n');
   assert.ok(r.ok);

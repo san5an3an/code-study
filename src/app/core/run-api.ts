@@ -13,6 +13,9 @@ export function isRunCourse(value: string): value is Course {
   return COURSES.some((c) => c === value);
 }
 
+// 메모리를 너무 많이 써서 서버가 실행을 멈추면 stderr 끝에 붙이는 글. 화면이 이 글로 멈춘 이유를 알아봄
+export const MEMORY_STOPPED = '…(메모리를 256MB 넘게 써서 멈췄어요)';
+
 export type CodeRun = {
   stdout: string;
   stderr: string;
