@@ -29,7 +29,7 @@ import {
   withCodeQuiz,
   type CodeQuizExtras,
 } from './code-quiz.ts';
-import { expectedJavaOutput } from './expected-output.ts';
+import { expectedJavaOutput, expectedPythonOutput } from './expected-output.ts';
 import { parseQuiz } from './quiz-parser.ts';
 import { COMPILE_TIMEOUT_MS, run, RUN_TIMEOUT_MS } from './run-command.ts';
 
@@ -42,6 +42,7 @@ const PYTHON_OUT = path.join(APP, 'public/content/python');
 const PYTHON_FRAMES = path.join(APP, 'public/frames/python');
 // 원본 노트에 없는 코드 문제 힌트. public/content/java 는 sync 때마다 지우므로 밖에 둠
 const CODE_QUIZ = path.join(APP, 'content-extra/java/code-quiz.json');
+const PYTHON_CODE_QUIZ = path.join(APP, 'content-extra/python/code-quiz.json');
 
 function writeJson(file: string, data: unknown) {
   writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
@@ -218,10 +219,13 @@ function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[]
   }
 }
 
-function syncPython() {
+function syncPython(extras: CodeQuizExtras) {
   rmSync(PYTHON_OUT, { recursive: true, force: true });
   mkdirSync(PYTHON_OUT, { recursive: true });
+  const usedExtras = new Set<string>();
   const summary: LectureContentSummary[] = [];
+  let gradedTotal = 0;
+  let codingTotal = 0;
   for (const lecture of PYTHON_COURSE.lectures) {
     const src = path.join(PYTHON_SOURCE, 'lectures', lecture.folder);
     const out = path.join(PYTHON_OUT, lecture.id);
@@ -231,9 +235,15 @@ function syncPython() {
     cpSync(path.join(src, '노트.md'), path.join(out, 'note.md'));
     const quiz: Quiz = {
       lectureId: lecture.id,
-      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id),
+      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id).map((q) =>
+        withCodeQuiz(q, lecture.id, extras, usedExtras, expectedPythonOutput, 'python'),
+      ),
     };
     writeJson(path.join(out, 'quiz.json'), quiz);
+    const coding = quiz.questions.filter((q) => q.expectedOutput !== undefined);
+    const gradable = coding.filter((q) => q.expectedOutput !== null).length;
+    gradedTotal += gradable;
+    codingTotal += coding.length;
     const code = syncPythonCode(lecture.id, path.join(src, 'code'), path.join(out, 'code'));
     writeJson(path.join(out, 'code.json'), code);
 
@@ -252,15 +262,18 @@ function syncPython() {
     console.log(
       `${lecture.id}강  퀴즈 ${quiz.questions.length}  코드 ${code.length}` +
         (failed.length ? ` (실패 ${failed.join(', ')})` : '') +
+        (coding.length ? `  채점 ${gradable}/${coding.length}` : '') +
         `  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`,
     );
   }
+  checkAllUsed(extras, usedExtras);
   writeJson(path.join(PYTHON_OUT, 'index.json'), summary);
   const total = (k: keyof Omit<LectureContentSummary, 'id'>) =>
     summary.reduce((s, x) => s + x[k], 0);
   console.log(
     `합계  퀴즈 ${total('questions')}  코드 ${total('codeFiles')}  ` +
-      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장`,
+      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장  ` +
+      `채점 ${gradedTotal}/${codingTotal}`,
   );
 }
 
@@ -280,10 +293,11 @@ function main() {
     );
   }
   const extras = readCodeQuizExtras(CODE_QUIZ);
+  const pythonExtras = readCodeQuizExtras(PYTHON_CODE_QUIZ);
   console.log('[자바]');
   syncJava(extras);
   console.log('[파이썬]');
-  syncPython();
+  syncPython(pythonExtras);
 }
 
 main();

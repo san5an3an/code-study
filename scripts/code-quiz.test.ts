@@ -50,6 +50,17 @@ test('코드 문제에 힌트 세 단계와 예시 답안을 돌린 출력을 �
   assert.deepEqual([...used], ['03-11']);
 });
 
+test('파이썬 과목이면 파이썬 코드 문제에만 붙이고 파이썬 블록을 돌림. 자바 코드 문제는 그대로 둠', () => {
+  const used = new Set<string>();
+  const fake = fakeRun('1\n');
+  const py = question(12, 'write', '```python\nprint(1)\n```');
+  const q = withCodeQuiz(py, '08', { '08-12': { hints: HINTS } }, used, fake.run, 'python');
+  assert.equal(q.expectedOutput, '1\n');
+  assert.deepEqual(fake.calls, ['print(1)\n']);
+  assert.equal(withCodeQuiz(CODE, '08', {}, used, fake.run, 'python'), CODE);
+  assert.deepEqual([...used], ['08-12']);
+});
+
 test('noGrading 이 적힌 문제는 예시 답안을 돌리지 않고 기대 출력을 null 로 둠', () => {
   const fake = fakeRun('1\n');
   const extras = { '03-11': { hints: HINTS, noGrading: '값을 직접 고름' } };

@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 
 import type { QuizQuestion } from '../src/app/domain/lecture-content.ts';
 import { codeLanguageOf } from '../src/app/domain/quiz-answer.ts';
-import { javaAnswerSource } from './expected-output.ts';
+import type { CourseId } from '../src/app/domain/course.ts';
+import { answerSource } from './expected-output.ts';
 
 // 힌트는 쉬운 말 설명, 순서대로 할 일, 빈칸 뚫린 코드 세 단계
 export const HINT_STEPS = 3;
@@ -47,7 +48,7 @@ export function readCodeQuizExtras(file: string): CodeQuizExtras {
   return parseCodeQuizExtras(readFileSync(file, 'utf8'), file);
 }
 
-// 자바 코드로 답하는 문제에만 기대 출력과 힌트를 붙이고, 쓴 키를 used 에 모음
+// language(과목) 코드로 답하는 문제에만 기대 출력과 힌트를 붙이고, 쓴 키를 used 에 모음
 // 코드 문제인데 힌트가 없거나, 말로 답하는 문제에 힌트가 있으면 에러로 멈춤
 export function withCodeQuiz(
   q: QuizQuestion,
@@ -55,16 +56,17 @@ export function withCodeQuiz(
   extras: CodeQuizExtras,
   used: Set<string>,
   expectedOutput: (source: string) => string | null,
+  language: CourseId = 'java',
 ): QuizQuestion {
   const key = `${lectureId}-${q.n}`;
   const extra = extras[key];
-  if (codeLanguageOf(q) !== 'java') {
+  if (codeLanguageOf(q) !== language) {
     if (extra) throw new CodeQuizExtraError(`${key}: 코드로 답하는 문제가 아닌데 힌트가 있음`);
     return q;
   }
   if (!extra) throw new CodeQuizExtraError(`${key}: 코드 문제인데 힌트가 없음`);
   used.add(key);
-  const source = javaAnswerSource(q.explanation);
+  const source = answerSource(q.explanation, language);
   const expected = extra.noGrading !== undefined || source === null ? null : expectedOutput(source);
   if (!extra.showOutputExample) return { ...q, expectedOutput: expected, hints: extra.hints };
   if (expected === null) {
