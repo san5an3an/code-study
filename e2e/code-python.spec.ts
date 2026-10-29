@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test';
 
+import { writeCode } from './code-answer';
+
 // 파이썬 코드 탭과 퀴즈 코드 문제. 개발 서버의 /api/run, /api/check, /api/check-snippet 으로 python3 를 실제로 돌림
 // 퀴즈 탭 편집기도 숨은 채 같이 있어서 예제 파일 편집기만 고름
 const editor = (page: Page) => page.locator('.cm-content[aria-label$=".py 코드"]');
@@ -65,9 +67,7 @@ test('예제 코드에 문법 오타를 내면 그 자리에 밑줄과 파이썬
   await expect(page.locator('.cm-lintRange-error')).toHaveCount(0);
 });
 
-test('파이썬 퀴즈 코드 문제도 편집기로 쓰고 문법 오타에 밑줄이 뜸. 기대 출력이 아직 없어 채점하기는 없음', async ({
-  page,
-}) => {
+test('파이썬 퀴즈 코드 문제도 편집기로 쓰고 문법 오타에 밑줄이 뜸', async ({ page }) => {
   await page.goto('/python/lecture/08?tab=quiz');
   const card = page.getByTestId('quiz-11');
   const quizEditor = card.locator('.cm-content');
@@ -77,5 +77,46 @@ test('파이썬 퀴즈 코드 문제도 편집기로 쓰고 문법 오타에 밑
   await expect(card.locator('.cm-lintRange-error')).toHaveCount(1);
   await card.locator('.cm-lintRange-error').hover();
   await expect(page.locator('.cm-tooltip-lint')).toHaveText("SyntaxError: expected ':'");
-  await expect(card.getByRole('button', { name: '채점하기' })).toHaveCount(0);
+});
+
+test('파이썬 퀴즈 코드 문제에 맞는 답을 쓰고 채점하기를 누르면 맞았어요가 뜨고 맞음으로 기록됨', async ({
+  page,
+}) => {
+  await page.goto('/python/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await writeCode(page, q, 'word = "Hi"\nprint((word + " ") * 2 + word)');
+  await q.getByRole('button', { name: '채점하기' }).click();
+  await expect(q.getByTestId('quiz-grade')).toContainText('맞았어요. 출력이 정답과 같아요');
+  await expect(page.getByTestId('quiz-summary')).toContainText('맞음 1 · 틀림 0');
+});
+
+test('파이썬 퀴즈 코드 문제를 틀리면 다른 줄을, 실행 에러면 Traceback 끝 줄을 보여 주고 틀림으로 기록함', async ({
+  page,
+}) => {
+  await page.goto('/python/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await writeCode(page, q, 'print("Hi Hi")');
+  await q.getByRole('button', { name: '채점하기' }).click();
+  const grade = q.getByTestId('quiz-grade');
+  await expect(grade).toContainText('틀렸어요. 1번째 줄이 달라요');
+  await expect(grade).toContainText('Hi Hi Hi');
+  await expect(page.getByTestId('quiz-summary')).toContainText('맞음 0 · 틀림 1');
+
+  await q.getByRole('button', { name: '다시 풀기' }).click();
+  await writeCode(page, q, 'word = "Hi"\nprint(wrod)');
+  await q.getByRole('button', { name: '채점하기' }).click();
+  await expect(grade).toContainText('실행 중에 에러가 나서 멈췄어요');
+  await expect(grade).toContainText("NameError: name 'wrod' is not defined");
+  await expect(grade).not.toContainText('Traceback');
+});
+
+test('파이썬 퀴즈 힌트 보기를 누르면 한 단계씩 열리고 3단계는 빈칸 코드임', async ({ page }) => {
+  await page.goto('/python/lecture/08?tab=quiz');
+  const q = page.getByTestId('quiz-11');
+  await q.getByRole('button', { name: '힌트 보기 (1/3)' }).click();
+  await expect(q.getByTestId('quiz-hint-1')).toContainText('반복');
+  await expect(q.getByTestId('quiz-hint-2')).toHaveCount(0);
+  await q.getByRole('button', { name: '힌트 보기 (2/3)' }).click();
+  await q.getByRole('button', { name: '힌트 보기 (3/3)' }).click();
+  await expect(q.getByTestId('quiz-hint-3').locator('pre')).toContainText('___');
 });

@@ -156,7 +156,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nname = \"hello\"\nprint(name + \".py\")\n```\n\n문자열끼리 `+`로 이으면 붙여서 `hello.py`가 돼요. 확장자 `.py`에는 마침표가 꼭 들어가야 해요."
+      "explanation": "```python\nname = \"hello\"\nprint(name + \".py\")\n```\n\n문자열끼리 `+`로 이으면 붙여서 `hello.py`가 돼요. 확장자 `.py`에는 마침표가 꼭 들어가야 해요.",
+      "expectedOutput": "hello.py\n",
+      "hints": [
+        "변수에 글자를 담고, 그 변수에 다른 글자를 이어 붙여 찍는 문제예요. 문자열끼리 `+` 로 더하면 두 글자가 그대로 붙어요. 파이썬 파일 확장자는 마침표가 들어간 `.py` 예요.",
+        "- 변수 `name` 을 만들고 `\"hello\"` 를 넣어요\n- `name` 뒤에 `+` 로 `\".py\"` 를 이어 붙여요\n- 이어 붙인 결과를 `print()` 로 찍어요",
+        "```python\nname = ___\nprint(name ___ \".py\")\n```"
+      ]
     },
     {
       "n": 12,
@@ -168,7 +174,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nimport sys\nprint(\"파이썬\", sys.version_info.major, \"버전이에요\")\n```\n\n`sys.version_info.major`는 큰 버전 번호 3이에요. `print`에 쉼표로 여러 값을 넘기면 사이에 공백 하나씩 넣어 출력해요."
+      "explanation": "```python\nimport sys\nprint(\"파이썬\", sys.version_info.major, \"버전이에요\")\n```\n\n`sys.version_info.major`는 큰 버전 번호 3이에요. `print`에 쉼표로 여러 값을 넘기면 사이에 공백 하나씩 넣어 출력해요.",
+      "expectedOutput": "파이썬 3 버전이에요\n",
+      "hints": [
+        "`sys` 모듈에서 지금 파이썬의 큰 버전 번호를 꺼내 문장 사이에 끼워 찍는 문제예요. 모듈은 `import` 로 먼저 불러와요. 큰 버전 번호는 `sys.version_info` 안의 `major` 에 들어 있어요. `print()` 에 쉼표로 여러 값을 넘기면 사이에 공백이 하나씩 들어가요.",
+        "- `import sys` 로 모듈을 불러와요\n- `print()` 안에 `\"파이썬\"`, 버전 번호, `\"버전이에요\"` 를 쉼표로 나눠 넣어요\n- 버전 번호 자리에는 `sys.version_info.major` 를 써요",
+        "```python\n___ sys\nprint(\"파이썬\", sys.version_info.___, \"버전이에요\")\n```"
+      ]
     }
   ]
 }

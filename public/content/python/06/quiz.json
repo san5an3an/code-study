@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\ndef square(x):\n    return x * x\n\nprint(square(3))\nprint(square(5))\n```\n\n한 번 정의한 `square`를 3과 5로 두 번 재사용했어요. `return`을 빼먹으면 `None`이 출력되니 조심하세요."
+      "explanation": "```python\ndef square(x):\n    return x * x\n\nprint(square(3))\nprint(square(5))\n```\n\n한 번 정의한 `square`를 3과 5로 두 번 재사용했어요. `return`을 빼먹으면 `None`이 출력되니 조심하세요.",
+      "expectedOutput": "9\n25\n",
+      "hints": [
+        "함수를 하나 만들고 그 함수를 두 번 불러 쓰는 문제예요. 함수는 `def` 로 만들고, 괄호 안의 이름이 파라미터예요. 계산한 값을 돌려줄 때는 `return` 을 써요. `return` 을 빼먹으면 `None` 이 나와요.",
+        "- `def square(x):` 로 함수를 시작해요\n- 그 아래 들여쓴 줄에 `return x * x` 를 써요\n- 함수 밖에서 `print(square(3))` 으로 9 를 찍어요\n- 같은 방법으로 5 를 넣어 25 를 찍어요",
+        "```python\n___ square(x):\n    ___ x * x\n\nprint(square(3))\nprint(square(___))\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\na = \"25\"\nb = \"17\"\ntotal = int(a) + int(b)\nprint(total)\nprint(type(total))\n```\n\n`int()`로 각각 정수로 바꾼 뒤 더해요. 바꾸지 않고 `a + b`를 하면 `2517`이 나와요."
+      "explanation": "```python\na = \"25\"\nb = \"17\"\ntotal = int(a) + int(b)\nprint(total)\nprint(type(total))\n```\n\n`int()`로 각각 정수로 바꾼 뒤 더해요. 바꾸지 않고 `a + b`를 하면 `2517`이 나와요.",
+      "expectedOutput": "42\n<class 'int'>\n",
+      "hints": [
+        "글자로 된 숫자 두 개를 진짜 숫자로 바꿔 더하고, 그 결과와 데이터 타입을 찍는 문제예요. 글자를 정수로 바꿀 때는 `int()` 를 써요. 바꾸지 않고 더하면 글자끼리 붙어서 `2517` 이 나와요. 데이터 타입은 `type()` 으로 알아봐요.",
+        "- `a = \"25\"`, `b = \"17\"` 을 만들어요\n- `int(a)` 와 `int(b)` 를 더해 변수 `total` 에 넣어요\n- `print(total)` 로 합을 찍어요\n- `print(type(total))` 로 타입을 찍어요",
+        "```python\na = \"25\"\nb = \"17\"\ntotal = ___(a) + int(___)\nprint(total)\nprint(___(total))\n```"
+      ]
     }
   ]
 }

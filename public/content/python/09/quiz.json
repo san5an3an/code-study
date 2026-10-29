@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nbirthday = \"19930523\"\nprint(birthday[0:4] + \"년 \" + birthday[4:6] + \"월 \" + birthday[6:8] + \"일\")\n```\n\n연도는 `[0:4]`, 월은 `[4:6]`, 일은 `[6:8]`이에요. 일은 끝까지니까 `birthday[6:]`로 써도 같아요. 잘라 낸 값이 모두 문자열이라 `+`로 바로 이어 붙일 수 있어요."
+      "explanation": "```python\nbirthday = \"19930523\"\nprint(birthday[0:4] + \"년 \" + birthday[4:6] + \"월 \" + birthday[6:8] + \"일\")\n```\n\n연도는 `[0:4]`, 월은 `[4:6]`, 일은 `[6:8]`이에요. 일은 끝까지니까 `birthday[6:]`로 써도 같아요. 잘라 낸 값이 모두 문자열이라 `+`로 바로 이어 붙일 수 있어요.",
+      "expectedOutput": "1993년 05월 23일\n",
+      "hints": [
+        "문자열에서 원하는 부분만 잘라 내는 슬라이싱 문제예요. `문자열[시작:끝]` 은 시작 번호부터 끝 번호 바로 앞까지 잘라요. 번호는 0부터 세요. 잘라 낸 값은 문자열이라 `+` 로 \"년 \", \"월 \", \"일\" 과 이어 붙일 수 있어요.",
+        "- `birthday` 에 `\"19930523\"` 을 넣어요\n- 앞 네 글자(연도)를 `[0:4]` 로 잘라요\n- 그다음 두 글자(월)와 마지막 두 글자(일)를 번호를 세어 잘라요\n- 잘라 낸 값 사이에 `\"년 \"`, `\"월 \"`, `\"일\"` 을 `+` 로 이어 `print()` 해요",
+        "```python\nbirthday = \"19930523\"\nprint(birthday[0:4] + \"년 \" + birthday[___:___] + \"월 \" + birthday[___] + \"일\")\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nbirthday = \"19930523\"\nthis_year = 2026\nprint(this_year - int(birthday[:4]) + 1)\n```\n\n`birthday[:4]`는 `\"1993\"`이라는 **문자열**이라서 `int()`로 정수로 바꿔야 빼기를 할 수 있어요. 바꾸지 않으면 `TypeError`가 나요. 2026 - 1993 + 1 = 34예요."
+      "explanation": "```python\nbirthday = \"19930523\"\nthis_year = 2026\nprint(this_year - int(birthday[:4]) + 1)\n```\n\n`birthday[:4]`는 `\"1993\"`이라는 **문자열**이라서 `int()`로 정수로 바꿔야 빼기를 할 수 있어요. 바꾸지 않으면 `TypeError`가 나요. 2026 - 1993 + 1 = 34예요.",
+      "expectedOutput": "34\n",
+      "hints": [
+        "생일 문자열에서 연도를 잘라 세는 나이를 계산하는 문제예요. 잘라 낸 `\"1993\"` 은 숫자가 아니라 문자열이라 그대로는 빼기를 못 해요. `int()` 로 정수로 바꾼 뒤에 계산해요.",
+        "- `birthday` 에 `\"19930523\"`, `this_year` 에 `2026` 을 넣어요\n- `birthday[:4]` 로 연도 네 글자를 잘라요\n- 잘라 낸 값을 `int()` 로 감싸 정수로 바꿔요\n- `this_year` 에서 빼고 `1` 을 더해 `print()` 해요",
+        "```python\nbirthday = \"19930523\"\nthis_year = 2026\nprint(this_year - ___(birthday[___]) + ___)\n```"
+      ]
     }
   ]
 }

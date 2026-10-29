@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nitem = \"사과\"\nprice = 1200\nprint(\"[{0:<6}][{1:>6}]원\".format(item, price))\n```\n\n`<6`으로 `사과` 뒤에 공백 4칸, `>6`으로 `1200` 앞에 공백 2칸이 붙어요. 숫자는 기본이 오른쪽 정렬이라 `{1:6}`이라고만 써도 같은 결과예요."
+      "explanation": "```python\nitem = \"사과\"\nprice = 1200\nprint(\"[{0:<6}][{1:>6}]원\".format(item, price))\n```\n\n`<6`으로 `사과` 뒤에 공백 4칸, `>6`으로 `1200` 앞에 공백 2칸이 붙어요. 숫자는 기본이 오른쪽 정렬이라 `{1:6}`이라고만 써도 같은 결과예요.",
+      "expectedOutput": "[사과    ][  1200]원\n",
+      "hints": [
+        "`format()` 으로 문자열의 `{}` 자리에 값을 넣는 문제예요. `{0}` 은 첫 번째 값, `{1}` 은 두 번째 값이에요. 콜론 뒤에 `<` 를 쓰면 왼쪽 정렬, `>` 를 쓰면 오른쪽 정렬이고, 그 뒤 숫자가 칸 수예요.",
+        "- `item` 에 `\"사과\"`, `price` 에 `1200` 을 넣어요\n- 첫 번째 대괄호 안에 0번 값을 6칸 왼쪽 정렬로 넣는 `{}` 를 써요\n- 두 번째 대괄호 안에 1번 값을 6칸 오른쪽 정렬로 넣는 `{}` 를 써요\n- 문자열 뒤에 `.format(item, price)` 를 붙여 `print()` 해요",
+        "```python\nitem = \"사과\"\nprice = 1200\nprint(\"[{0:___}][{1:___}]원\".___(item, price))\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nscore = 98.765\nprint(\"{{score}} = {0:.1f}\".format(score))\n```\n\n`{{score}}`는 중괄호를 그대로 출력해서 `{score}`가 되고, `{0:.1f}`는 소수점 아래 1자리로 반올림해서 `98.8`이 돼요. 이름 형식으로 `\"{{score}} = {s:.1f}\".format(s=score)`처럼 써도 돼요."
+      "explanation": "```python\nscore = 98.765\nprint(\"{{score}} = {0:.1f}\".format(score))\n```\n\n`{{score}}`는 중괄호를 그대로 출력해서 `{score}`가 되고, `{0:.1f}`는 소수점 아래 1자리로 반올림해서 `98.8`이 돼요. 이름 형식으로 `\"{{score}} = {s:.1f}\".format(s=score)`처럼 써도 돼요.",
+      "expectedOutput": "{score} = 98.8\n",
+      "hints": [
+        "`format()` 을 쓰는 문자열에서 중괄호는 값이 들어갈 자리라서, 중괄호 글자 자체를 찍으려면 `{{` 와 `}}` 처럼 두 번 써요. 소수점 아래 자리는 `{0:.1f}` 처럼 콜론 뒤에 `.자리수f` 로 정해요.",
+        "- `score` 에 `98.765` 를 넣어요\n- 글자 `{score}` 는 중괄호를 두 번씩 써서 `{{score}}` 로 적어요\n- 값이 들어갈 자리는 0번 값을 소수점 아래 1자리로 넣는 `{}` 를 써요\n- 문자열 뒤에 `.format(score)` 를 붙여 `print()` 해요",
+        "```python\nscore = 98.765\nprint(\"___score___ = {0:___}\".format(score))\n```"
+      ]
     }
   ]
 }
