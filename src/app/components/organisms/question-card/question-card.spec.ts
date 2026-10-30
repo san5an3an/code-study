@@ -308,6 +308,43 @@ describe('문제 카드 코드 채점과 힌트', () => {
     expect(notYet.text('quiz-no-grading')).toBeNull();
   });
 
+  it('Traceback 앞에 경고나 사용자 stderr 가 있어도 끝 세 줄(진짜 에러 줄)을 보여 줌', () => {
+    const stderr = [
+      'main.py:1: SyntaxWarning: "\\p" is an invalid escape sequence',
+      '디버그 출력',
+      'Traceback (most recent call last):',
+      '  File "main.py", line 3, in <module>',
+      '    print(nope)',
+      '          ^^^^',
+      "NameError: name 'nope' is not defined",
+    ].join('\n');
+    const { el } = renderCode(CODE_Q, {
+      ...EMPTY_ANSWER,
+      text: 'x',
+      grade: { source: 'x', outcome: 'runError', exitCode: 1, timedOut: false, stderr },
+    });
+    expect(el.querySelector('[data-testid="quiz-grade"] pre')!.textContent).toContain(
+      "NameError: name 'nope' is not defined",
+    );
+  });
+
+  it('끝 코드 없이 멈춘 이유를 출력 넘침과 강제 종료로 나눠 알려 줌', () => {
+    const grade = { source: 'x', outcome: 'runError' as const, exitCode: null, timedOut: false };
+    const cut = renderCode(CODE_Q, {
+      ...EMPTY_ANSWER,
+      text: 'x',
+      grade: { ...grade, stderr: '', outputCut: true },
+    });
+    expect(cut.text('quiz-grade')).toContain('출력이 너무 많아서 멈췄어요');
+    const killed = renderCode(CODE_Q, {
+      ...EMPTY_ANSWER,
+      text: 'x',
+      grade: { ...grade, stderr: 'Fatal Python error: Aborted' },
+    });
+    expect(killed.text('quiz-grade')).toContain('실행이 도중에 강제로 끝났어요');
+    expect(killed.text('quiz-grade')).not.toContain('출력이 너무 많아서');
+  });
+
   it('파이썬 실행 에러는 Traceback 끝 세 줄을 보여 줌', () => {
     const stderr = [
       'Traceback (most recent call last):',

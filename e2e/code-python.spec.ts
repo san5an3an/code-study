@@ -29,6 +29,7 @@ test('파이썬 예제를 고치지 않고 실행하면 미리 돌려 둔 결과
 test('입력값 칸의 값이 input() 으로 들어감', async ({ page }) => {
   await page.goto('/python/lecture/08?tab=code');
   await replaceCode(page, 'name = input()\nage = int(input())\nprint(f"{name}님 {age + 1}살")\n');
+  await expect(page.locator('label[for^="stdin-"]')).toContainText('input() 으로 받을 값');
   await page.getByLabel('입력값').fill('파이썬\n19');
   await runButton(page).click();
   await expect(page.getByTestId('run-stdout')).toHaveText('파이썬님 20살\n');
@@ -46,6 +47,7 @@ test('실행 중 에러는 Traceback 과 종료 코드를 보여 주고 컴파�
   await expect(stderr).toContainText("NameError: name 'nope' is not defined");
   await expect(stderr).not.toContainText('\x1b');
   await expect(stderr).not.toContainText('code-study-py-run-');
+  await expect(page.getByTestId('run-status')).toHaveText('에러로 끝났어요(종료 코드 1).');
   await expect(page.getByTestId('compile-error')).toHaveCount(0);
 });
 

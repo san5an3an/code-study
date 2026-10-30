@@ -1,5 +1,5 @@
 // 퀴즈 코드 문제 채점 판정. 서버가 내 코드를 돌린 결과와 예시 답안 출력을 비교함
-import type { CodeDiagnostic, SnippetRunResponse } from '../core/run-api';
+import { OUTPUT_STOPPED, type CodeDiagnostic, type SnippetRunResponse } from '../core/run-api';
 import { firstOutputDiff, type OutputDiff } from './output-compare';
 import type { Answer } from './quiz-answer';
 import type { Verdict } from './quiz-record';
@@ -8,13 +8,15 @@ import type { Verdict } from './quiz-record';
 export type CodeGrade =
   | { source: string; outcome: 'right' }
   | { source: string; outcome: 'wrong'; diff: OutputDiff }
-  // 실행 중 에러로 멈춤(exitCode 가 0 이 아님), 5초 넘김(timedOut), 출력이 64KB 를 넘어 멈춤(exitCode 가 null)
+  // 실행 중 에러로 멈춤(exitCode 가 0 이 아님), 5초 넘김(timedOut), 출력이 64KB 를 넘어 멈춤(outputCut),
+  // 그 밖에 exitCode 가 null 이면 메모리 초과(stderr 에 MEMORY_STOPPED)나 신호로 죽은 것. outputCut 은 나중에 더해서 옛 기록엔 없음
   | {
       source: string;
       outcome: 'runError';
       exitCode: number | null;
       timedOut: boolean;
       stderr: string;
+      outputCut?: boolean;
     }
   | { source: string; outcome: 'compileError'; diagnostics: CodeDiagnostic[] }
   // 서버가 없거나 요청을 거절함
@@ -31,6 +33,7 @@ export function gradeOf(expected: string, source: string, res: SnippetRunRespons
       exitCode: run.exitCode,
       timedOut: run.timedOut,
       stderr: run.stderr,
+      outputCut: run.stdout.endsWith(OUTPUT_STOPPED),
     };
   }
   const diff = firstOutputDiff(expected, run.stdout);

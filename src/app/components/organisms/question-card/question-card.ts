@@ -47,10 +47,11 @@ function diffRow(label: string, line: string | null) {
 }
 
 // 자바 에러는 첫 줄에 예외 이름과 이유가 나오고 그 아래는 호출 위치라 앞 세 줄을 보여 줌
-// 파이썬 에러는 Traceback 으로 시작해 호출 위치가 먼저 나오고 맨 끝 줄이 에러 이름과 이유라 끝 세 줄을 보여 줌
+// 파이썬 에러는 Traceback 뒤에 호출 위치가 먼저 나오고 맨 끝 줄이 에러 이름과 이유라 끝 세 줄을 보여 줌.
+// Traceback 앞에 경고나 사용자가 찍은 stderr 가 있어도 끝 세 줄로 봄
 function errorLines(text: string) {
   const all = text.trim().split('\n');
-  const picked = all[0]?.startsWith('Traceback (most recent call last)')
+  const picked = all.some((l) => l.startsWith('Traceback (most recent call last)'))
     ? all.slice(-3)
     : all.slice(0, 3);
   const lines = picked.join('\n');
@@ -73,9 +74,11 @@ function gradeViewOf(grade: CodeGrade): GradeView {
         ? '5초가 넘게 걸려서 멈췄어요. 끝나지 않는 반복이 있는지 봐요'
         : overMemory
           ? '메모리를 너무 많이 써서 멈췄어요. 끝없이 커지는 목록이 있는지 봐요'
-          : grade.exitCode === null
+          : grade.outputCut
             ? '출력이 너무 많아서 멈췄어요. 끝나지 않는 반복이 있는지 봐요'
-            : '실행 중에 에러가 나서 멈췄어요';
+            : grade.exitCode === null
+              ? '실행이 도중에 강제로 끝났어요'
+              : '실행 중에 에러가 나서 멈췄어요';
       const detail = overMemory ? undefined : errorLines(grade.stderr);
       return { tone: 'wrong', title: `틀렸어요. ${why}`, detail };
     }

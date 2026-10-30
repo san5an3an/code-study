@@ -7,6 +7,7 @@ import path from 'node:path';
 import {
   COURSES,
   MEMORY_STOPPED,
+  OUTPUT_STOPPED,
   type CodeFile,
   type SnippetCheckRequest,
   type CodeRun,
@@ -160,7 +161,7 @@ export function exec(
       clearTimeout(timer);
       clearInterval(poll);
       clearTimeout(grace);
-      if (truncated) stdout += '\n…(출력이 64KB를 넘어 멈췄어요)';
+      if (truncated) stdout += `\n${OUTPUT_STOPPED}`;
       if (overMemory)
         stderr += `${stderr && !stderr.endsWith('\n') ? '\n' : ''}${MEMORY_STOPPED}\n`;
       resolve({ stdout, stderr, exitCode: code, timedOut, truncated });
