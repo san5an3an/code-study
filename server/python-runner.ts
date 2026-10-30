@@ -14,7 +14,8 @@ import type {
 } from '../src/app/core/run-api.ts';
 
 // -I 는 작업 폴더 모듈을 안 읽음. 강의 예제는 다른 예제 파일을 import 하지 않아서 파일 하나씩 따로 돌림(ADR-060 실측)
-const PYTHON_ARGS = ['-X', 'utf8', '-B', '-I'];
+// -u 는 출력을 모아 두지 않음. 5초·메모리·출력 초과로 강제로 끄면 모아 둔 print 가 버려져서 씀(ADR-061)
+export const PYTHON_ARGS = ['-X', 'utf8', '-B', '-I', '-u'];
 
 // 퀴즈 답은 파일 이름이 없어서 이 이름으로 씀
 export const SNIPPET_FILE = 'main.py';

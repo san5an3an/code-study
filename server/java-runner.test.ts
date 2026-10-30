@@ -276,6 +276,21 @@ test('퀴즈 답 실행: 5초를 넘기면 멈추고 시간 초과로 알림', a
   assert.equal(r.run?.timedOut, true);
 });
 
+test('퀴즈 답 실행: ProcessBuilder 로 띄운 손주는 프로그램이 끝날 때 같이 꺼짐', async () => {
+  const r = await runJavaSnippet(`public class Spawn {
+  public static void main(String[] args) throws Exception {
+    Process p = new ProcessBuilder("sleep", "30").start();
+    System.out.println(p.pid());
+  }
+}
+`);
+  assert.ok(r.ok);
+  const pid = Number(r.run?.stdout.trim());
+  assert.ok(pid > 0);
+  // 신호 0 은 아무것도 안 보내고 살아 있는지만 봄. 없으면 ESRCH 로 던짐
+  assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' });
+});
+
 test('퀴즈 답 실행: 답이 만든 파일은 지금 폴더에 남지 않음', async () => {
   const name = 'run-snippet-test-file.txt';
   const r = await runJavaSnippet(

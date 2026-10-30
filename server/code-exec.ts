@@ -24,6 +24,8 @@ export const LIMITS = {
   // 파이썬은 -Xmx 같은 옵션이 없고 맥은 setrlimit 로 256MB 를 못 걸어서(ADR-060 실측) 서버가 재다가 끔
   memoryKb: 256 * 1024,
   memoryPollMs: 50,
+  // 바로 띄운 프로세스가 끝난 뒤 출력 통로가 닫히길 기다리는 시간. 묶음을 빠져나간 손주가 통로를 쥐고 있으면 이 시간 뒤 통로를 닫고 끝냄
+  exitGraceMs: 500,
 };
 
 export class RunRequestError extends Error {}
@@ -35,17 +37,34 @@ function childEnv(): NodeJS.ProcessEnv {
   return { ...process.env, NO_COLOR: '1' };
 }
 
-// 프로세스의 실제 메모리(RSS) 크기를 KB 로 잼. 이미 끝난 프로세스면 null
-function rssKb(pid: number): Promise<number | null> {
+// 프로세스 묶음 전체의 실제 메모리(RSS) 합을 KB 로 잼. 손주(subprocess, os.fork)까지 셈. 묶음이 이미 없으면 null
+function groupRssKb(pgid: number): Promise<number | null> {
   return new Promise((resolve) => {
-    execFile('ps', ['-o', 'rss=', '-p', String(pid)], (err, out) => {
-      const kb = Number(out.trim());
-      resolve(err || !Number.isFinite(kb) ? null : kb);
+    execFile('ps', ['-o', 'rss=', '-g', String(pgid)], (err, out) => {
+      const sizes = out
+        .split('\n')
+        .map((l) => Number(l.trim()))
+        .filter((n) => Number.isFinite(n) && n > 0);
+      resolve(err || sizes.length === 0 ? null : sizes.reduce((a, b) => a + b, 0));
     });
   });
 }
 
-// watchMemory 를 켜면 memoryPollMs 마다 메모리를 재고 memoryKb 를 넘으면 멈춤. 재는 사이에 한 번에 크게 잡으면 잠깐 넘칠 수 있음
+// 따로 띄운 묶음은 서버와 같은 묶음이 아니라 서버가 받는 신호를 같이 못 받음. 서버가 끝날 때 살아 있는 묶음을 끔(신호로 바로 죽으면 못 끔)
+const liveGroups = new Set<number>();
+process.on('exit', () => {
+  for (const pgid of liveGroups) {
+    try {
+      process.kill(-pgid, 'SIGKILL');
+    } catch {
+      // 이미 끝난 묶음
+    }
+  }
+});
+
+// 띄운 프로그램을 새 프로세스 묶음 대장으로 띄워, 멈출 때와 끝났을 때 손주까지 묶음째 끔(ADR-061)
+// watchMemory 를 켜면 memoryPollMs 마다 묶음 메모리를 재고 memoryKb 를 넘으면 멈춤. 재는 사이에 한 번에 크게 잡으면 잠깐 넘칠 수 있음
+// 남는 위험: os.setsid 등으로 묶음을 빠져나간 프로세스는 못 끔
 export function exec(
   cmd: string,
   args: string[],
@@ -55,7 +74,22 @@ export function exec(
   watchMemory = false,
 ): Promise<Proc> {
   return new Promise((resolve) => {
-    const child = spawn(cmd, args, { cwd, env: childEnv(), stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(cmd, args, {
+      cwd,
+      env: childEnv(),
+      stdio: ['pipe', 'pipe', 'pipe'],
+      detached: true,
+    });
+    if (child.pid !== undefined) liveGroups.add(child.pid);
+    let ended = false;
+    // 묶음째 끔. 묶음이 이미 없거나 못 만들었으면 바로 띄운 것만
+    const killAll = () => {
+      try {
+        if (child.pid !== undefined) process.kill(-child.pid, 'SIGKILL');
+      } catch {
+        child.kill('SIGKILL');
+      }
+    };
     let stdout = '';
     let stderr = '';
     let size = 0;
@@ -73,7 +107,7 @@ export function exec(
       // 끝없이 출력하는 코드가 메모리를 채우지 않도록 출력이 64KB 를 넘는 순간 실행을 멈춤
       if (size > LIMITS.outputBytes) {
         truncated = true;
-        child.kill('SIGKILL');
+        killAll();
       }
     };
     child.stdout.on('data', (c: Buffer) => take(c, 'out'));
@@ -81,27 +115,51 @@ export function exec(
 
     const timer = setTimeout(() => {
       timedOut = true;
-      child.kill('SIGKILL');
+      killAll();
     }, timeoutMs);
 
+    // ps 가 느려도 재는 일이 겹치지 않게 하나씩. 끝난 뒤 늦게 온 결과로는 끄지 않음
+    let measuring = false;
     const poll = watchMemory
       ? setInterval(async () => {
-          const kb = child.pid === undefined ? null : await rssKb(child.pid);
-          if (kb !== null && kb > LIMITS.memoryKb && child.exitCode === null) {
+          if (measuring || ended || child.pid === undefined) return;
+          measuring = true;
+          const kb = await groupRssKb(child.pid);
+          measuring = false;
+          if (!ended && kb !== null && kb > LIMITS.memoryKb) {
             overMemory = true;
-            child.kill('SIGKILL');
+            killAll();
           }
         }, LIMITS.memoryPollMs)
       : undefined;
 
-    child.on('error', (e) => {
+    let grace: ReturnType<typeof setTimeout> | undefined;
+    // 바로 띄운 프로세스가 끝나면 남은 손주를 끄고, 그래도 통로가 안 닫히면 exitGraceMs 뒤 닫음
+    child.on('exit', () => {
+      ended = true;
       clearTimeout(timer);
       clearInterval(poll);
+      killAll();
+      grace = setTimeout(() => {
+        child.stdout.destroy();
+        child.stderr.destroy();
+      }, LIMITS.exitGraceMs);
+    });
+
+    child.on('error', (e) => {
+      ended = true;
+      if (child.pid !== undefined) liveGroups.delete(child.pid);
+      clearTimeout(timer);
+      clearInterval(poll);
+      clearTimeout(grace);
       resolve({ stdout, stderr: stderr + String(e), exitCode: null, timedOut, truncated });
     });
     child.on('close', (code) => {
+      ended = true;
+      if (child.pid !== undefined) liveGroups.delete(child.pid);
       clearTimeout(timer);
       clearInterval(poll);
+      clearTimeout(grace);
       if (truncated) stdout += '\n…(출력이 64KB를 넘어 멈췄어요)';
       if (overMemory)
         stderr += `${stderr && !stderr.endsWith('\n') ? '\n' : ''}${MEMORY_STOPPED}\n`;

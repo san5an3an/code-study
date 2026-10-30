@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
 
-import { validate, validateSnippet } from './code-exec.ts';
+import { LIMITS, validate, validateSnippet } from './code-exec.ts';
 import { checkPython, checkPythonSnippet, runPython, runPythonSnippet } from './python-runner.ts';
 
 const CONTENT = path.resolve(import.meta.dirname, '../test-fixtures/content');
@@ -70,14 +70,126 @@ test('메모리를 256MB 넘게 쓰면 멈추고 그 이유를 stderr 에 알림
   assert.match(r.run?.stderr ?? '', /메모리를 256MB 넘게 써서 멈췄어요/);
 });
 
-test('256MB 아래로 쓰는 코드는 메모리 때문에 멈추지 않음', async () => {
+test('256MB 아래로 쓰는 코드는 메모리를 여러 번 재도 멈추지 않음', async () => {
+  // 메모리는 memoryPollMs 마다 재서, 그보다 몇 배 오래 100MB 를 쥐고 있어야 실제로 잰 뒤의 결과를 봄
+  const holdSeconds = (LIMITS.memoryPollMs * 6) / 1000;
   const r = await run(
     'string_basics.py',
-    'b = bytearray(100 * 1024 * 1024)\nfor i in range(0, len(b), 4096):\n    b[i] = 1\nprint("끝")\n',
+    `import time\nb = bytearray(100 * 1024 * 1024)\nfor i in range(0, len(b), 4096):\n    b[i] = 1\ntime.sleep(${holdSeconds})\nprint("끝")\n`,
   );
   assert.ok(r.ok);
   assert.equal(r.run?.exitCode, 0);
   assert.equal(r.run?.stdout, '끝\n');
+});
+
+test('5초를 넘겨 멈춰도 그 전에 print 한 출력은 남음(-u)', async () => {
+  const r = await run('string_basics.py', 'print("앞")\nwhile True:\n    pass\n');
+  assert.ok(r.ok);
+  assert.equal(r.run?.timedOut, true);
+  assert.equal(r.run?.stdout, '앞\n');
+});
+
+test('메모리를 넘겨 멈춰도 그 전에 print 한 출력은 남음(-u)', async () => {
+  const r = await run(
+    'string_basics.py',
+    'print("앞")\nx = []\nwhile True:\n    x.append("a" * 1000)\n',
+  );
+  assert.ok(r.ok);
+  assert.equal(r.run?.stdout, '앞\n');
+  assert.match(r.run?.stderr ?? '', /메모리를 256MB 넘게 써서 멈췄어요/);
+});
+
+// 프로세스가 살아 있는지. 신호 0 은 아무것도 안 보내고 있는지만 봄
+function alive(pid: number) {
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+test('subprocess 로 띄운 손주가 출력 통로를 쥐고 있어도 프로그램이 끝나면 바로 끝나고 손주도 꺼짐', async () => {
+  const started = performance.now();
+  const r = await run(
+    'string_basics.py',
+    'import subprocess\np = subprocess.Popen(["sleep", "30"])\nprint(p.pid)\n',
+  );
+  const ms = performance.now() - started;
+  assert.ok(r.ok);
+  assert.equal(r.run?.timedOut, false);
+  assert.ok(ms < LIMITS.runMs, `${Math.round(ms)}ms 걸림`);
+  assert.equal(alive(Number(r.run?.stdout.trim())), false);
+});
+
+test('os.fork 로 떼어 낸 손주는 출력 통로를 놓아도 프로그램이 끝날 때 같이 꺼짐', async () => {
+  const r = await run(
+    'string_basics.py',
+    [
+      'import os, time',
+      'pid = os.fork()',
+      'if pid == 0:',
+      '    fd = os.open(os.devnull, os.O_RDWR)',
+      '    for n in (0, 1, 2):',
+      '        os.dup2(fd, n)',
+      '    time.sleep(30)',
+      '    os._exit(0)',
+      'print(pid)',
+      '',
+    ].join('\n'),
+  );
+  assert.ok(r.ok);
+  assert.equal(alive(Number(r.run?.stdout.trim())), false);
+});
+
+test('손주가 메모리를 256MB 넘게 쓰면 묶음 전체 메모리로 재서 멈춤', async () => {
+  // 손주는 400MB 만 잡고 10초 뒤 스스로 끝남. 묶음째 끄는 고침이 망가져도 고아가 메모리를 끝없이 먹지 않게 함(ADR-061 음성 대조 때 16GB 사고)
+  const r = await run(
+    'string_basics.py',
+    [
+      'import os, time',
+      'pid = os.fork()',
+      'if pid == 0:',
+      '    b = bytearray(400 * 1024 * 1024)',
+      '    for i in range(0, len(b), 4096):',
+      '        b[i] = 1',
+      '    time.sleep(10)',
+      '    os._exit(0)',
+      'os.waitpid(pid, 0)',
+      '',
+    ].join('\n'),
+  );
+  assert.ok(r.ok);
+  assert.equal(r.run?.timedOut, false);
+  assert.match(r.run?.stderr ?? '', /메모리를 256MB 넘게 써서 멈췄어요/);
+});
+
+test('남는 위험: os.setsid 로 묶음을 빠져나간 손주는 못 끄지만, 요청은 exitGraceMs 뒤 끝남', async () => {
+  const started = performance.now();
+  const r = await run(
+    'string_basics.py',
+    [
+      'import os, time',
+      'pid = os.fork()',
+      'if pid == 0:',
+      '    os.setsid()',
+      '    time.sleep(30)',
+      '    os._exit(0)',
+      'print(pid)',
+      '',
+    ].join('\n'),
+  );
+  const ms = performance.now() - started;
+  const escaped = Number(r.run?.stdout.trim());
+  try {
+    assert.ok(r.ok);
+    assert.equal(r.run?.timedOut, false);
+    assert.ok(ms < LIMITS.exitGraceMs + 2000, `${Math.round(ms)}ms 걸림`);
+    // 빠져나간 손주가 아직 살아 있는 것까지가 지금 알려진 한계(ADR-061)
+    assert.equal(alive(escaped), true);
+  } finally {
+    if (escaped > 0 && alive(escaped)) process.kill(escaped, 'SIGKILL');
+  }
 });
 
 test('격리 모드(-I)로 돌려 환경 변수와 사용자 패키지 폴더를 읽지 않음', async () => {
