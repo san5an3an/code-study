@@ -245,6 +245,35 @@ test('오타 검사: 모르는 이스케이프 같은 SyntaxWarning 은 경고�
   assert.match(r.diagnostics[0].message, /^SyntaxWarning: .*\\p/);
 });
 
+test('오타 검사: 칸 번호는 편집기와 같은 UTF-16 단위라 이모지 뒤에서도 밀리지 않음', async () => {
+  // 이모지 하나는 파이썬에선 1칸, 편집기(UTF-16)에선 2칸. 한글은 둘 다 1칸
+  const emoji = await checkPython({ file: 'a.py', source: 'print("😀", (1\n' });
+  assert.ok(emoji.ok);
+  assert.equal(emoji.diagnostics[0].column, 'print("😀", '.length);
+  const hangul = await checkPython({ file: 'a.py', source: 'print("한글", (1\n' });
+  assert.ok(hangul.ok);
+  assert.equal(hangul.diagnostics[0].column, 'print("한글", '.length);
+});
+
+test('오타 검사: SyntaxWarning 은 문구에 나온 이스케이프 글자 자리를 칸으로 씀', async () => {
+  const r = await checkPython({ file: 'a.py', source: 'print(1)\ny = "😀\\pb"\n' });
+  assert.ok(r.ok);
+  assert.equal(r.diagnostics[0].severity, 'warning');
+  assert.equal(r.diagnostics[0].column, 'y = "😀'.length);
+});
+
+test('오타 검사: coding 선언을 실행할 때처럼 따라서, 선언과 안 맞는 글자면 에러로 알림', async () => {
+  const source = '# -*- coding: ascii -*-\nprint("한글")\n';
+  const check = await checkPythonSnippet(source);
+  assert.ok(check.ok);
+  assert.equal(check.diagnostics[0].severity, 'error');
+  assert.equal(check.diagnostics[0].line, 1);
+  // 검사와 실행이 같은 판단을 해서, 검사가 에러면 실행하지 않음
+  const run = await runPythonSnippet(source);
+  assert.ok(run.ok);
+  assert.equal(run.run, null);
+});
+
 test('오타 검사: 없는 변수는 실행해야 알 수 있어서 검사에서는 에러가 없음', async () => {
   const r = await checkPython({ file: 'a.py', source: 'print(nope)\n' });
   assert.deepEqual(r, { ok: true, diagnostics: [] });

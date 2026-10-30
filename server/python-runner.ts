@@ -24,22 +24,33 @@ export const SNIPPET_FILE = 'main.py';
 const NO_COMPILE: CodeRun = { stdout: '', stderr: '', exitCode: 0, timedOut: false };
 
 // 실행하지 않고 compile() 로 문법만 봄. 파이썬은 문법 에러를 한 번에 하나만 알려 주고, 없는 변수 같은 건 돌려야 나옴
-// 빌드한 서버에서도 파일 경로를 찾을 필요가 없게 스크립트를 글로 넘김
-const CHECK_SCRIPT = `
-import json, sys, warnings
-source = sys.stdin.read()
+// 빌드한 서버에서도 파일 경로를 찾을 필요가 없게 스크립트를 글로 넘김. String.raw 라 역슬래시가 그대로 파이썬에 감
+// - 바이트로 compile 해서 실행할 때처럼 coding 선언을 따름(글자로 넘기면 선언을 무시해 검사는 통과하고 실행은 에러, ADR-061)
+// - 파이썬 칸 번호는 글자(코드 포인트) 단위라 편집기가 쓰는 UTF-16 단위로 바꿈(이모지는 UTF-16 으로 2칸)
+// - SyntaxWarning 은 칸 번호가 없어서, 문구에 나온 "\p" 같은 글자를 그 줄에서 찾아 칸으로 씀. 못 찾으면 줄 맨 앞
+const CHECK_SCRIPT = String.raw`
+import json, re, sys, warnings
+data = sys.stdin.buffer.read()
+lines = data.decode('utf-8', 'replace').split('\n')
+def utf16_column(lineno, cp):
+    text = lines[lineno - 1] if 1 <= lineno <= len(lines) else ''
+    return len(text[:max(0, min(cp, len(text)))].encode('utf-16-le')) // 2
 found = []
 with warnings.catch_warnings(record=True) as caught:
     warnings.simplefilter('always')
     try:
-        compile(source, sys.argv[1], 'exec', dont_inherit=True)
+        compile(data, sys.argv[1], 'exec', dont_inherit=True)
     except SyntaxError as e:
-        found.append({'line': e.lineno or 1, 'column': max((e.offset or 1) - 1, 0), 'severity': 'error', 'message': type(e).__name__ + ': ' + e.msg})
+        line = e.lineno if e.lineno and e.lineno > 0 else 1
+        found.append({'line': line, 'column': utf16_column(line, (e.offset or 1) - 1), 'severity': 'error', 'message': type(e).__name__ + ': ' + str(e.msg)})
     except ValueError as e:
         found.append({'line': 1, 'column': 0, 'severity': 'error', 'message': type(e).__name__ + ': ' + str(e)})
 for w in caught:
     if issubclass(w.category, SyntaxWarning):
-        found.append({'line': w.lineno, 'column': 0, 'severity': 'warning', 'message': 'SyntaxWarning: ' + str(w.message)})
+        text = lines[w.lineno - 1] if 1 <= w.lineno <= len(lines) else ''
+        m = re.search(r'"(\\.)"', str(w.message))
+        cp = max(text.find(m.group(1)), 0) if m else 0
+        found.append({'line': w.lineno, 'column': utf16_column(w.lineno, cp), 'severity': 'warning', 'message': 'SyntaxWarning: ' + str(w.message)})
 print(json.dumps(found))
 `;
 
