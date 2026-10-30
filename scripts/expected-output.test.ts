@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
+import { existsSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import path from 'node:path';
 import { test } from 'node:test';
 
 import {
@@ -86,6 +88,30 @@ test('파이썬 답안이 돌릴 때마다 다르거나, 에러로 끝나거나,
   assert.equal(expectedPythonOutput('import random\nprint(random.random())\n'), null);
   assert.equal(expectedPythonOutput('print(1)\nprint(nope)\n'), null);
   assert.equal(expectedPythonOutput('print(input())\n'), null);
+});
+
+test('파이썬 답안이 작업 폴더 경로를 찍으면 돌릴 때마다 폴더가 달라서 null', () => {
+  assert.equal(expectedPythonOutput('import os\nprint(os.getcwd())\n'), null);
+});
+
+test('파이썬 답안을 정한 횟수만큼 돌리고, 한 번이라도 출력이 다르면 null', () => {
+  // 돌린 횟수를 파일에 적어, 세 번째 실행만 다른 출력을 냄
+  const counter = path.join(tmpdir(), `code-study-runs-${process.pid}.txt`);
+  writeFileSync(counter, '0');
+  try {
+    const source = [
+      `p = ${JSON.stringify(counter)}`,
+      'n = int(open(p).read()) + 1',
+      'open(p, "w").write(str(n))',
+      'print("다름" if n == 3 else "같음")',
+      '',
+    ].join('\n');
+    assert.equal(expectedPythonOutput(source, undefined, 2), '같음\n');
+    writeFileSync(counter, '0');
+    assert.equal(expectedPythonOutput(source, undefined, 3), null);
+  } finally {
+    rmSync(counter, { force: true });
+  }
 });
 
 test('파이썬 답안이 시간 제한을 넘기면 null', () => {

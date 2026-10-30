@@ -75,6 +75,21 @@ export function withCodeQuiz(
   return { ...q, expectedOutput: expected, hints: extra.hints, outputExample: expected };
 }
 
+// 자료를 지우기 전에 힌트와 문제 짝만 미리 맞춰 봄. 예시 답안은 돌리지 않음(기대 출력은 빈 글로 둠)
+// 짝이 틀리면 withCodeQuiz, checkAllUsed 와 같은 에러로 멈춤(ADR-061)
+export function precheckCodeQuiz(
+  quizzes: readonly { lectureId: string; questions: readonly QuizQuestion[] }[],
+  extras: CodeQuizExtras,
+  language: CourseId,
+) {
+  const used = new Set<string>();
+  for (const quiz of quizzes) {
+    for (const q of quiz.questions)
+      withCodeQuiz(q, quiz.lectureId, extras, used, () => '', language);
+  }
+  checkAllUsed(extras, used);
+}
+
 // 힌트 파일에만 있고 어느 문제에도 안 붙은 키(번호 오타 등)가 있으면 에러로 멈춤
 export function checkAllUsed(extras: CodeQuizExtras, used: Set<string>) {
   const unused = Object.keys(extras).filter((k) => !used.has(k));

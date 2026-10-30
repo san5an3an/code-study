@@ -23,8 +23,10 @@ import type {
 } from '../src/app/domain/lecture-content.ts';
 import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
 import { PYTHON_COURSE } from '../src/app/domain/lectures-python.ts';
+import { PYTHON_ARGS } from '../server/python-runner.ts';
 import {
   checkAllUsed,
+  precheckCodeQuiz,
   readCodeQuizExtras,
   withCodeQuiz,
   type CodeQuizExtras,
@@ -194,6 +196,7 @@ function syncJava(extras: CodeQuizExtras) {
 }
 
 // 파이썬 예제는 원본을 더럽히지 않게 임시 폴더에 복사해 돌림. input() 을 쓰는 예제는 돌리지 않음
+// 코드 탭 실행과 결과가 같도록 실행 서버와 같은 옵션(PYTHON_ARGS)으로 돌림
 function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[] {
   const files = readdirSync(codeDir)
     .filter((f) => f.endsWith('.py'))
@@ -211,7 +214,7 @@ function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[]
       const needsInput = /\binput\s*\(/.test(code);
       const result = needsInput
         ? null
-        : run('python3', ['-X', 'utf8', '-B', file], work, RUN_TIMEOUT_MS);
+        : run('python3', [...PYTHON_ARGS, file], work, RUN_TIMEOUT_MS);
       return { file, className: file.replace(/\.py$/, ''), hasMain: true, needsInput, run: result };
     });
   } finally {
@@ -277,6 +280,15 @@ function syncPython(extras: CodeQuizExtras) {
   );
 }
 
+// 원본 퀴즈.md 를 강의마다 읽어 문제 목록으로. 지우기 전 검사에 씀
+function readQuizzes(source: string, lectures: readonly { id: string; folder: string }[]) {
+  return lectures.map((lecture) => {
+    const file = path.join(source, 'lectures', lecture.folder, '퀴즈.md');
+    if (!existsSync(file)) throw new Error(`${lecture.id}강: 퀴즈 파일이 없음 ${file}`);
+    return { lectureId: lecture.id, questions: parseQuiz(readFileSync(file, 'utf8'), lecture.id) };
+  });
+}
+
 function main() {
   // 원본이나 힌트 파일에 문제가 있으면 어느 과목 자료든 지우기 전에 멈춤
   if (!existsSync(path.join(SOURCE, 'lectures'))) {
@@ -294,6 +306,9 @@ function main() {
   }
   const extras = readCodeQuizExtras(CODE_QUIZ);
   const pythonExtras = readCodeQuizExtras(PYTHON_CODE_QUIZ);
+  // 힌트와 문제 짝은 퀴즈를 다 읽어야 맞는지 알 수 있어서, 어느 자료든 지우기 전에 두 과목 퀴즈를 먼저 읽어 봄
+  precheckCodeQuiz(readQuizzes(SOURCE, JAVA_COURSE.lectures), extras, 'java');
+  precheckCodeQuiz(readQuizzes(PYTHON_SOURCE, PYTHON_COURSE.lectures), pythonExtras, 'python');
   console.log('[자바]');
   syncJava(extras);
   console.log('[파이썬]');
