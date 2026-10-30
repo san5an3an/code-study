@@ -62,8 +62,14 @@ test('출력이 64KB를 넘으면 그 순간 실행을 멈춤', async () => {
   assert.match(r.run?.stdout ?? '', /64KB를 넘어 멈췄어요/);
 });
 
+// 메모리 한도를 넘기는 시험 코드. 끝없이 키우지 않고 600MB 만 잡은 뒤 기다림
+// 메모리 감시가 망가져도 5초 제한에 걸려 600MB 안에서 끝남(끝없이 키우던 꼴이 맥을 멈추게 한 사고, ADR-061 사고 3)
+// "a" * 1000 같은 글자는 파이썬이 미리 계산해 같은 객체 하나를 쓰므로 실제 메모리는 bytearray 에 페이지마다 써서 잡음
+const OVER_LIMIT =
+  'import time\nb = bytearray(600 * 1024 * 1024)\nfor i in range(0, len(b), 4096):\n    b[i] = 1\ntime.sleep(10)\n';
+
 test('메모리를 256MB 넘게 쓰면 멈추고 그 이유를 stderr 에 알림', async () => {
-  const r = await run('string_basics.py', 'x = []\nwhile True:\n    x.append("a" * 1000)\n');
+  const r = await run('string_basics.py', OVER_LIMIT);
   assert.ok(r.ok);
   assert.equal(r.run?.timedOut, false);
   assert.equal(r.run?.exitCode, null);
@@ -90,10 +96,7 @@ test('5초를 넘겨 멈춰도 그 전에 print 한 출력은 남음(-u)', async
 });
 
 test('메모리를 넘겨 멈춰도 그 전에 print 한 출력은 남음(-u)', async () => {
-  const r = await run(
-    'string_basics.py',
-    'print("앞")\nx = []\nwhile True:\n    x.append("a" * 1000)\n',
-  );
+  const r = await run('string_basics.py', `print("앞")\n${OVER_LIMIT}`);
   assert.ok(r.ok);
   assert.equal(r.run?.stdout, '앞\n');
   assert.match(r.run?.stderr ?? '', /메모리를 256MB 넘게 써서 멈췄어요/);
