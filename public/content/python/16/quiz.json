@@ -149,7 +149,7 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nscore = 53\nif score >= 60:\n    print(\"합격입니다.\")\nelse:\n    print(\"불합격입니다.\")\nprint(\"시험 끝\")\n```\n\n53은 60보다 작아서 `else` 블록이 실행돼요. `print(\"시험 끝\")`은 들여쓰지 않아서 if, else 어느 쪽이든 마지막에 실행돼요. 강의처럼 `score = int(input(\"점수를 입력하세요\"))`로 받아도 돼요.",
+      "explanation": "```python\nscore = 53\nif score >= 60:\n    print(\"합격입니다.\")\nelse:\n    print(\"불합격입니다.\")\nprint(\"시험 끝\")\n```\n\n53은 60보다 작아서 `else` 블록이 실행돼요. `print(\"시험 끝\")`은 들여쓰지 않아서 if, else 어느 쪽이든 마지막에 실행돼요. 강의처럼 `score = int(input(\"점수를 입력하세요\"))`로 받아도 돼요. 다만 이 앱의 채점하기는 입력 없이 돌려서, `input()` 으로 받으면 채점이 틀림으로 나와요. 채점할 때는 값을 직접 넣어요.",
       "expectedOutput": "불합격입니다.\n시험 끝\n",
       "hints": [
         "조건에 따라 다른 글자를 출력하는 문제예요. 조건이 맞으면 `if` 블록이, 아니면 `else` 블록이 실행돼요. 블록 안의 줄은 들여쓰기로 표시하고, 들여쓰지 않은 줄은 if 밖이라 언제나 실행돼요. 채점은 입력 없이 돌리니 `input()` 대신 `score = 53` 처럼 값을 변수에 직접 넣어요.",
