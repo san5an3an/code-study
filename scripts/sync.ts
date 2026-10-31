@@ -23,13 +23,15 @@ import type {
 } from '../src/app/domain/lecture-content.ts';
 import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
 import { PYTHON_COURSE } from '../src/app/domain/lectures-python.ts';
+import { PYTHON_ARGS } from '../server/python-runner.ts';
 import {
   checkAllUsed,
+  precheckCodeQuiz,
   readCodeQuizExtras,
   withCodeQuiz,
   type CodeQuizExtras,
 } from './code-quiz.ts';
-import { expectedJavaOutput } from './expected-output.ts';
+import { expectedJavaOutput, expectedPythonOutput } from './expected-output.ts';
 import { parseQuiz } from './quiz-parser.ts';
 import { COMPILE_TIMEOUT_MS, run, RUN_TIMEOUT_MS } from './run-command.ts';
 
@@ -42,6 +44,7 @@ const PYTHON_OUT = path.join(APP, 'public/content/python');
 const PYTHON_FRAMES = path.join(APP, 'public/frames/python');
 // 원본 노트에 없는 코드 문제 힌트. public/content/java 는 sync 때마다 지우므로 밖에 둠
 const CODE_QUIZ = path.join(APP, 'content-extra/java/code-quiz.json');
+const PYTHON_CODE_QUIZ = path.join(APP, 'content-extra/python/code-quiz.json');
 
 function writeJson(file: string, data: unknown) {
   writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
@@ -193,6 +196,7 @@ function syncJava(extras: CodeQuizExtras) {
 }
 
 // 파이썬 예제는 원본을 더럽히지 않게 임시 폴더에 복사해 돌림. input() 을 쓰는 예제는 돌리지 않음
+// 코드 탭 실행과 결과가 같도록 실행 서버와 같은 옵션(PYTHON_ARGS)으로 돌림
 function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[] {
   const files = readdirSync(codeDir)
     .filter((f) => f.endsWith('.py'))
@@ -210,7 +214,7 @@ function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[]
       const needsInput = /\binput\s*\(/.test(code);
       const result = needsInput
         ? null
-        : run('python3', ['-X', 'utf8', '-B', file], work, RUN_TIMEOUT_MS);
+        : run('python3', [...PYTHON_ARGS, file], work, RUN_TIMEOUT_MS);
       return { file, className: file.replace(/\.py$/, ''), hasMain: true, needsInput, run: result };
     });
   } finally {
@@ -218,10 +222,13 @@ function syncPythonCode(id: string, codeDir: string, outDir: string): CodeFile[]
   }
 }
 
-function syncPython() {
+function syncPython(extras: CodeQuizExtras) {
   rmSync(PYTHON_OUT, { recursive: true, force: true });
   mkdirSync(PYTHON_OUT, { recursive: true });
+  const usedExtras = new Set<string>();
   const summary: LectureContentSummary[] = [];
+  let gradedTotal = 0;
+  let codingTotal = 0;
   for (const lecture of PYTHON_COURSE.lectures) {
     const src = path.join(PYTHON_SOURCE, 'lectures', lecture.folder);
     const out = path.join(PYTHON_OUT, lecture.id);
@@ -231,9 +238,15 @@ function syncPython() {
     cpSync(path.join(src, '노트.md'), path.join(out, 'note.md'));
     const quiz: Quiz = {
       lectureId: lecture.id,
-      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id),
+      questions: parseQuiz(readFileSync(path.join(src, '퀴즈.md'), 'utf8'), lecture.id).map((q) =>
+        withCodeQuiz(q, lecture.id, extras, usedExtras, expectedPythonOutput, 'python'),
+      ),
     };
     writeJson(path.join(out, 'quiz.json'), quiz);
+    const coding = quiz.questions.filter((q) => q.expectedOutput !== undefined);
+    const gradable = coding.filter((q) => q.expectedOutput !== null).length;
+    gradedTotal += gradable;
+    codingTotal += coding.length;
     const code = syncPythonCode(lecture.id, path.join(src, 'code'), path.join(out, 'code'));
     writeJson(path.join(out, 'code.json'), code);
 
@@ -252,16 +265,28 @@ function syncPython() {
     console.log(
       `${lecture.id}강  퀴즈 ${quiz.questions.length}  코드 ${code.length}` +
         (failed.length ? ` (실패 ${failed.join(', ')})` : '') +
+        (coding.length ? `  채점 ${gradable}/${coding.length}` : '') +
         `  받아쓰기 ${transcript.length}줄  캡처 ${frames.length}장`,
     );
   }
+  checkAllUsed(extras, usedExtras);
   writeJson(path.join(PYTHON_OUT, 'index.json'), summary);
   const total = (k: keyof Omit<LectureContentSummary, 'id'>) =>
     summary.reduce((s, x) => s + x[k], 0);
   console.log(
     `합계  퀴즈 ${total('questions')}  코드 ${total('codeFiles')}  ` +
-      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장`,
+      `받아쓰기 ${total('transcriptLines')}줄  캡처 ${total('frames')}장  ` +
+      `채점 ${gradedTotal}/${codingTotal}`,
   );
+}
+
+// 원본 퀴즈.md 를 강의마다 읽어 문제 목록으로. 지우기 전 검사에 씀
+function readQuizzes(source: string, lectures: readonly { id: string; folder: string }[]) {
+  return lectures.map((lecture) => {
+    const file = path.join(source, 'lectures', lecture.folder, '퀴즈.md');
+    if (!existsSync(file)) throw new Error(`${lecture.id}강: 퀴즈 파일이 없음 ${file}`);
+    return { lectureId: lecture.id, questions: parseQuiz(readFileSync(file, 'utf8'), lecture.id) };
+  });
 }
 
 function main() {
@@ -280,10 +305,14 @@ function main() {
     );
   }
   const extras = readCodeQuizExtras(CODE_QUIZ);
+  const pythonExtras = readCodeQuizExtras(PYTHON_CODE_QUIZ);
+  // 힌트와 문제 짝은 퀴즈를 다 읽어야 맞는지 알 수 있어서, 어느 자료든 지우기 전에 두 과목 퀴즈를 먼저 읽어 봄
+  precheckCodeQuiz(readQuizzes(SOURCE, JAVA_COURSE.lectures), extras, 'java');
+  precheckCodeQuiz(readQuizzes(PYTHON_SOURCE, PYTHON_COURSE.lectures), pythonExtras, 'python');
   console.log('[자바]');
   syncJava(extras);
   console.log('[파이썬]');
-  syncPython();
+  syncPython(pythonExtras);
 }
 
 main();

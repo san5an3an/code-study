@@ -14,7 +14,14 @@ import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 import { HlmTabsImports } from '@spartan-ng/helm/tabs';
 import { HlmTextareaImports } from '@spartan-ng/helm/textarea';
 
-import type { CodeCheck, CodeFile, CodeRun, RunResponse } from '../../../core/run-api';
+import {
+  MEMORY_STOPPED,
+  OUTPUT_STOPPED,
+  type CodeCheck,
+  type CodeFile,
+  type CodeRun,
+  type RunResponse,
+} from '../../../core/run-api';
 import type { CourseId } from '../../../domain/course';
 import { CodeEditor } from '../../atoms/code-editor/code-editor';
 
@@ -117,7 +124,7 @@ export type CodeRunRequest = { source: string; stdin: string };
                     <label [for]="stdinId()" class="text-sm font-medium">
                       입력값
                       <span class="font-normal text-muted-foreground"
-                        >(Scanner 로 받을 값, 한 줄에 하나)</span
+                        >({{ stdinHint() }}, 한 줄에 하나)</span
                       >
                     </label>
                     <textarea
@@ -218,12 +225,8 @@ export type CodeRunRequest = { source: string; stdin: string };
                           @if (!run.stdout && !run.stderr) {
                             <p class="text-muted-foreground">출력이 없어요.</p>
                           }
-                          @if (run.timedOut) {
-                            <p class="run-status-error">시간 제한(5초)을 넘겨 멈췄어요.</p>
-                          } @else if (run.exitCode !== 0) {
-                            <p class="run-status-error">
-                              에러로 끝났어요(종료 코드 {{ run.exitCode }}).
-                            </p>
+                          @if (stopReason(run); as reason) {
+                            <p class="run-status-error" data-testid="run-status">{{ reason }}</p>
                           }
                         </div>
                       }
@@ -301,6 +304,19 @@ export class CodeView {
     return compile ? compile.stderr || compile.stdout : '';
   });
   protected readonly stdinId = computed(() => `stdin-${this.current()?.className}`);
+  protected readonly stdinHint = computed(() =>
+    this.course() === 'python' ? 'input() 으로 받을 값' : 'Scanner 로 받을 값',
+  );
+
+  // 실행이 제대로 안 끝났을 때 이유. 끝 코드가 없으면(null) 서버가 멈춘 이유 글이나 신호로 가름
+  protected stopReason(run: CodeRun): string | null {
+    if (run.timedOut) return '시간 제한(5초)을 넘겨 멈췄어요.';
+    if (run.stderr.includes(MEMORY_STOPPED)) return '메모리를 256MB 넘게 써서 멈췄어요.';
+    if (run.stdout.endsWith(OUTPUT_STOPPED)) return '출력이 64KB를 넘어 멈췄어요.';
+    if (run.exitCode === null) return '실행이 도중에 강제로 끝났어요.';
+    if (run.exitCode !== 0) return `에러로 끝났어요(종료 코드 ${run.exitCode}).`;
+    return null;
+  }
 
   protected edit(text: string) {
     this.draft.set(text);

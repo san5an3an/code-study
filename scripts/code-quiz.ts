@@ -3,7 +3,8 @@ import { readFileSync } from 'node:fs';
 
 import type { QuizQuestion } from '../src/app/domain/lecture-content.ts';
 import { codeLanguageOf } from '../src/app/domain/quiz-answer.ts';
-import { javaAnswerSource } from './expected-output.ts';
+import type { CourseId } from '../src/app/domain/course.ts';
+import { answerSource } from './expected-output.ts';
 
 // 힌트는 쉬운 말 설명, 순서대로 할 일, 빈칸 뚫린 코드 세 단계
 export const HINT_STEPS = 3;
@@ -47,7 +48,7 @@ export function readCodeQuizExtras(file: string): CodeQuizExtras {
   return parseCodeQuizExtras(readFileSync(file, 'utf8'), file);
 }
 
-// 자바 코드로 답하는 문제에만 기대 출력과 힌트를 붙이고, 쓴 키를 used 에 모음
+// language(과목) 코드로 답하는 문제에만 기대 출력과 힌트를 붙이고, 쓴 키를 used 에 모음
 // 코드 문제인데 힌트가 없거나, 말로 답하는 문제에 힌트가 있으면 에러로 멈춤
 export function withCodeQuiz(
   q: QuizQuestion,
@@ -55,22 +56,38 @@ export function withCodeQuiz(
   extras: CodeQuizExtras,
   used: Set<string>,
   expectedOutput: (source: string) => string | null,
+  language: CourseId = 'java',
 ): QuizQuestion {
   const key = `${lectureId}-${q.n}`;
   const extra = extras[key];
-  if (codeLanguageOf(q) !== 'java') {
+  if (codeLanguageOf(q) !== language) {
     if (extra) throw new CodeQuizExtraError(`${key}: 코드로 답하는 문제가 아닌데 힌트가 있음`);
     return q;
   }
   if (!extra) throw new CodeQuizExtraError(`${key}: 코드 문제인데 힌트가 없음`);
   used.add(key);
-  const source = javaAnswerSource(q.explanation);
+  const source = answerSource(q.explanation, language);
   const expected = extra.noGrading !== undefined || source === null ? null : expectedOutput(source);
   if (!extra.showOutputExample) return { ...q, expectedOutput: expected, hints: extra.hints };
   if (expected === null) {
     throw new CodeQuizExtraError(`${key}: 출력 예를 보여 줄 문제인데 예시 답안의 출력을 못 구함`);
   }
   return { ...q, expectedOutput: expected, hints: extra.hints, outputExample: expected };
+}
+
+// 자료를 지우기 전에 힌트와 문제 짝만 미리 맞춰 봄. 예시 답안은 돌리지 않음(기대 출력은 빈 글로 둠)
+// 짝이 틀리면 withCodeQuiz, checkAllUsed 와 같은 에러로 멈춤(ADR-061)
+export function precheckCodeQuiz(
+  quizzes: readonly { lectureId: string; questions: readonly QuizQuestion[] }[],
+  extras: CodeQuizExtras,
+  language: CourseId,
+) {
+  const used = new Set<string>();
+  for (const quiz of quizzes) {
+    for (const q of quiz.questions)
+      withCodeQuiz(q, quiz.lectureId, extras, used, () => '', language);
+  }
+  checkAllUsed(extras, used);
 }
 
 // 힌트 파일에만 있고 어느 문제에도 안 붙은 키(번호 오타 등)가 있으면 에러로 멈춤

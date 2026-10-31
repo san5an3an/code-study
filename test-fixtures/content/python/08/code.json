@@ -1,0 +1,50 @@
+[
+  {
+    "file": "escape_chars.py",
+    "className": "escape_chars",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is \"too\" short\nLife is 'too' short\nLife is too short\nYou need Python\nLife is too short\tYou need Python\nLife is too short\\You need Python\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "quote_pairs.py",
+    "className": "quote_pairs",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is 'too' short\nLife is \"too\" short\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "string_basics.py",
+    "className": "string_basics",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is too short\nYou need Python\n100\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  },
+  {
+    "file": "string_operations.py",
+    "className": "string_operations",
+    "hasMain": true,
+    "needsInput": false,
+    "run": {
+      "stdout": "Life is too short, You need Python\nPythonPythonPythonPythonPython\n20000100\n20100\nHello World\nHelloWorld\n",
+      "stderr": "",
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+]

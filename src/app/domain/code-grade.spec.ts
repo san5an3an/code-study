@@ -1,4 +1,4 @@
-import type { CodeRun, SnippetRunResponse } from '../core/run-api';
+import { OUTPUT_STOPPED, type CodeRun, type SnippetRunResponse } from '../core/run-api';
 import { gradedAnswer, gradeOf, gradeVerdict } from './code-grade';
 import { EMPTY_ANSWER } from './quiz-answer';
 
@@ -42,6 +42,7 @@ describe('퀴즈 코드 채점 판정', () => {
       exitCode: 1,
       timedOut: false,
       stderr,
+      outputCut: false,
     });
     expect(gradeVerdict(g)).toBe('wrong');
   });
@@ -52,10 +53,16 @@ describe('퀴즈 코드 채점 판정', () => {
     expect(gradeVerdict(g)).toBe('wrong');
   });
 
-  it('출력이 넘쳐 멈추면(exitCode 가 null) 틀림', () => {
-    const g = gradeOf('1\n', SOURCE, ran({ stdout: '1\n1\n', exitCode: null }));
-    expect(g).toMatchObject({ outcome: 'runError', exitCode: null, timedOut: false });
+  it('출력이 넘쳐 멈추면 틀림이고 outputCut 으로 표시함', () => {
+    const stdout = `1\n1\n\n${OUTPUT_STOPPED}`;
+    const g = gradeOf('1\n', SOURCE, ran({ stdout, exitCode: null }));
+    expect(g).toMatchObject({ outcome: 'runError', exitCode: null, outputCut: true });
     expect(gradeVerdict(g)).toBe('wrong');
+  });
+
+  it('끝 코드 없이 죽었는데 출력 넘침 글이 없으면 outputCut 이 아님(신호·메모리 초과)', () => {
+    const g = gradeOf('1\n', SOURCE, ran({ stdout: '1\n', exitCode: null }));
+    expect(g).toMatchObject({ outcome: 'runError', exitCode: null, outputCut: false });
   });
 
   it('컴파일 에러면 에러 목록을 돌려주고 기록하지 않음', () => {

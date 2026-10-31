@@ -217,7 +217,7 @@ export class LecturePage {
     computation: () => new Set(),
   });
 
-  // 코드 탭. 실행 서버가 있는 과목만 예제 목록을 불러옴. 파이썬은 아직 예제가 없음
+  // 코드 탭. 실행 서버가 있는 과목만 예제 목록을 불러옴
   private readonly runnable = computed(() => this.synced() && isRunCourse(this.courseId()));
   private readonly codeList = resource({
     params: () => {
@@ -373,7 +373,7 @@ export class LecturePage {
     );
   }
 
-  // 코드로 답하는 문제에서 글이 바뀌었을 때만 검사함. 실행 서버가 아직 없는 과목(파이썬)은 밑줄 없이 둠
+  // 코드로 답하는 문제에서 글이 바뀌었을 때만 검사함. 실행 서버가 없는 과목은 밑줄 없이 둠
   private requestCheck(q: QuizQuestion, text: string, beforeText: string) {
     const language = codeLanguageOf(q);
     if (!language || !isRunCourse(language) || text === beforeText) return;

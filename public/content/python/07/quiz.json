@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\ntotal = 0\ntotal += 100\ntotal += 250\ntotal += 50\nprint(total)\n```\n\n`total += 100`은 `total = total + 100`과 같아요. 0 → 100 → 350 → 400으로 바뀌어요."
+      "explanation": "```python\ntotal = 0\ntotal += 100\ntotal += 250\ntotal += 50\nprint(total)\n```\n\n`total += 100`은 `total = total + 100`과 같아요. 0 → 100 → 350 → 400으로 바뀌어요.",
+      "expectedOutput": "400\n",
+      "hints": [
+        "변수 하나에 숫자를 차례로 더해 가는 문제예요. `+=` 는 변수에 값을 더해서 다시 그 변수에 넣는 줄임 기호예요. `total += 100` 은 `total = total + 100` 과 같아요.",
+        "- `total` 에 `0` 을 넣어요\n- `total += 100` 처럼 `+=` 로 100, 250, 50 을 한 줄씩 더해요\n- 마지막에 `print()` 로 `total` 을 출력해요",
+        "```python\ntotal = ___\ntotal += 100\ntotal ___ 250\ntotal += 50\nprint(___)\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nmyWeight = 60\nmyHeight = 1.6\nbmi = myWeight / myHeight ** 2\nprint(bmi >= 20 and bmi < 25)\n```\n\n`**`가 `/`보다 먼저라서 `1.6 ** 2`가 먼저 계산돼요. `bmi`는 약 23.4라서 `20` 이상(`True`)이고 `25` 미만(`True`)이니 `True and True`로 `True`예요."
+      "explanation": "```python\nmyWeight = 60\nmyHeight = 1.6\nbmi = myWeight / myHeight ** 2\nprint(bmi >= 20 and bmi < 25)\n```\n\n`**`가 `/`보다 먼저라서 `1.6 ** 2`가 먼저 계산돼요. `bmi`는 약 23.4라서 `20` 이상(`True`)이고 `25` 미만(`True`)이니 `True and True`로 `True`예요.",
+      "expectedOutput": "True\n",
+      "hints": [
+        "BMI 를 계산하고, 그 값이 20 이상이면서 25 미만인지 확인하는 문제예요. 제곱은 `**` 로 써요. `**` 가 `/` 보다 먼저 계산되니 괄호 없이 써도 키의 제곱으로 나눠져요. 두 조건이 모두 맞는지는 `and` 로 이어서 확인해요.",
+        "- `myWeight` 에 `60`, `myHeight` 에 `1.6` 을 넣어요\n- `bmi` 에 몸무게를 키의 제곱으로 나눈 값을 넣어요\n- `bmi >= 20` 과 `bmi < 25` 를 `and` 로 이어요\n- 그 결과를 `print()` 로 출력해요",
+        "```python\nmyWeight = 60\nmyHeight = 1.6\nbmi = myWeight / myHeight ___ 2\nprint(bmi >= 20 ___ bmi ___ 25)\n```"
+      ]
     }
   ]
 }

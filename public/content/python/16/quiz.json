@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nscore = 53\nif score >= 60:\n    print(\"합격입니다.\")\nelse:\n    print(\"불합격입니다.\")\nprint(\"시험 끝\")\n```\n\n53은 60보다 작아서 `else` 블록이 실행돼요. `print(\"시험 끝\")`은 들여쓰지 않아서 if, else 어느 쪽이든 마지막에 실행돼요. 강의처럼 `score = int(input(\"점수를 입력하세요\"))`로 받아도 돼요."
+      "explanation": "```python\nscore = 53\nif score >= 60:\n    print(\"합격입니다.\")\nelse:\n    print(\"불합격입니다.\")\nprint(\"시험 끝\")\n```\n\n53은 60보다 작아서 `else` 블록이 실행돼요. `print(\"시험 끝\")`은 들여쓰지 않아서 if, else 어느 쪽이든 마지막에 실행돼요. 강의처럼 `score = int(input(\"점수를 입력하세요\"))`로 받아도 돼요. 다만 이 앱의 채점하기는 입력 없이 돌려서, `input()` 으로 받으면 채점이 틀림으로 나와요. 채점할 때는 값을 직접 넣어요.",
+      "expectedOutput": "불합격입니다.\n시험 끝\n",
+      "hints": [
+        "조건에 따라 다른 글자를 출력하는 문제예요. 조건이 맞으면 `if` 블록이, 아니면 `else` 블록이 실행돼요. 블록 안의 줄은 들여쓰기로 표시하고, 들여쓰지 않은 줄은 if 밖이라 언제나 실행돼요. 채점은 입력 없이 돌리니 `input()` 대신 `score = 53` 처럼 값을 변수에 직접 넣어요.",
+        "- `score` 에 53을 직접 넣어요 (`input()` 은 쓰지 않아요)\n- `if score >= 60:` 아래에 `합격입니다.` 를 들여써서 출력해요\n- `else:` 아래에 `불합격입니다.` 를 들여써서 출력해요\n- 맨 끝에 들여쓰지 않고 `시험 끝` 을 출력해요",
+        "```python\nscore = 53\nif score ___ 60:\n    print(\"합격입니다.\")\n___:\n    print(\"불합격입니다.\")\nprint(___)\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\ntemp = 30\nif temp >= 28:\n    print(\"더워요\")\nelif temp >= 18:\n    print(\"좋아요\")\nelse:\n    print(\"추워요\")\n```\n\n위에서부터 따지니까 두 번째 조건에는 \"28 미만\"을 따로 안 써도 돼요. 28 이상이면 이미 첫 번째에서 끝나기 때문이에요. 순서를 바꿔 `temp >= 18`을 먼저 쓰면 30도도 \"좋아요\"가 나와 버려요."
+      "explanation": "```python\ntemp = 30\nif temp >= 28:\n    print(\"더워요\")\nelif temp >= 18:\n    print(\"좋아요\")\nelse:\n    print(\"추워요\")\n```\n\n위에서부터 따지니까 두 번째 조건에는 \"28 미만\"을 따로 안 써도 돼요. 28 이상이면 이미 첫 번째에서 끝나기 때문이에요. 순서를 바꿔 `temp >= 18`을 먼저 쓰면 30도도 \"좋아요\"가 나와 버려요.",
+      "expectedOutput": "더워요\n",
+      "hints": [
+        "조건이 세 갈래라서 `if`, `elif`, `else` 를 써요. 파이썬은 위에서부터 조건을 따지고, 맞는 첫 블록만 실행해요. 그래서 큰 기준(28)부터 먼저 검사하면 두 번째 조건에 \"28 미만\" 을 따로 쓰지 않아도 돼요.",
+        "- `temp` 에 30을 넣어요\n- `if temp >= 28:` 이면 `더워요` 를 출력해요\n- `elif temp >= 18:` 이면 `좋아요` 를 출력해요\n- 나머지는 `else:` 에서 `추워요` 를 출력해요",
+        "```python\ntemp = 30\nif temp >= ___:\n    print(\"더워요\")\n___ temp >= 18:\n    print(\"좋아요\")\nelse:\n    print(___)\n```"
+      ]
     }
   ]
 }

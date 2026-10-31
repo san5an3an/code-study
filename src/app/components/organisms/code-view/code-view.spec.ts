@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { EditorView } from '@codemirror/view';
 
-import type { CodeFile } from '../../../core/run-api';
+import { MEMORY_STOPPED, OUTPUT_STOPPED, type CodeFile, type CodeRun } from '../../../core/run-api';
 import { CodeView, type CodeRunRequest, type LiveRun } from './code-view';
 
 const RUN = { stdout: '50\n', stderr: '', exitCode: 0, timedOut: false };
@@ -116,12 +116,32 @@ describe('코드 탭 화면', () => {
     expect(crash.el.textContent).toContain('에러로 끝났어요(종료 코드 1).');
     const slow = render({ files: [{ ...FILES[0], run: { ...RUN, timedOut: true } }] });
     expect(slow.el.textContent).toContain('시간 제한(5초)을 넘겨 멈췄어요.');
+    const status = (run: Partial<CodeRun>) =>
+      render({ files: [{ ...FILES[0], run: { ...RUN, ...run } }] }).el.querySelector(
+        '[data-testid="run-status"]',
+      )?.textContent;
+    expect(status({ exitCode: null, stderr: `${MEMORY_STOPPED}\n` })).toBe(
+      '메모리를 256MB 넘게 써서 멈췄어요.',
+    );
+    expect(status({ exitCode: null, stdout: `x\n${OUTPUT_STOPPED}` })).toBe(
+      '출력이 64KB를 넘어 멈췄어요.',
+    );
+    expect(status({ exitCode: null })).toBe('실행이 도중에 강제로 끝났어요.');
+    expect(status({ exitCode: 0 })).toBeUndefined();
 
     const refused = render({ runError: '이미 실행 중인 코드가 많아요.', running: true });
     expect(refused.el.querySelector('[data-testid="run-error"]')!.textContent).toBe(
       '이미 실행 중인 코드가 많아요.',
     );
     expect(refused.button('실행 중…')!.disabled).toBe(true);
+  });
+
+  it('입력값 칸 안내는 자바면 Scanner, 파이썬이면 input() 으로 받는다고 함', () => {
+    const label = (course: string) =>
+      render({ course }).el.querySelector('label')!.textContent!.replace(/\s+/g, ' ');
+    expect(label('java')).toContain('Scanner 로 받을 값');
+    expect(label('python')).toContain('input() 으로 받을 값');
+    expect(label('python')).not.toContain('Scanner');
   });
 
   it('main 없는 파일은 이유를 알려 주고 실행 버튼과 입력값 칸이 없음', () => {

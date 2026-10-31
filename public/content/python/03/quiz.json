@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nprint(\"윈도우: python, pip\")\nprint(\"맥: python3, pip3\")\n```\n\n수업 자료에 `python`, `pip`이라고 나와도 맥에서는 뒤에 3을 붙여 친다는 걸 기억해 두세요."
+      "explanation": "```python\nprint(\"윈도우: python, pip\")\nprint(\"맥: python3, pip3\")\n```\n\n수업 자료에 `python`, `pip`이라고 나와도 맥에서는 뒤에 3을 붙여 친다는 걸 기억해 두세요.",
+      "expectedOutput": "윈도우: python, pip\n맥: python3, pip3\n",
+      "hints": [
+        "글자 두 줄을 그대로 찍는 문제예요. `print()` 를 두 번 쓰고, 찍을 글자는 큰따옴표로 감싸요. 윈도우는 `python`, `pip` 을 쓰고, 맥은 뒤에 3을 붙인 `python3`, `pip3` 을 써요.",
+        "- 첫 `print()` 에 `\"윈도우: python, pip\"` 을 넣어요\n- 둘째 `print()` 에 `\"맥: python3, pip3\"` 을 넣어요\n- 콜론 뒤와 쉼표 뒤의 공백도 출력과 똑같이 맞춰요",
+        "```python\nprint(\"윈도우: ___, pip\")\nprint(\"맥: python3, ___\")\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nimport sys\nprint(\"파이썬 3 인가요?\", sys.version_info.major == 3)\n```\n\n`print`에 쉼표로 값을 넘기면 사이에 공백 하나가 들어가요. `sys.version_info.major == 3`은 큰 번호가 3이면 `True`가 돼요."
+      "explanation": "```python\nimport sys\nprint(\"파이썬 3 인가요?\", sys.version_info.major == 3)\n```\n\n`print`에 쉼표로 값을 넘기면 사이에 공백 하나가 들어가요. `sys.version_info.major == 3`은 큰 번호가 3이면 `True`가 돼요.",
+      "expectedOutput": "파이썬 3 인가요? True\n",
+      "hints": [
+        "`sys` 모듈로 지금 파이썬이 3점대인지 확인해서 참/거짓을 찍는 문제예요. 큰 버전 번호는 `sys.version_info.major` 에 있어요. 두 값이 같은지 비교할 때는 `==` 를 쓰고, 같으면 `True` 가 나와요.",
+        "- `import sys` 로 모듈을 불러와요\n- `print()` 안에 `\"파이썬 3 인가요?\"` 를 먼저 넣어요\n- 쉼표 뒤에 `sys.version_info.major` 와 3 을 `==` 로 비교한 식을 넣어요",
+        "```python\nimport sys\nprint(\"파이썬 3 인가요?\", sys.version_info.___ ___ 3)\n```"
+      ]
     }
   ]
 }

@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nprice = 5000\nprint(price)\nprice = 7000\nprint(price)\n```\n\n`price = 5000`이 초기화이고, `price = 7000`은 같은 변수의 값을 바꾸는 거예요."
+      "explanation": "```python\nprice = 5000\nprint(price)\nprice = 7000\nprint(price)\n```\n\n`price = 5000`이 초기화이고, `price = 7000`은 같은 변수의 값을 바꾸는 거예요.",
+      "expectedOutput": "5000\n7000\n",
+      "hints": [
+        "변수에 값을 넣어 찍고, 같은 변수에 새 값을 넣어 다시 찍는 문제예요. 처음 `=` 로 값을 넣는 것이 초기화예요. 같은 이름에 다시 `=` 로 값을 넣으면 앞의 값이 새 값으로 바뀌어요.",
+        "- `price = 5000` 으로 변수를 만들어요\n- `print(price)` 로 찍어요\n- `price = 7000` 으로 값을 바꿔요\n- `print(price)` 로 다시 찍어요",
+        "```python\nprice = ___\nprint(price)\n___ = 7000\nprint(___)\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nuser_name = \"홍길동\"\nis_member = True\nprint(user_name, is_member)\n```\n\n스네이크 표기법은 단어 사이를 언더바로 이어요. `print`에 쉼표로 두 값을 넘기면 사이에 공백 하나를 넣어 출력해요. `True`는 첫 글자를 대문자로 써야 해요."
+      "explanation": "```python\nuser_name = \"홍길동\"\nis_member = True\nprint(user_name, is_member)\n```\n\n스네이크 표기법은 단어 사이를 언더바로 이어요. `print`에 쉼표로 두 값을 넘기면 사이에 공백 하나를 넣어 출력해요. `True`는 첫 글자를 대문자로 써야 해요.",
+      "expectedOutput": "홍길동 True\n",
+      "hints": [
+        "스네이크 표기법으로 이름을 지은 변수 두 개를 만들어 한 번에 찍는 문제예요. 스네이크 표기법은 소문자 단어 사이를 언더바(`_`)로 잇는 방식이에요. 참은 따옴표 없이 첫 글자만 대문자인 `True` 로 써요. `print()` 에 쉼표로 두 값을 넘기면 사이에 공백 하나가 들어가요.",
+        "- `user_name` 같은 이름의 변수에 `\"홍길동\"` 을 넣어요\n- `is_member` 같은 이름의 변수에 `True` 를 넣어요\n- `print()` 에 두 변수를 쉼표로 나눠 넣어요",
+        "```python\nuser_name = \"홍길동\"\nis_member = ___\nprint(___, is_member)\n```"
+      ]
     }
   ]
 }

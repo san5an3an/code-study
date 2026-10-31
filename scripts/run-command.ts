@@ -16,6 +16,8 @@ function clip(text: string) {
 export function run(cmd: string, args: string[], cwd: string, timeout: number): CodeRun {
   const r = spawnSync(cmd, args, {
     cwd,
+    // 터미널이 FORCE_COLOR 를 물려주면 파이썬 에러에 색 코드가 섞여 저장됨. 실행 서버와 같이 NO_COLOR 를 줌(ADR-061)
+    env: { ...process.env, NO_COLOR: '1' },
     timeout,
     encoding: 'utf8',
     input: '',

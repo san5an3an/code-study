@@ -6,6 +6,7 @@ import {
   checkAllUsed,
   CodeQuizExtraError,
   parseCodeQuizExtras,
+  precheckCodeQuiz,
   withCodeQuiz,
   type CodeQuizExtras,
 } from './code-quiz.ts';
@@ -50,6 +51,17 @@ test('코드 문제에 힌트 세 단계와 예시 답안을 돌린 출력을 �
   assert.deepEqual([...used], ['03-11']);
 });
 
+test('파이썬 과목이면 파이썬 코드 문제에만 붙이고 파이썬 블록을 돌림. 자바 코드 문제는 그대로 둠', () => {
+  const used = new Set<string>();
+  const fake = fakeRun('1\n');
+  const py = question(12, 'write', '```python\nprint(1)\n```');
+  const q = withCodeQuiz(py, '08', { '08-12': { hints: HINTS } }, used, fake.run, 'python');
+  assert.equal(q.expectedOutput, '1\n');
+  assert.deepEqual(fake.calls, ['print(1)\n']);
+  assert.equal(withCodeQuiz(CODE, '08', {}, used, fake.run, 'python'), CODE);
+  assert.deepEqual([...used], ['08-12']);
+});
+
 test('noGrading 이 적힌 문제는 예시 답안을 돌리지 않고 기대 출력을 null 로 둠', () => {
   const fake = fakeRun('1\n');
   const extras = { '03-11': { hints: HINTS, noGrading: '값을 직접 고름' } };
@@ -79,6 +91,26 @@ test('말로 답하는 문제에 힌트가 있으면 에러로 멈춤', () => {
     (e: unknown) =>
       e instanceof CodeQuizExtraError && /03-5.*코드로 답하는 문제가 아닌데/.test(e.message),
   );
+});
+
+test('지우기 전 검사: 짝이 맞으면 조용히 끝나고, 힌트가 빠지거나 남으면 에러로 멈춤', () => {
+  const quizzes = [{ lectureId: '03', questions: [CODE] }];
+  assert.doesNotThrow(() => precheckCodeQuiz(quizzes, { '03-11': { hints: HINTS } }, 'java'));
+  assert.throws(
+    () => precheckCodeQuiz(quizzes, {}, 'java'),
+    (e: unknown) => e instanceof CodeQuizExtraError && /03-11.*힌트가 없음/.test(e.message),
+  );
+  assert.throws(
+    () =>
+      precheckCodeQuiz(quizzes, { '03-11': { hints: HINTS }, '03-99': { hints: HINTS } }, 'java'),
+    (e: unknown) => e instanceof CodeQuizExtraError && /03-99/.test(e.message),
+  );
+});
+
+test('지우기 전 검사: 출력 예를 보여 줄 문제도 예시 답안을 돌리지 않고 통과함', () => {
+  const quizzes = [{ lectureId: '03', questions: [CODE] }];
+  const extras = { '03-11': { hints: HINTS, showOutputExample: true } };
+  assert.doesNotThrow(() => precheckCodeQuiz(quizzes, extras, 'java'));
 });
 
 test('힌트 파일에만 있고 어느 문제에도 안 붙은 키가 있으면 에러로 멈춤', () => {

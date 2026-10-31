@@ -149,7 +149,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\nn = 2\nwhile n <= 10:\n    print(n)\n    n += 2\n```\n\n초기식을 2로, 증감식을 2씩 증가로 잡으면 짝수만 돌아요. 12가 되면 `12 <= 10`이 거짓이라 끝나요."
+      "explanation": "```python\nn = 2\nwhile n <= 10:\n    print(n)\n    n += 2\n```\n\n초기식을 2로, 증감식을 2씩 증가로 잡으면 짝수만 돌아요. 12가 되면 `12 <= 10`이 거짓이라 끝나요.",
+      "expectedOutput": "2\n4\n6\n8\n10\n",
+      "hints": [
+        "`while` 문으로 짝수만 출력하는 문제예요. 짝수인지 검사하는 대신, 시작 값(초기식)을 2로 잡고 한 번 돌 때마다 2씩 늘려요(증감식). 조건식이 거짓이 되면 반복이 끝나요.",
+        "- 변수 `n` 에 2를 넣어요\n- `while n <= 10:` 으로 10 이하인 동안 반복해요\n- 반복 안에서 `n` 을 출력해요\n- 그다음 `n` 을 2만큼 늘려요",
+        "```python\nn = ___\nwhile n <= ___:\n    print(n)\n    n += ___\n```"
+      ]
     },
     {
       "n": 12,
@@ -161,7 +167,13 @@
       "correct": [],
       "answerHead": "",
       "isExample": true,
-      "explanation": "```python\ndata = [3, 6, 9]\ntotal = 0\ni = 0\nwhile i < len(data):\n    total += data[i]\n    i += 1\nprint(total)\n```\n\n인덱스 `i`를 0부터 `len(data)`보다 작은 동안 1씩 늘리면 모든 원소를 하나씩 꺼낼 수 있어요. 합계 변수 `total`은 반복문 전에 0으로 만들어 둬요."
+      "explanation": "```python\ndata = [3, 6, 9]\ntotal = 0\ni = 0\nwhile i < len(data):\n    total += data[i]\n    i += 1\nprint(total)\n```\n\n인덱스 `i`를 0부터 `len(data)`보다 작은 동안 1씩 늘리면 모든 원소를 하나씩 꺼낼 수 있어요. 합계 변수 `total`은 반복문 전에 0으로 만들어 둬요.",
+      "expectedOutput": "18\n",
+      "hints": [
+        "`while` 문과 인덱스로 리스트 원소를 하나씩 꺼내 더하는 문제예요. 인덱스는 0부터 시작하고, 리스트 길이(`len()`)보다 작은 동안 반복해요. 합계를 담을 변수는 반복 전에 0으로 만들어 둬요.",
+        "- `data` 에 `[3, 6, 9]` 를 넣어요\n- 합계 `total` 과 인덱스 `i` 를 0으로 만들어요\n- `while i < len(data):` 로 반복해요\n- 반복 안에서 `data[i]` 를 `total` 에 더하고, `i` 를 1 늘려요\n- 반복이 끝나면 `total` 을 출력해요",
+        "```python\ndata = [3, 6, 9]\ntotal = 0\ni = 0\nwhile i < ___(data):\n    total += data[___]\n    i += 1\nprint(___)\n```"
+      ]
     }
   ]
 }

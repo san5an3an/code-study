@@ -4,15 +4,8 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { test } from 'node:test';
 
-import {
-  checkJava,
-  checkJavaSnippet,
-  RunRequestError,
-  runJava,
-  runJavaSnippet,
-  validate,
-  validateSnippet,
-} from './java-runner.ts';
+import { RunRequestError, validate, validateSnippet } from './code-exec.ts';
+import { checkJava, checkJavaSnippet, runJava, runJavaSnippet } from './java-runner.ts';
 
 const CONTENT = path.resolve(import.meta.dirname, '../test-fixtures/content');
 
@@ -166,7 +159,7 @@ const bad: [string, unknown, RegExp][] = [
   ],
   [
     '아직 없는 과목',
-    { course: 'python', lectureId: '03', file: 'a.py', source: '', stdin: '' },
+    { course: 'ruby', lectureId: '03', file: 'a.rb', source: '', stdin: '' },
     /과목/,
   ],
   [
@@ -241,7 +234,7 @@ test('퀴즈 답 검사: 닫는 괄호가 모자라 감싼 줄에서 난 에러�
 
 const badSnippet: [string, unknown, RegExp][] = [
   ['과목이 없음', { source: '' }, /과목/],
-  ['아직 없는 과목', { course: 'python', source: 'print(1)' }, /과목/],
+  ['아직 없는 과목', { course: 'ruby', source: 'puts 1' }, /과목/],
   ['source 가 글자가 아님', { course: 'java', source: 1 }, /글자/],
   ['코드가 64KB 초과', { course: 'java', source: 'x'.repeat(65 * 1024) }, /64KB/],
 ];
@@ -281,6 +274,21 @@ test('퀴즈 답 실행: 5초를 넘기면 멈추고 시간 초과로 알림', a
   const r = await runJavaSnippet('while (true) {}');
   assert.ok(r.ok);
   assert.equal(r.run?.timedOut, true);
+});
+
+test('퀴즈 답 실행: ProcessBuilder 로 띄운 손주는 프로그램이 끝날 때 같이 꺼짐', async () => {
+  const r = await runJavaSnippet(`public class Spawn {
+  public static void main(String[] args) throws Exception {
+    Process p = new ProcessBuilder("sleep", "30").start();
+    System.out.println(p.pid());
+  }
+}
+`);
+  assert.ok(r.ok);
+  const pid = Number(r.run?.stdout.trim());
+  assert.ok(pid > 0);
+  // 신호 0 은 아무것도 안 보내고 살아 있는지만 봄. 없으면 ESRCH 로 던짐
+  assert.throws(() => process.kill(pid, 0), { code: 'ESRCH' });
 });
 
 test('퀴즈 답 실행: 답이 만든 파일은 지금 폴더에 남지 않음', async () => {

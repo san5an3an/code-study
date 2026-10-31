@@ -169,10 +169,10 @@ test('요청한 과목이 없으면 400 으로 답하고 코드를 실행하지 
   await page.goto('/');
   const r = await call({
     body: JSON.stringify({
-      course: 'python',
+      course: 'ruby',
       lectureId: '03',
-      file: 'a.py',
-      source: 'print(1)',
+      file: 'a.rb',
+      source: 'puts 1',
       stdin: '',
     }),
   });
@@ -229,6 +229,31 @@ test('퀴즈 답 실행 주소는 문장만 쓴 코드를 감싸서 돌리고 �
   });
   expect(r.status).toBe(200);
   expect(r.json.run?.stdout).toBe('합계: 3\n');
+});
+
+test('파이썬 예제도 실행 주소에서 돌고 출력의 한글이 깨지지 않음', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({
+    body: JSON.stringify({
+      course: 'python',
+      lectureId: '08',
+      file: 'string_basics.py',
+      source: 'print("합계:", 1 + 2)\n',
+      stdin: '',
+    }),
+  });
+  expect(r.status).toBe(200);
+  expect(r.json.run?.stdout).toBe('합계: 3\n');
+});
+
+test('파이썬 퀴즈 답 검사 주소는 문법 에러 위치를 돌려줌', async ({ page }) => {
+  await page.goto('/');
+  const r = await call({
+    path: '/api/check-snippet',
+    body: JSON.stringify({ course: 'python', source: 'a = 1\nif a == 1\n    print(a)\n' }),
+  });
+  expect(r.status).toBe(200);
+  expect(r.json.diagnostics?.[0]).toMatchObject({ line: 2, severity: 'error' });
 });
 
 test('퀴즈 답 실행 주소도 다른 사이트 Origin 이면 403 으로 거절함', async ({ page }) => {
