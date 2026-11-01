@@ -334,3 +334,21 @@ test('문제 글에 출력 모양이 없는 16강 12번에만 출력 예가 뜸'
   );
   await expect(page.getByTestId('quiz-output-example')).toHaveCount(1);
 });
+
+test('어두운 화면에서도 문제 종류 칸 바탕이 카드 바탕과 다른 색이라 칸이 보임', async ({
+  page,
+}) => {
+  await page.goto('/java/lecture/03?tab=quiz');
+  const card = page.getByTestId('quiz-1');
+  const kind = card.locator('[data-slot="badge"][data-variant="secondary"]');
+  // 칸에는 색이 바뀔 때 부드럽게 넘어가는 효과가 있어서, 그 효과가 끝난 뒤의 색을 읽음
+  const bg = (locator: typeof card) =>
+    locator.evaluate(async (el) => {
+      await Promise.all(el.getAnimations().map((a) => a.finished));
+      return getComputedStyle(el).backgroundColor;
+    });
+  // 밝은 화면은 원래 칸이 보이고, 어두운 화면에서 카드와 같은 색이 되던 것을 고침(ADR-062)
+  expect(await bg(kind)).not.toBe(await bg(card));
+  await page.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
+  expect(await bg(kind)).not.toBe(await bg(card));
+});
