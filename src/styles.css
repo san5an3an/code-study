@@ -244,6 +244,10 @@
 [data-theme='dark'] [data-slot='empty-media'][data-variant='icon'] {
   background: var(--semantic-bg-neutral-subtlest);
 }
+/* 문제 종류 칸 바탕: 어두운 화면에선 secondary 가 카드 색과 같아(#222223) 안 보여서 탭 목록과 같이 한 단계 어둡게 함 */
+[data-theme='dark'] [data-slot='badge'][data-variant='secondary'] {
+  background: var(--semantic-bg-neutral-subtlest);
+}
 
 @keyframes marquee-slide {
   0%,
