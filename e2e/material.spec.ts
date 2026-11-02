@@ -11,7 +11,7 @@ test('자동 받아쓰기 안내, 첫 장면, 받아쓰기 598줄이 보임', as
   const image = page.getByTestId('frame-image');
   await expect(image).toHaveAttribute('src', '/frames/java/03/t00m00s.jpg');
   await expect.poll(() => image.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBe(1280);
-  await expect(position(page)).toHaveText('1 / 44 · 00:00');
+  await expect(position(page)).toHaveText('1 / 51 · 00:00');
   await expect(page.getByTestId('transcript-count')).toHaveText('598줄');
   await expect(page.getByTestId('transcript').locator('li')).toHaveCount(598);
   // 손잡이는 하나만 있음
@@ -22,12 +22,12 @@ test('이전, 다음 버튼과 키보드 화살표로 장면을 넘김', async (
   await page.goto('/java/lecture/03?tab=material');
   await expect(page.getByRole('button', { name: '이전 장면' })).toBeDisabled();
   await page.getByRole('button', { name: '다음 장면' }).click();
-  await expect(position(page)).toHaveText('2 / 44 · 00:15');
+  await expect(position(page)).toHaveText('2 / 51 · 00:05');
   await page.getByRole('region', { name: '화면 캡처' }).focus();
   await page.keyboard.press('ArrowRight');
-  await expect(position(page)).toHaveText('3 / 44 · 00:30');
+  await expect(position(page)).toHaveText('3 / 51 · 00:10');
   await page.keyboard.press('ArrowLeft');
-  await expect(position(page)).toHaveText('2 / 44 · 00:15');
+  await expect(position(page)).toHaveText('2 / 51 · 00:05');
 });
 
 test('슬라이더에서 화살표를 누르면 한 칸씩만 움직이고, End 로 마지막 장면에 감', async ({
@@ -36,20 +36,20 @@ test('슬라이더에서 화살표를 누르면 한 칸씩만 움직이고, End 
   await page.goto('/java/lecture/03?tab=material');
   await slider(page).focus();
   await page.keyboard.press('ArrowRight');
-  await expect(position(page)).toHaveText('2 / 44 · 00:15');
+  await expect(position(page)).toHaveText('2 / 51 · 00:05');
   await page.keyboard.press('End');
-  await expect(position(page)).toHaveText('44 / 44 · 26:00');
+  await expect(position(page)).toHaveText('51 / 51 · 26:10');
   await expect(page.getByRole('button', { name: '다음 장면' })).toBeDisabled();
 });
 
 test('받아쓰기 시각을 누르면 그 직전 장면으로 가고, 그 장면의 줄이 표시됨', async ({ page }) => {
   await page.goto('/java/lecture/03?tab=material');
   await page.getByRole('button', { name: '01:06 장면 보기' }).click();
-  // 01:06 직전 캡처는 00:30. 같은 화면은 지워 둬서 00:30 다음이 05:00
-  await expect(position(page)).toHaveText('3 / 44 · 00:30');
+  // 01:06 직전 캡처는 00:35. 같은 화면은 합쳐 둬서 00:35 다음이 05:00
+  await expect(position(page)).toHaveText('6 / 51 · 00:35');
   await expect(page.getByTestId('frame-image')).toHaveAttribute(
     'src',
-    '/frames/java/03/t00m30s.jpg',
+    '/frames/java/03/t00m35s.jpg',
   );
   const lines = page.getByTestId('transcript').locator('li');
   await expect(lines.filter({ hasText: '01:06' })).toHaveAttribute('data-current', 'true');
@@ -72,8 +72,8 @@ test('이 장면 말 보기는 검색어를 지우고 받아쓰기 칸 안에서
 }) => {
   await page.goto('/java/lecture/03?tab=material');
   await slider(page).focus();
-  for (let n = 0; n < 3; n++) await page.keyboard.press('ArrowRight');
-  await expect(position(page)).toHaveText('4 / 44 · 05:00');
+  for (let n = 0; n < 6; n++) await page.keyboard.press('ArrowRight');
+  await expect(position(page)).toHaveText('7 / 51 · 05:00');
   await page.getByRole('searchbox', { name: '받아쓰기 검색' }).fill('변수');
   const button = page.getByRole('button', { name: '이 장면 말 보기' });
   await button.scrollIntoViewIfNeeded();
@@ -99,7 +99,7 @@ test('다른 탭을 보고 돌아오면 장면이 남고, 다른 강의로 가�
   await page.getByRole('button', { name: '다음 장면' }).click();
   await page.getByRole('tab', { name: '노트' }).click();
   await page.getByRole('tab', { name: '강의 자료' }).click();
-  await expect(position(page)).toHaveText('2 / 44 · 00:15');
+  await expect(position(page)).toHaveText('2 / 51 · 00:05');
   await page
     .getByRole('navigation', { name: '강의 이동' })
     .getByRole('link', { name: '04강' })
