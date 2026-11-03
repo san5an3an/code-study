@@ -11,7 +11,7 @@ export function formatTime(sec: number) {
   return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;
 }
 
-// 그 시각 바로 전에 찍은 장면 번호. 캡처는 15초 간격 사진이라 정확히 그 순간은 아님
+// 그 시각 바로 전에 찍은 장면 번호. 캡처는 5초 간격으로 찍어 같은 화면을 합친 사진이라 정확히 그 순간은 아님
 export function frameIndexAt(frames: readonly Frame[], t: number) {
   let found = 0;
   for (let i = 0; i < frames.length; i++) {

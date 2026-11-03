@@ -1,6 +1,6 @@
 // npm run sync: ~/Downloads/Java-notes, ~/Downloads/Python-notes 의 노트, 퀴즈, 예제 코드, 받아쓰기를
 // public/content/java, public/content/python 으로 가져옴
-// 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/<과목> 에 미리 넣어 두고(파이썬은 npm run capture) 목록만 만듦
+// 원본 폴더는 읽기만 함. 화면 캡처 사진은 public/frames/<과목> 에 미리 넣어 두고(npm run capture) 목록만 만듦
 import {
   cpSync,
   existsSync,
