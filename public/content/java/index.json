@@ -4,153 +4,153 @@
     "questions": 11,
     "codeFiles": 1,
     "transcriptLines": 337,
-    "frames": 21
+    "frames": 19
   },
   {
     "id": "02",
     "questions": 12,
     "codeFiles": 2,
     "transcriptLines": 568,
-    "frames": 67
+    "frames": 65
   },
   {
     "id": "03",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 598,
-    "frames": 51
+    "frames": 49
   },
   {
     "id": "04",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 523,
-    "frames": 60
+    "frames": 58
   },
   {
     "id": "05",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 977,
-    "frames": 65
+    "frames": 63
   },
   {
     "id": "06",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 993,
-    "frames": 97
+    "frames": 95
   },
   {
     "id": "07",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 890,
-    "frames": 85
+    "frames": 83
   },
   {
     "id": "08",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 1258,
-    "frames": 91
+    "frames": 89
   },
   {
     "id": "09",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 1124,
-    "frames": 71
+    "frames": 69
   },
   {
     "id": "10",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 595,
-    "frames": 106
+    "frames": 104
   },
   {
     "id": "11",
     "questions": 11,
     "codeFiles": 3,
     "transcriptLines": 538,
-    "frames": 88
+    "frames": 86
   },
   {
     "id": "12",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 609,
-    "frames": 106
+    "frames": 104
   },
   {
     "id": "13",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 489,
-    "frames": 95
+    "frames": 93
   },
   {
     "id": "14",
     "questions": 11,
     "codeFiles": 4,
     "transcriptLines": 1010,
-    "frames": 103
+    "frames": 101
   },
   {
     "id": "15",
     "questions": 11,
     "codeFiles": 3,
     "transcriptLines": 532,
-    "frames": 115
+    "frames": 113
   },
   {
     "id": "16",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 1431,
-    "frames": 88
+    "frames": 86
   },
   {
     "id": "17",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 521,
-    "frames": 112
+    "frames": 110
   },
   {
     "id": "18",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 758,
-    "frames": 105
+    "frames": 103
   },
   {
     "id": "19",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 440,
-    "frames": 91
+    "frames": 89
   },
   {
     "id": "20",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 433,
-    "frames": 98
+    "frames": 96
   },
   {
     "id": "21",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 534,
-    "frames": 93
+    "frames": 91
   },
   {
     "id": "22",
     "questions": 11,
     "codeFiles": 5,
     "transcriptLines": 645,
-    "frames": 92
+    "frames": 90
   }
 ]
