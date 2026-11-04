@@ -18,20 +18,41 @@ export function frameFileName(seconds: number) {
   return `t${String(m).padStart(2, '0')}m${String(s).padStart(2, '0')}s.jpg`;
 }
 
-// 0초부터 step 간격으로 찍을 시각. 영상 길이와 같은 시각은 사진이 안 나와서 뺌
-export function slotTimes(durationSeconds: number, step = STEP_SECONDS) {
+// from 초부터 step 간격으로 찍을 시각. 영상 길이와 같은 시각은 사진이 안 나와서 뺌
+export function slotTimes(durationSeconds: number, step = STEP_SECONDS, from = 0) {
   const times: number[] = [];
-  for (let t = 0; t < durationSeconds; t += step) times.push(t);
+  for (let t = from; t < durationSeconds; t += step) times.push(t);
   return times;
+}
+
+// 한 가지 색만 있는 빈 화면(장면 사이 검은 화면 등). 가장 많은 색에서 벗어난 화소가 lost 이하면 빈 화면
+// 내용이 가장 적은 화면(VS Code 시작 화면)도 172화소라 100 으로 갈림(자바 1,900장, 파이썬 1,466장)
+export function isBlankFrame(frame: Uint8Array, threshold = PIXEL_THRESHOLD, lost = LOST_PIXELS) {
+  const counts = new Map<number, number>();
+  let top = 0;
+  let topCount = 0;
+  for (let i = 0; i < frame.length; i += 3) {
+    const key = (frame[i] << 16) | (frame[i + 1] << 8) | frame[i + 2];
+    const n = (counts.get(key) ?? 0) + 1;
+    counts.set(key, n);
+    if (n > topCount) {
+      top = i;
+      topCount = n;
+    }
+  }
+  let off = 0;
+  for (let i = 0; i < frame.length; i += 3) if (changed(frame, frame, i, threshold, top)) off++;
+  return off <= lost;
 }
 
 function sameSize(a: Uint8Array, b: Uint8Array) {
   if (a.length !== b.length) throw new Error(`사진 크기가 다름: ${a.length}, ${b.length}`);
 }
 
-function changed(a: Uint8Array, b: Uint8Array, i: number, threshold: number) {
+// a 의 i 번째 화소와 b 의 j 번째 화소(기본은 같은 자리)가 다른지
+function changed(a: Uint8Array, b: Uint8Array, i: number, threshold: number, j = i) {
   return (
-    Math.max(Math.abs(a[i] - b[i]), Math.abs(a[i + 1] - b[i + 1]), Math.abs(a[i + 2] - b[i + 2])) >
+    Math.max(Math.abs(a[i] - b[j]), Math.abs(a[i + 1] - b[j + 1]), Math.abs(a[i + 2] - b[j + 2])) >
     threshold
   );
 }

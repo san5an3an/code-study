@@ -4,6 +4,7 @@ import { test } from 'node:test';
 import {
   changedPixelCount,
   frameFileName,
+  isBlankFrame,
   lostPixelCount,
   mergeSpans,
   slotTimes,
@@ -27,6 +28,26 @@ test('0초부터 5초 간격으로 찍고, 영상 길이와 같은 시각은 뺌
   assert.deepEqual(slotTimes(15), [0, 5, 10]);
   assert.deepEqual(slotTimes(15.2), [0, 5, 10, 15]);
   assert.deepEqual(slotTimes(0), []);
+});
+
+test('영상 앞부분을 건너뛰면 그 초부터 찍음', () => {
+  assert.deepEqual(slotTimes(30, 5, 10), [10, 15, 20, 25]);
+  assert.deepEqual(slotTimes(10, 5, 10), []);
+});
+
+test('한 가지 색만 있으면 빈 화면이고, 가장 많은 색에서 벗어난 화소가 기준보다 많으면 내용이 있는 화면', () => {
+  const frame = (white: number, red: number) =>
+    shot(
+      ...Array<[number, number, number]>(red).fill(R),
+      ...Array<[number, number, number]>(white).fill(W),
+    );
+  assert.equal(isBlankFrame(shot(W, W, W, W)), true);
+  assert.equal(isBlankFrame(shot(K, K, K, K)), true);
+  // 기준 2화소: 빨강이 앞에 2개면 빈 화면, 3개면 내용. 첫 화소가 아니라 가장 많은 색(흰색)을 기준으로 셈
+  assert.equal(isBlankFrame(frame(7, 2), 32, 2), true);
+  assert.equal(isBlankFrame(frame(7, 3), 32, 2), false);
+  // 압축 때문에 조금씩 다른 흰색은 같은 색으로 봄
+  assert.equal(isBlankFrame(shot(W, [250, 250, 250], W, [240, 240, 240]), 32, 0), true);
 });
 
 test('바뀐 화소는 R, G, B 중 가장 큰 차이로 세서 밝기가 비슷한 색 펜도 잡고, 크기가 다르면 멈춤', () => {
