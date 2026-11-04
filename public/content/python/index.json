@@ -4,125 +4,125 @@
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 509,
-    "frames": 41
+    "frames": 39
   },
   {
     "id": "02",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 430,
-    "frames": 67
+    "frames": 65
   },
   {
     "id": "03",
     "questions": 12,
     "codeFiles": 2,
     "transcriptLines": 399,
-    "frames": 74
+    "frames": 73
   },
   {
     "id": "04",
     "questions": 12,
     "codeFiles": 3,
     "transcriptLines": 551,
-    "frames": 136
+    "frames": 134
   },
   {
     "id": "05",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 369,
-    "frames": 103
+    "frames": 101
   },
   {
     "id": "06",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 540,
-    "frames": 65
+    "frames": 63
   },
   {
     "id": "07",
     "questions": 12,
     "codeFiles": 9,
     "transcriptLines": 555,
-    "frames": 74
+    "frames": 72
   },
   {
     "id": "08",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 292,
-    "frames": 66
+    "frames": 64
   },
   {
     "id": "09",
     "questions": 12,
     "codeFiles": 4,
     "transcriptLines": 449,
-    "frames": 52
+    "frames": 48
   },
   {
     "id": "10",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 320,
-    "frames": 55
+    "frames": 53
   },
   {
     "id": "11",
     "questions": 12,
     "codeFiles": 7,
     "transcriptLines": 486,
-    "frames": 64
+    "frames": 62
   },
   {
     "id": "12",
     "questions": 12,
     "codeFiles": 8,
     "transcriptLines": 416,
-    "frames": 103
+    "frames": 101
   },
   {
     "id": "13",
     "questions": 12,
     "codeFiles": 6,
     "transcriptLines": 398,
-    "frames": 91
+    "frames": 89
   },
   {
     "id": "14",
     "questions": 12,
     "codeFiles": 10,
     "transcriptLines": 469,
-    "frames": 148
+    "frames": 146
   },
   {
     "id": "15",
     "questions": 12,
     "codeFiles": 8,
     "transcriptLines": 477,
-    "frames": 114
+    "frames": 112
   },
   {
     "id": "16",
     "questions": 12,
     "codeFiles": 8,
     "transcriptLines": 559,
-    "frames": 111
+    "frames": 109
   },
   {
     "id": "17",
     "questions": 12,
     "codeFiles": 5,
     "transcriptLines": 786,
-    "frames": 49
+    "frames": 47
   },
   {
     "id": "18",
     "questions": 12,
     "codeFiles": 7,
     "transcriptLines": 333,
-    "frames": 53
+    "frames": 51
   }
 ]

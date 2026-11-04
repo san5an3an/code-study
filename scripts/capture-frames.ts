@@ -1,5 +1,5 @@
-// npm run capture -- <과목> <강의 번호...|--all>: 강의 영상에서 5초마다 화면을 찍고 같은 화면이 이어지는 구간을 한 장으로 합쳐
-// public/frames/<과목>/NN 에 씀. 영상 폴더는 읽기만 함. 다시 돌리면 그 강의 사진을 새로 찍어 바꿈
+// npm run capture -- <과목> <강의 번호...|--all>: 강의 영상에서 앞부분을 건너뛰고 5초마다 화면을 찍어 빈 화면은 빼고
+// 같은 화면이 이어지는 구간을 한 장으로 합쳐 public/frames/<과목>/NN 에 씀. 영상 폴더는 읽기만 함. 다시 돌리면 그 강의 사진을 새로 찍어 바꿈
 import { spawnSync, type SpawnSyncReturns } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, renameSync, rmSync } from 'node:fs';
 import { homedir } from 'node:os';
@@ -10,6 +10,7 @@ import { JAVA_COURSE } from '../src/app/domain/lectures-java.ts';
 import { PYTHON_COURSE } from '../src/app/domain/lectures-python.ts';
 import {
   frameFileName,
+  isBlankFrame,
   mergeSpans,
   slotTimes,
   SMALL_BYTES,
@@ -19,14 +20,17 @@ import {
 } from './frame-capture.ts';
 
 const APP = path.resolve(import.meta.dirname, '..');
-const SOURCES: Record<string, { course: Course; videos: string }> = {
+// introSeconds: 영상 앞에서 안 찍을 초. 두 과목 40강 모두 0초 흰 화면, 5초 학원 로고, 10초 강의 제목으로 시작함
+const SOURCES: Record<string, { course: Course; videos: string; introSeconds: number }> = {
   java: {
     course: JAVA_COURSE,
     videos: process.env['JAVA_VIDEOS'] ?? path.join(homedir(), 'Downloads/Java'),
+    introSeconds: 10,
   },
   python: {
     course: PYTHON_COURSE,
     videos: process.env['PYTHON_VIDEOS'] ?? path.join(homedir(), 'Downloads/Python'),
+    introSeconds: 10,
   },
 };
 // 시험 삼아 찍을 때는 다른 폴더로 돌림
@@ -119,7 +123,7 @@ function grab(video: string, t: number, jpg: string) {
   throw new Error(`${t}초 화면을 못 찍음: ${video}\n${String(r.stderr)}`);
 }
 
-function captureLecture(courseId: string, id: string, videosDir: string) {
+function captureLecture(courseId: string, id: string, videosDir: string, introSeconds: number) {
   const started = Date.now();
   const video = findVideo(videosDir, id);
   const outDir = path.join(OUT_ROOT, courseId, id);
@@ -135,7 +139,7 @@ function captureLecture(courseId: string, id: string, videosDir: string) {
   try {
     const duration = durationOf(video);
     const shots: { t: number; file: string; small: Uint8Array }[] = [];
-    for (const t of slotTimes(duration)) {
+    for (const t of slotTimes(duration, STEP_SECONDS, introSeconds)) {
       const file = frameFileName(t);
       const small = grab(video, t, path.join(work, file));
       if (small) {
@@ -146,22 +150,27 @@ function captureLecture(courseId: string, id: string, videosDir: string) {
       if (t + STEP_SECONDS < duration) throw new Error(`${id}강: ${t}초에 화면이 없음`);
       break;
     }
-    if (shots.length === 0) throw new Error(`${id}강: 찍힌 화면이 없음`);
-    const spans = mergeSpans(shots.map((s) => s.small));
+    // 장면 사이 검은 화면처럼 한 가지 색만 있는 장은 볼 게 없어서 빼고 합침
+    const content = shots.filter((s) => !isBlankFrame(s.small));
+    if (content.length === 0) throw new Error(`${id}강: 찍힌 화면이 없음`);
+    const spans = mergeSpans(content.map((s) => s.small));
 
     // 사진은 구간 끝 화면, 이름은 그 화면이 처음 나온 구간 시작 시각
     const next = path.join(work, 'kept');
     mkdirSync(next);
     for (const { image, start } of spans) {
       renameSync(
-        path.join(work, shots[image].file),
-        path.join(next, frameFileName(shots[start].t)),
+        path.join(work, content[image].file),
+        path.join(next, frameFileName(content[start].t)),
       );
     }
     rmSync(outDir, { recursive: true, force: true });
     renameSync(next, outDir);
     const seconds = ((Date.now() - started) / 1000).toFixed(1);
-    console.log(`${id}강  찍음 ${shots.length}장  남김 ${spans.length}장  (${seconds}초)`);
+    const blank = shots.length - content.length;
+    console.log(
+      `${id}강  찍음 ${shots.length}장  빈 화면 ${blank}장  남김 ${spans.length}장  (${seconds}초)`,
+    );
     return spans.length;
   } finally {
     rmSync(work, { recursive: true, force: true });
@@ -194,7 +203,9 @@ function main() {
   if (unknown.length) throw new Error(`없는 강의 번호: ${unknown.join(', ')}`);
 
   let total = 0;
-  for (const id of all ? known : ids) total += captureLecture(courseId, id, source.videos);
+  for (const id of all ? known : ids) {
+    total += captureLecture(courseId, id, source.videos, source.introSeconds);
+  }
   console.log(`합계  남김 ${total}장  → ${path.join(OUT_ROOT, courseId)}`);
   console.log('강의 자료 목록(frames.json)은 npm run sync 를 돌려야 새 사진에 맞춰짐');
 }
