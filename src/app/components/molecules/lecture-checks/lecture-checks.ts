@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+// 체크 원은 ng-icons 의 lucide 가 옛 모양이라(최신 36.1 도 같음) 새 모양인 @lucide/angular 를 씀
 import { LucideCircleCheck } from '@lucide/angular';
 import { HlmCheckboxImports } from '@spartan-ng/helm/checkbox';
 

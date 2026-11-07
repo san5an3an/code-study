@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideArrowRight } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 
@@ -13,7 +14,8 @@ import type { QuizAnswerChange, QuizGradeRequest } from '../quiz-view/quiz-view'
 // 오답 노트의 강의 하나 묶음. 제목 줄과 그 강의 퀴즈로 가는 링크, 틀린 문제 카드들. 답과 기록은 이 컴포넌트를 쓰는 부모가 들고 있음
 @Component({
   selector: 'app-review-group',
-  imports: [HlmButtonImports, HlmEmptyImports, LucideArrowRight, QuestionCard, RouterLink],
+  imports: [HlmButtonImports, HlmEmptyImports, QuestionCard, RouterLink, NgIcon],
+  providers: [provideIcons({ lucideArrowRight })],
   template: `
     <section
       class="flex flex-col gap-4"
@@ -35,7 +37,7 @@ import type { QuizAnswerChange, QuizGradeRequest } from '../quiz-view/quiz-view'
           [queryParams]="{ tab: 'quiz' }"
         >
           이 강의 퀴즈로 가기
-          <svg lucideArrowRight [size]="14"></svg>
+          <ng-icon name="lucideArrowRight" size="14" />
         </a>
       </div>
       @if (group().failed) {

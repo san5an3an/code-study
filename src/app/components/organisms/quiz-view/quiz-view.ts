@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { LucideRotateCcw } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideRotateCcw } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
@@ -20,7 +21,8 @@ export type QuizGradeRequest = { q: QuizQuestion; source: string };
 // 퀴즈 탭 화면. 요약 줄, 최고 기록, 문제 카드 목록, 처음부터 다시. 답과 기록은 이 컴포넌트를 쓰는 부모가 들고 있음
 @Component({
   selector: 'app-quiz-view',
-  imports: [HlmButtonImports, HlmEmptyImports, HlmSkeletonImports, LucideRotateCcw, QuestionCard],
+  imports: [HlmButtonImports, HlmEmptyImports, HlmSkeletonImports, QuestionCard, NgIcon],
+  providers: [provideIcons({ lucideRotateCcw })],
   template: `
     @switch (view()) {
       @case ('loading') {
@@ -71,7 +73,7 @@ export type QuizGradeRequest = { q: QuizQuestion; source: string };
           }
           @if (started()) {
             <button hlmBtn variant="outline" class="self-start" (click)="resetAll.emit()">
-              <svg lucideRotateCcw [size]="16"></svg>
+              <ng-icon name="lucideRotateCcw" size="16" />
               처음부터 다시
             </button>
           }

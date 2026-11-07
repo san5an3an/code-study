@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideArrowRight } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideArrowRight } from '@ng-icons/lucide';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmProgressImports } from '@spartan-ng/helm/progress';
 
@@ -9,7 +10,8 @@ import { percent, type PartSummary } from '../../../domain/course-summary';
 // 부 하나의 진행 카드. 카드 전체가 그 부의 첫 강의로 가는 링크
 @Component({
   selector: 'app-part-progress',
-  imports: [RouterLink, HlmCardImports, HlmProgressImports, LucideArrowRight],
+  imports: [RouterLink, HlmCardImports, HlmProgressImports, NgIcon],
+  providers: [provideIcons({ lucideArrowRight })],
   template: `
     <a
       [routerLink]="href()"
@@ -33,7 +35,7 @@ import { percent, type PartSummary } from '../../../domain/course-summary';
           </hlm-progress>
           <p class="mt-2 flex items-center gap-1 text-xs text-muted-foreground">
             {{ summary().first.id }}강부터
-            <svg lucideArrowRight [size]="12"></svg>
+            <ng-icon name="lucideArrowRight" size="12" />
           </p>
         </div>
       </div>
