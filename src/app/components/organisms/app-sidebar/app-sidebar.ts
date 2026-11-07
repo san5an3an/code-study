@@ -64,6 +64,11 @@ import { CourseSwitcher } from '../../molecules/course-switcher/course-switcher'
                   <ng-icon name="lucideNotebookPen" class="shrink-0" size="16" />
                   <span>오답 노트</span>
                 </a>
+                @if (reviewCount() > 0) {
+                  <span hlmSidebarMenuBadge data-testid="review-count"
+                    >{{ reviewCount() }}<span class="sr-only">문제</span></span
+                  >
+                }
               </li>
             </ul>
           </div>
@@ -123,6 +128,8 @@ export class AppSidebar {
   readonly courses = input.required<readonly Course[]>();
   readonly course = input.required<Course>();
   readonly completed = input.required<ReadonlySet<string>>();
+  // review page에 나오는 틀린 문제 수. 0 이면 badge 숨김
+  readonly reviewCount = input(0);
   readonly courseChange = output<CourseId>();
 
   protected readonly base = computed(() => '/' + this.course().id);
