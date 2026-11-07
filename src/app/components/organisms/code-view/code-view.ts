@@ -6,7 +6,8 @@ import {
   linkedSignal,
   output,
 } from '@angular/core';
-import { LucideLoaderCircle, LucidePlay, LucideRotateCcw } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideLoaderCircle, lucidePlay, lucideRotateCcw } from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
@@ -45,10 +46,9 @@ export type CodeRunRequest = { source: string; stdin: string };
     HlmSkeletonImports,
     HlmTabsImports,
     HlmTextareaImports,
-    LucideLoaderCircle,
-    LucidePlay,
-    LucideRotateCcw,
+    NgIcon,
   ],
+  providers: [provideIcons({ lucideLoaderCircle, lucidePlay, lucideRotateCcw })],
   template: `
     @switch (view()) {
       @case ('loading') {
@@ -147,7 +147,7 @@ export type CodeRunRequest = { source: string; stdin: string };
                     <div class="flex gap-2">
                       @if (edited() || live()) {
                         <button hlmBtn variant="outline" size="sm" (click)="resetAll()">
-                          <svg lucideRotateCcw [size]="16"></svg>
+                          <ng-icon name="lucideRotateCcw" size="16" />
                           원래대로
                         </button>
                       }
@@ -159,10 +159,10 @@ export type CodeRunRequest = { source: string; stdin: string };
                           (click)="run.emit({ source: currentText(), stdin: stdin() })"
                         >
                           @if (running()) {
-                            <svg lucideLoaderCircle [size]="16" class="animate-spin"></svg>
+                            <ng-icon name="lucideLoaderCircle" size="16" class="animate-spin" />
                             실행 중…
                           } @else {
-                            <svg lucidePlay [size]="16"></svg>
+                            <ng-icon name="lucidePlay" size="16" />
                             실행
                           }
                         </button>

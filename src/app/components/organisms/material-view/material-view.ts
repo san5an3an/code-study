@@ -8,12 +8,13 @@ import {
   linkedSignal,
   viewChild,
 } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  LucideChevronLeft,
-  LucideChevronRight,
-  LucideInfo,
-  LucideListStart,
-} from '@lucide/angular';
+  lucideChevronLeft,
+  lucideChevronRight,
+  lucideInfo,
+  lucideListStart,
+} from '@ng-icons/lucide';
 import { HlmAlertImports } from '@spartan-ng/helm/alert';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
@@ -47,12 +48,10 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
     HlmScrollAreaImports,
     HlmSkeletonImports,
     HlmSliderImports,
-    LucideChevronLeft,
-    LucideChevronRight,
-    LucideInfo,
-    LucideListStart,
     NgScrollbar,
+    NgIcon,
   ],
+  providers: [provideIcons({ lucideChevronLeft, lucideChevronRight, lucideInfo, lucideListStart })],
   template: `
     @switch (view()) {
       @case ('loading') {
@@ -79,9 +78,9 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
       }
       @case ('ready') {
         <div class="flex flex-col gap-6">
-          <!-- Spartan 의 아이콘 배치 규칙이 ng-icon 에만 걸려 있어 lucide 아이콘에 같은 배치를 직접 줌 -->
-          <div hlmAlert class="grid-cols-[auto_1fr] gap-x-2">
-            <svg lucideInfo class="translate-y-0.5" [size]="16"></svg>
+          <!-- 아이콘 배치는 Spartan 알림창 규칙을 따름 -->
+          <div hlmAlert>
+            <ng-icon name="lucideInfo" size="16" />
             <p hlmAlertDescription class="col-start-2">
               자동 받아쓰기라 틀린 글자가 있을 수 있어요.
             </p>
@@ -108,7 +107,7 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
                 [disabled]="index() === 0"
                 (click)="index.set(index() - 1)"
               >
-                <svg lucideChevronLeft [size]="16"></svg>
+                <ng-icon name="lucideChevronLeft" size="16" />
               </button>
               @if (last() > 0) {
                 <hlm-slider
@@ -129,7 +128,7 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
                 [disabled]="index() === last()"
                 (click)="index.set(index() + 1)"
               >
-                <svg lucideChevronRight [size]="16"></svg>
+                <ng-icon name="lucideChevronRight" size="16" />
               </button>
             </div>
             <p
@@ -144,7 +143,7 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
             <div class="flex flex-wrap items-center justify-between gap-2">
               <h2 id="transcript-heading" class="text-sm font-semibold">받아쓰기</h2>
               <button hlmBtn variant="outline" size="sm" (click)="showScene()">
-                <svg lucideListStart [size]="16"></svg>이 장면 말 보기
+                <ng-icon name="lucideListStart" size="16" />이 장면 말 보기
               </button>
             </div>
             <div class="flex flex-wrap items-center gap-3">

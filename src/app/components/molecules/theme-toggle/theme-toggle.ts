@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { LucideMoon, LucideSun } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideMoon, lucideSun } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 
 // 밝은 화면, 어두운 화면 전환 버튼. 지금 테마를 받아 반대 테마로 바꾸라고 부모에게 알림
 @Component({
   selector: 'app-theme-toggle',
-  imports: [HlmButtonImports, LucideSun, LucideMoon],
+  imports: [HlmButtonImports, NgIcon],
+  providers: [provideIcons({ lucideMoon, lucideSun })],
   template: `
     <button
       hlmBtn
@@ -18,9 +20,9 @@ import { HlmButtonImports } from '@spartan-ng/helm/button';
       (click)="toggle.emit()"
     >
       @if (theme() === 'dark') {
-        <svg lucideSun [size]="16"></svg>
+        <ng-icon name="lucideSun" size="16" />
       } @else {
-        <svg lucideMoon [size]="16"></svg>
+        <ng-icon name="lucideMoon" size="16" />
       }
     </button>
   `,

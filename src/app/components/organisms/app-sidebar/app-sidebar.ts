@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import {
-  LucideBookOpen,
-  LucideCircleCheck,
-  LucideHouse,
-  LucideNotebookPen,
-} from '@lucide/angular';
+// 책·체크 원은 ng-icons 의 lucide 가 옛 모양이라(최신 36.1 도 같음) 새 모양인 @lucide/angular 를 씀
+import { LucideBookOpen, LucideCircleCheck } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideHouse, lucideNotebookPen } from '@ng-icons/lucide';
 import { HlmSidebarImports } from '@spartan-ng/helm/sidebar';
 
 import type { Course, CourseId } from '../../../domain/course';
@@ -19,13 +17,13 @@ import { CourseSwitcher } from '../../molecules/course-switcher/course-switcher'
     HlmSidebarImports,
     RouterLink,
     RouterLinkActive,
-    LucideHouse,
-    LucideNotebookPen,
-    LucideBookOpen,
-    LucideCircleCheck,
     MarqueeText,
     CourseSwitcher,
+    NgIcon,
+    LucideBookOpen,
+    LucideCircleCheck,
   ],
+  providers: [provideIcons({ lucideHouse, lucideNotebookPen })],
   template: `
     <hlm-sidebar collapsible="icon" aria-label="강의 목록">
       <div hlmSidebarHeader>
@@ -50,7 +48,7 @@ import { CourseSwitcher } from '../../molecules/course-switcher/course-switcher'
                   [isActive]="home.isActive"
                   tooltip="홈"
                 >
-                  <svg lucideHouse class="shrink-0" [size]="16"></svg>
+                  <ng-icon name="lucideHouse" class="shrink-0" size="16" />
                   <span>홈</span>
                 </a>
               </li>
@@ -63,7 +61,7 @@ import { CourseSwitcher } from '../../molecules/course-switcher/course-switcher'
                   [isActive]="review.isActive"
                   tooltip="오답 노트"
                 >
-                  <svg lucideNotebookPen class="shrink-0" [size]="16"></svg>
+                  <ng-icon name="lucideNotebookPen" class="shrink-0" size="16" />
                   <span>오답 노트</span>
                 </a>
               </li>
@@ -91,15 +89,19 @@ import { CourseSwitcher } from '../../molecules/course-switcher/course-switcher'
                     >
                       <!-- 끝낸 강의는 책 아이콘 대신 체크 아이콘이라 사이드바를 접어도 구분됨 -->
                       @if (done) {
-                        <svg lucideCircleCheck class="quiz-right shrink-0" [size]="16" aria-hidden="true"></svg>
+                        <svg
+                          lucideCircleCheck
+                          class="quiz-right shrink-0"
+                          [size]="16"
+                          aria-hidden="true"
+                        ></svg>
                       } @else {
                         <svg lucideBookOpen class="shrink-0" [size]="16"></svg>
                       }
                       <span
                         class="w-6 shrink-0 tabular-nums text-muted-foreground group-data-[collapsible=icon]:hidden"
-                        >{{
-                        lecture.id
-                      }}</span>
+                        >{{ lecture.id }}</span
+                      >
                       <app-marquee-text [text]="lecture.title" />
                       @if (done) {
                         <span class="sr-only">끝냄</span>

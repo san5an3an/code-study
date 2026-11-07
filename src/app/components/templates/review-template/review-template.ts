@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LucideNotebookPen } from '@lucide/angular';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideNotebookPen } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
@@ -11,7 +12,8 @@ export type ReviewView = 'loading' | 'empty' | 'none' | 'ready';
 // 오답 노트 화면 배치: 제목과 한 줄 설명, 그 아래 상태에 맞는 내용. 묶음 목록은 이 템플릿을 쓰는 페이지가 [reviewGroups] 자리에 넣음
 @Component({
   selector: 'app-review-template',
-  imports: [HlmButtonImports, HlmEmptyImports, HlmSkeletonImports, LucideNotebookPen, RouterLink],
+  imports: [HlmButtonImports, HlmEmptyImports, HlmSkeletonImports, RouterLink, NgIcon],
+  providers: [provideIcons({ lucideNotebookPen })],
   template: `
     <div class="mx-auto flex w-full max-w-4xl flex-col gap-6">
       <div class="flex flex-col gap-1">
@@ -26,7 +28,7 @@ export type ReviewView = 'loading' | 'empty' | 'none' | 'ready';
           <div hlmEmpty class="border" data-testid="review-empty">
             <div hlmEmptyHeader>
               <div hlmEmptyMedia variant="icon">
-                <svg lucideNotebookPen [size]="16"></svg>
+                <ng-icon name="lucideNotebookPen" size="16" />
               </div>
               <h3 hlmEmptyTitle>틀린 문제가 아직 없어요</h3>
               <p hlmEmptyDescription>퀴즈를 풀다 틀린 문제가 생기면 여기에 모여요.</p>
@@ -42,7 +44,7 @@ export type ReviewView = 'loading' | 'empty' | 'none' | 'ready';
           <div hlmEmpty class="border" data-testid="review-none">
             <div hlmEmptyHeader>
               <div hlmEmptyMedia variant="icon">
-                <svg lucideNotebookPen [size]="16"></svg>
+                <ng-icon name="lucideNotebookPen" size="16" />
               </div>
               <h3 hlmEmptyTitle>이 과목은 아직 퀴즈가 없어요</h3>
               <p hlmEmptyDescription>퀴즈가 생기면 틀린 문제를 여기서 다시 풀 수 있어요.</p>

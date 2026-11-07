@@ -1,13 +1,14 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
-  LucideCheck,
-  LucideEye,
-  LucideLightbulb,
-  LucideLoaderCircle,
-  LucidePlay,
-  LucideRotateCcw,
-  LucideX,
-} from '@lucide/angular';
+  lucideCheck,
+  lucideEye,
+  lucideLightbulb,
+  lucideLoaderCircle,
+  lucidePlay,
+  lucideRotateCcw,
+  lucideX,
+} from '@ng-icons/lucide';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -106,13 +107,18 @@ function gradeViewOf(grade: CodeGrade): GradeView {
     HlmCardImports,
     HlmCheckboxImports,
     HlmTextareaImports,
-    LucideCheck,
-    LucideEye,
-    LucideLightbulb,
-    LucideLoaderCircle,
-    LucidePlay,
-    LucideRotateCcw,
-    LucideX,
+    NgIcon,
+  ],
+  providers: [
+    provideIcons({
+      lucideCheck,
+      lucideEye,
+      lucideLightbulb,
+      lucideLoaderCircle,
+      lucidePlay,
+      lucideRotateCcw,
+      lucideX,
+    }),
   ],
   template: `
     <div
@@ -251,10 +257,10 @@ function gradeViewOf(grade: CodeGrade): GradeView {
                   (click)="gradeRequest.emit(answer().text)"
                 >
                   @if (grading()) {
-                    <svg lucideLoaderCircle [size]="16" class="animate-spin"></svg>
+                    <ng-icon name="lucideLoaderCircle" size="16" class="animate-spin" />
                     채점하는 중…
                   } @else {
-                    <svg lucidePlay [size]="16"></svg>
+                    <ng-icon name="lucidePlay" size="16" />
                     {{ answer().grade ? '다시 채점하기' : '채점하기' }}
                   }
                 </button>
@@ -265,13 +271,13 @@ function gradeViewOf(grade: CodeGrade): GradeView {
                   variant="outline"
                   (click)="set({ hintsShown: answer().hintsShown + 1 })"
                 >
-                  <svg lucideLightbulb [size]="16"></svg>
+                  <ng-icon name="lucideLightbulb" size="16" />
                   힌트 보기 ({{ answer().hintsShown + 1 }}/{{ hints().length }})
                 </button>
               }
               @if (!answer().revealed) {
                 <button hlmBtn variant="outline" (click)="set({ revealed: true })">
-                  <svg lucideEye [size]="16"></svg>
+                  <ng-icon name="lucideEye" size="16" />
                   정답 보기
                 </button>
               }
@@ -300,9 +306,9 @@ function gradeViewOf(grade: CodeGrade): GradeView {
                 [class.quiz-wrong]="g.tone === 'wrong'"
               >
                 @if (g.tone === 'right') {
-                  <svg lucideCheck [size]="16"></svg>
+                  <ng-icon name="lucideCheck" size="16" />
                 } @else if (g.tone === 'wrong') {
-                  <svg lucideX [size]="16"></svg>
+                  <ng-icon name="lucideX" size="16" />
                 }
                 {{ g.title }}
               </p>
@@ -339,12 +345,12 @@ function gradeViewOf(grade: CodeGrade): GradeView {
           @if (auto()) {
             @if (verdict() === 'right') {
               <p class="quiz-right flex items-center gap-1 font-semibold">
-                <svg lucideCheck [size]="16"></svg>
+                <ng-icon name="lucideCheck" size="16" />
                 맞았어요
               </p>
             } @else {
               <p class="quiz-wrong flex items-center gap-1 font-semibold">
-                <svg lucideX [size]="16"></svg>
+                <ng-icon name="lucideX" size="16" />
                 틀렸어요
               </p>
             }
@@ -370,7 +376,7 @@ function gradeViewOf(grade: CodeGrade): GradeView {
               [attr.aria-pressed]="answer().self === 'right'"
               (click)="set({ self: 'right' })"
             >
-              <svg lucideCheck [size]="14"></svg>
+              <ng-icon name="lucideCheck" size="14" />
               맞았어요
             </button>
             <button
@@ -380,7 +386,7 @@ function gradeViewOf(grade: CodeGrade): GradeView {
               [attr.aria-pressed]="answer().self === 'wrong'"
               (click)="set({ self: 'wrong' })"
             >
-              <svg lucideX [size]="14"></svg>
+              <ng-icon name="lucideX" size="14" />
               틀렸어요
             </button>
           </div>
@@ -394,7 +400,7 @@ function gradeViewOf(grade: CodeGrade): GradeView {
             class="self-start"
             (click)="answerChange.emit(empty)"
           >
-            <svg lucideRotateCcw [size]="14"></svg>
+            <ng-icon name="lucideRotateCcw" size="14" />
             다시 풀기
           </button>
         }
