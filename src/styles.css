@@ -6,8 +6,8 @@
 @import '@spartan-ng/brain/hlm-tailwind-preset.css';
 @import '@fontsource-variable/geist';
 
-/* 색과 치수 토큰은 Cobalt 를 씀. Spartan 이 넣은 neutral 테마 대신 씀 */
-@import './design-system/cobalt/vars.css';
+/* 색과 치수 토큰은 Cobalt 를 씀. Spartan 이 넣은 neutral 테마 대신 씀. 첫 화면을 줄이려고 앱이 쓰는 토큰만 뽑은 파일을 씀(npm run tokens) */
+@import './design-system/cobalt/vars.used.css';
 @import './design-system/cobalt/shadcn-theme.css';
 
 /* Cobalt 은 data-theme 로 어두운 화면을 바꿈. Spartan 기본값(.dark)을 덮음 */

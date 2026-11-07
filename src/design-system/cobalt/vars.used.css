@@ -1,0 +1,217 @@
+/* npm run tokens 로 vars.css 에서 앱이 쓰는 토큰만 뽑아 만든 파일. 손으로 고치지 말 것
+ * 원본은 vars.css(minari 에서 가져온 Cobalt 토큰). 새 토큰을 쓰거나 원본을 다시 가져오면 npm run tokens 를 돌림 */
+
+:root {
+  /* bg */
+  --semantic-bg-brand-default    : #0052cc;
+  --semantic-bg-brand-subtle     : #c4d1e6;
+  --semantic-bg-brand-subtlest   : #e0e7f3;
+  --semantic-bg-danger-default   : #c84d42;
+  --semantic-bg-danger-subtlest  : #fff5f4;
+  --semantic-bg-neutral-subtle   : #eff0f1;
+  --semantic-bg-neutral-subtlest : #f7f8f8;
+  --semantic-bg-neutral-surface  : #fcfdfd;
+  --semantic-bg-success-subtlest : #f1fbf3;
+  --semantic-bg-warning-subtle   : #fbf0dd;
+  /* border-inset */
+  --semantic-border-inset-default : -0.0625rem;
+  /* border-width */
+  --semantic-border-width-default : 0.0625rem;
+  /* border */
+  --semantic-border-danger-default  : #feb4aa;
+  --semantic-border-focus-default   : #3064bd;
+  --semantic-border-neutral-default : #c8cacd;
+  --semantic-border-neutral-subtle  : #d5d7da;
+  --semantic-border-success-default : #a1dbac;
+  /* fg */
+  --semantic-fg-brand-default      : #003c9a;
+  --semantic-fg-danger-default     : #9e3d35;
+  --semantic-fg-neutral-default    : #08080b;
+  --semantic-fg-neutral-subtle     : #5a5d61;
+  --semantic-fg-neutral-subtlest   : #83858c;
+  --semantic-fg-on-brand-default   : #ffffff;
+  --semantic-fg-on-brand-subtle    : #163975;
+  --semantic-fg-on-danger-default  : #ffffff;
+  --semantic-fg-on-neutral-subtle  : #08080b;
+  --semantic-fg-success-default    : #1c7d3e;
+  --semantic-fg-warning-default    : #8e6600;
+  /* radius */
+  --semantic-radius-control   : 0.5rem;
+  /* space */
+  --semantic-space-md   : 1rem;
+  --semantic-space-sm   : 0.5rem;
+  --semantic-space-xs   : 0.25rem;
+  /* component — progress */
+  --component-progress-track-bg             : #eff0f1;
+  --component-progress-track-border         : #d5d7da;
+  /* component — prose */
+  --component-prose-code-bg           : #eff0f1;
+  --component-prose-code-border       : #d5d7da;
+  --component-prose-code-fg           : #08080b;
+  --component-prose-fg                : #08080b;
+  --component-prose-font-size         : 1rem;
+  --component-prose-h2-font-size      : 1.375rem;
+  --component-prose-h3-font-size      : 1.25rem;
+  --component-prose-heading-gap       : 1.25rem;
+  --component-prose-line-height       : 1.625;
+  --component-prose-link-fg           : #163975;
+  --component-prose-paragraph-gap     : 0.5rem;
+  --component-prose-quote-border      : #c8cacd;
+  --component-prose-quote-fg          : #5a5d61;
+  --component-prose-quote-padding     : 1rem;
+  --component-prose-rule-color        : #d5d7da;
+  /* base — 원시값. 컴포넌트에서 직접 쓰지 말 것(G9). 문서·스와치 전용 */
+  --base-font-family-mono         : "JetBrains Mono", ui-monospace, monospace;
+  --base-font-line-height-snug    : 1.3;
+  /* @interop 호환 별칭 — shadcn/ui 의 CSS 변수 이름 관례를 따른다.
+     정본은 위의 --semantic-* 이며, 별칭은 그것을 가리키기만 한다. */
+  --background                 : var(--semantic-bg-neutral-surface);
+  --foreground                 : var(--semantic-fg-neutral-default);
+  --card                       : var(--semantic-bg-neutral-surface);
+  --card-foreground            : var(--semantic-fg-neutral-default);
+  --popover                    : var(--semantic-bg-neutral-surface);
+  --popover-foreground         : var(--semantic-fg-neutral-default);
+  --primary                    : var(--semantic-bg-brand-default);
+  --primary-foreground         : var(--semantic-fg-on-brand-default);
+  --secondary                  : var(--semantic-bg-neutral-subtle);
+  --secondary-foreground       : var(--semantic-fg-on-neutral-subtle);
+  --muted                      : var(--semantic-bg-neutral-subtle);
+  --muted-foreground           : var(--semantic-fg-neutral-subtle);
+  --accent                     : var(--semantic-bg-brand-subtle);
+  --accent-foreground          : var(--semantic-fg-on-brand-subtle);
+  --destructive                : var(--semantic-bg-danger-default);
+  --destructive-foreground     : var(--semantic-fg-on-danger-default);
+  --border                     : var(--semantic-border-neutral-default);
+  --input                      : var(--semantic-border-neutral-default);
+  --ring                       : var(--semantic-border-focus-default);
+  --radius                     : var(--semantic-radius-control);
+  --sidebar                    : var(--semantic-bg-neutral-subtle);
+  --sidebar-foreground         : var(--semantic-fg-neutral-default);
+  --sidebar-primary            : var(--semantic-bg-brand-default);
+  --sidebar-primary-foreground : var(--semantic-fg-on-brand-default);
+  --sidebar-accent             : var(--semantic-bg-brand-subtle);
+  --sidebar-accent-foreground  : var(--semantic-fg-on-brand-subtle);
+  --sidebar-border             : var(--semantic-border-neutral-subtle);
+  --sidebar-ring               : var(--semantic-border-focus-default);
+}
+
+/* dark 모드 — 명도 단순 반전이 아니다(TOKEN-SPEC §4.4). solid 를 밝게, 그 위 전경색을 어둡게 뒤집는다.
+ * 값이 실제로 달라지는 토큰만 재정의한다. */
+:root[data-theme="dark"] {
+  --component-progress-track-bg                   : #222223;
+  --component-progress-track-border               : #393a3c;
+  --component-prose-code-bg                       : #222223;
+  --component-prose-code-border                   : #393a3c;
+  --component-prose-code-fg                       : #f8f9fd;
+  --component-prose-fg                            : #f8f9fd;
+  --component-prose-link-fg                       : #84adf3;
+  --component-prose-quote-border                  : #46474a;
+  --component-prose-quote-fg                      : #979a9f;
+  --component-prose-rule-color                    : #393a3c;
+  --semantic-bg-brand-subtle                      : #17202f;
+  --semantic-bg-brand-subtlest                    : #11161f;
+  --semantic-bg-danger-default                    : #d25549;
+  --semantic-bg-danger-subtlest                   : #1f1615;
+  --semantic-bg-neutral-subtle                    : #222223;
+  --semantic-bg-neutral-subtlest                  : #181919;
+  --semantic-bg-neutral-surface                   : #222223;
+  --semantic-bg-success-subtlest                  : #141b15;
+  --semantic-bg-warning-subtle                    : #403728;
+  --semantic-border-danger-default                : #6f322b;
+  --semantic-border-focus-default                 : #1b4ea6;
+  --semantic-border-neutral-default               : #46474a;
+  --semantic-border-neutral-subtle                : #393a3c;
+  --semantic-border-success-default               : #1c542c;
+  --semantic-fg-brand-default                     : #5d99ff;
+  --semantic-fg-danger-default                    : #e47c6f;
+  --semantic-fg-neutral-default                   : #f8f9fd;
+  --semantic-fg-neutral-subtle                    : #979a9f;
+  --semantic-fg-neutral-subtlest                  : #6d7076;
+  --semantic-fg-on-brand-subtle                   : #84adf3;
+  --semantic-fg-on-danger-default                 : #260907;
+  --semantic-fg-on-neutral-subtle                 : #f8f9fd;
+  --semantic-fg-success-default                   : #51ab68;
+  --semantic-fg-warning-default                   : #ffe1ac;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --component-progress-track-bg                   : #222223;
+    --component-progress-track-border               : #393a3c;
+    --component-prose-code-bg                       : #222223;
+    --component-prose-code-border                   : #393a3c;
+    --component-prose-code-fg                       : #f8f9fd;
+    --component-prose-fg                            : #f8f9fd;
+    --component-prose-link-fg                       : #84adf3;
+    --component-prose-quote-border                  : #46474a;
+    --component-prose-quote-fg                      : #979a9f;
+    --component-prose-rule-color                    : #393a3c;
+    --semantic-bg-brand-subtle                      : #17202f;
+    --semantic-bg-brand-subtlest                    : #11161f;
+    --semantic-bg-danger-default                    : #d25549;
+    --semantic-bg-danger-subtlest                   : #1f1615;
+    --semantic-bg-neutral-subtle                    : #222223;
+    --semantic-bg-neutral-subtlest                  : #181919;
+    --semantic-bg-neutral-surface                   : #222223;
+    --semantic-bg-success-subtlest                  : #141b15;
+    --semantic-bg-warning-subtle                    : #403728;
+    --semantic-border-danger-default                : #6f322b;
+    --semantic-border-focus-default                 : #1b4ea6;
+    --semantic-border-neutral-default               : #46474a;
+    --semantic-border-neutral-subtle                : #393a3c;
+    --semantic-border-success-default               : #1c542c;
+    --semantic-fg-brand-default                     : #5d99ff;
+    --semantic-fg-danger-default                    : #e47c6f;
+    --semantic-fg-neutral-default                   : #f8f9fd;
+    --semantic-fg-neutral-subtle                    : #979a9f;
+    --semantic-fg-neutral-subtlest                  : #6d7076;
+    --semantic-fg-on-brand-subtle                   : #84adf3;
+    --semantic-fg-on-danger-default                 : #260907;
+    --semantic-fg-on-neutral-subtle                 : #f8f9fd;
+    --semantic-fg-success-default                   : #51ab68;
+    --semantic-fg-warning-default                   : #ffe1ac;
+  }
+}
+
+/* high-contrast 모드 — 시각장애·노약자 대상. 모든 텍스트 쌍 대비 7:1 이상, 테두리 3:1 이상.
+ * 값이 실제로 달라지는 토큰만 재정의한다. */
+:root[data-theme="high-contrast"] {
+  --component-progress-track-bg                   : #080809;
+  --component-progress-track-border               : #686a6c;
+  --component-prose-code-bg                       : #080809;
+  --component-prose-code-border                   : #686a6c;
+  --component-prose-code-fg                       : #eff1f4;
+  --component-prose-fg                            : #eff1f4;
+  --component-prose-link-fg                       : #e9f1ff;
+  --component-prose-quote-border                  : #7f8184;
+  --component-prose-quote-fg                      : #e3e5ea;
+  --component-prose-rule-color                    : #686a6c;
+  --semantic-bg-brand-default                     : #abcbff;
+  --semantic-bg-brand-subtle                      : #040811;
+  --semantic-bg-brand-subtlest                    : #010204;
+  --semantic-bg-danger-default                    : #ffb8ad;
+  --semantic-bg-danger-subtlest                   : #040101;
+  --semantic-bg-neutral-subtle                    : #080809;
+  --semantic-bg-neutral-subtlest                  : #020202;
+  --semantic-bg-neutral-surface                   : #080809;
+  --semantic-bg-success-subtlest                  : #010301;
+  --semantic-bg-warning-subtle                    : #0c0701;
+  --semantic-border-inset-default                 : -0.125rem;
+  --semantic-border-width-default                 : 0.125rem;
+  --semantic-border-danger-default                : #ae7168;
+  --semantic-border-focus-default                 : #7699d5;
+  --semantic-border-neutral-default               : #7f8184;
+  --semantic-border-neutral-subtle                : #686a6c;
+  --semantic-border-success-default               : #5c8d66;
+  --semantic-fg-brand-default                     : #d7e6ff;
+  --semantic-fg-danger-default                    : #ffe0db;
+  --semantic-fg-neutral-default                   : #eff1f4;
+  --semantic-fg-neutral-subtle                    : #e3e5ea;
+  --semantic-fg-neutral-subtlest                  : #e3e5ea;
+  --semantic-fg-on-brand-default                  : #000000;
+  --semantic-fg-on-brand-subtle                   : #e9f1ff;
+  --semantic-fg-on-danger-default                 : #000000;
+  --semantic-fg-on-neutral-subtle                 : #eff1f4;
+  --semantic-fg-success-default                   : #a5f6b5;
+  --semantic-fg-warning-default                   : #ffe2a5;
+}
