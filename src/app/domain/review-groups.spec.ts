@@ -1,7 +1,7 @@
 import type { Course } from './course';
 import type { QuizQuestion } from './lecture-content';
 import type { WrongRecord } from './progress-data';
-import { reviewGroups, reviewLectureIds } from './review-groups';
+import { reviewCount, reviewGroups, reviewLectureIds } from './review-groups';
 
 const COURSE: Course = {
   id: 'java',
@@ -86,5 +86,31 @@ describe('오답 노트 묶기', () => {
     expect(numbers(reviewGroups(COURSE, wrong, { '04': [q(1)] }))).toEqual([['04', [1], false]]);
     expect(reviewLectureIds(COURSE, {})).toEqual([]);
     expect(reviewGroups(COURSE, {}, {})).toEqual([]);
+  });
+});
+
+describe('오답 노트 문제 수', () => {
+  const COUNTS = { '03': 12, '04': 12, '07': 11 };
+
+  it('이 과목 강의의 틀린 문제를 셈', () => {
+    const wrong = { '03-2': rec('03', 2), '03-12': rec('03', 12), '07-1': rec('07', 1) };
+    expect(reviewCount(COURSE, wrong, COUNTS)).toBe(3);
+    expect(reviewCount(COURSE, {}, COUNTS)).toBe(0);
+  });
+
+  it('오답 노트 화면에 안 나오는 기록(범위 밖 번호, 목록에 없는 강의, 문제 수를 모르는 강의)은 안 셈', () => {
+    const wrong = {
+      '03-0': rec('03', 0),
+      '03-13': rec('03', 13),
+      '03-1.5': rec('03', 1.5),
+      '99-1': rec('99', 1),
+      '04-1': rec('04', 1),
+    };
+    expect(reviewCount(COURSE, wrong, { '03': 12 })).toBe(0);
+  });
+
+  it('키가 달라도 같은 강의의 같은 번호는 한 번만 셈', () => {
+    const wrong = { '03-2': rec('03', 2), '3-2': rec('03', 2) };
+    expect(reviewCount(COURSE, wrong, COUNTS)).toBe(1);
   });
 });
