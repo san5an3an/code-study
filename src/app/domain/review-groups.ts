@@ -29,6 +29,23 @@ export function reviewLectureIds(
   return course.lectures.filter((l) => numbers.has(l.id)).map((l) => l.id);
 }
 
+// review page에 나오는 문제 수 계산. 번호가 1 ~ 그 강의의 퀴즈 문제 수(index.json 의 questions) 안인 기록만 셈
+export function reviewCount(
+  course: Course,
+  wrong: Readonly<Record<string, WrongRecord>>,
+  questionCounts: Readonly<Record<string, number>>,
+): number {
+  const numbers = wrongNumbers(wrong);
+  let count = 0;
+  for (const lecture of course.lectures) {
+    const max = questionCounts[lecture.id] ?? 0;
+    for (const n of numbers.get(lecture.id) ?? []) {
+      if (Number.isInteger(n) && n >= 1 && n <= max) count++;
+    }
+  }
+  return count;
+}
+
 // loaded 는 강의 번호 → 불러온 문제 목록. 강의 안은 퀴즈 파일 순서이고, 퀴즈 파일에 없는 번호와 문제가 하나도 안 남은 묶음은 뺌
 // 아직 loaded 에 없는 강의는 묶지 않음
 export function reviewGroups(

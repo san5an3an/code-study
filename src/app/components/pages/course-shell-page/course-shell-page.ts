@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  resource,
+} from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 
 import { COURSES, courseOf } from '../../../config/courses';
 import type { CourseId } from '../../../domain/course';
+import type { LectureContentSummary } from '../../../domain/lecture-content';
 import { completedLectures } from '../../../domain/lecture-progress';
+import { reviewCount } from '../../../domain/review-groups';
+import { fetchContentText } from '../../../services/content-text';
 import { ProgressService } from '../../../services/progress.service';
 import { ThemeService } from '../../../services/theme.service';
 import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
@@ -21,6 +31,7 @@ import { AppShell } from '../../templates/app-shell/app-shell';
         [courses]="courses"
         [course]="course()"
         [completed]="completed()"
+        [reviewCount]="reviewCount()"
         (courseChange)="goCourse($event)"
       />
       <app-theme-toggle shellActions [theme]="theme.theme()" (toggle)="theme.toggle()" />
@@ -39,12 +50,26 @@ export class CourseShellPage {
 
   protected readonly courses = COURSES;
   protected readonly course = computed(() => courseOf(this.courseId()));
+  private readonly data = computed(() => this.progress.progress(this.courseId())());
   protected readonly completed = computed(() =>
     completedLectures(
-      this.progress.progress(this.courseId())(),
+      this.data(),
       this.course().lectures.map((l) => l.id),
     ),
   );
+
+  // 강의별 퀴즈 문제 수. review page에 안 나오는 기록을 빼고 세는 데 씀
+  private readonly summary = resource({
+    params: () => `${this.courseId()}/index.json`,
+    loader: async ({ params, abortSignal }) =>
+      JSON.parse(await fetchContentText(params, abortSignal)) as LectureContentSummary[],
+  });
+  // 문제 수를 불러오기 전이나 못 불러오면 0 이라 사이드바 badge 가 안 보임
+  protected readonly reviewCount = computed(() => {
+    if (!this.summary.hasValue()) return 0;
+    const counts = Object.fromEntries(this.summary.value().map((s) => [s.id, s.questions]));
+    return reviewCount(this.course(), this.data().wrong, counts);
+  });
 
   protected goCourse(id: CourseId) {
     if (id !== this.courseId()) void this.router.navigate(['/', id]);

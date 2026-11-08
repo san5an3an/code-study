@@ -294,3 +294,50 @@ test('출력이 사람마다 다른 코드 문제는 오답 노트에서도 채�
   await expect(card.getByTestId('quiz-no-grading')).toContainText('자동 채점을 안 해요');
   await expect(card.getByRole('button', { name: '채점하기' })).toHaveCount(0);
 });
+
+const reviewBadge = (page: Page) => page.getByTestId('review-count');
+const reviewLink = (page: Page) => page.getByRole('link', { name: '오답 노트', exact: true });
+
+test('사이드바 오답 노트 badge는 review page에 나오는 문제 수만 세고, 다른 과목에는 안 보임', async ({
+  page,
+}) => {
+  await seedWrong(page, '04-1', '03-5', '03-2', '03-99', '99-1');
+  await page.goto('/java');
+  // 03-99, 99-1 은 review page에 안 나와서 안 셈
+  await expect(reviewBadge(page)).toHaveText('3문제');
+  await expect(reviewLink(page)).toBeVisible();
+  await page.goto('/python');
+  await expect(page.getByTestId('course-switcher')).toContainText('Python');
+  await expect(reviewBadge(page)).toHaveCount(0);
+});
+
+test('퀴즈에서 틀리면 badge가 생기고, review page에서 맞혀 0 이 되면 사라짐', async ({ page }) => {
+  await page.goto('/java/lecture/03?tab=quiz');
+  await expect(reviewLink(page)).toBeVisible();
+  await expect(reviewBadge(page)).toHaveCount(0);
+  await page.getByTestId('quiz-2').getByRole('button', { name: 'O', exact: true }).click();
+  await expect(reviewBadge(page)).toHaveText('1문제');
+  await reviewLink(page).click();
+  await page.getByTestId('review-03-2').getByRole('button', { name: 'X', exact: true }).click();
+  await expect(reviewBadge(page)).toHaveCount(0);
+});
+
+test('문제 수 파일을 못 받으면 badge를 숨기고 페이지 에러가 없음, 받으면 다시 보임', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  await seedWrong(page, '03-2');
+  await page.route('**/content/java/index.json', (route) =>
+    route.fulfill({ status: 404, body: '' }),
+  );
+  const failed = page.waitForResponse('**/content/java/index.json');
+  await page.goto('/java');
+  await failed;
+  await expect(reviewLink(page)).toBeVisible();
+  await expect(reviewBadge(page)).toHaveCount(0);
+  expect(errors).toEqual([]);
+  await page.unroute('**/content/java/index.json');
+  await page.reload();
+  await expect(reviewBadge(page)).toHaveText('1문제');
+});
