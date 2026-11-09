@@ -2,12 +2,14 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 import { HlmSkeletonImports } from '@spartan-ng/helm/skeleton';
 
+import { LoadErrorState } from '../../molecules/load-error-state/load-error-state';
+
 // 노트 탭 화면. 불러오는 중, 불러오기 실패, 아직 노트가 없는 과목, 본문 네 상태를 그림
 export type NoteStatus = 'loading' | 'error' | 'none' | 'ready';
 
 @Component({
   selector: 'app-note-view',
-  imports: [HlmEmptyImports, HlmSkeletonImports],
+  imports: [HlmEmptyImports, HlmSkeletonImports, LoadErrorState],
   template: `
     @switch (status()) {
       @case ('loading') {
@@ -22,12 +24,7 @@ export type NoteStatus = 'loading' | 'error' | 'none' | 'ready';
         </div>
       }
       @case ('error') {
-        <div hlmEmpty class="border" data-testid="note-error">
-          <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>노트를 못 불러왔어요</h3>
-            <p hlmEmptyDescription>터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.</p>
-          </div>
-        </div>
+        <app-load-error-state data-testid="note-error" heading="노트를 못 불러왔어요" />
       }
       @case ('none') {
         <div hlmEmpty class="border" data-testid="note-none">

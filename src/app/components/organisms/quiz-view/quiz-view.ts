@@ -9,6 +9,7 @@ import type { CodeCheck } from '../../../core/run-api';
 import type { QuizQuestion } from '../../../domain/lecture-content';
 import { EMPTY_ANSWER, verdictOf, type Answer } from '../../../domain/quiz-answer';
 import type { QuizBest } from '../../../domain/quiz-record';
+import { LoadErrorState } from '../../molecules/load-error-state/load-error-state';
 import { QuestionCard } from '../question-card/question-card';
 
 export type QuizStatus = 'loading' | 'error' | 'none' | 'ready';
@@ -21,7 +22,14 @@ export type QuizGradeRequest = { q: QuizQuestion; source: string };
 // 퀴즈 탭 화면. 요약 줄, 최고 기록, 문제 카드 목록, 처음부터 다시. 답과 기록은 이 컴포넌트를 쓰는 부모가 들고 있음
 @Component({
   selector: 'app-quiz-view',
-  imports: [HlmButtonImports, HlmEmptyImports, HlmSkeletonImports, QuestionCard, NgIcon],
+  imports: [
+    HlmButtonImports,
+    HlmEmptyImports,
+    HlmSkeletonImports,
+    LoadErrorState,
+    QuestionCard,
+    NgIcon,
+  ],
   providers: [provideIcons({ lucideRotateCcw })],
   template: `
     @switch (view()) {
@@ -32,12 +40,7 @@ export type QuizGradeRequest = { q: QuizQuestion; source: string };
         </div>
       }
       @case ('error') {
-        <div hlmEmpty class="border" data-testid="quiz-error">
-          <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>퀴즈를 못 불러왔어요</h3>
-            <p hlmEmptyDescription>터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.</p>
-          </div>
-        </div>
+        <app-load-error-state data-testid="quiz-error" heading="퀴즈를 못 불러왔어요" />
       }
       @case ('none') {
         <div hlmEmpty class="border" data-testid="quiz-none">
