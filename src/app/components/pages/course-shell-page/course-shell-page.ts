@@ -20,6 +20,9 @@ import { ThemeToggle } from '../../molecules/theme-toggle/theme-toggle';
 import { AppSidebar } from '../../organisms/app-sidebar/app-sidebar';
 import { AppShell } from '../../templates/app-shell/app-shell';
 
+// router-outlet으로 child page에 pass하는 data, child는 inject(ROUTER_OUTLET_DATA)로 read
+export type CourseOutletData = { reviewCount: number };
+
 // 과목 주소(/java, /python) 아래 화면들의 공통 틀. 진도와 테마를 가져와 app-shell 에 넣음
 @Component({
   selector: 'app-course-shell-page',
@@ -35,7 +38,7 @@ import { AppShell } from '../../templates/app-shell/app-shell';
         (courseChange)="goCourse($event)"
       />
       <app-theme-toggle shellActions [theme]="theme.theme()" (toggle)="theme.toggle()" />
-      <router-outlet />
+      <router-outlet [routerOutletData]="outletData()" />
     </app-shell>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -70,6 +73,10 @@ export class CourseShellPage {
     const counts = Object.fromEntries(this.summary.value().map((s) => [s.id, s.questions]));
     return reviewCount(this.course(), this.data().wrong, counts);
   });
+  // home card도 sidebar badge와 같은 count를 쓰도록 pass하고 index.json은 이 shell에서만 load
+  protected readonly outletData = computed<CourseOutletData>(() => ({
+    reviewCount: this.reviewCount(),
+  }));
 
   protected goCourse(id: CourseId) {
     if (id !== this.courseId()) void this.router.navigate(['/', id]);

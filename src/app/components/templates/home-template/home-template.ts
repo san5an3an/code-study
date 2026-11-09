@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-// 홈 화면 배치: 제목, 저장 안내, 카드 두 개, 부별 진행 카드. 각 자리에 넣을 내용은 이 템플릿을 쓰는 페이지가 정함
+// home layout으로 title, storage notice, card grid, 부별 진행 card slot을 place하고 slot 내용은 이 template을 쓰는 page가 set
 @Component({
   selector: 'app-home-template',
   template: `
