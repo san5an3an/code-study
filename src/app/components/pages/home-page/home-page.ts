@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  type Signal,
+} from '@angular/core';
+import { ROUTER_OUTLET_DATA } from '@angular/router';
 
 import { courseOf } from '../../../config/courses';
 import type { CourseId } from '../../../domain/course';
@@ -9,12 +17,21 @@ import { PartProgress } from '../../molecules/part-progress/part-progress';
 import { StorageNotice } from '../../molecules/storage-notice/storage-notice';
 import { OverallProgressCard } from '../../organisms/overall-progress-card/overall-progress-card';
 import { ResumeCard } from '../../organisms/resume-card/resume-card';
+import { ReviewCountCard } from '../../organisms/review-count-card/review-count-card';
 import { HomeTemplate } from '../../templates/home-template/home-template';
+import type { CourseOutletData } from '../course-shell-page/course-shell-page';
 
-// 과목 홈 화면. 진도를 가져와 전체 진행률, 이어서 하기, 부별 진행 카드에 넣음
+// course home page로 progress를 읽어 전체 진행률·이어서 하기·오답 노트·부별 진행 card에 pass
 @Component({
   selector: 'app-home-page',
-  imports: [HomeTemplate, StorageNotice, OverallProgressCard, ResumeCard, PartProgress],
+  imports: [
+    HomeTemplate,
+    StorageNotice,
+    OverallProgressCard,
+    ResumeCard,
+    ReviewCountCard,
+    PartProgress,
+  ],
   template: `
     <app-home-template>
       <!-- 저장 안내가 없을 때 빈 자리가 카드 사이 간격을 한 번 더 차지하지 않도록 숨김 -->
@@ -25,6 +42,14 @@ import { HomeTemplate } from '../../templates/home-template/home-template';
         [resume]="resume()"
         [href]="base() + '/lecture/' + resume().lecture.id"
       />
+      @if (reviewCount() > 0) {
+        <app-review-count-card
+          homeCards
+          class="sm:col-span-2"
+          [count]="reviewCount()"
+          [href]="base() + '/review'"
+        />
+      }
       @for (summary of parts(); track summary.part.id) {
         <app-part-progress
           homeParts
@@ -41,6 +66,7 @@ export class HomePage {
   readonly courseId = input.required<CourseId>({ alias: 'course' });
 
   private readonly progress = inject(ProgressService);
+  private readonly outletData = inject(ROUTER_OUTLET_DATA) as Signal<CourseOutletData | undefined>;
 
   protected readonly course = computed(() => courseOf(this.courseId()));
   protected readonly base = computed(() => '/' + this.courseId());
@@ -53,6 +79,8 @@ export class HomePage {
   );
   protected readonly resume = computed(() => resumeOf(this.course(), this.data().lastLectureId));
   protected readonly parts = computed(() => partSummaries(this.course(), this.completed()));
+  // course-shell-page가 pass한 review count를 read하고 data가 없으면 0으로 set
+  protected readonly reviewCount = computed(() => this.outletData()?.reviewCount ?? 0);
   protected readonly persisted = computed(() => {
     this.data();
     return this.progress.persisted(this.courseId());

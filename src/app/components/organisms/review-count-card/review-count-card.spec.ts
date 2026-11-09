@@ -12,8 +12,8 @@ function render(count: number) {
   return fixture.nativeElement as HTMLElement;
 }
 
-describe('오답 노트 카드', () => {
-  it('틀린 문제 수와 review page로 가는 링크', () => {
+describe('home 오답 노트 card', () => {
+  it('wrong count를 title에, review page link를 header action slot에 render', () => {
     const el = render(3);
     expect(el.querySelector('[data-slot="card-title"]')!.textContent).toContain('틀린 문제 3개');
     const link = el.querySelector('[data-slot="card-action"] a')!;

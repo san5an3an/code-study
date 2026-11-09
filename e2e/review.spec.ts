@@ -322,7 +322,38 @@ test('퀴즈에서 틀리면 badge가 생기고, review page에서 맞혀 0 이 
   await expect(reviewBadge(page)).toHaveCount(0);
 });
 
-test('문제 수 파일을 못 받으면 badge를 숨기고 페이지 에러가 없음, 받으면 다시 보임', async ({
+const reviewCard = (page: Page) => page.getByTestId('review-card');
+const homeLink = (page: Page) => page.getByRole('link', { name: '홈', exact: true });
+
+test('home 오답 노트 card는 sidebar badge와 같은 count를 show하고 card link를 누르면 review page로 move', async ({
+  page,
+}) => {
+  await seedWrong(page, '04-1', '03-5', '03-2', '03-99', '99-1');
+  await page.goto('/java');
+  await expect(reviewBadge(page)).toHaveText('3문제');
+  await expect(reviewCard(page)).toContainText('틀린 문제 3개');
+  await reviewCard(page).getByRole('link', { name: '오답 노트 풀기' }).click();
+  await expect(page).toHaveURL(/\/java\/review$/);
+  await page.goto('/python');
+  await expect(page.getByTestId('resume')).toBeVisible();
+  await expect(reviewCard(page)).toHaveCount(0);
+});
+
+test('review page에서 맞혀 count가 0이 되면 home으로 돌아왔을 때 오답 노트 card를 hide', async ({
+  page,
+}) => {
+  await seedWrong(page, '03-2');
+  await page.goto('/java');
+  await expect(reviewCard(page)).toContainText('틀린 문제 1개');
+  await reviewCard(page).getByRole('link', { name: '오답 노트 풀기' }).click();
+  await page.getByTestId('review-03-2').getByRole('button', { name: 'X', exact: true }).click();
+  await expect(reviewBadge(page)).toHaveCount(0);
+  await homeLink(page).click();
+  await expect(page.getByTestId('resume')).toBeVisible();
+  await expect(reviewCard(page)).toHaveCount(0);
+});
+
+test('문제 수 파일을 못 받으면 badge와 home card를 hide하고 page error가 없고, 다시 받으면 둘 다 show', async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -336,8 +367,11 @@ test('문제 수 파일을 못 받으면 badge를 숨기고 페이지 에러가 
   await failed;
   await expect(reviewLink(page)).toBeVisible();
   await expect(reviewBadge(page)).toHaveCount(0);
+  await expect(page.getByTestId('resume')).toBeVisible();
+  await expect(reviewCard(page)).toHaveCount(0);
   expect(errors).toEqual([]);
   await page.unroute('**/content/java/index.json');
   await page.reload();
   await expect(reviewBadge(page)).toHaveText('1문제');
+  await expect(reviewCard(page)).toContainText('틀린 문제 1개');
 });

@@ -5,7 +5,7 @@ import { lucideNotebookPen } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 
-// 홈의 오답 노트 카드: 틀린 문제 수와 review page로 가는 링크. 버튼은 카드 머리 오른쪽 action 자리에 둠
+// home에서 wrong count와 review page link button을 card header의 action slot에 render
 @Component({
   selector: 'app-review-count-card',
   imports: [RouterLink, HlmButtonImports, HlmCardImports, NgIcon],
