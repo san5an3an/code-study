@@ -25,6 +25,7 @@ import {
 } from '../../../core/run-api';
 import type { CourseId } from '../../../domain/course';
 import { CodeEditor } from '../../atoms/code-editor/code-editor';
+import { LoadErrorState } from '../../molecules/load-error-state/load-error-state';
 
 export type CodeListStatus = 'loading' | 'error' | 'none' | 'ready';
 export type CodeSourceStatus = 'loading' | 'error' | 'ready';
@@ -46,6 +47,7 @@ export type CodeRunRequest = { source: string; stdin: string };
     HlmSkeletonImports,
     HlmTabsImports,
     HlmTextareaImports,
+    LoadErrorState,
     NgIcon,
   ],
   providers: [provideIcons({ lucideLoaderCircle, lucidePlay, lucideRotateCcw })],
@@ -58,12 +60,7 @@ export type CodeRunRequest = { source: string; stdin: string };
         </div>
       }
       @case ('error') {
-        <div hlmEmpty class="border" data-testid="code-error">
-          <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>예제 코드를 못 불러왔어요</h3>
-            <p hlmEmptyDescription>터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.</p>
-          </div>
-        </div>
+        <app-load-error-state data-testid="code-error" heading="예제 코드를 못 불러왔어요" />
       }
       @case ('none') {
         <div hlmEmpty class="border" data-testid="code-none">
@@ -98,14 +95,10 @@ export type CodeRunRequest = { source: string; stdin: string };
                 </div>
               }
               @case ('error') {
-                <div hlmEmpty class="border" data-testid="code-error">
-                  <div hlmEmptyHeader>
-                    <h3 hlmEmptyTitle>예제 코드를 못 불러왔어요</h3>
-                    <p hlmEmptyDescription>
-                      터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.
-                    </p>
-                  </div>
-                </div>
+                <app-load-error-state
+                  data-testid="code-error"
+                  heading="예제 코드를 못 불러왔어요"
+                />
               }
               @case ('ready') {
                 <!-- 파일마다 편집기를 새로 만들어 앞 파일의 고친 글, 되돌리기 기록이 섞이지 않게 함 -->

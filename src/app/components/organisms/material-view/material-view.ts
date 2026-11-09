@@ -33,6 +33,7 @@ import {
   frameRange,
   splitByQuery,
 } from '../../../domain/lecture-material';
+import { LoadErrorState } from '../../molecules/load-error-state/load-error-state';
 
 export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
 
@@ -48,6 +49,7 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
     HlmScrollAreaImports,
     HlmSkeletonImports,
     HlmSliderImports,
+    LoadErrorState,
     NgScrollbar,
     NgIcon,
   ],
@@ -61,12 +63,7 @@ export type MaterialStatus = 'loading' | 'error' | 'none' | 'ready';
         </div>
       }
       @case ('error') {
-        <div hlmEmpty class="border" data-testid="material-error">
-          <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>강의 자료를 못 불러왔어요</h3>
-            <p hlmEmptyDescription>터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.</p>
-          </div>
-        </div>
+        <app-load-error-state data-testid="material-error" heading="강의 자료를 못 불러왔어요" />
       }
       @case ('none') {
         <div hlmEmpty class="border" data-testid="material-none">

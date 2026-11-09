@@ -3,18 +3,18 @@ import { RouterLink } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideArrowRight } from '@ng-icons/lucide';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
-import { HlmEmptyImports } from '@spartan-ng/helm/empty';
 
 import type { CodeCheck } from '../../../core/run-api';
 import { EMPTY_ANSWER, type Answer } from '../../../domain/quiz-answer';
 import type { ReviewGroup as Group } from '../../../domain/review-groups';
+import { LoadErrorState } from '../../molecules/load-error-state/load-error-state';
 import { QuestionCard } from '../question-card/question-card';
 import type { QuizAnswerChange, QuizGradeRequest } from '../quiz-view/quiz-view';
 
 // 오답 노트의 강의 하나 묶음. 제목 줄과 그 강의 퀴즈로 가는 링크, 틀린 문제 카드들. 답과 기록은 이 컴포넌트를 쓰는 부모가 들고 있음
 @Component({
   selector: 'app-review-group',
-  imports: [HlmButtonImports, HlmEmptyImports, QuestionCard, RouterLink, NgIcon],
+  imports: [HlmButtonImports, LoadErrorState, QuestionCard, RouterLink, NgIcon],
   providers: [provideIcons({ lucideArrowRight })],
   template: `
     <section
@@ -41,12 +41,10 @@ import type { QuizAnswerChange, QuizGradeRequest } from '../quiz-view/quiz-view'
         </a>
       </div>
       @if (group().failed) {
-        <div hlmEmpty class="border" [attr.data-testid]="'review-error-' + lectureId()">
-          <div hlmEmptyHeader>
-            <h3 hlmEmptyTitle>퀴즈를 못 불러왔어요</h3>
-            <p hlmEmptyDescription>터미널에서 <code>npm run sync</code> 를 먼저 돌려 주세요.</p>
-          </div>
-        </div>
+        <app-load-error-state
+          [attr.data-testid]="'review-error-' + lectureId()"
+          heading="퀴즈를 못 불러왔어요"
+        />
       } @else {
         @for (q of group().questions; track q.n) {
           <app-question-card
